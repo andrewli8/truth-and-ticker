@@ -1,0 +1,64 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--risk);
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: clamp(3rem, 13vw, 11rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.amp {
+  color: var(--risk);
+  font-size: 0.7em;
+  margin: 0 0.05em;
+}
+
+.thesis {
+  max-width: 40rem;
+  margin-top: 2rem;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollHint { animation: none; }
+}
