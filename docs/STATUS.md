@@ -23,18 +23,11 @@ and tightening layout density.
 - Chart aspect honest (no preserveAspectRatio=none); responsive measured viewBox.
 - Deep-dive chart fills the stage; dead band halved (225→119px at 1440).
 - De-collided clustered master-timeline markers (pure decollide helper).
+- Price lines drawn straight (curveLinear), not smoothed — honest daily closes.
 
 ## Next
 
-1. Stop the line curve from inventing motion between daily closes.
-   Evidence: src/lib/scales.ts (buildLinePath/timeLinePath use curveMonotoneX; on the
-   sparse ~21-day window the smoothing overshoots into sine-like waves that imply
-   intraday movement the daily data does not contain)
-   Acceptance: the price line uses an interpolation that does not overshoot daily
-   closes (e.g. curveLinear or curveMonotoneX replaced); a test pins the chosen curve;
-   verify green.
-
-2. Honest y-axis baseline cue on the deep-dive chart.
+1. Honest y-axis baseline cue on the deep-dive chart.
    Evidence: src/components/MarketChart.tsx (domainFor uses min..max, so the area fill
    starts at the window low — a truncated axis that visually exaggerates the move with
    no indication the baseline isn't zero)
@@ -42,7 +35,7 @@ and tightening layout density.
    zero-baseline note) so the move isn't overstated; a pure label helper is
    unit-tested; verify green.
 
-3. Master-timeline scrub should snap its readout to the nearest real close.
+2. Master-timeline scrub should snap its readout to the nearest real close.
    Evidence: src/components/MasterTimeline.tsx (scrub uses valueAt step-hold; between
    sparse points the readout price can sit visually off the drawn line)
    Acceptance: the scrub dot/readout aligns to the nearest plotted point via a pure
