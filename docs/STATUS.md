@@ -45,12 +45,7 @@ and tightening layout density.
 - Dropped unused lenis dependency.
 - OG share image rescoped to the whole second term.
 - Interactive legend filters timeline markers by category.
+- Dropped unused d3-array direct dependency.
 
 ## Next
-
-1. d3-array is an unused dependency.
-   Evidence: package.json:20 lists "d3-array" (and @types/d3-array) but no file under
-   src/ imports it (only d3-scale and d3-shape are used, both in src/lib/scales.ts)
-   Acceptance: remove d3-array and @types/d3-array from package.json, refresh the
-   lockfile; verify green.
 
