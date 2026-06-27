@@ -1,0 +1,16 @@
+# looptight config — the one concept that matters is `verify`.
+# `verify` is the command that decides pass/fail. No verify, no loop.
+# Exit code 0 means pass; anything else means keep going.
+verify = "npm run verify"
+
+# Optional grounded task files and unattended primary-worktree permission.
+tasks = []
+direct_main = false
+
+# Generate grounded tasks when the queue empties (set false, or pass --no-ideas).
+idea_generation = true
+
+# Optional policy controls. Empty values are disabled.
+protected_paths = []
+no_direct_push = false
+allowed_verify_commands = []
