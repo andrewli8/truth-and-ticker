@@ -21,6 +21,7 @@ import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
+import { eventIdFromHash, hashForEvent } from '../lib/hash'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -60,9 +61,21 @@ function monthTicks([minMs, maxMs]: [number, number]): Tick[] {
 
 /** Full-period overview: the index line with every announcement plotted as a marker. */
 export function MasterTimeline({ series, announcements, accentFor, onJump }: Props) {
-  const [selectedId, setSelectedId] = useState<string | null>(
-    () => announcements[announcements.length - 1]?.id ?? null,
-  )
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    // Deep-link: open the event named in the URL hash, else default to the latest.
+    const fromHash = typeof window !== 'undefined' ? eventIdFromHash(window.location.hash) : null
+    if (fromHash && announcements.some((a) => a.id === fromHash)) return fromHash
+    return announcements[announcements.length - 1]?.id ?? null
+  })
+
+  // Set the selection and reflect it in the URL hash (shareable), without a
+  // history entry or scroll jump. Used for explicit picks, not hover previews.
+  function selectAndLink(id: string) {
+    setSelectedId(id)
+    if (typeof window !== 'undefined' && window.history?.replaceState) {
+      window.history.replaceState(null, '', hashForEvent(id))
+    }
+  }
   // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
   const [hoverMs, setHoverMs] = useState<number | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
@@ -143,7 +156,7 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
 
   // Select a marker; if it's a featured event, also jump to its deep-dive panel.
   function activate(a: Announcement) {
-    setSelectedId(a.id)
+    selectAndLink(a.id)
     if (a.featured) onJump?.(a.id)
   }
 
@@ -151,7 +164,7 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
   function stepSelection(currentIndex: number, dir: number) {
     const next = adjacentIndex(visible.length, currentIndex, dir)
     if (next < 0) return
-    setSelectedId(visible[next].a.id)
+    selectAndLink(visible[next].a.id)
     markerRefs.current[next]?.focus()
   }
 

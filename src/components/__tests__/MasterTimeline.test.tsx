@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render, fireEvent } from '@testing-library/react'
 import { MasterTimeline } from '../MasterTimeline'
 import { announcements, markets } from '../../data'
@@ -6,6 +6,15 @@ import { seriesByTicker } from '../../lib/stats'
 import type { Announcement } from '../../lib/types'
 
 const spx = seriesByTicker(markets, 'SPX')!
+
+const twoEvents: Announcement[] = [
+  { id: 'a', datetime: '2025-03-01T16:00:00-05:00', source: 's', quote: 'Q', summary: 'first', type: 'tariff', citationUrl: '', citationLabel: '' },
+  { id: 'b', datetime: '2025-04-01T16:00:00-04:00', source: 's', quote: 'Q2', summary: 'second', type: 'policy', citationUrl: '', citationLabel: '' },
+]
+
+afterEach(() => {
+  window.location.hash = ''
+})
 
 describe('MasterTimeline', () => {
   it('plots one marker per announcement', () => {
@@ -97,6 +106,24 @@ describe('MasterTimeline', () => {
     onJump.mockClear()
     fireEvent.click(markers[1]) // not featured → no jump
     expect(onJump).not.toHaveBeenCalled()
+  })
+
+  it('opens the event named in the URL hash on load', () => {
+    window.location.hash = '#event-a'
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={twoEvents} accentFor={() => 'var(--risk)'} />,
+    )
+    const markers = getAllByTestId('marker')
+    expect(markers[0].getAttribute('aria-pressed')).toBe('true') // 'a', not the default last
+    expect(markers[1].getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('writes the selected event to the URL hash on activation', () => {
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={twoEvents} accentFor={() => 'var(--risk)'} />,
+    )
+    fireEvent.click(getAllByTestId('marker')[0])
+    expect(window.location.hash).toBe('#event-a')
   })
 
   it('filters markers when a legend category is toggled off', () => {
