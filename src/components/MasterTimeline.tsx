@@ -16,6 +16,7 @@ import {
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
 import { typeLabel } from '../lib/labels'
+import { timelineAriaLabel } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -183,7 +184,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         className={styles.svg}
         viewBox={`0 0 ${W} ${H}`}
         role="img"
-        aria-label={`${series.name} over the term`}
+        aria-label={timelineAriaLabel(series)}
         onPointerMove={scrub}
         onPointerDown={scrub}
         onPointerLeave={() => setHoverMs(null)}

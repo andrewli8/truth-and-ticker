@@ -1,5 +1,5 @@
 import { domainFor } from './scales'
-import { formatPrice, formatPct } from './format'
+import { formatPrice, formatPct, formatDay } from './format'
 import type { Series, AnnType, CorrelatedEvent } from './types'
 
 export interface TickerMove {
@@ -75,4 +75,17 @@ export function chartAriaLabel(series: Series, momentLabel?: string): string {
   const pct = first ? ((last - first) / first) * 100 : null
   const moment = momentLabel ? `, ${momentLabel} window` : ''
   return `${series.name}${moment}: ${formatPrice(first)} to ${formatPrice(last)}, ${formatPct(pct)}`
+}
+
+/**
+ * Accessible name for the full-period overview chart: the instrument, the dates it
+ * spans, and its overall first→last move. Pure.
+ */
+export function timelineAriaLabel(series: Series): string {
+  const pts = series.points
+  if (pts.length === 0) return `${series.name} timeline`
+  const first = pts[0]
+  const last = pts[pts.length - 1]
+  const pct = first.price ? ((last.price - first.price) / first.price) * 100 : null
+  return `${series.name}, ${formatDay(first.datetime)} to ${formatDay(last.datetime)}: ${formatPct(pct)} over the period`
 }

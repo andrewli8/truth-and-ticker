@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel } from '../stats'
 import type { Series, CorrelatedEvent } from '../types'
 
 const s = (ticker: string, prices: number[]): Series => ({
@@ -57,6 +57,18 @@ describe('chartAriaLabel', () => {
   })
   it('falls back gracefully for an empty series', () => {
     expect(chartAriaLabel({ ...s('X', []), points: [] })).toBe('X price chart')
+  })
+})
+
+describe('timelineAriaLabel', () => {
+  it('states the series, the span, and the overall move', () => {
+    const label = timelineAriaLabel(s('SPX', [100, 120, 110]))
+    expect(label).toContain('SPX')
+    expect(label).toMatch(/Jun 1[23]/) // first/last dates from the fixture
+    expect(label).toContain('+10.00%') // 100 → 110
+  })
+  it('falls back gracefully for an empty series', () => {
+    expect(timelineAriaLabel({ ...s('X', []), points: [] })).toBe('X timeline')
   })
 })
 
