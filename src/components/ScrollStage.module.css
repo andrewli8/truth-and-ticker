@@ -80,13 +80,16 @@
   .dots { display: none; }
 }
 
-@media (max-width: 768px) {
-  .container {
-    height: auto !important;
-  }
-  .sticky {
-    position: relative;
-    height: auto;
-    min-height: 100vh;
-  }
+/* Mobile: stacked, snap-aligned panels — one per event, no pin. */
+.stack {
+  width: 100%;
+}
+
+.stackPanel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  scroll-snap-align: start;
 }

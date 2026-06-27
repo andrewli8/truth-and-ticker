@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, type ReactNode } from 'react'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { useMediaQuery } from '../lib/useMediaQuery'
 import { stepScrollTarget } from '../lib/scroll'
 import styles from './ScrollStage.module.css'
 
@@ -29,8 +30,10 @@ export function ScrollStage({ steps, markers, children }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const reduced = useReducedMotion()
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
   useEffect(() => {
+    if (isMobile) return
     const el = containerRef.current
     if (!el) return
 
@@ -53,7 +56,7 @@ export function ScrollStage({ steps, markers, children }: Props) {
       window.removeEventListener('resize', onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [steps])
+  }, [steps, isMobile])
 
   const step = Math.min(steps - 1, Math.floor(progress * steps))
 
@@ -63,6 +66,20 @@ export function ScrollStage({ steps, markers, children }: Props) {
     const offsetTop = el.getBoundingClientRect().top + window.scrollY
     const target = stepScrollTarget(i, steps, offsetTop, el.offsetHeight, window.innerHeight)
     window.scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' })
+  }
+
+  // Mobile: no pin — every event is its own snap-aligned panel, so all are
+  // reachable and tall cards never get clipped.
+  if (isMobile) {
+    return (
+      <div className={styles.stack}>
+        {Array.from({ length: steps }).map((_, i) => (
+          <section key={i} className={styles.stackPanel}>
+            {children((i + 1) / steps, i)}
+          </section>
+        ))}
+      </div>
+    )
   }
 
   return (
