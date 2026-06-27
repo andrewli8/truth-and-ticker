@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { MasterTimeline } from '../MasterTimeline'
 import { announcements, markets } from '../../data'
 import { seriesByTicker } from '../../lib/stats'
+import type { Announcement } from '../../lib/types'
 
 const spx = seriesByTicker(markets, 'SPX')!
 
@@ -31,6 +32,29 @@ describe('MasterTimeline', () => {
     expect(line.getAttribute('d')).toBeTruthy()
     // The reveal must never strand the line hidden when motion is disabled.
     expect(line.style.strokeDashoffset === '' || line.style.strokeDashoffset === '0').toBe(true)
+  })
+
+  it('renders the detail quote with an aria-hidden decorative mark', () => {
+    const withQuote: Announcement[] = [
+      {
+        id: 'x',
+        datetime: '2025-03-01T12:00:00-05:00',
+        source: 'Truth Social',
+        quote: 'TARIFFS ARE COMING',
+        summary: 'context',
+        type: 'tariff',
+        citationUrl: 'https://example.com',
+        citationLabel: 'L',
+      },
+    ]
+    const { container, getByText } = render(
+      <MasterTimeline series={spx} announcements={withQuote} accentFor={() => 'var(--risk)'} />,
+    )
+    const mark = container.querySelector('article [aria-hidden="true"]')
+    expect(mark?.textContent).toContain('“')
+    // The decorative mark is separate from the verbatim words.
+    const words = getByText('TARIFFS ARE COMING')
+    expect(words.getAttribute('aria-hidden')).toBeNull()
   })
 
   it('shows the index reaction for the selected event', () => {

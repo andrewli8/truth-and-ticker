@@ -258,9 +258,14 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
             <time>{formatTime(selected.datetime)}</time>
           </div>
           {selected.quote ? (
-            <blockquote className={styles.detailQuote}>“{selected.quote}”</blockquote>
+            <blockquote className={styles.detailQuote}>
+              <span className={styles.detailMark} aria-hidden="true">“</span>
+              <span className={styles.detailQuoteText}>{selected.quote}</span>
+            </blockquote>
           ) : (
-            <p className={styles.detailQuote}>{selected.summary}</p>
+            <p className={styles.detailQuote}>
+              <span className={styles.detailQuoteText}>{selected.summary}</span>
+            </p>
           )}
           <div className={styles.detailReaction} data-testid="reaction">
             <span className={styles.reactionValue} data-dir={reactionDir}>
