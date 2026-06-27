@@ -54,9 +54,3 @@ and tightening layout density.
    concatenates styles[`tag_${type}`]
    Acceptance: remove the dead tag_* rules and the className concat; the tag colour still
    tracks the event accent; verify green.
-1. The hero is flat centered text with no visual anchor.
-   Evidence: src/components/Hero.tsx (kicker/title/thesis/scrollHint only; the section is
-   plain text on a flat background — the one screen guaranteed to be seen)
-   Acceptance: add a tasteful, on-theme decorative backdrop (e.g. a faint generative
-   ticker-line/grid motif behind the title) that is reduced-motion safe and aria-hidden;
-   a test asserts the decorative element renders; verify green.
