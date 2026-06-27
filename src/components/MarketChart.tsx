@@ -1,11 +1,12 @@
-import { useMemo, type CSSProperties } from 'react'
+import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
 import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { formatPrice } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
-const W = 1000
-const H = 460
+// Fallback geometry until the plot is measured (also what jsdom/SSR sees).
+const FALLBACK_W = 1000
+const FALLBACK_H = 460
 const PAD = 24
 const GRID_LINES = 4
 
@@ -18,20 +19,43 @@ interface Props {
   momentLabel?: string
 }
 
-/** Pure SVG line chart. All animation comes from the `progress` prop — no internal state. */
+/**
+ * SVG line chart whose viewBox tracks its measured pixel size, so it fills its
+ * container at any height with NO distortion (the draw helpers take W/H). All
+ * reveal animation comes from the `progress` prop.
+ */
 export function MarketChart({ series, progress, accent, momentLabel }: Props) {
   const clamped = Math.max(0, Math.min(1, progress))
 
-  const fullPath = useMemo(() => buildLinePath(series.points, W, H, 1), [series.points])
+  const plotRef = useRef<HTMLDivElement>(null)
+  const [{ w: W, h: H }, setDims] = useState({ w: FALLBACK_W, h: FALLBACK_H })
+
+  useLayoutEffect(() => {
+    const el = plotRef.current
+    if (!el) return
+    const measure = () => {
+      const r = el.getBoundingClientRect()
+      if (r.width > 0 && r.height > 0) {
+        setDims({ w: Math.round(r.width), h: Math.round(r.height) })
+      }
+    }
+    measure()
+    if (typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  const fullPath = useMemo(() => buildLinePath(series.points, W, H, 1), [series.points, W, H])
   const revealedPath = useMemo(
     () => buildLinePath(series.points, W, H, clamped),
-    [series.points, clamped],
+    [series.points, clamped, W, H],
   )
   const areaPath = useMemo(
     () => buildAreaPath(series.points, W, H, clamped),
-    [series.points, clamped],
+    [series.points, clamped, W, H],
   )
-  const positions = useMemo(() => pointPositions(series.points, W, H), [series.points])
+  const positions = useMemo(() => pointPositions(series.points, W, H), [series.points, W, H])
   const { min, max } = useMemo(() => domainFor(series.points), [series.points])
 
   const n = series.points.length
@@ -55,49 +79,51 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
         <span className={styles.name}>{series.name}</span>
         {momentLabel && <span className={styles.moment}>{momentLabel}</span>}
       </figcaption>
-      <svg
-        className={styles.svg}
-        viewBox={`0 0 ${W} ${H}`}
-        role="img"
-        aria-label={`${series.name} price line`}
-      >
-        <defs>
-          <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.32" />
-            <stop offset="55%" stopColor="currentColor" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-          </linearGradient>
-        </defs>
+      <div className={styles.plot} ref={plotRef}>
+        <svg
+          className={styles.svg}
+          viewBox={`0 0 ${W} ${H}`}
+          role="img"
+          aria-label={`${series.name} price line`}
+        >
+          <defs>
+            <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="currentColor" stopOpacity="0.32" />
+              <stop offset="55%" stopColor="currentColor" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+            </linearGradient>
+          </defs>
 
-        {gridY.map((g, i) => (
-          <g key={i}>
-            <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
-            <text x={PAD} y={g.y - 6} className={styles.gridLabel}>
-              {formatPrice(g.value)}
+          {gridY.map((g, i) => (
+            <g key={i}>
+              <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
+              <text x={PAD} y={g.y - 6} className={styles.gridLabel}>
+                {formatPrice(g.value)}
+              </text>
+            </g>
+          ))}
+
+          {/* Gradient fill under the revealed line — gives the move visual weight */}
+          <path data-testid="area" d={areaPath} className={styles.area} fill="url(#chartFill)" />
+          {/* Full trajectory, dimmed — context for the whole window */}
+          <path d={fullPath} fill="none" className={styles.ghost} />
+          {/* Revealed portion, bright */}
+          <path data-testid="line" d={revealedPath} fill="none" className={styles.line} />
+
+          {head && (
+            <>
+              <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} className={styles.playhead} />
+              <circle cx={head.x} cy={head.y} r={6} className={styles.dot} />
+            </>
+          )}
+
+          {current && (
+            <text x={W - PAD} y={PAD + 18} className={styles.current} textAnchor="end">
+              {formatPrice(current.price)}
             </text>
-          </g>
-        ))}
-
-        {/* Gradient fill under the revealed line — gives the move visual weight */}
-        <path data-testid="area" d={areaPath} className={styles.area} fill="url(#chartFill)" />
-        {/* Full trajectory, dimmed — context for the whole window */}
-        <path d={fullPath} fill="none" className={styles.ghost} />
-        {/* Revealed portion, bright */}
-        <path data-testid="line" d={revealedPath} fill="none" className={styles.line} />
-
-        {head && (
-          <>
-            <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} className={styles.playhead} />
-            <circle cx={head.x} cy={head.y} r={6} className={styles.dot} />
-          </>
-        )}
-
-        {current && (
-          <text x={W - PAD} y={PAD + 18} className={styles.current} textAnchor="end">
-            {formatPrice(current.price)}
-          </text>
-        )}
-      </svg>
+          )}
+        </svg>
+      </div>
     </figure>
   )
 }

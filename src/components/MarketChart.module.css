@@ -32,19 +32,28 @@
   letter-spacing: 0.08em;
 }
 
+/* The plot owns a generous, viewport-relative height; the SVG fills it and its
+   viewBox is measured to match, so the chart claims vertical space without
+   distortion or letterboxing. */
+.plot {
+  width: 100%;
+  height: clamp(260px, 60vh, 580px);
+}
+
 .svg {
   width: 100%;
-  height: auto;
-  max-height: 56vh;
+  height: 100%;
   display: block;
 }
 
+/* Single-column + pinned: chart and card must share one viewport, so the chart
+   takes a smaller slice to avoid overflowing the 100vh stage. */
 @media (min-width: 769px) and (max-width: 1100px) {
-  .svg { max-height: 40vh; }
+  .plot { height: clamp(190px, 30vh, 320px); }
 }
 
 @media (max-width: 768px) {
-  .svg { max-height: 46vh; }
+  .plot { height: clamp(200px, 38vh, 340px); }
 }
 
 .grid {
