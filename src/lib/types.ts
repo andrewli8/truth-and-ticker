@@ -1,4 +1,12 @@
-export type AnnType = 'strike' | 'threat' | 'ceasefire' | 'market-jawbone'
+export type AnnType =
+  | 'strike'
+  | 'threat'
+  | 'ceasefire'
+  | 'market-jawbone'
+  | 'tariff'
+  | 'trade-deal'
+  | 'fed'
+  | 'policy'
 
 export interface Announcement {
   id: string

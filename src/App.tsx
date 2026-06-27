@@ -23,6 +23,10 @@ const ACCENT: Record<AnnType, string> = {
   threat: 'var(--warn)',
   'market-jawbone': 'var(--warn)',
   ceasefire: 'var(--relief)',
+  tariff: 'var(--risk)',
+  'trade-deal': 'var(--relief)',
+  fed: 'var(--warn)',
+  policy: 'var(--warn)',
 }
 
 export default function App() {
