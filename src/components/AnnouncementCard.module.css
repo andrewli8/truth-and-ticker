@@ -1,0 +1,94 @@
+.card {
+  max-width: 30rem;
+  padding: 1.75rem;
+  background: rgba(18, 18, 20, 0.72);
+  border: 1px solid var(--steel);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--steel);
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+.tag_strike { color: var(--risk); border-color: var(--risk); }
+.tag_ceasefire { color: var(--relief); border-color: var(--relief); }
+.tag_market_jawbone { color: #ffb938; border-color: #ffb938; }
+
+.time {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.quote {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 500;
+  margin-bottom: 0.85rem;
+  text-wrap: balance;
+}
+
+.summary {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.reactionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+}
+
+.up { color: var(--relief); background: rgba(61, 220, 132, 0.12); }
+.down { color: var(--risk); background: rgba(255, 77, 61, 0.12); }
+.flat { color: var(--muted); background: rgba(138, 138, 147, 0.12); }
+
+.others {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.other b { color: var(--text); }
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--steel);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.source { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.cite { color: var(--text); text-decoration: none; }
+.cite:hover { color: var(--risk); }

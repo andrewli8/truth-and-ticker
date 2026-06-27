@@ -1,0 +1,41 @@
+import { describe, it, expect } from 'vitest'
+import { render } from '@testing-library/react'
+import { AnnouncementCard } from '../AnnouncementCard'
+import type { CorrelatedEvent } from '../../lib/types'
+
+const event: CorrelatedEvent = {
+  announcement: {
+    id: 'ceasefire',
+    datetime: '2025-06-24T01:08:00-04:00',
+    source: 'Truth Social',
+    quote: 'CONGRATULATIONS WORLD, IT’S TIME FOR PEACE!',
+    summary: 'Trump announces a complete and total ceasefire.',
+    type: 'ceasefire',
+    citationUrl: 'https://example.com/ceasefire',
+    citationLabel: 'Reuters, Jun 24 2025',
+  },
+  reactions: [
+    { announcementId: 'ceasefire', ticker: 'SPX', deltaPct: 1.2, fromPrice: 6000, toPrice: 6072, windowMins: 120 },
+    { announcementId: 'ceasefire', ticker: 'CL', deltaPct: -7.2, fromPrice: 74, toPrice: 68.7, windowMins: 120 },
+  ],
+}
+
+describe('AnnouncementCard', () => {
+  it('renders the verbatim quote', () => {
+    const { getByText } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    expect(getByText(/IT’S TIME FOR PEACE/)).toBeInTheDocument()
+  })
+
+  it('renders a positive delta badge for the primary ticker', () => {
+    const { getByTestId } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    const badge = getByTestId('delta-badge')
+    expect(badge.textContent).toContain('+1.20%')
+    expect(badge.className).toMatch(/up/)
+  })
+
+  it('links to the citation', () => {
+    const { getByRole } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    const link = getByRole('link') as HTMLAnchorElement
+    expect(link.href).toContain('example.com/ceasefire')
+  })
+})
