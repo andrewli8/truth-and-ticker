@@ -1,52 +1,47 @@
 # STATUS
 
 Continuous looptight-gated improvement loop. Each task: implement → `npm run verify`
-(tsc + vitest + build) green → commit. Generate more when this list empties.
+(tsc + vitest + build) green → commit.
 
 ## Now
-Focus: data accuracy/consistency + verbatim Trump posts + git. Local git is set up
-(main branch, consistent green commits). Remote creation needs the user (blocked by
-auto-mode classifier) — see README "Push to GitHub".
+Expanding scope: from the 12-day Iran war to **Trump's whole second term** (Jan 20 →
+late Jun 2025). Much more data (full daily market series + ~25 market-moving
+announcements: the tariff saga, the Apr 9 pause rally, Fed attacks, Iran war). Design
+must fill space — add a full-presidency master timeline as the centerpiece.
 
-## Done
-- Theme system: light default + optional dark, no-flash, persisted.
-- Theme-aware accents (chart/tags/rail via CSS vars).
-- Social virality: OG/Twitter meta + 1200×630 OG image + share button.
-- Viral stat band: dataset-computed count-up numbers.
-- Responsive hardening: marquee ticker, tablet layout, no overflow 320–1280.
-- A11y: AA contrast, focus-visible rings, reduced-motion guard.
-- Scroll progress bar + keyboard event dot-nav.
-- Animated hero entrance (GSAP), reduced-motion safe.
-- Per-event instrument spotlight (oil/defense/S&P).
-- SEO: theme-color, canonical, robots, Article JSON-LD.
-- Date readout at the chart playhead.
-- Stat band counts up on scroll-into-view (useInView).
-- Accuracy gate: pctFromPrevClose consistency test.
+Data inbound via two research agents: (1) market-moving announcements across the term,
+(2) full-period daily closes for 9 instruments (written to /tmp/marketdata.json).
 
 ## Next
 
-1. Scroll progress bar + clickable event timeline nav.
-   Evidence: src/App.tsx (no progress indicator or jump-nav)
-   Acceptance: a fixed top progress bar tracks scroll; a row of dots (one per
-   event) is keyboard-focusable and jumps to that event's scroll position;
-   reduced-motion safe; a pure offset helper is unit-tested.
+1. Extend the data model for the whole term.
+   Evidence: src/lib/types.ts (AnnType lacks tariff/fed/etc.)
+   Acceptance: AnnType adds 'tariff' | 'trade-deal' | 'fed' | 'policy'; ACCENT,
+   spotlightTicker, and the card's TYPE_LABEL/tag styles handle every type;
+   verify green.
 
-2. Animated hero entrance (GSAP useGSAP).
-   Evidence: src/components/Hero.tsx (renders fully static)
-   Acceptance: kicker/title/thesis animate in on load via useGSAP; no animation
-   under reduced motion; App test still renders thesis text; verify green.
+2. Ingest the full-period market series (Stooq/Yahoo via agent → /tmp/marketdata.json).
+   Evidence: src/data/markets.json (only Jun 12–24 daily closes)
+   Acceptance: markets.json spans 2025-01 → 2025-06 daily; a build script computes
+   pctFromPrevClose so the consistency test passes; ≥1 reaction per announcement.
 
-3. Chart spotlights the most-relevant instrument per event.
-   Evidence: src/App.tsx (primary chart is always SPX)
-   Acceptance: a pure `spotlightTicker(annType)` picks oil for jawbone, defense
-   for strikes, S&P otherwise; chart shows it; unit-tested; verify green.
+3. Ingest the expanded announcement timeline.
+   Evidence: src/data/announcements.json (10 Iran-war events only)
+   Acceptance: ~20-30 sourced events across the term (tariffs, pause, Fed, Iran),
+   strictly time-ordered, every one cited; integrity tests pass.
 
-4. SEO hardening — theme-color, canonical, Article JSON-LD.
-   Evidence: index.html (no theme-color/canonical/structured data)
-   Acceptance: index.html adds theme-color, canonical link, and an Article
-   JSON-LD script; verify green.
+4. Master timeline chart — full presidency, all markers (space-filling centerpiece).
+   Evidence: no overview viz exists; lots of empty space in the stage
+   Acceptance: a full-width time-axis chart of the index with every announcement
+   plotted as a color-by-type marker; selecting a marker shows its details; a pure
+   time-position helper is unit-tested; responsive.
 
-5. Date readout on the chart playhead.
-   Evidence: src/components/MarketChart.tsx (playhead has no date label)
-   Acceptance: the current point's date renders by the playhead, formatted via a
-   pure `formatDay` helper that is unit-tested; verify green.
+5. Curate the scrolly to featured events so it isn't absurdly long.
+   Evidence: ScrollStage renders one 100vh step per event (~30 = too long)
+   Acceptance: announcements can be flagged 'featured'; the scrolly uses featured
+   only; the master chart covers the full set; verify green.
+
+6. Fill-space density pass.
+   Evidence: large empty regions in the pinned stage
+   Acceptance: chart uses more vertical space; stage has no large dead zones at
+   common breakpoints; verify green.

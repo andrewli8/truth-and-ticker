@@ -1,5 +1,5 @@
 import { scaleLinear } from 'd3-scale'
-import { line, curveMonotoneX } from 'd3-shape'
+import { line, area, curveMonotoneX } from 'd3-shape'
 import type { Point } from './types'
 
 const PAD = 24
@@ -63,4 +63,31 @@ export function buildLinePath(
     .curve(curveMonotoneX)
 
   return generator(visible.map((_p, i) => positions[i])) ?? ''
+}
+
+/**
+ * SVG path `d` for the filled area under the visible fraction of the series,
+ * closed to a flat baseline at `height - PAD`. Same geometry as
+ * {@link buildLinePath} so the fill sits exactly beneath the line. Pure.
+ */
+export function buildAreaPath(
+  points: Point[],
+  width: number,
+  height: number,
+  progress: number,
+): string {
+  if (points.length === 0) return ''
+
+  const clamped = Math.max(0, Math.min(1, progress))
+  const visibleCount = Math.max(1, Math.ceil(clamped * points.length))
+  const positions = pointPositions(points, width, height).slice(0, visibleCount)
+  const baseline = height - PAD
+
+  const generator = area<PointPos>()
+    .x((d) => d.x)
+    .y0(baseline)
+    .y1((d) => d.y)
+    .curve(curveMonotoneX)
+
+  return generator(positions) ?? ''
 }

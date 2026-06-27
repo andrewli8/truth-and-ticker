@@ -24,6 +24,15 @@ describe('MarketChart', () => {
     expect(path.getAttribute('d')!.startsWith('M')).toBe(true)
   })
 
+  it('renders a gradient area fill beneath the line', () => {
+    const { getByTestId } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" />,
+    )
+    const area = getByTestId('area')
+    expect(area.getAttribute('d')).toBeTruthy()
+    expect(area.getAttribute('fill')).toBe('url(#chartFill)')
+  })
+
   it('renders the ticker label', () => {
     const { getByText } = render(
       <MarketChart series={series} progress={1} accent="#ff4d3d" />,

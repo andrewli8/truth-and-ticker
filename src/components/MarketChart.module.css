@@ -74,6 +74,11 @@
   opacity: 0.22;
 }
 
+.area {
+  stroke: none;
+  pointer-events: none;
+}
+
 .line {
   stroke: var(--chart-accent);
   stroke-width: 3;

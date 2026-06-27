@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { buildLinePath, domainFor, pointPositions } from '../scales'
+import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../scales'
 import type { Point } from '../types'
 
 const pts: Point[] = [
@@ -33,6 +33,31 @@ describe('buildLinePath', () => {
   it('does not mutate inputs', () => {
     const before = JSON.stringify(pts)
     buildLinePath(pts, 800, 400, 0.5)
+    expect(JSON.stringify(pts)).toBe(before)
+  })
+})
+
+describe('buildAreaPath', () => {
+  const H = 400
+  const PAD = 24
+  it('starts with a move command at full progress', () => {
+    expect(buildAreaPath(pts, 800, H, 1).startsWith('M')).toBe(true)
+  })
+  it('returns empty string for no points', () => {
+    expect(buildAreaPath([], 800, H, 1)).toBe('')
+  })
+  it('closes to the flat baseline at height - PAD', () => {
+    // An area path returns to the baseline y; that y value must appear in `d`.
+    expect(buildAreaPath(pts, 800, H, 1)).toContain(String(H - PAD))
+  })
+  it('reveals less at progress 0 than progress 1', () => {
+    const partial = buildAreaPath(pts, 800, H, 0)
+    const full = buildAreaPath(pts, 800, H, 1)
+    expect(partial.length).toBeLessThan(full.length)
+  })
+  it('does not mutate inputs', () => {
+    const before = JSON.stringify(pts)
+    buildAreaPath(pts, 800, H, 0.5)
     expect(JSON.stringify(pts)).toBe(before)
   })
 })

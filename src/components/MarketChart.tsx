@@ -1,5 +1,5 @@
 import { useMemo, type CSSProperties } from 'react'
-import { buildLinePath, domainFor, pointPositions } from '../lib/scales'
+import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { formatPrice } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
@@ -25,6 +25,10 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
   const fullPath = useMemo(() => buildLinePath(series.points, W, H, 1), [series.points])
   const revealedPath = useMemo(
     () => buildLinePath(series.points, W, H, clamped),
+    [series.points, clamped],
+  )
+  const areaPath = useMemo(
+    () => buildAreaPath(series.points, W, H, clamped),
     [series.points, clamped],
   )
   const positions = useMemo(() => pointPositions(series.points, W, H), [series.points])
@@ -58,6 +62,14 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
         role="img"
         aria-label={`${series.name} price line`}
       >
+        <defs>
+          <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.32" />
+            <stop offset="55%" stopColor="currentColor" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
         {gridY.map((g, i) => (
           <g key={i}>
             <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
@@ -67,6 +79,8 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
           </g>
         ))}
 
+        {/* Gradient fill under the revealed line — gives the move visual weight */}
+        <path data-testid="area" d={areaPath} className={styles.area} fill="url(#chartFill)" />
         {/* Full trajectory, dimmed — context for the whole window */}
         <path d={fullPath} fill="none" className={styles.ghost} />
         {/* Revealed portion, bright */}
