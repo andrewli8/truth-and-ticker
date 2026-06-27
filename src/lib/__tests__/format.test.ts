@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPct, formatPrice, formatTime } from '../format'
+import { formatPct, formatPrice, formatTime, formatDay } from '../format'
 
 describe('formatPct', () => {
   it('signs positive', () => expect(formatPct(1.337)).toBe('+1.34%'))
@@ -19,5 +19,14 @@ describe('formatTime', () => {
     const out = formatTime('2025-06-21T21:48:00-04:00')
     expect(out).toMatch(/Jun 21/)
     expect(out).toMatch(/ET/)
+  })
+})
+
+describe('formatDay', () => {
+  it('formats a short ET day', () => {
+    expect(formatDay('2025-06-21T21:48:00-04:00')).toBe('Jun 21')
+  })
+  it('handles invalid input', () => {
+    expect(formatDay('nope')).toBe('n/a')
   })
 })

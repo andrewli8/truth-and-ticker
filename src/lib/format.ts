@@ -31,6 +31,19 @@ const TIME_FMT = new Intl.DateTimeFormat('en-US', {
   hour12: true,
 })
 
+const DAY_FMT = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'America/New_York',
+  month: 'short',
+  day: 'numeric',
+})
+
+/** Short Eastern-time day label, e.g. "Jun 21". */
+export function formatDay(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return NA
+  return DAY_FMT.format(d)
+}
+
 /** Render an ISO datetime as an Eastern-time clock label, e.g. "Jun 21, 9:48 PM ET". */
 export function formatTime(iso: string): string {
   const d = new Date(iso)

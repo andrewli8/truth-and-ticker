@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties } from 'react'
 import { buildLinePath, domainFor, pointPositions } from '../lib/scales'
-import { formatPrice } from '../lib/format'
+import { formatPrice, formatDay } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
@@ -74,6 +74,16 @@ export function MarketChart({ series, progress, accent }: Props) {
           <>
             <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} className={styles.playhead} />
             <circle cx={head.x} cy={head.y} r={6} className={styles.dot} />
+            {current && (
+              <text
+                x={Math.min(W - 40, Math.max(40, head.x))}
+                y={H - 4}
+                className={styles.dayLabel}
+                textAnchor="middle"
+              >
+                {formatDay(current.datetime)}
+              </text>
+            )}
           </>
         )}
 
