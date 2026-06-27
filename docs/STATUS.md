@@ -50,3 +50,11 @@ and tightening layout density.
 
 ## Next
 
+1. "Biggest run-up" stat doesn't match its computation.
+   Evidence: src/lib/stats.ts maxRunupPct returns (window high − FIRST price)/first, but
+   src/components/StatBand.tsx labels it "biggest defense run-up" — a true biggest run-up
+   is the largest rise from any prior trough, not from day one
+   Acceptance: maxRunupPct returns the max (high − prior low)/prior low over the series
+   (running-min sweep); unit tests updated to pin a case where the trough is not the
+   first point; verify green.
+
