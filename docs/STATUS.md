@@ -5,11 +5,13 @@ Continuous looptight-gated improvement loop. Each task: implement → `npm run v
 honest data representation.
 
 ## Now
-Whole-second-term scope is in place (30 sourced events, 9 series × 111 daily closes,
-master timeline, featured scrolly). Motion + interaction landed (draw-on reveal,
-hover-scrub, keyboard event-stepping, count-up reaction). Quote blocks recomposed as
-editorial pull-quotes. Now refining how faithfully the deep-dive represents each event
-and tightening layout density.
+Whole-second-term scope, honest data representation, editorial design, and a connected
+interactive experience are all in place: master timeline (filterable legend, scrub,
+de-collided markers, term-outcome line) ↔ windowed deep-dive (per-event reveal,
+pull-quote, reaction count-up) ↔ ledger (sparklines, jump-to-moment), with deep-linkable
++ shareable events and broad a11y/test coverage. Remaining big-ticket items are owner
+calls: a cross-fade/morph chart transition, and a Playwright E2E layer (the project's
+verify gate is tsc+vitest+build).
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
@@ -52,6 +54,10 @@ and tightening layout density.
 - Timeline re-selects on URL hash change (back/forward/links).
 - Outro ledger rows jump to the moment on the timeline.
 - Copy a shareable deep-link to the selected moment.
+- aria-live detail region; per-event card + chart entrance; marker hover affordance.
+- Outro reveal-on-scroll; App-level deep-link flow test.
+- One-glance term outcome (net + max drawdown) on the timeline.
+- Per-row sparklines in the Outro ledger.
 
 ## Next
 
