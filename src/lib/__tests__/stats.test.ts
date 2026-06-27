@@ -24,9 +24,19 @@ describe('peakToTroughPct', () => {
 })
 
 describe('maxRunupPct', () => {
-  it('computes run-up from first point to window high', () => {
-    // first 100, high 110 => +10%
-    expect(maxRunupPct(s('X', [100, 105, 110, 90]))).toBeCloseTo(10)
+  it('measures the biggest rise from any prior trough, not just from day one', () => {
+    // trough 80 (not the first point) → later high 120 ⇒ +50% (first→high would be +20%)
+    expect(maxRunupPct(s('X', [100, 80, 120]))).toBeCloseTo(50)
+  })
+  it('ignores a trough that comes after the high', () => {
+    // 100→110 is +10%; the later drop to 70 has no subsequent high to run up to
+    expect(maxRunupPct(s('X', [100, 110, 70]))).toBeCloseTo(10)
+  })
+  it('is 0 for a monotonically falling series', () => {
+    expect(maxRunupPct(s('X', [100, 90, 80]))).toBe(0)
+  })
+  it('returns null for empty', () => {
+    expect(maxRunupPct({ ...s('X', []), points: [] })).toBeNull()
   })
 })
 

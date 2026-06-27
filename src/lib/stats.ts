@@ -48,13 +48,23 @@ export function peakToTroughPct(series: Series): number | null {
   return ((min - max) / max) * 100
 }
 
-/** Largest run-up from the first point to the window high, as a percent. */
+/**
+ * Largest run-up in the series: the biggest rise from a trough to any LATER high,
+ * as a percent of that trough. Found with a running-minimum sweep. Null for an
+ * empty series. (Not just first→high — the trough can occur anywhere.)
+ */
 export function maxRunupPct(series: Series): number | null {
   if (series.points.length === 0) return null
-  const first = series.points[0].price
-  const { max } = domainFor(series.points)
-  if (first === 0) return null
-  return ((max - first) / first) * 100
+  let lowSoFar = series.points[0].price
+  let best = 0
+  for (const p of series.points) {
+    if (lowSoFar > 0) {
+      const runup = ((p.price - lowSoFar) / lowSoFar) * 100
+      if (runup > best) best = runup
+    }
+    if (p.price < lowSoFar) lowSoFar = p.price
+  }
+  return best
 }
 
 /** Convenience lookup by ticker. */
