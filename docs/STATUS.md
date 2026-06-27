@@ -42,10 +42,7 @@ and tightening layout density.
 - useTheme hook covered by tests.
 - Dropped dead per-type tag classes in AnnouncementCard.
 - README rescoped to the whole term + accurate stack.
+- Dropped unused lenis dependency.
+- OG share image rescoped to the whole second term.
 
 ## Next
-
-1. lenis is an unused dependency.
-   Evidence: package.json:18 lists "lenis" but no file under src/ imports it
-   Acceptance: remove lenis from package.json and refresh the lockfile; update the
-   stale Lenis/ScrollTrigger comments in src/test/setup.ts; verify green.
