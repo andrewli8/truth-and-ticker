@@ -21,9 +21,9 @@ function buildStats(markets: Series[]): Stat[] {
   const lmt = seriesByTicker(markets, 'LMT')
   const vix = seriesByTicker(markets, 'VIX')
   return [
-    { value: cl ? peakToTroughPct(cl) : null, label: 'WTI crude', sub: 'war premium, peak to trough' },
-    { value: lmt ? maxRunupPct(lmt) : null, label: 'Lockheed Martin', sub: 'defense pop on the strikes' },
-    { value: vix ? maxRunupPct(vix) : null, label: 'VIX fear gauge', sub: 'volatility spike at the peak' },
+    { value: cl ? peakToTroughPct(cl) : null, label: 'WTI crude', sub: 'peak-to-trough swing' },
+    { value: lmt ? maxRunupPct(lmt) : null, label: 'Lockheed Martin', sub: 'biggest defense run-up' },
+    { value: vix ? maxRunupPct(vix) : null, label: 'VIX fear gauge', sub: 'biggest volatility spike' },
   ]
 }
 
@@ -47,9 +47,9 @@ export function StatBand({ markets }: Props) {
     <section
       ref={ref}
       className={styles.band}
-      aria-label="Key market swings during the 12-day war"
+      aria-label="Key market swings across Trump's second term"
     >
-      <p className={styles.intro}>Twelve days. A handful of posts. This is what moved.</p>
+      <p className={styles.intro}>Six months. Thirty posts. This is what moved.</p>
       <div className={styles.grid}>
         {stats.map((s) => (
           <StatCell key={s.label} stat={s} reduced={reduced} start={inView} />

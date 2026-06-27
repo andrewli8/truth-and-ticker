@@ -11,6 +11,12 @@ describe('StatBand', () => {
     expect(getByText('VIX fear gauge')).toBeInTheDocument()
   })
 
+  it('introduces the whole-term scope (not the 12-day war)', () => {
+    const { getByText, queryByText } = render(<StatBand markets={markets} />)
+    expect(getByText(/Six months\. Thirty posts\./i)).toBeInTheDocument()
+    expect(queryByText(/twelve days/i)).toBeNull()
+  })
+
   it('renders three percentage values (reduced-motion shows final numbers)', () => {
     const { getAllByText } = render(<StatBand markets={markets} />)
     expect(getAllByText(/%/)).toHaveLength(3)
