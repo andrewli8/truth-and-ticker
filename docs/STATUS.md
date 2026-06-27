@@ -24,18 +24,11 @@ and tightening layout density.
 - Deep-dive chart fills the stage; dead band halved (225→119px at 1440).
 - De-collided clustered master-timeline markers (pure decollide helper).
 - Price lines drawn straight (curveLinear), not smoothed — honest daily closes.
+- Truncated y-axis flagged on the deep-dive chart (axisFloorLabel cue).
 
 ## Next
 
-1. Honest y-axis baseline cue on the deep-dive chart.
-   Evidence: src/components/MarketChart.tsx (domainFor uses min..max, so the area fill
-   starts at the window low — a truncated axis that visually exaggerates the move with
-   no indication the baseline isn't zero)
-   Acceptance: the chart signals the truncated baseline (e.g. a "low" axis label or a
-   zero-baseline note) so the move isn't overstated; a pure label helper is
-   unit-tested; verify green.
-
-2. Master-timeline scrub should snap its readout to the nearest real close.
+1. Master-timeline scrub should snap its readout to the nearest real close.
    Evidence: src/components/MasterTimeline.tsx (scrub uses valueAt step-hold; between
    sparse points the readout price can sit visually off the drawn line)
    Acceptance: the scrub dot/readout aligns to the nearest plotted point via a pure
