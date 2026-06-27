@@ -6,6 +6,7 @@ import { MarketChart } from './components/MarketChart'
 import { AnnouncementCard } from './components/AnnouncementCard'
 import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
+import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
 import { formatDay } from './lib/format'
@@ -42,6 +43,7 @@ export default function App() {
       <ThemeToggle />
       <Hero />
       <StatBand markets={markets} />
+      <MasterTimeline series={fallbackSeries} announcements={announcements} accentFor={(t) => ACCENT[t]} />
 
       <ScrollStage steps={events.length} markers={events.map((e) => e.announcement.summary)}>
         {(progress, step) => {

@@ -1,0 +1,147 @@
+.section {
+  max-width: 88rem;
+  margin: 0 auto;
+  padding: 7rem 2rem 5rem;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sub {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.legend {
+  display: flex;
+  gap: 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--muted);
+}
+
+.grid {
+  stroke: var(--steel);
+  stroke-width: 1;
+  opacity: 0.4;
+  shape-rendering: crispEdges;
+}
+
+.tickLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  fill: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.area { pointer-events: none; }
+
+.line {
+  stroke: var(--text);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.markerLine {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.6;
+}
+
+.marker {
+  fill: currentColor;
+  stroke: var(--bg);
+  stroke-width: 2;
+  cursor: pointer;
+  transition: r 0.15s ease;
+}
+
+.marker:hover { opacity: 0.85; }
+.marker:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+.markerSel {
+  filter: drop-shadow(0 0 calc(7px * var(--glow, 1)) currentColor);
+}
+
+.detail {
+  margin-top: 2rem;
+  max-width: 46rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--steel);
+  border-left: 3px solid var(--sel, var(--risk));
+  border-radius: 12px;
+}
+
+.detailMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.detailTag {
+  color: var(--sel, var(--risk));
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.detailQuote {
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1.3;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.detailFoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  justify-content: space-between;
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--steel);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.detailFoot a { color: var(--text); text-decoration: none; }
+.detailFoot a:hover { color: var(--sel, var(--risk)); }
+
+@media (max-width: 768px) {
+  .section { padding: 4rem 1.25rem 3rem; }
+}

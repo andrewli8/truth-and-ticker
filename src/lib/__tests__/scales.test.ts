@@ -1,5 +1,15 @@
 import { describe, it, expect } from 'vitest'
-import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../scales'
+import {
+  buildAreaPath,
+  buildLinePath,
+  domainFor,
+  pointPositions,
+  dateDomainOf,
+  timeX,
+  priceY,
+  valueAt,
+  timeLinePath,
+} from '../scales'
 import type { Point } from '../types'
 
 const pts: Point[] = [
@@ -59,6 +69,32 @@ describe('buildAreaPath', () => {
     const before = JSON.stringify(pts)
     buildAreaPath(pts, 800, H, 0.5)
     expect(JSON.stringify(pts)).toBe(before)
+  })
+})
+
+describe('time-axis helpers', () => {
+  const ms = (s: string) => Date.parse(s)
+  it('dateDomainOf spans first to last point', () => {
+    expect(dateDomainOf(pts)).toEqual([ms(pts[0].datetime), ms(pts[3].datetime)])
+  })
+  it('timeX maps domain ends to padded edges and is monotonic', () => {
+    const dom = dateDomainOf(pts)
+    const xStart = timeX(dom[0], 800, dom)
+    const xEnd = timeX(dom[1], 800, dom)
+    expect(xStart).toBeLessThan(xEnd)
+    expect(xEnd).toBeCloseTo(800 - 24)
+  })
+  it('priceY puts the max at the top', () => {
+    const dom = domainFor(pts)
+    expect(priceY(dom.max, 400, dom)).toBeLessThan(priceY(dom.min, 400, dom))
+  })
+  it('valueAt step-holds the last price at or before a time', () => {
+    expect(valueAt(pts, ms('2025-06-24T10:30:00-04:00'))).toBe(110)
+    expect(valueAt(pts, ms('2025-06-24T08:00:00-04:00'))).toBeNull()
+  })
+  it('timeLinePath starts with a move command', () => {
+    expect(timeLinePath(pts, 800, 400).startsWith('M')).toBe(true)
+    expect(timeLinePath([], 800, 400)).toBe('')
   })
 })
 

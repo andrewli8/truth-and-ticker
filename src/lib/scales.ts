@@ -1,8 +1,60 @@
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleTime } from 'd3-scale'
 import { line, area, curveMonotoneX } from 'd3-shape'
 import type { Point } from './types'
 
 const PAD = 24
+
+/** [minMs, maxMs] epoch range spanning a series' points (fallback to a unit range). */
+export function dateDomainOf(points: Point[]): [number, number] {
+  if (points.length === 0) return [0, 1]
+  const t = points.map((p) => Date.parse(p.datetime))
+  return [Math.min(...t), Math.max(...t)]
+}
+
+/** X coordinate for an epoch ms within a time domain, padded. */
+export function timeX(ms: number, width: number, domain: [number, number]): number {
+  return scaleTime().domain(domain).range([PAD, width - PAD])(new Date(ms))
+}
+
+/** Y coordinate for a price within a value domain, padded (higher price = smaller y). */
+export function priceY(price: number, height: number, domain: Domain): number {
+  return scaleLinear().domain([domain.min, domain.max]).range([height - PAD, PAD])(price)
+}
+
+/** Price of the last point at or before `ms` (step-hold), or null if none. */
+export function valueAt(points: Point[], ms: number): number | null {
+  let v: number | null = null
+  for (const p of points) {
+    if (Date.parse(p.datetime) <= ms) v = p.price
+    else break
+  }
+  return v
+}
+
+/** Time-axis SVG line path across the full series. Pure. */
+export function timeLinePath(points: Point[], width: number, height: number): string {
+  if (points.length === 0) return ''
+  const domain = dateDomainOf(points)
+  const dom = domainFor(points)
+  const gen = line<Point>()
+    .x((p) => timeX(Date.parse(p.datetime), width, domain))
+    .y((p) => priceY(p.price, height, dom))
+    .curve(curveMonotoneX)
+  return gen(points) ?? ''
+}
+
+/** Time-axis SVG area path (filled to baseline) across the full series. Pure. */
+export function timeAreaPath(points: Point[], width: number, height: number): string {
+  if (points.length === 0) return ''
+  const domain = dateDomainOf(points)
+  const dom = domainFor(points)
+  const gen = area<Point>()
+    .x((p) => timeX(Date.parse(p.datetime), width, domain))
+    .y0(height - PAD)
+    .y1((p) => priceY(p.price, height, dom))
+    .curve(curveMonotoneX)
+  return gen(points) ?? ''
+}
 
 export interface Domain {
   min: number
