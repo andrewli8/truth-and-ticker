@@ -12,6 +12,13 @@ must fill space — add a full-presidency master timeline as the centerpiece.
 Data inbound via two research agents: (1) market-moving announcements across the term,
 (2) full-period daily closes for 9 instruments (written to /tmp/marketdata.json).
 
+## Done (this expansion)
+- Data model extended (tariff/trade-deal/fed/policy types; featured flag).
+- Full-period daily market data ingested: 9 series × 111 days = 999 real closes.
+- 30 sourced market-moving events across Jan 20–Jun 24 (verbatim posts + citations).
+- MasterTimeline: full-presidency overview chart, all 30 events as markers.
+- Scrolly curated to 11 featured events; gradient area fill under charts.
+
 ## Next
 
 1. Extend the data model for the whole term.
