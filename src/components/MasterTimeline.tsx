@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
+import { useMemo, useRef, useState, useEffect, type CSSProperties, type PointerEvent } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import {
@@ -76,6 +76,16 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
       window.history.replaceState(null, '', hashForEvent(id))
     }
   }
+
+  // Re-select when the URL hash changes (back/forward, edited URL, in-app links).
+  useEffect(() => {
+    const onHash = () => {
+      const id = eventIdFromHash(window.location.hash)
+      if (id && announcements.some((a) => a.id === id)) setSelectedId(id)
+    }
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [announcements])
   // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
   const [hoverMs, setHoverMs] = useState<number | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)

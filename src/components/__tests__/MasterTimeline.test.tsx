@@ -126,6 +126,21 @@ describe('MasterTimeline', () => {
     expect(window.location.hash).toBe('#event-a')
   })
 
+  it('re-selects when the URL hash changes after load', () => {
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={twoEvents} accentFor={() => 'var(--risk)'} />,
+    )
+    // Default selection is the last event ('b').
+    expect(getAllByTestId('marker')[1].getAttribute('aria-pressed')).toBe('true')
+    window.location.hash = '#event-a'
+    fireEvent(window, new Event('hashchange'))
+    expect(getAllByTestId('marker')[0].getAttribute('aria-pressed')).toBe('true')
+    // An unknown hash is ignored (selection unchanged).
+    window.location.hash = '#event-zzz'
+    fireEvent(window, new Event('hashchange'))
+    expect(getAllByTestId('marker')[0].getAttribute('aria-pressed')).toBe('true')
+  })
+
   it('filters markers when a legend category is toggled off', () => {
     const { getByRole, getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
