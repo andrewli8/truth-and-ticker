@@ -11,7 +11,7 @@ export interface Announcement {
   citationLabel: string
 }
 
-export type Category = 'index' | 'oil' | 'defense' | 'energy' | 'safe-haven'
+export type Category = 'index' | 'oil' | 'defense' | 'energy' | 'safe-haven' | 'volatility'
 
 export interface Point {
   datetime: string

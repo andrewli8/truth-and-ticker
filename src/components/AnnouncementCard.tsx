@@ -29,8 +29,12 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
         <time className={styles.time}>{formatTime(announcement.datetime)}</time>
       </header>
 
-      <blockquote className={styles.quote}>“{announcement.quote}”</blockquote>
-      <p className={styles.summary}>{announcement.summary}</p>
+      {announcement.quote ? (
+        <blockquote className={styles.quote}>“{announcement.quote}”</blockquote>
+      ) : (
+        <p className={styles.quote}>{announcement.summary}</p>
+      )}
+      {announcement.quote && <p className={styles.summary}>{announcement.summary}</p>}
 
       <div className={styles.reactionRow}>
         <span

@@ -1,0 +1,136 @@
+[
+  {
+    "ticker": "SPX",
+    "name": "S&P 500",
+    "category": "index",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 6045.26, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 5976.97, "pctFromPrevClose": -1.13 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 6033.11, "pctFromPrevClose": 0.94 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 5982.72, "pctFromPrevClose": -0.84 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 5980.87, "pctFromPrevClose": -0.03 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 5967.84, "pctFromPrevClose": -0.22 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 6025.17, "pctFromPrevClose": 0.96 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 6092.18, "pctFromPrevClose": 1.11 }
+    ]
+  },
+  {
+    "ticker": "DJI",
+    "name": "Dow Jones Industrial Average",
+    "category": "index",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 42967.62, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 42197.79, "pctFromPrevClose": -1.79 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 42515.09, "pctFromPrevClose": 0.75 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 42215.80, "pctFromPrevClose": -0.70 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 42171.66, "pctFromPrevClose": -0.10 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 42206.82, "pctFromPrevClose": 0.08 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 42581.78, "pctFromPrevClose": 0.89 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 43089.02, "pctFromPrevClose": 1.19 }
+    ]
+  },
+  {
+    "ticker": "CL",
+    "name": "WTI Crude Oil",
+    "category": "oil",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 67.97, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 72.98, "pctFromPrevClose": 7.37 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 71.77, "pctFromPrevClose": -1.66 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 74.84, "pctFromPrevClose": 4.28 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 75.14, "pctFromPrevClose": 0.40 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 68.51, "pctFromPrevClose": -8.82 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 64.37, "pctFromPrevClose": -6.04 }
+    ]
+  },
+  {
+    "ticker": "BRENT",
+    "name": "Brent Crude Oil",
+    "category": "oil",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 69.36, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 74.23, "pctFromPrevClose": 7.02 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 73.23, "pctFromPrevClose": -1.35 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 76.45, "pctFromPrevClose": 4.40 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 76.70, "pctFromPrevClose": 0.33 },
+      { "datetime": "2025-06-19T16:00:00-04:00", "price": 78.85, "pctFromPrevClose": 2.80 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 71.48, "pctFromPrevClose": -9.35 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 67.14, "pctFromPrevClose": -6.07 }
+    ]
+  },
+  {
+    "ticker": "LMT",
+    "name": "Lockheed Martin",
+    "category": "defense",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 469.27, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 486.45, "pctFromPrevClose": 3.66 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 467.06, "pctFromPrevClose": -3.99 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 479.34, "pctFromPrevClose": 2.63 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 468.60, "pctFromPrevClose": -2.24 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 470.56, "pctFromPrevClose": 0.42 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 472.46, "pctFromPrevClose": 0.40 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 460.20, "pctFromPrevClose": -2.60 }
+    ]
+  },
+  {
+    "ticker": "RTX",
+    "name": "RTX (Raytheon)",
+    "category": "defense",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 140.98, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 145.69, "pctFromPrevClose": 3.34 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 146.46, "pctFromPrevClose": 0.53 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 148.48, "pctFromPrevClose": 1.38 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 145.87, "pctFromPrevClose": -1.76 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 146.64, "pctFromPrevClose": 0.53 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 145.81, "pctFromPrevClose": -0.57 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 141.85, "pctFromPrevClose": -2.72 }
+    ]
+  },
+  {
+    "ticker": "XOM",
+    "name": "Exxon Mobil",
+    "category": "energy",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 109.73, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 112.12, "pctFromPrevClose": 2.18 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 112.48, "pctFromPrevClose": 0.32 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 114.00, "pctFromPrevClose": 1.35 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 113.19, "pctFromPrevClose": -0.71 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 114.70, "pctFromPrevClose": 1.33 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 111.74, "pctFromPrevClose": -2.58 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 108.34, "pctFromPrevClose": -3.04 }
+    ]
+  },
+  {
+    "ticker": "GOLD",
+    "name": "Gold (spot, per oz)",
+    "category": "safe-haven",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 3364.70, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 3393.04, "pctFromPrevClose": 0.84 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 3443.80, "pctFromPrevClose": 1.50 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 3402.08, "pctFromPrevClose": -1.21 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 3387.26, "pctFromPrevClose": -0.44 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 3368.77, "pctFromPrevClose": -0.55 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 3372.86, "pctFromPrevClose": 0.12 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 3344.42, "pctFromPrevClose": -0.84 }
+    ]
+  },
+  {
+    "ticker": "VIX",
+    "name": "CBOE Volatility Index",
+    "category": "volatility",
+    "points": [
+      { "datetime": "2025-06-12T16:00:00-04:00", "price": 18.02, "pctFromPrevClose": 0 },
+      { "datetime": "2025-06-13T16:00:00-04:00", "price": 20.82, "pctFromPrevClose": 15.54 },
+      { "datetime": "2025-06-16T16:00:00-04:00", "price": 19.11, "pctFromPrevClose": -8.21 },
+      { "datetime": "2025-06-17T16:00:00-04:00", "price": 21.60, "pctFromPrevClose": 13.03 },
+      { "datetime": "2025-06-18T16:00:00-04:00", "price": 20.14, "pctFromPrevClose": -6.76 },
+      { "datetime": "2025-06-20T16:00:00-04:00", "price": 20.62, "pctFromPrevClose": 2.38 },
+      { "datetime": "2025-06-23T16:00:00-04:00", "price": 19.83, "pctFromPrevClose": -3.83 },
+      { "datetime": "2025-06-24T16:00:00-04:00", "price": 17.48, "pctFromPrevClose": -11.85 }
+    ]
+  }
+]
