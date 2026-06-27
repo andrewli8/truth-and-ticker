@@ -41,19 +41,11 @@ and tightening layout density.
 - Data-rich accessible name for the overview timeline (timelineAriaLabel).
 - useTheme hook covered by tests.
 - Dropped dead per-type tag classes in AnnouncementCard.
+- README rescoped to the whole term + accurate stack.
 
 ## Next
 
-1. README is stale on scope and stack.
-   Evidence: README.md:4 frames the project as the "June 2025 Israel–Iran 12-Day War",
-   and the Stack section credits "GSAP ScrollTrigger + Lenis — smooth-scroll", but src
-   uses neither (grep finds Lenis/ScrollTrigger only in test-setup comments; the pinned
-   stage is native rAF scroll)
-   Acceptance: README describes the whole-second-term scope and the real stack (native
-   scroll + GSAP useGSAP entrance animations, no Lenis/ScrollTrigger); provable by
-   diffing README.md.
-
-2. lenis is an unused dependency.
+1. lenis is an unused dependency.
    Evidence: package.json:18 lists "lenis" but no file under src/ imports it
    Acceptance: remove lenis from package.json and refresh the lockfile; update the
    stale Lenis/ScrollTrigger comments in src/test/setup.ts; verify green.
