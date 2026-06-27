@@ -36,14 +36,8 @@ and tightening layout density.
 
 ## Next
 
-
-
 1. ScrollStage has no component test.
    Evidence: src/components/__tests__/ has no ScrollStage.test.tsx, yet ScrollStage owns
    dot-nav and the render-prop stage
    Acceptance: a test renders ScrollStage with N steps and asserts N nav dots plus that
    the render-prop children appear; verify green.
-
-
-
-
