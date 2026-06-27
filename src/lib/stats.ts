@@ -1,5 +1,19 @@
 import { domainFor } from './scales'
-import type { Series } from './types'
+import type { Series, AnnType } from './types'
+
+/** The instrument that best tells each announcement's story. */
+export function spotlightTicker(type: AnnType): string {
+  switch (type) {
+    case 'market-jawbone':
+      return 'CL' // oil — the thing being jawboned
+    case 'strike':
+      return 'LMT' // defense — the war trade
+    case 'threat':
+    case 'ceasefire':
+    default:
+      return 'SPX' // the broad market
+  }
+}
 
 /** Peak-to-trough move as a percent of the peak (negative = a drawdown). */
 export function peakToTroughPct(series: Series): number | null {

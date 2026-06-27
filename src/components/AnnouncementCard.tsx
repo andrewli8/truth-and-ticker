@@ -22,9 +22,9 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
   const primary = reactions.find((r) => r.ticker === primaryTicker) ?? reactions[0]
   const delta = primary?.deltaPct ?? null
   const dir = delta === null ? 'flat' : delta >= 0 ? 'up' : 'down'
-  const secondary = SECONDARY.map((t) => reactions.find((r) => r.ticker === t)).filter(
-    (r): r is NonNullable<typeof r> => Boolean(r),
-  )
+  const secondary = SECONDARY.filter((t) => t !== primary?.ticker)
+    .map((t) => reactions.find((r) => r.ticker === t))
+    .filter((r): r is NonNullable<typeof r> => Boolean(r))
 
   return (
     <article className={styles.card}>

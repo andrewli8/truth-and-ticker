@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker } from '../stats'
 import type { Series } from '../types'
 
 const s = (ticker: string, prices: number[]): Series => ({
@@ -36,5 +36,14 @@ describe('seriesByTicker', () => {
   })
   it('returns undefined when missing', () => {
     expect(seriesByTicker([s('A', [1])], 'Z')).toBeUndefined()
+  })
+})
+
+describe('spotlightTicker', () => {
+  it('oil for market-jawbone', () => expect(spotlightTicker('market-jawbone')).toBe('CL'))
+  it('defense for strikes', () => expect(spotlightTicker('strike')).toBe('LMT'))
+  it('S&P for threats and ceasefires', () => {
+    expect(spotlightTicker('threat')).toBe('SPX')
+    expect(spotlightTicker('ceasefire')).toBe('SPX')
   })
 })

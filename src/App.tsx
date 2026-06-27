@@ -8,6 +8,7 @@ import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
+import { spotlightTicker, seriesByTicker } from './lib/stats'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
 import './styles/app.css'
@@ -25,8 +26,8 @@ const ACCENT: Record<AnnType, string> = {
 
 export default function App() {
   const events = useMemo(() => correlateAll(announcements, markets, WINDOW_MINS), [])
-  const primarySeries = useMemo(
-    () => markets.find((m) => m.ticker === PRIMARY) ?? markets[0],
+  const fallbackSeries = useMemo(
+    () => seriesByTicker(markets, PRIMARY) ?? markets[0],
     [],
   )
 
@@ -41,11 +42,13 @@ export default function App() {
         {(progress, step) => {
           const event = events[step]
           const accent = ACCENT[event.announcement.type]
+          const spotlight = spotlightTicker(event.announcement.type)
+          const series = seriesByTicker(markets, spotlight) ?? fallbackSeries
           return (
             <div className="stage">
               <div className="stageChart">
                 <MarketChart
-                  series={primarySeries}
+                  series={series}
                   progress={progress}
                   accent={accent}
                   activeAnnId={event.announcement.id}
@@ -56,7 +59,7 @@ export default function App() {
                 <div className="stageStep">
                   {String(step + 1).padStart(2, '0')} / {String(events.length).padStart(2, '0')}
                 </div>
-                <AnnouncementCard event={event} primaryTicker={PRIMARY} />
+                <AnnouncementCard event={event} primaryTicker={spotlight} />
               </div>
             </div>
           )
