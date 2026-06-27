@@ -12,15 +12,18 @@ import {
   domainFor,
 } from '../lib/scales'
 import { drawOnVars, adjacentIndex } from '../lib/motion'
-import { formatTime, formatDay, formatPrice } from '../lib/format'
+import { reactionFor } from '../lib/correlate'
+import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
+import { useCountUp } from '../lib/useCountUp'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
 const W = 1000
 const H = 420
 const PAD = 24
+const WINDOW_MINS = 120
 
 interface Props {
   series: Series
@@ -121,6 +124,14 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   )
 
   const selected = announcements.find((a) => a.id === selectedId) ?? null
+
+  // The index's close-to-close reaction to the selected event, counted up on change.
+  const reactionPct = useMemo(
+    () => (selected ? reactionFor(selected, series, WINDOW_MINS).deltaPct : null),
+    [selected, series],
+  )
+  const animatedPct = useCountUp(reactionPct, reduced, true)
+  const reactionDir = reactionPct === null ? 'flat' : reactionPct >= 0 ? 'up' : 'down'
 
   // Resolve the cursor into the chart's live readout (date + index price).
   const hover = useMemo(() => {
@@ -251,6 +262,12 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
           ) : (
             <p className={styles.detailQuote}>{selected.summary}</p>
           )}
+          <div className={styles.detailReaction} data-testid="reaction">
+            <span className={styles.reactionValue} data-dir={reactionDir}>
+              {formatPct(reactionPct === null ? null : animatedPct)}
+            </span>
+            <span className={styles.reactionLabel}>{series.ticker} · prior close → next close</span>
+          </div>
           <div className={styles.detailFoot}>
             <span>{selected.source}</span>
             <a href={selected.citationUrl} target="_blank" rel="noreferrer">{selected.citationLabel} ↗</a>

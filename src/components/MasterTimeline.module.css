@@ -153,6 +153,32 @@
   text-wrap: balance;
 }
 
+.detailReaction {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.reactionValue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.reactionValue[data-dir='up'] { color: var(--relief); }
+.reactionValue[data-dir='down'] { color: var(--risk); }
+
+.reactionLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
 .detailFoot {
   display: flex;
   flex-wrap: wrap;

@@ -33,6 +33,17 @@ describe('MasterTimeline', () => {
     expect(line.style.strokeDashoffset === '' || line.style.strokeDashoffset === '0').toBe(true)
   })
 
+  it('shows the index reaction for the selected event', () => {
+    const { getByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const reaction = getByTestId('reaction')
+    expect(reaction).toBeInTheDocument()
+    // A signed percentage (or n/a when the series lacks coverage) renders.
+    expect(reaction.textContent).toMatch(/[+\-−]?\d|n\/a/)
+    expect(reaction.textContent).toContain(spx.ticker)
+  })
+
   it('steps the selected event with the arrow keys', () => {
     const { getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
