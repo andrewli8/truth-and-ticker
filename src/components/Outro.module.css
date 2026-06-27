@@ -8,6 +8,23 @@
   justify-content: center;
 }
 
+/* Reveal-on-scroll, matching the rest of the page. Falls back to visible when
+   IntersectionObserver is unavailable (useInView returns inView=true). */
+.heading,
+.table,
+.method {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.revealed .heading { opacity: 1; transform: none; }
+.revealed .table { opacity: 1; transform: none; transition-delay: 0.08s; }
+.revealed .method { opacity: 1; transform: none; transition-delay: 0.16s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .heading, .table, .method { opacity: 1; transform: none; transition: none; }
+}
+
 .heading {
   font-size: clamp(1.8rem, 5vw, 3.5rem);
   font-weight: 700;

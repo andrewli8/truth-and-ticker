@@ -1,5 +1,6 @@
 import { formatPct, formatTime } from '../lib/format'
 import { typeLabel } from '../lib/labels'
+import { useInView } from '../lib/useInView'
 import type { CorrelatedEvent } from '../lib/types'
 import { ShareButton } from './ShareButton'
 import styles from './Outro.module.css'
@@ -12,8 +13,9 @@ interface Props {
 }
 
 export function Outro({ events, primaryTicker, onPickEvent }: Props) {
+  const { ref, inView } = useInView<HTMLElement>()
   return (
-    <section className={styles.outro}>
+    <section ref={ref} className={`${styles.outro} ${inView ? styles.revealed : ''}`}>
       <h2 className={styles.heading}>Words moved markets. Here is the ledger.</h2>
       <table className={styles.table}>
         <thead>
