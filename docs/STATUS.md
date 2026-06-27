@@ -4,38 +4,41 @@ Continuous looptight-gated improvement loop. Each task: implement → `npm run v
 (tsc + vitest + build) green → commit. Generate more when this list empties.
 
 ## Now
-Building toward: light-default theme with optional dark mode, viral/shareable
-design, and bulletproof responsiveness.
+Polishing toward an Awwwards-grade, viral, fully responsive piece. Light default +
+dark mode, OG/share, stat band, marquee ticker, tablet layout, and a11y all shipped.
+
+## Done
+- Theme system: light default + optional dark, no-flash, persisted.
+- Theme-aware accents (chart/tags/rail via CSS vars).
+- Social virality: OG/Twitter meta + 1200×630 OG image + share button.
+- Viral stat band: dataset-computed count-up numbers.
+- Responsive hardening: marquee ticker, tablet layout, no overflow 320–1280.
+- A11y: AA contrast, focus-visible rings, reduced-motion guard.
 
 ## Next
 
-1. Theme system — light default + optional dark.
-   Evidence: src/styles/global.css (palette is dark-only in :root)
-   Acceptance: :root defaults to light palette; `[data-theme=dark]` overrides; a
-   persisted toggle defaults to light; no flash of wrong theme on load.
+1. Scroll progress bar + clickable event timeline nav.
+   Evidence: src/App.tsx (no progress indicator or jump-nav)
+   Acceptance: a fixed top progress bar tracks scroll; a row of dots (one per
+   event) is keyboard-focusable and jumps to that event's scroll position;
+   reduced-motion safe; a pure offset helper is unit-tested.
 
-2. Theme-aware accents — drive chart/tag colors from CSS variables.
-   Evidence: src/App.tsx (ACCENT hardcodes hex); src/components/MarketChart.tsx
-   Acceptance: chart line/dot/labels and card tags read from CSS vars so they
-   recolor correctly in both themes; verify green.
+2. Animated hero entrance (GSAP useGSAP).
+   Evidence: src/components/Hero.tsx (renders fully static)
+   Acceptance: kicker/title/thesis animate in on load via useGSAP; no animation
+   under reduced motion; App test still renders thesis text; verify green.
 
-3. Social virality — OG + Twitter card meta + share button.
-   Evidence: index.html (no og:/twitter: tags); no share affordance
-   Acceptance: index.html has og/twitter meta; a Share control copies the URL
-   and offers a tweet intent; component test passes.
+3. Chart spotlights the most-relevant instrument per event.
+   Evidence: src/App.tsx (primary chart is always SPX)
+   Acceptance: a pure `spotlightTicker(annType)` picks oil for jawbone, defense
+   for strikes, S&P otherwise; chart shows it; unit-tested; verify green.
 
-4. Viral hook — a screenshot-worthy headline stat.
-   Evidence: src/components/Hero.tsx (no punch stat)
-   Acceptance: a kinetic standout stat (e.g., oil's 36-hour swing) renders from
-   the dataset, computed not hardcoded; test covers the computation.
+4. SEO hardening — theme-color, canonical, Article JSON-LD.
+   Evidence: index.html (no theme-color/canonical/structured data)
+   Acceptance: index.html adds theme-color, canonical link, and an Article
+   JSON-LD script; verify green.
 
-5. Responsiveness hardening — tablet breakpoint + mobile ticker scroll.
-   Evidence: src/components/TickerRail.module.css (clipped on mobile);
-   src/styles/app.css (only 768px breakpoint)
-   Acceptance: ticker rail scrolls/marquees on mobile; tablet (768–1100px) has a
-   dedicated layout; no horizontal overflow at 320/390/768/1280.
-
-6. A11y & motion polish — focus states, aria, reduced-motion audit.
-   Evidence: interactive controls lack visible focus styles
-   Acceptance: keyboard-focusable controls show focus rings; reduced-motion path
-   verified; verify green.
+5. Date readout on the chart playhead.
+   Evidence: src/components/MarketChart.tsx (playhead has no date label)
+   Acceptance: the current point's date renders by the playhead, formatted via a
+   pure `formatDay` helper that is unit-tested; verify green.
