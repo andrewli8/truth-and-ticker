@@ -25,11 +25,6 @@ and tightening layout density.
 - De-collided clustered master-timeline markers (pure decollide helper).
 - Price lines drawn straight (curveLinear), not smoothed — honest daily closes.
 - Truncated y-axis flagged on the deep-dive chart (axisFloorLabel cue).
+- Scrub snaps to the nearest real close (nearestPointIndex helper).
 
 ## Next
-
-1. Master-timeline scrub should snap its readout to the nearest real close.
-   Evidence: src/components/MasterTimeline.tsx (scrub uses valueAt step-hold; between
-   sparse points the readout price can sit visually off the drawn line)
-   Acceptance: the scrub dot/readout aligns to the nearest plotted point via a pure
-   nearest-point helper that is unit-tested; verify green.
