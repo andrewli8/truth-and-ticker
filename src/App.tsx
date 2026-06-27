@@ -5,6 +5,7 @@ import { ScrollStage } from './components/ScrollStage'
 import { MarketChart } from './components/MarketChart'
 import { AnnouncementCard } from './components/AnnouncementCard'
 import { TickerRail } from './components/TickerRail'
+import { StatBand } from './components/StatBand'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
 import { announcements, markets } from './data'
@@ -34,6 +35,7 @@ export default function App() {
       <div className="grain" aria-hidden="true" />
       <ThemeToggle />
       <Hero />
+      <StatBand markets={markets} />
 
       <ScrollStage steps={events.length}>
         {(progress, step) => {
