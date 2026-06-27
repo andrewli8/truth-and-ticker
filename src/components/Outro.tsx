@@ -1,5 +1,6 @@
 import { formatPct, formatTime } from '../lib/format'
 import type { CorrelatedEvent } from '../lib/types'
+import { ShareButton } from './ShareButton'
 import styles from './Outro.module.css'
 
 interface Props {
@@ -42,6 +43,7 @@ export function Outro({ events, primaryTicker }: Props) {
         Every event links to its source. This piece shows timing correlation; it does not
         allege trading by any named individual.
       </p>
+      <ShareButton />
     </section>
   )
 }
