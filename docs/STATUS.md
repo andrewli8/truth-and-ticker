@@ -31,24 +31,18 @@ and tightening layout density.
 - Single shared typeLabel for event types (no raw enums/dupes).
 - Data-rich accessible name for the deep-dive chart (chartAriaLabel).
 - Outro methodology text matches the close-to-close basis.
+- StatBand copy/framing rescoped to the whole term.
 
 ## Next
 
-1. StatBand copy and framing still scoped to the 12-day war.
-   Evidence: src/components/StatBand.tsx:50 (aria-label "…during the 12-day war"), :52
-   ("Twelve days. A handful of posts."), and :24-26 sublabels ("war premium", "defense
-   pop on the strikes", "volatility spike at the peak") — but the stats now compute over
-   the whole Jan–Jun term
-   Acceptance: intro, aria-label, and stat sublabels describe the whole-term swings the
-   metrics actually measure; a test pins the new intro copy; verify green.
 
-2. Share text still pitches only the June Israel–Iran war.
+1. Share text still pitches only the June Israel–Iran war.
    Evidence: src/components/ShareButton.tsx:5 ("maps his June 2025 Israel–Iran war
    announcements…")
    Acceptance: the share text describes the whole second term (tariffs…ceasefires across
    the S&P, oil, defense, dollar); a test pins the updated text; verify green.
 
-3. ScrollStage has no component test.
+2. ScrollStage has no component test.
    Evidence: src/components/__tests__/ has no ScrollStage.test.tsx, yet ScrollStage owns
    dot-nav and the render-prop stage
    Acceptance: a test renders ScrollStage with N steps and asserts N nav dots plus that
