@@ -48,6 +48,38 @@ export function windowAround(points: Point[], datetimeISO: string, days: number)
   })
 }
 
+/**
+ * Nudge an ascending list of 1-D positions so neighbours sit at least `minGap`
+ * apart, staying within [min, max]. Non-overlapping inputs pass through
+ * unchanged; tight clusters fan out, and a cluster against the upper bound fans
+ * back down off `max`. Pure, order-stable, and idempotent.
+ */
+export function decollide(
+  xs: number[],
+  minGap: number,
+  min = -Infinity,
+  max = Infinity,
+): number[] {
+  if (xs.length === 0) return []
+  const out = xs.slice()
+  // Forward pass: push right to open up `minGap`.
+  for (let i = 1; i < out.length; i++) {
+    if (out[i] - out[i - 1] < minGap) out[i] = out[i - 1] + minGap
+  }
+  // If we ran past the upper bound, pin the last and fan back leftward.
+  if (out[out.length - 1] > max) {
+    out[out.length - 1] = max
+    for (let i = out.length - 2; i >= 0; i--) {
+      if (out[i + 1] - out[i] < minGap) out[i] = out[i + 1] - minGap
+    }
+  }
+  // Never cross the lower bound.
+  for (let i = 0; i < out.length; i++) {
+    if (out[i] < min) out[i] = min
+  }
+  return out
+}
+
 /** Price of the last point at or before `ms` (step-hold), or null if none. */
 export function valueAt(points: Point[], ms: number): number | null {
   let v: number | null = null

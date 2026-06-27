@@ -8,6 +8,7 @@ import {
   priceY,
   valueAt,
   msAtX,
+  decollide,
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
@@ -24,6 +25,8 @@ const W = 1000
 const H = 420
 const PAD = 24
 const WINDOW_MINS = 120
+// Minimum horizontal spacing between marker dots (viewBox units).
+const MARKER_GAP = 18
 
 interface Props {
   series: Series
@@ -113,15 +116,17 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series.points])
   const ticks = useMemo(() => monthTicks(domain), [domain])
 
-  const markers = useMemo(
-    () =>
-      announcements.map((a) => {
-        const ms = Date.parse(a.datetime)
-        const price = valueAt(series.points, ms) ?? series.points[0]?.price ?? 0
-        return { a, x: timeX(ms, W, domain), y: priceY(price, H, vdom) }
-      }),
-    [announcements, series.points, domain, vdom],
-  )
+  const markers = useMemo(() => {
+    const base = announcements.map((a) => {
+      const ms = Date.parse(a.datetime)
+      const price = valueAt(series.points, ms) ?? series.points[0]?.price ?? 0
+      return { a, x: timeX(ms, W, domain), y: priceY(price, H, vdom) }
+    })
+    // Fan out dots that bunch in time (e.g. the June war) so they stay legible;
+    // `dx` is the display x, `x` remains the true time position for the connector.
+    const dx = decollide(base.map((m) => m.x), MARKER_GAP, PAD, W - PAD)
+    return base.map((m, i) => ({ ...m, dx: dx[i] }))
+  }, [announcements, series.points, domain, vdom])
 
   const selected = announcements.find((a) => a.id === selectedId) ?? null
 
@@ -199,16 +204,24 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         <path d={areaPath} fill="url(#masterFill)" className={styles.area} />
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
-        {markers.map(({ a, x, y }, i) => {
+        {markers.map(({ a, x, dx, y }, i) => {
           const isSel = a.id === selectedId
           return (
             <g key={a.id} style={{ color: accentFor(a.type) }}>
-              {isSel && <line x1={x} x2={x} y1={PAD} y2={H - PAD} className={styles.markerLine} />}
+              {isSel && (
+                <>
+                  <line x1={dx} x2={dx} y1={PAD} y2={H - PAD} className={styles.markerLine} />
+                  {/* if the dot was nudged off its true time, tie it back to the axis */}
+                  {Math.abs(dx - x) > 0.5 && (
+                    <line x1={x} x2={dx} y1={H - PAD} y2={y} className={styles.markerTie} />
+                  )}
+                </>
+              )}
               <circle
                 ref={(el) => (markerRefs.current[i] = el)}
                 data-testid="marker"
                 data-marker
-                cx={x}
+                cx={dx}
                 cy={y}
                 r={isSel ? 8 : 5}
                 className={`${styles.marker} ${isSel ? styles.markerSel : ''}`}

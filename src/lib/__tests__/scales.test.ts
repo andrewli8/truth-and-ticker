@@ -11,6 +11,7 @@ import {
   timeLinePath,
   msAtX,
   windowAround,
+  decollide,
 } from '../scales'
 import type { Point } from '../types'
 
@@ -155,5 +156,31 @@ describe('windowAround', () => {
   })
   it('returns [] for empty input', () => {
     expect(windowAround([], '2025-03-06T12:00:00-05:00', 5)).toEqual([])
+  })
+})
+
+describe('decollide', () => {
+  it('leaves well-separated positions unchanged', () => {
+    expect(decollide([0, 50, 100], 16)).toEqual([0, 50, 100])
+  })
+  it('fans out a tight cluster to the minimum gap', () => {
+    expect(decollide([0, 5, 10], 16)).toEqual([0, 16, 32])
+  })
+  it('fans a cluster back off the upper bound', () => {
+    expect(decollide([90, 95, 100], 16, 0, 100)).toEqual([68, 84, 100])
+  })
+  it('is idempotent', () => {
+    const once = decollide([90, 95, 100], 16, 0, 100)
+    expect(decollide(once, 16, 0, 100)).toEqual(once)
+  })
+  it('keeps ascending order and never mutates the input', () => {
+    const xs = [10, 12, 14, 200]
+    const before = xs.slice()
+    const out = decollide(xs, 16)
+    expect(xs).toEqual(before)
+    expect(out).toEqual([...out].sort((a, b) => a - b))
+  })
+  it('returns [] for empty input', () => {
+    expect(decollide([], 16)).toEqual([])
   })
 })
