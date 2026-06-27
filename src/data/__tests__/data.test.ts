@@ -46,6 +46,21 @@ describe('dataset integrity', () => {
     ;['index', 'oil', 'defense'].forEach((c) => expect(cats.has(c as never)).toBe(true))
   })
 
+  it('pctFromPrevClose is internally consistent with the prices', () => {
+    markets.forEach((m) => {
+      m.points.forEach((p, i) => {
+        if (i === 0) {
+          expect(p.pctFromPrevClose).toBe(0)
+          return
+        }
+        const prev = m.points[i - 1].price
+        const expected = ((p.price - prev) / prev) * 100
+        // stored value is rounded to 2dp; allow a small tolerance
+        expect(Math.abs(expected - p.pctFromPrevClose)).toBeLessThan(0.06)
+      })
+    })
+  })
+
   it('every announcement resolves at least one non-null reaction', () => {
     correlateAll(announcements, markets, 120).forEach((e) => {
       expect(e.reactions.some((r) => r.deltaPct !== null)).toBe(true)
