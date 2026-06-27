@@ -1,5 +1,24 @@
 import { domainFor } from './scales'
-import type { Series, AnnType } from './types'
+import type { Series, AnnType, CorrelatedEvent } from './types'
+
+export interface TickerMove {
+  ticker: string
+  pct: number | null
+}
+
+/**
+ * Each instrument's move for an event, ordered biggest-absolute-move first so the
+ * ticker rail leads with what actually moved (nulls last). Pure; never mutates.
+ */
+export function eventMoves(event: CorrelatedEvent): TickerMove[] {
+  return event.reactions
+    .map((r) => ({ ticker: r.ticker, pct: r.deltaPct }))
+    .sort((a, b) => {
+      const av = a.pct === null ? -1 : Math.abs(a.pct)
+      const bv = b.pct === null ? -1 : Math.abs(b.pct)
+      return bv - av
+    })
+}
 
 /** The instrument that best tells each announcement's story. */
 export function spotlightTicker(type: AnnType): string {

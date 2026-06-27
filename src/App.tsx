@@ -10,7 +10,7 @@ import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
 import { formatDay } from './lib/format'
-import { spotlightTicker, seriesByTicker } from './lib/stats'
+import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround } from './lib/scales'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
@@ -72,7 +72,7 @@ export default function App() {
                   accent={accent}
                   momentLabel={formatDay(event.announcement.datetime)}
                 />
-                <TickerRail markets={markets} progress={progress} />
+                <TickerRail moves={eventMoves(event)} />
               </div>
               <div className="stageCard">
                 <div className="stageStep">
