@@ -14,6 +14,63 @@
   justify-content: center;
 }
 
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  z-index: 20;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--risk);
+}
+
+.dots {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  z-index: 20;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.dot:hover { border-color: var(--risk); transform: scale(1.2); }
+
+.dotActive {
+  background: var(--risk);
+  border-color: var(--risk);
+  transform: scale(1.25);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--risk);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .dots { display: none; }
+}
+
 @media (max-width: 768px) {
   .container {
     height: auto !important;

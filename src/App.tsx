@@ -37,7 +37,7 @@ export default function App() {
       <Hero />
       <StatBand markets={markets} />
 
-      <ScrollStage steps={events.length}>
+      <ScrollStage steps={events.length} markers={events.map((e) => e.announcement.summary)}>
         {(progress, step) => {
           const event = events[step]
           const accent = ACCENT[event.announcement.type]
