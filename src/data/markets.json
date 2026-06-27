@@ -4,14 +4,561 @@
     "name": "S&P 500",
     "category": "index",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 6045.26, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 5976.97, "pctFromPrevClose": -1.13 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 6033.11, "pctFromPrevClose": 0.94 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 5982.72, "pctFromPrevClose": -0.84 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 5980.87, "pctFromPrevClose": -0.03 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 5967.84, "pctFromPrevClose": -0.22 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 6025.17, "pctFromPrevClose": 0.96 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 6092.18, "pctFromPrevClose": 1.11 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 5996.66,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 6049.24,
+        "pctFromPrevClose": 0.88
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 6086.37,
+        "pctFromPrevClose": 0.61
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 6118.71,
+        "pctFromPrevClose": 0.53
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 6101.24,
+        "pctFromPrevClose": -0.29
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 6012.28,
+        "pctFromPrevClose": -1.46
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 6067.7,
+        "pctFromPrevClose": 0.92
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 6039.31,
+        "pctFromPrevClose": -0.47
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 6071.17,
+        "pctFromPrevClose": 0.53
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 6040.53,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 5994.57,
+        "pctFromPrevClose": -0.76
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 6037.88,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 6061.48,
+        "pctFromPrevClose": 0.39
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 6083.57,
+        "pctFromPrevClose": 0.36
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 6025.99,
+        "pctFromPrevClose": -0.95
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 6066.44,
+        "pctFromPrevClose": 0.67
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 6068.5,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 6051.97,
+        "pctFromPrevClose": -0.27
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 6115.07,
+        "pctFromPrevClose": 1.04
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 6114.63,
+        "pctFromPrevClose": -0.01
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 6129.58,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 6144.15,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 6117.52,
+        "pctFromPrevClose": -0.43
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 6013.13,
+        "pctFromPrevClose": -1.71
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 5983.25,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 5955.25,
+        "pctFromPrevClose": -0.47
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 5956.06,
+        "pctFromPrevClose": 0.01
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 5861.57,
+        "pctFromPrevClose": -1.59
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 5954.5,
+        "pctFromPrevClose": 1.59
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 5849.72,
+        "pctFromPrevClose": -1.76
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 5778.15,
+        "pctFromPrevClose": -1.22
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 5842.63,
+        "pctFromPrevClose": 1.12
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 5738.52,
+        "pctFromPrevClose": -1.78
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 5770.2,
+        "pctFromPrevClose": 0.55
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 5614.56,
+        "pctFromPrevClose": -2.7
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 5572.07,
+        "pctFromPrevClose": -0.76
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 5599.3,
+        "pctFromPrevClose": 0.49
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 5521.52,
+        "pctFromPrevClose": -1.39
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 5638.94,
+        "pctFromPrevClose": 2.13
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 5675.12,
+        "pctFromPrevClose": 0.64
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 5614.66,
+        "pctFromPrevClose": -1.07
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 5675.29,
+        "pctFromPrevClose": 1.08
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 5662.89,
+        "pctFromPrevClose": -0.22
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 5667.56,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 5767.57,
+        "pctFromPrevClose": 1.76
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 5776.65,
+        "pctFromPrevClose": 0.16
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 5712.2,
+        "pctFromPrevClose": -1.12
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 5693.31,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 5580.94,
+        "pctFromPrevClose": -1.97
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 5611.85,
+        "pctFromPrevClose": 0.55
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 5633.07,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 5670.97,
+        "pctFromPrevClose": 0.67
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 5396.52,
+        "pctFromPrevClose": -4.84
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 5074.08,
+        "pctFromPrevClose": -5.97
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 5062.25,
+        "pctFromPrevClose": -0.23
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 4982.77,
+        "pctFromPrevClose": -1.57
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 5456.9,
+        "pctFromPrevClose": 9.52
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 5268.05,
+        "pctFromPrevClose": -3.46
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 5363.36,
+        "pctFromPrevClose": 1.81
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 5405.97,
+        "pctFromPrevClose": 0.79
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 5396.63,
+        "pctFromPrevClose": -0.17
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 5275.7,
+        "pctFromPrevClose": -2.24
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 5282.7,
+        "pctFromPrevClose": 0.13
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 5158.2,
+        "pctFromPrevClose": -2.36
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 5287.76,
+        "pctFromPrevClose": 2.51
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 5375.86,
+        "pctFromPrevClose": 1.67
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 5484.77,
+        "pctFromPrevClose": 2.03
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 5525.21,
+        "pctFromPrevClose": 0.74
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 5528.75,
+        "pctFromPrevClose": 0.06
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 5560.83,
+        "pctFromPrevClose": 0.58
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 5569.06,
+        "pctFromPrevClose": 0.15
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 5604.14,
+        "pctFromPrevClose": 0.63
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 5686.67,
+        "pctFromPrevClose": 1.47
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 5650.38,
+        "pctFromPrevClose": -0.64
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 5606.91,
+        "pctFromPrevClose": -0.77
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 5631.28,
+        "pctFromPrevClose": 0.43
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 5663.94,
+        "pctFromPrevClose": 0.58
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 5659.91,
+        "pctFromPrevClose": -0.07
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 5844.19,
+        "pctFromPrevClose": 3.26
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 5886.55,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 5892.58,
+        "pctFromPrevClose": 0.1
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 5916.93,
+        "pctFromPrevClose": 0.41
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 5958.38,
+        "pctFromPrevClose": 0.7
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 5963.6,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 5940.46,
+        "pctFromPrevClose": -0.39
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 5844.61,
+        "pctFromPrevClose": -1.61
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 5842.01,
+        "pctFromPrevClose": -0.04
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 5802.82,
+        "pctFromPrevClose": -0.67
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 5921.54,
+        "pctFromPrevClose": 2.05
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 5888.55,
+        "pctFromPrevClose": -0.56
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 5912.17,
+        "pctFromPrevClose": 0.4
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 5911.69,
+        "pctFromPrevClose": -0.01
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 5935.94,
+        "pctFromPrevClose": 0.41
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 5970.37,
+        "pctFromPrevClose": 0.58
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 5970.81,
+        "pctFromPrevClose": 0.01
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 5939.3,
+        "pctFromPrevClose": -0.53
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 6000.36,
+        "pctFromPrevClose": 1.03
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 6005.88,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 6038.81,
+        "pctFromPrevClose": 0.55
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 6022.24,
+        "pctFromPrevClose": -0.27
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 6045.26,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 5976.97,
+        "pctFromPrevClose": -1.13
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 6033.11,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 5982.72,
+        "pctFromPrevClose": -0.84
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 5980.87,
+        "pctFromPrevClose": -0.03
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 5967.84,
+        "pctFromPrevClose": -0.22
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 6025.17,
+        "pctFromPrevClose": 0.96
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 6092.18,
+        "pctFromPrevClose": 1.11
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 6092.16,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 6141.02,
+        "pctFromPrevClose": 0.8
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 6173.07,
+        "pctFromPrevClose": 0.52
+      }
     ]
   },
   {
@@ -19,14 +566,1123 @@
     "name": "Dow Jones Industrial Average",
     "category": "index",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 42967.62, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 42197.79, "pctFromPrevClose": -1.79 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 42515.09, "pctFromPrevClose": 0.75 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 42215.80, "pctFromPrevClose": -0.70 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 42171.66, "pctFromPrevClose": -0.10 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 42206.82, "pctFromPrevClose": 0.08 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 42581.78, "pctFromPrevClose": 0.89 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 43089.02, "pctFromPrevClose": 1.19 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 43487.83,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 44025.81,
+        "pctFromPrevClose": 1.24
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 44156.73,
+        "pctFromPrevClose": 0.3
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 44565.07,
+        "pctFromPrevClose": 0.92
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 44424.25,
+        "pctFromPrevClose": -0.32
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 44713.58,
+        "pctFromPrevClose": 0.65
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 44850.35,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 44713.52,
+        "pctFromPrevClose": -0.31
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 44882.13,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 44544.66,
+        "pctFromPrevClose": -0.75
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 44421.91,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 44556.04,
+        "pctFromPrevClose": 0.3
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 44873.28,
+        "pctFromPrevClose": 0.71
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 44747.63,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 44303.4,
+        "pctFromPrevClose": -0.99
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 44470.41,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 44593.65,
+        "pctFromPrevClose": 0.28
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 44368.56,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 44711.43,
+        "pctFromPrevClose": 0.77
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 44546.08,
+        "pctFromPrevClose": -0.37
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 44556.34,
+        "pctFromPrevClose": 0.02
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 44627.59,
+        "pctFromPrevClose": 0.16
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 44176.65,
+        "pctFromPrevClose": -1.01
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 43428.02,
+        "pctFromPrevClose": -1.69
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 43461.21,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 43621.16,
+        "pctFromPrevClose": 0.37
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 43433.12,
+        "pctFromPrevClose": -0.43
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 43239.5,
+        "pctFromPrevClose": -0.45
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 43840.91,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 43191.24,
+        "pctFromPrevClose": -1.48
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 42520.99,
+        "pctFromPrevClose": -1.55
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 43006.59,
+        "pctFromPrevClose": 1.14
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 42579.08,
+        "pctFromPrevClose": -0.99
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 42801.72,
+        "pctFromPrevClose": 0.52
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 41911.71,
+        "pctFromPrevClose": -2.08
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 41433.48,
+        "pctFromPrevClose": -1.14
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 41350.93,
+        "pctFromPrevClose": -0.2
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 40813.57,
+        "pctFromPrevClose": -1.3
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 41488.19,
+        "pctFromPrevClose": 1.65
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 41841.63,
+        "pctFromPrevClose": 0.85
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 41581.31,
+        "pctFromPrevClose": -0.62
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 41964.63,
+        "pctFromPrevClose": 0.92
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 41953.32,
+        "pctFromPrevClose": -0.03
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 41985.35,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 42583.32,
+        "pctFromPrevClose": 1.42
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 42587.5,
+        "pctFromPrevClose": 0.01
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 42454.79,
+        "pctFromPrevClose": -0.31
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 42299.7,
+        "pctFromPrevClose": -0.37
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 41583.9,
+        "pctFromPrevClose": -1.69
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 42001.76,
+        "pctFromPrevClose": 1
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 41989.96,
+        "pctFromPrevClose": -0.03
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 42225.32,
+        "pctFromPrevClose": 0.56
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 40545.93,
+        "pctFromPrevClose": -3.98
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 38314.86,
+        "pctFromPrevClose": -5.5
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 37965.6,
+        "pctFromPrevClose": -0.91
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 37645.59,
+        "pctFromPrevClose": -0.84
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 40608.45,
+        "pctFromPrevClose": 7.87
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 39593.66,
+        "pctFromPrevClose": -2.5
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 40212.71,
+        "pctFromPrevClose": 1.56
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 40524.79,
+        "pctFromPrevClose": 0.78
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 40368.96,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 39669.39,
+        "pctFromPrevClose": -1.73
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 39142.23,
+        "pctFromPrevClose": -1.33
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 38170.41,
+        "pctFromPrevClose": -2.48
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 39186.98,
+        "pctFromPrevClose": 2.66
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 39606.57,
+        "pctFromPrevClose": 1.07
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 40093.4,
+        "pctFromPrevClose": 1.23
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 40113.5,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 40227.59,
+        "pctFromPrevClose": 0.28
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 40527.62,
+        "pctFromPrevClose": 0.75
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 40669.36,
+        "pctFromPrevClose": 0.35
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 40752.96,
+        "pctFromPrevClose": 0.21
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 41317.43,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 41218.83,
+        "pctFromPrevClose": -0.24
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 40829,
+        "pctFromPrevClose": -0.95
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 41113.97,
+        "pctFromPrevClose": 0.7
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 41368.45,
+        "pctFromPrevClose": 0.62
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 41249.38,
+        "pctFromPrevClose": -0.29
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 42410.1,
+        "pctFromPrevClose": 2.81
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 42140.43,
+        "pctFromPrevClose": -0.64
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 42051.06,
+        "pctFromPrevClose": -0.21
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 42322.75,
+        "pctFromPrevClose": 0.65
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 42654.74,
+        "pctFromPrevClose": 0.78
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 42792.07,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 42677.24,
+        "pctFromPrevClose": -0.27
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 41860.44,
+        "pctFromPrevClose": -1.91
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 41859.09,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 41603.07,
+        "pctFromPrevClose": -0.61
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 42343.65,
+        "pctFromPrevClose": 1.78
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 42098.7,
+        "pctFromPrevClose": -0.58
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 42215.73,
+        "pctFromPrevClose": 0.28
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 42270.07,
+        "pctFromPrevClose": 0.13
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 42305.48,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 42519.64,
+        "pctFromPrevClose": 0.51
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 42427.74,
+        "pctFromPrevClose": -0.22
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 42319.74,
+        "pctFromPrevClose": -0.25
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 42762.87,
+        "pctFromPrevClose": 1.05
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 42761.76,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 42866.87,
+        "pctFromPrevClose": 0.25
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 42865.77,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 42967.62,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 42197.79,
+        "pctFromPrevClose": -1.79
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 42515.09,
+        "pctFromPrevClose": 0.75
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 42215.8,
+        "pctFromPrevClose": -0.7
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 42171.66,
+        "pctFromPrevClose": -0.1
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 42206.82,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 42581.78,
+        "pctFromPrevClose": 0.89
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 43089.02,
+        "pctFromPrevClose": 1.19
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 42982.43,
+        "pctFromPrevClose": -0.25
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 43386.84,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 43819.27,
+        "pctFromPrevClose": 1
+      }
+    ]
+  },
+  {
+    "ticker": "NDX",
+    "name": "Nasdaq Composite",
+    "category": "index",
+    "points": [
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 19630.2,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 19756.78,
+        "pctFromPrevClose": 0.64
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 20009.34,
+        "pctFromPrevClose": 1.28
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 20053.68,
+        "pctFromPrevClose": 0.22
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 19954.3,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 19341.83,
+        "pctFromPrevClose": -3.07
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 19733.59,
+        "pctFromPrevClose": 2.03
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 19632.32,
+        "pctFromPrevClose": -0.51
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 19681.75,
+        "pctFromPrevClose": 0.25
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 19627.44,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 19391.96,
+        "pctFromPrevClose": -1.2
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 19654.02,
+        "pctFromPrevClose": 1.35
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 19692.33,
+        "pctFromPrevClose": 0.19
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 19791.99,
+        "pctFromPrevClose": 0.51
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 19523.4,
+        "pctFromPrevClose": -1.36
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 19714.27,
+        "pctFromPrevClose": 0.98
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 19643.86,
+        "pctFromPrevClose": -0.36
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 19649.95,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 19945.64,
+        "pctFromPrevClose": 1.5
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 20026.77,
+        "pctFromPrevClose": 0.41
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 20041.26,
+        "pctFromPrevClose": 0.07
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 20056.25,
+        "pctFromPrevClose": 0.07
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 19962.36,
+        "pctFromPrevClose": -0.47
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 19524.01,
+        "pctFromPrevClose": -2.2
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 19286.93,
+        "pctFromPrevClose": -1.21
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 19026.39,
+        "pctFromPrevClose": -1.35
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 19075.26,
+        "pctFromPrevClose": 0.26
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 18544.42,
+        "pctFromPrevClose": -2.78
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 18847.28,
+        "pctFromPrevClose": 1.63
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 18350.19,
+        "pctFromPrevClose": -2.64
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 18285.16,
+        "pctFromPrevClose": -0.35
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 18552.73,
+        "pctFromPrevClose": 1.46
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 18069.26,
+        "pctFromPrevClose": -2.61
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 18196.22,
+        "pctFromPrevClose": 0.7
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 17468.32,
+        "pctFromPrevClose": -4
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 17436.1,
+        "pctFromPrevClose": -0.18
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 17648.45,
+        "pctFromPrevClose": 1.22
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 17303.01,
+        "pctFromPrevClose": -1.96
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 17754.09,
+        "pctFromPrevClose": 2.61
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 17808.66,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 17504.12,
+        "pctFromPrevClose": -1.71
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 17750.79,
+        "pctFromPrevClose": 1.41
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 17691.63,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 17784.05,
+        "pctFromPrevClose": 0.52
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 18188.59,
+        "pctFromPrevClose": 2.27
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 18271.86,
+        "pctFromPrevClose": 0.46
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 17899.02,
+        "pctFromPrevClose": -2.04
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 17804.03,
+        "pctFromPrevClose": -0.53
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 17322.99,
+        "pctFromPrevClose": -2.7
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 17299.29,
+        "pctFromPrevClose": -0.14
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 17449.89,
+        "pctFromPrevClose": 0.87
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 17601.05,
+        "pctFromPrevClose": 0.87
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 16550.61,
+        "pctFromPrevClose": -5.97
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 15587.79,
+        "pctFromPrevClose": -5.82
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 15603.26,
+        "pctFromPrevClose": 0.1
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 15267.91,
+        "pctFromPrevClose": -2.15
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 17124.97,
+        "pctFromPrevClose": 12.16
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 16387.31,
+        "pctFromPrevClose": -4.31
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 16724.46,
+        "pctFromPrevClose": 2.06
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 16831.48,
+        "pctFromPrevClose": 0.64
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 16823.17,
+        "pctFromPrevClose": -0.05
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 16307.16,
+        "pctFromPrevClose": -3.07
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 16286.45,
+        "pctFromPrevClose": -0.13
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 15870.9,
+        "pctFromPrevClose": -2.55
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 16300.42,
+        "pctFromPrevClose": 2.71
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 16708.05,
+        "pctFromPrevClose": 2.5
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 17166.04,
+        "pctFromPrevClose": 2.74
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 17382.94,
+        "pctFromPrevClose": 1.26
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 17366.13,
+        "pctFromPrevClose": -0.1
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 17461.32,
+        "pctFromPrevClose": 0.55
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 17446.34,
+        "pctFromPrevClose": -0.09
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 17710.74,
+        "pctFromPrevClose": 1.52
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 17977.73,
+        "pctFromPrevClose": 1.51
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 17844.24,
+        "pctFromPrevClose": -0.74
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 17689.66,
+        "pctFromPrevClose": -0.87
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 17738.16,
+        "pctFromPrevClose": 0.27
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 17928.14,
+        "pctFromPrevClose": 1.07
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 17928.92,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 18708.34,
+        "pctFromPrevClose": 4.35
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 19010.09,
+        "pctFromPrevClose": 1.61
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 19146.81,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 19112.32,
+        "pctFromPrevClose": -0.18
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 19211.1,
+        "pctFromPrevClose": 0.52
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 19215.46,
+        "pctFromPrevClose": 0.02
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 19142.71,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 18872.64,
+        "pctFromPrevClose": -1.41
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 18925.74,
+        "pctFromPrevClose": 0.28
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 18737.21,
+        "pctFromPrevClose": -1
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 19199.16,
+        "pctFromPrevClose": 2.47
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 19100.94,
+        "pctFromPrevClose": -0.51
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 19175.87,
+        "pctFromPrevClose": 0.39
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 19113.77,
+        "pctFromPrevClose": -0.32
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 19242.61,
+        "pctFromPrevClose": 0.67
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 19398.96,
+        "pctFromPrevClose": 0.81
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 19460.49,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 19298.45,
+        "pctFromPrevClose": -0.83
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 19529.95,
+        "pctFromPrevClose": 1.2
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 19591.24,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 19714.99,
+        "pctFromPrevClose": 0.63
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 19615.88,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 19662.49,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 19406.83,
+        "pctFromPrevClose": -1.3
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 19701.21,
+        "pctFromPrevClose": 1.52
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 19521.09,
+        "pctFromPrevClose": -0.91
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 19546.27,
+        "pctFromPrevClose": 0.13
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 19447.41,
+        "pctFromPrevClose": -0.51
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 19630.97,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 19912.53,
+        "pctFromPrevClose": 1.43
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 19973.55,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 20167.91,
+        "pctFromPrevClose": 0.97
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 20273.46,
+        "pctFromPrevClose": 0.52
+      }
     ]
   },
   {
@@ -34,28 +1690,561 @@
     "name": "WTI Crude Oil",
     "category": "oil",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 67.97, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 72.98, "pctFromPrevClose": 7.37 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 71.77, "pctFromPrevClose": -1.66 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 74.84, "pctFromPrevClose": 4.28 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 75.14, "pctFromPrevClose": 0.40 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 68.51, "pctFromPrevClose": -8.82 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 64.37, "pctFromPrevClose": -6.04 }
-    ]
-  },
-  {
-    "ticker": "BRENT",
-    "name": "Brent Crude Oil",
-    "category": "oil",
-    "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 69.36, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 74.23, "pctFromPrevClose": 7.02 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 73.23, "pctFromPrevClose": -1.35 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 76.45, "pctFromPrevClose": 4.40 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 76.70, "pctFromPrevClose": 0.33 },
-      { "datetime": "2025-06-19T16:00:00-04:00", "price": 78.85, "pctFromPrevClose": 2.80 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 71.48, "pctFromPrevClose": -9.35 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 67.14, "pctFromPrevClose": -6.07 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 77.88,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 75.89,
+        "pctFromPrevClose": -2.56
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 75.44,
+        "pctFromPrevClose": -0.59
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 74.62,
+        "pctFromPrevClose": -1.09
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 74.66,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 73.17,
+        "pctFromPrevClose": -2
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 73.77,
+        "pctFromPrevClose": 0.82
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 72.62,
+        "pctFromPrevClose": -1.56
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 72.73,
+        "pctFromPrevClose": 0.15
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 72.53,
+        "pctFromPrevClose": -0.27
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 73.16,
+        "pctFromPrevClose": 0.87
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 72.7,
+        "pctFromPrevClose": -0.63
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 71.03,
+        "pctFromPrevClose": -2.3
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 70.61,
+        "pctFromPrevClose": -0.59
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 71,
+        "pctFromPrevClose": 0.55
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 72.32,
+        "pctFromPrevClose": 1.86
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 73.32,
+        "pctFromPrevClose": 1.38
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 71.37,
+        "pctFromPrevClose": -2.66
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 71.29,
+        "pctFromPrevClose": -0.11
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 70.74,
+        "pctFromPrevClose": -0.77
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 71.85,
+        "pctFromPrevClose": 1.57
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 72.25,
+        "pctFromPrevClose": 0.56
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 72.57,
+        "pctFromPrevClose": 0.44
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 70.4,
+        "pctFromPrevClose": -2.99
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 70.7,
+        "pctFromPrevClose": 0.43
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 68.93,
+        "pctFromPrevClose": -2.5
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 68.62,
+        "pctFromPrevClose": -0.45
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 70.35,
+        "pctFromPrevClose": 2.52
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 69.76,
+        "pctFromPrevClose": -0.84
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 68.37,
+        "pctFromPrevClose": -1.99
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 68.26,
+        "pctFromPrevClose": -0.16
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 66.31,
+        "pctFromPrevClose": -2.86
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 66.36,
+        "pctFromPrevClose": 0.08
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 67.04,
+        "pctFromPrevClose": 1.02
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 66.03,
+        "pctFromPrevClose": -1.51
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 66.25,
+        "pctFromPrevClose": 0.33
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 67.68,
+        "pctFromPrevClose": 2.16
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 66.55,
+        "pctFromPrevClose": -1.67
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 67.18,
+        "pctFromPrevClose": 0.95
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 67.58,
+        "pctFromPrevClose": 0.6
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 66.9,
+        "pctFromPrevClose": -1.01
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 67.16,
+        "pctFromPrevClose": 0.39
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 68.26,
+        "pctFromPrevClose": 1.64
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 68.28,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 69.11,
+        "pctFromPrevClose": 1.22
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 69,
+        "pctFromPrevClose": -0.16
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 69.65,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 69.92,
+        "pctFromPrevClose": 0.39
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 69.36,
+        "pctFromPrevClose": -0.8
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 71.48,
+        "pctFromPrevClose": 3.06
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 71.2,
+        "pctFromPrevClose": -0.39
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 71.71,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 66.95,
+        "pctFromPrevClose": -6.64
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 61.99,
+        "pctFromPrevClose": -7.41
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 60.7,
+        "pctFromPrevClose": -2.08
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 59.58,
+        "pctFromPrevClose": -1.85
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 62.35,
+        "pctFromPrevClose": 4.65
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 60.07,
+        "pctFromPrevClose": -3.66
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 61.5,
+        "pctFromPrevClose": 2.38
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 61.53,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 61.33,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 62.47,
+        "pctFromPrevClose": 1.86
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 64.68,
+        "pctFromPrevClose": 3.54
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 63.08,
+        "pctFromPrevClose": -2.47
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 64.31,
+        "pctFromPrevClose": 1.95
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 62.27,
+        "pctFromPrevClose": -3.17
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 62.79,
+        "pctFromPrevClose": 0.84
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 63.02,
+        "pctFromPrevClose": 0.37
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 62.05,
+        "pctFromPrevClose": -1.54
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 60.42,
+        "pctFromPrevClose": -2.63
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 58.21,
+        "pctFromPrevClose": -3.66
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 59.24,
+        "pctFromPrevClose": 1.77
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 58.29,
+        "pctFromPrevClose": -1.6
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 57.13,
+        "pctFromPrevClose": -1.99
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 59.09,
+        "pctFromPrevClose": 3.43
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 58.07,
+        "pctFromPrevClose": -1.73
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 59.91,
+        "pctFromPrevClose": 3.17
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 61.02,
+        "pctFromPrevClose": 1.85
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 61.95,
+        "pctFromPrevClose": 1.52
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 63.67,
+        "pctFromPrevClose": 2.78
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 63.15,
+        "pctFromPrevClose": -0.82
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 61.62,
+        "pctFromPrevClose": -2.42
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 62.49,
+        "pctFromPrevClose": 1.41
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 62.69,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 62.56,
+        "pctFromPrevClose": -0.21
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 61.57,
+        "pctFromPrevClose": -1.58
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 61.2,
+        "pctFromPrevClose": -0.6
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 61.53,
+        "pctFromPrevClose": 0.54
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 60.89,
+        "pctFromPrevClose": -1.04
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 61.84,
+        "pctFromPrevClose": 1.56
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 60.94,
+        "pctFromPrevClose": -1.46
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 60.79,
+        "pctFromPrevClose": -0.25
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 62.52,
+        "pctFromPrevClose": 2.85
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 63.41,
+        "pctFromPrevClose": 1.42
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 62.85,
+        "pctFromPrevClose": -0.88
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 63.37,
+        "pctFromPrevClose": 0.83
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 64.58,
+        "pctFromPrevClose": 1.91
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 65.29,
+        "pctFromPrevClose": 1.1
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 64.98,
+        "pctFromPrevClose": -0.47
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 68.15,
+        "pctFromPrevClose": 4.88
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 68.04,
+        "pctFromPrevClose": -0.16
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 72.98,
+        "pctFromPrevClose": 7.26
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 71.77,
+        "pctFromPrevClose": -1.66
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 74.84,
+        "pctFromPrevClose": 4.28
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 75.14,
+        "pctFromPrevClose": 0.4
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 74.93,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 68.51,
+        "pctFromPrevClose": -8.57
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 64.37,
+        "pctFromPrevClose": -6.04
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 64.92,
+        "pctFromPrevClose": 0.85
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 65.24,
+        "pctFromPrevClose": 0.49
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 65.52,
+        "pctFromPrevClose": 0.43
+      }
     ]
   },
   {
@@ -63,14 +2252,561 @@
     "name": "Lockheed Martin",
     "category": "defense",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 469.27, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 486.45, "pctFromPrevClose": 3.66 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 467.06, "pctFromPrevClose": -3.99 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 479.34, "pctFromPrevClose": 2.63 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 468.60, "pctFromPrevClose": -2.24 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 470.56, "pctFromPrevClose": 0.42 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 472.46, "pctFromPrevClose": 0.40 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 460.20, "pctFromPrevClose": -2.60 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 490.32,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 506.29,
+        "pctFromPrevClose": 3.26
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 499.34,
+        "pctFromPrevClose": -1.37
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 497.28,
+        "pctFromPrevClose": -0.41
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 496.96,
+        "pctFromPrevClose": -0.06
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 503.69,
+        "pctFromPrevClose": 1.35
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 457.45,
+        "pctFromPrevClose": -9.18
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 454.36,
+        "pctFromPrevClose": -0.68
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 459.65,
+        "pctFromPrevClose": 1.16
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 462.95,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 455.42,
+        "pctFromPrevClose": -1.63
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 453.68,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 449.87,
+        "pctFromPrevClose": -0.84
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 448.52,
+        "pctFromPrevClose": -0.3
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 444.39,
+        "pctFromPrevClose": -0.92
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 448.22,
+        "pctFromPrevClose": 0.86
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 449.36,
+        "pctFromPrevClose": 0.25
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 441.97,
+        "pctFromPrevClose": -1.64
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 434.72,
+        "pctFromPrevClose": -1.64
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 423.19,
+        "pctFromPrevClose": -2.65
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 428.54,
+        "pctFromPrevClose": 1.26
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 432.95,
+        "pctFromPrevClose": 1.03
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 436.29,
+        "pctFromPrevClose": 0.77
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 440.72,
+        "pctFromPrevClose": 1.02
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 440.27,
+        "pctFromPrevClose": -0.1
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 448.46,
+        "pctFromPrevClose": 1.86
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 441.5,
+        "pctFromPrevClose": -1.55
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 446.46,
+        "pctFromPrevClose": 1.12
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 450.37,
+        "pctFromPrevClose": 0.88
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 451.94,
+        "pctFromPrevClose": 0.35
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 448.82,
+        "pctFromPrevClose": -0.69
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 460.42,
+        "pctFromPrevClose": 2.58
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 461.5,
+        "pctFromPrevClose": 0.23
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 473.65,
+        "pctFromPrevClose": 2.63
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 479.17,
+        "pctFromPrevClose": 1.17
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 468.88,
+        "pctFromPrevClose": -2.15
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 461.5,
+        "pctFromPrevClose": -1.57
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 467.93,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 466.17,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 467.61,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 469.28,
+        "pctFromPrevClose": 0.36
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 470.55,
+        "pctFromPrevClose": 0.27
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 466.74,
+        "pctFromPrevClose": -0.81
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 439.7,
+        "pctFromPrevClose": -5.79
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 434.98,
+        "pctFromPrevClose": -1.07
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 442.07,
+        "pctFromPrevClose": 1.63
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 445.17,
+        "pctFromPrevClose": 0.7
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 442.28,
+        "pctFromPrevClose": -0.65
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 441.49,
+        "pctFromPrevClose": -0.18
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 446.71,
+        "pctFromPrevClose": 1.18
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 448.64,
+        "pctFromPrevClose": 0.43
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 452.87,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 454.78,
+        "pctFromPrevClose": 0.42
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 432.15,
+        "pctFromPrevClose": -4.98
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 430.82,
+        "pctFromPrevClose": -0.31
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 443.36,
+        "pctFromPrevClose": 2.91
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 462.24,
+        "pctFromPrevClose": 4.26
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 463.7,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 474.9,
+        "pctFromPrevClose": 2.42
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 475.34,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 469.58,
+        "pctFromPrevClose": -1.21
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 477.08,
+        "pctFromPrevClose": 1.6
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 464.08,
+        "pctFromPrevClose": -2.72
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 458.33,
+        "pctFromPrevClose": -1.24
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 462.08,
+        "pctFromPrevClose": 0.82
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 463.55,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 466.81,
+        "pctFromPrevClose": 0.7
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 477.64,
+        "pctFromPrevClose": 2.32
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 476.29,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 475.88,
+        "pctFromPrevClose": -0.09
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 477.75,
+        "pctFromPrevClose": 0.39
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 477.72,
+        "pctFromPrevClose": -0.01
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 472.8,
+        "pctFromPrevClose": -1.03
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 471.56,
+        "pctFromPrevClose": -0.26
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 468.21,
+        "pctFromPrevClose": -0.71
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 471.32,
+        "pctFromPrevClose": 0.66
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 474.53,
+        "pctFromPrevClose": 0.68
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 473.52,
+        "pctFromPrevClose": -0.21
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 473.16,
+        "pctFromPrevClose": -0.08
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 459.83,
+        "pctFromPrevClose": -2.82
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 449.18,
+        "pctFromPrevClose": -2.32
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 465.14,
+        "pctFromPrevClose": 3.55
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 468.32,
+        "pctFromPrevClose": 0.68
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 473.06,
+        "pctFromPrevClose": 1.01
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 475.82,
+        "pctFromPrevClose": 0.58
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 470.28,
+        "pctFromPrevClose": -1.16
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 470.45,
+        "pctFromPrevClose": 0.04
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 468.88,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 476.85,
+        "pctFromPrevClose": 1.7
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 469.98,
+        "pctFromPrevClose": -1.44
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 473.69,
+        "pctFromPrevClose": 0.79
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 482.38,
+        "pctFromPrevClose": 1.83
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 478.82,
+        "pctFromPrevClose": -0.74
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 480.17,
+        "pctFromPrevClose": 0.28
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 482.21,
+        "pctFromPrevClose": 0.42
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 478.03,
+        "pctFromPrevClose": -0.87
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 481.69,
+        "pctFromPrevClose": 0.77
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 480.83,
+        "pctFromPrevClose": -0.18
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 476.9,
+        "pctFromPrevClose": -0.82
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 456.6,
+        "pctFromPrevClose": -4.26
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 469.27,
+        "pctFromPrevClose": 2.77
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 486.45,
+        "pctFromPrevClose": 3.66
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 467.06,
+        "pctFromPrevClose": -3.99
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 479.34,
+        "pctFromPrevClose": 2.63
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 468.6,
+        "pctFromPrevClose": -2.24
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 470.56,
+        "pctFromPrevClose": 0.42
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 472.46,
+        "pctFromPrevClose": 0.4
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 460.2,
+        "pctFromPrevClose": -2.59
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 458.39,
+        "pctFromPrevClose": -0.39
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 457.9,
+        "pctFromPrevClose": -0.11
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 458.59,
+        "pctFromPrevClose": 0.15
+      }
     ]
   },
   {
@@ -78,14 +2814,561 @@
     "name": "RTX (Raytheon)",
     "category": "defense",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 140.98, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 145.69, "pctFromPrevClose": 3.34 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 146.46, "pctFromPrevClose": 0.53 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 148.48, "pctFromPrevClose": 1.38 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 145.87, "pctFromPrevClose": -1.76 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 146.64, "pctFromPrevClose": 0.53 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 145.81, "pctFromPrevClose": -0.57 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 141.85, "pctFromPrevClose": -2.72 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 121.11,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 125.75,
+        "pctFromPrevClose": 3.83
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 124.38,
+        "pctFromPrevClose": -1.09
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 126.29,
+        "pctFromPrevClose": 1.54
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 125.31,
+        "pctFromPrevClose": -0.78
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 125.05,
+        "pctFromPrevClose": -0.21
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 128.35,
+        "pctFromPrevClose": 2.64
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 125.13,
+        "pctFromPrevClose": -2.51
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 128.98,
+        "pctFromPrevClose": 3.08
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 128.95,
+        "pctFromPrevClose": -0.02
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 129.92,
+        "pctFromPrevClose": 0.75
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 128.37,
+        "pctFromPrevClose": -1.19
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 129.16,
+        "pctFromPrevClose": 0.62
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 128.78,
+        "pctFromPrevClose": -0.29
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 127.95,
+        "pctFromPrevClose": -0.64
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 128.25,
+        "pctFromPrevClose": 0.23
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 129.11,
+        "pctFromPrevClose": 0.67
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 126.78,
+        "pctFromPrevClose": -1.8
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 125.84,
+        "pctFromPrevClose": -0.74
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 122.41,
+        "pctFromPrevClose": -2.73
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 123.76,
+        "pctFromPrevClose": 1.1
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 125.41,
+        "pctFromPrevClose": 1.33
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 125.11,
+        "pctFromPrevClose": -0.24
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 123.29,
+        "pctFromPrevClose": -1.45
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 125.43,
+        "pctFromPrevClose": 1.74
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 127.34,
+        "pctFromPrevClose": 1.52
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 127.31,
+        "pctFromPrevClose": -0.02
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 130.52,
+        "pctFromPrevClose": 2.52
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 132.99,
+        "pctFromPrevClose": 1.89
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 133.83,
+        "pctFromPrevClose": 0.63
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 128.7,
+        "pctFromPrevClose": -3.83
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 129.64,
+        "pctFromPrevClose": 0.73
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 128.28,
+        "pctFromPrevClose": -1.05
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 128.4,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 128.52,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 128.11,
+        "pctFromPrevClose": -0.32
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 127.96,
+        "pctFromPrevClose": -0.12
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 129.2,
+        "pctFromPrevClose": 0.97
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 129.99,
+        "pctFromPrevClose": 0.61
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 132.05,
+        "pctFromPrevClose": 1.58
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 132.69,
+        "pctFromPrevClose": 0.48
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 135.32,
+        "pctFromPrevClose": 1.98
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 134.47,
+        "pctFromPrevClose": -0.63
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 132.37,
+        "pctFromPrevClose": -1.56
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 134.69,
+        "pctFromPrevClose": 1.75
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 135.66,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 134.33,
+        "pctFromPrevClose": -0.98
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 133.43,
+        "pctFromPrevClose": -0.67
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 131.72,
+        "pctFromPrevClose": -1.28
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 132.46,
+        "pctFromPrevClose": 0.56
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 132.85,
+        "pctFromPrevClose": 0.29
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 133.15,
+        "pctFromPrevClose": 0.23
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 130.23,
+        "pctFromPrevClose": -2.19
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 117.45,
+        "pctFromPrevClose": -9.81
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 117.32,
+        "pctFromPrevClose": -0.11
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 120.46,
+        "pctFromPrevClose": 2.68
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 128.43,
+        "pctFromPrevClose": 6.62
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 127.07,
+        "pctFromPrevClose": -1.06
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 128.26,
+        "pctFromPrevClose": 0.94
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 129.14,
+        "pctFromPrevClose": 0.69
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 128.64,
+        "pctFromPrevClose": -0.39
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 129.25,
+        "pctFromPrevClose": 0.47
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 128.89,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 126.12,
+        "pctFromPrevClose": -2.15
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 113.75,
+        "pctFromPrevClose": -9.81
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 120.28,
+        "pctFromPrevClose": 5.74
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 121.97,
+        "pctFromPrevClose": 1.41
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 125.22,
+        "pctFromPrevClose": 2.66
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 124.8,
+        "pctFromPrevClose": -0.34
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 125.73,
+        "pctFromPrevClose": 0.75
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 126.13,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 127.41,
+        "pctFromPrevClose": 1.01
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 130.21,
+        "pctFromPrevClose": 2.2
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 128.59,
+        "pctFromPrevClose": -1.24
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 128.16,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 127.5,
+        "pctFromPrevClose": -0.51
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 128.67,
+        "pctFromPrevClose": 0.92
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 128.67,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 130.56,
+        "pctFromPrevClose": 1.47
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 130.72,
+        "pctFromPrevClose": 0.12
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 130.79,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 135.52,
+        "pctFromPrevClose": 3.62
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 135.48,
+        "pctFromPrevClose": -0.03
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 137.2,
+        "pctFromPrevClose": 1.27
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 137.18,
+        "pctFromPrevClose": -0.01
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 134.95,
+        "pctFromPrevClose": -1.63
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 134.07,
+        "pctFromPrevClose": -0.65
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 132.35,
+        "pctFromPrevClose": -1.28
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 134.19,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 132.85,
+        "pctFromPrevClose": -1
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 134.8,
+        "pctFromPrevClose": 1.47
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 136.48,
+        "pctFromPrevClose": 1.25
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 137.46,
+        "pctFromPrevClose": 0.72
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 137.5,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 138.55,
+        "pctFromPrevClose": 0.76
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 139.07,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 139.1,
+        "pctFromPrevClose": 0.02
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 140.98,
+        "pctFromPrevClose": 1.35
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 138.52,
+        "pctFromPrevClose": -1.74
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 141.81,
+        "pctFromPrevClose": 2.38
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 140.98,
+        "pctFromPrevClose": -0.59
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 145.69,
+        "pctFromPrevClose": 3.34
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 146.46,
+        "pctFromPrevClose": 0.53
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 148.48,
+        "pctFromPrevClose": 1.38
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 145.87,
+        "pctFromPrevClose": -1.76
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 146.64,
+        "pctFromPrevClose": 0.53
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 145.81,
+        "pctFromPrevClose": -0.57
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 141.85,
+        "pctFromPrevClose": -2.72
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 141.38,
+        "pctFromPrevClose": -0.33
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 142.67,
+        "pctFromPrevClose": 0.91
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 144.66,
+        "pctFromPrevClose": 1.39
+      }
     ]
   },
   {
@@ -93,29 +3376,1123 @@
     "name": "Exxon Mobil",
     "category": "energy",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 109.73, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 112.12, "pctFromPrevClose": 2.18 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 112.48, "pctFromPrevClose": 0.32 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 114.00, "pctFromPrevClose": 1.35 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 113.19, "pctFromPrevClose": -0.71 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 114.70, "pctFromPrevClose": 1.33 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 111.74, "pctFromPrevClose": -2.58 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 108.34, "pctFromPrevClose": -3.04 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 112.32,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 111.47,
+        "pctFromPrevClose": -0.76
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 109.53,
+        "pctFromPrevClose": -1.74
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 110.15,
+        "pctFromPrevClose": 0.57
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 108.66,
+        "pctFromPrevClose": -1.35
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 110.17,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 108.04,
+        "pctFromPrevClose": -1.93
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 108.67,
+        "pctFromPrevClose": 0.58
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 109.57,
+        "pctFromPrevClose": 0.83
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 106.83,
+        "pctFromPrevClose": -2.5
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 107.09,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 109.96,
+        "pctFromPrevClose": 2.68
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 109.88,
+        "pctFromPrevClose": -0.07
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 108.43,
+        "pctFromPrevClose": -1.32
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 108.89,
+        "pctFromPrevClose": 0.42
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 110.97,
+        "pctFromPrevClose": 1.91
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 111.67,
+        "pctFromPrevClose": 0.63
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 107.35,
+        "pctFromPrevClose": -3.87
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 108.13,
+        "pctFromPrevClose": 0.73
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 108.24,
+        "pctFromPrevClose": 0.1
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 110.14,
+        "pctFromPrevClose": 1.76
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 110.3,
+        "pctFromPrevClose": 0.15
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 112,
+        "pctFromPrevClose": 1.54
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 110.69,
+        "pctFromPrevClose": -1.17
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 111.27,
+        "pctFromPrevClose": 0.52
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 109.73,
+        "pctFromPrevClose": -1.38
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 109.46,
+        "pctFromPrevClose": -0.25
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 110.15,
+        "pctFromPrevClose": 0.63
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 111.33,
+        "pctFromPrevClose": 1.07
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 107.76,
+        "pctFromPrevClose": -3.21
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 107.54,
+        "pctFromPrevClose": -0.2
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 105.44,
+        "pctFromPrevClose": -1.95
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 107.62,
+        "pctFromPrevClose": 2.07
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 109.02,
+        "pctFromPrevClose": 1.3
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 111.8,
+        "pctFromPrevClose": 2.55
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 109.16,
+        "pctFromPrevClose": -2.36
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 109.13,
+        "pctFromPrevClose": -0.03
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 108.67,
+        "pctFromPrevClose": -0.42
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 111.9,
+        "pctFromPrevClose": 2.97
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 113.76,
+        "pctFromPrevClose": 1.66
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 113.64,
+        "pctFromPrevClose": -0.11
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 115.41,
+        "pctFromPrevClose": 1.56
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 115.9,
+        "pctFromPrevClose": 0.42
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 115.5,
+        "pctFromPrevClose": -0.35
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 115.8,
+        "pctFromPrevClose": 0.26
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 116.59,
+        "pctFromPrevClose": 0.68
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 118.27,
+        "pctFromPrevClose": 1.44
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 117.89,
+        "pctFromPrevClose": -0.32
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 117.73,
+        "pctFromPrevClose": -0.14
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 118.93,
+        "pctFromPrevClose": 1.02
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 119.04,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 118.67,
+        "pctFromPrevClose": -0.31
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 112.43,
+        "pctFromPrevClose": -5.26
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 104.34,
+        "pctFromPrevClose": -7.2
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 102.94,
+        "pctFromPrevClose": -1.34
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 100.77,
+        "pctFromPrevClose": -2.11
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 105.8,
+        "pctFromPrevClose": 4.99
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 99.93,
+        "pctFromPrevClose": -5.55
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 103.14,
+        "pctFromPrevClose": 3.21
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 103.39,
+        "pctFromPrevClose": 0.24
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 103.1,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 104.19,
+        "pctFromPrevClose": 1.06
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 106.92,
+        "pctFromPrevClose": 2.62
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 105.35,
+        "pctFromPrevClose": -1.47
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 108.3,
+        "pctFromPrevClose": 2.8
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 107.37,
+        "pctFromPrevClose": -0.86
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 108.63,
+        "pctFromPrevClose": 1.17
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 108.57,
+        "pctFromPrevClose": -0.06
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 108.63,
+        "pctFromPrevClose": 0.06
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 108.36,
+        "pctFromPrevClose": -0.25
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 105.63,
+        "pctFromPrevClose": -2.52
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 105.78,
+        "pctFromPrevClose": 0.14
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 106.21,
+        "pctFromPrevClose": 0.41
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 103.27,
+        "pctFromPrevClose": -2.77
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 104.71,
+        "pctFromPrevClose": 1.39
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 104.61,
+        "pctFromPrevClose": -0.1
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 106.07,
+        "pctFromPrevClose": 1.4
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 107.31,
+        "pctFromPrevClose": 1.17
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 109.16,
+        "pctFromPrevClose": 1.72
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 109.46,
+        "pctFromPrevClose": 0.27
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 108.48,
+        "pctFromPrevClose": -0.9
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 108.58,
+        "pctFromPrevClose": 0.09
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 108.19,
+        "pctFromPrevClose": -0.36
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 106.47,
+        "pctFromPrevClose": -1.59
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 104.95,
+        "pctFromPrevClose": -1.43
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 103.66,
+        "pctFromPrevClose": -1.23
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 102.97,
+        "pctFromPrevClose": -0.67
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 103.03,
+        "pctFromPrevClose": 0.06
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 103.52,
+        "pctFromPrevClose": 0.48
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 102.11,
+        "pctFromPrevClose": -1.36
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 102.69,
+        "pctFromPrevClose": 0.57
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 102.3,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 103.05,
+        "pctFromPrevClose": 0.73
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 103.8,
+        "pctFromPrevClose": 0.73
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 102.3,
+        "pctFromPrevClose": -1.45
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 101.83,
+        "pctFromPrevClose": -0.46
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 104.27,
+        "pctFromPrevClose": 2.4
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 104.97,
+        "pctFromPrevClose": 0.67
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 107.22,
+        "pctFromPrevClose": 2.14
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 109.31,
+        "pctFromPrevClose": 1.95
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 109.73,
+        "pctFromPrevClose": 0.38
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 112.12,
+        "pctFromPrevClose": 2.18
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 112.48,
+        "pctFromPrevClose": 0.32
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 114,
+        "pctFromPrevClose": 1.35
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 113.19,
+        "pctFromPrevClose": -0.71
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 114.7,
+        "pctFromPrevClose": 1.33
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 111.74,
+        "pctFromPrevClose": -2.58
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 108.34,
+        "pctFromPrevClose": -3.04
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 108.37,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 109.99,
+        "pctFromPrevClose": 1.49
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 109.38,
+        "pctFromPrevClose": -0.55
+      }
     ]
   },
   {
-    "ticker": "GOLD",
-    "name": "Gold (spot, per oz)",
+    "ticker": "GLD",
+    "name": "SPDR Gold Shares",
     "category": "safe-haven",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 3364.70, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 3393.04, "pctFromPrevClose": 0.84 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 3443.80, "pctFromPrevClose": 1.50 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 3402.08, "pctFromPrevClose": -1.21 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 3387.26, "pctFromPrevClose": -0.44 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 3368.77, "pctFromPrevClose": -0.55 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 3372.86, "pctFromPrevClose": 0.12 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 3344.42, "pctFromPrevClose": -0.84 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 249.27,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 253.13,
+        "pctFromPrevClose": 1.55
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 254.43,
+        "pctFromPrevClose": 0.51
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 254.07,
+        "pctFromPrevClose": -0.14
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 255.65,
+        "pctFromPrevClose": 0.62
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 252.99,
+        "pctFromPrevClose": -1.04
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 255.18,
+        "pctFromPrevClose": 0.87
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 254.2,
+        "pctFromPrevClose": -0.38
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 258.05,
+        "pctFromPrevClose": 1.51
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 258.56,
+        "pctFromPrevClose": 0.2
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 259.94,
+        "pctFromPrevClose": 0.53
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 262.5,
+        "pctFromPrevClose": 0.98
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 264.13,
+        "pctFromPrevClose": 0.62
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 263.43,
+        "pctFromPrevClose": -0.27
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 263.9,
+        "pctFromPrevClose": 0.18
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 268.37,
+        "pctFromPrevClose": 1.69
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 267.39,
+        "pctFromPrevClose": -0.37
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 267.67,
+        "pctFromPrevClose": 0.1
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 270.31,
+        "pctFromPrevClose": 0.99
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 266.29,
+        "pctFromPrevClose": -1.49
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 270.7,
+        "pctFromPrevClose": 1.66
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 270.85,
+        "pctFromPrevClose": 0.06
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 270.99,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 270.74,
+        "pctFromPrevClose": -0.09
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 272.21,
+        "pctFromPrevClose": 0.54
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 268.62,
+        "pctFromPrevClose": -1.32
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 269.03,
+        "pctFromPrevClose": 0.15
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 264.93,
+        "pctFromPrevClose": -1.52
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 263.27,
+        "pctFromPrevClose": -0.63
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 266.74,
+        "pctFromPrevClose": 1.32
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 269.06,
+        "pctFromPrevClose": 0.87
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 269.62,
+        "pctFromPrevClose": 0.21
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 268.25,
+        "pctFromPrevClose": -0.51
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 268.39,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 266.04,
+        "pctFromPrevClose": -0.88
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 269.16,
+        "pctFromPrevClose": 1.17
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 270.33,
+        "pctFromPrevClose": 0.43
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 275.13,
+        "pctFromPrevClose": 1.78
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 275.24,
+        "pctFromPrevClose": 0.04
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 276.73,
+        "pctFromPrevClose": 0.54
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 279.96,
+        "pctFromPrevClose": 1.17
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 281.11,
+        "pctFromPrevClose": 0.41
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 280.75,
+        "pctFromPrevClose": -0.13
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 278.49,
+        "pctFromPrevClose": -0.8
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 277.25,
+        "pctFromPrevClose": -0.45
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 278.47,
+        "pctFromPrevClose": 0.44
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 278.24,
+        "pctFromPrevClose": -0.08
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 281.97,
+        "pctFromPrevClose": 1.34
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 284.06,
+        "pctFromPrevClose": 0.74
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 288.14,
+        "pctFromPrevClose": 1.44
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 287.57,
+        "pctFromPrevClose": -0.2
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 288.16,
+        "pctFromPrevClose": 0.21
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 286.42,
+        "pctFromPrevClose": -0.6
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 279.72,
+        "pctFromPrevClose": -2.34
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 273.71,
+        "pctFromPrevClose": -2.15
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 275.2,
+        "pctFromPrevClose": 0.54
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 285.38,
+        "pctFromPrevClose": 3.7
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 292.35,
+        "pctFromPrevClose": 2.44
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 297.93,
+        "pctFromPrevClose": 1.91
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 296.23,
+        "pctFromPrevClose": -0.57
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 297.78,
+        "pctFromPrevClose": 0.52
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 307.47,
+        "pctFromPrevClose": 3.25
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 306.12,
+        "pctFromPrevClose": -0.44
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 315.59,
+        "pctFromPrevClose": 3.09
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 311.11,
+        "pctFromPrevClose": -1.42
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 303.65,
+        "pctFromPrevClose": -2.4
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 308.07,
+        "pctFromPrevClose": 1.46
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 304.73,
+        "pctFromPrevClose": -1.08
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 309.07,
+        "pctFromPrevClose": 1.42
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 306.06,
+        "pctFromPrevClose": -0.97
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 303.77,
+        "pctFromPrevClose": -0.75
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 297.46,
+        "pctFromPrevClose": -2.08
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 297.98,
+        "pctFromPrevClose": 0.17
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 306.88,
+        "pctFromPrevClose": 2.99
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 315.48,
+        "pctFromPrevClose": 2.8
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 310.75,
+        "pctFromPrevClose": -1.5
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 304.63,
+        "pctFromPrevClose": -1.97
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 306.84,
+        "pctFromPrevClose": 0.73
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 298.19,
+        "pctFromPrevClose": -2.82
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 299.46,
+        "pctFromPrevClose": 0.43
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 293.16,
+        "pctFromPrevClose": -2.1
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 297.84,
+        "pctFromPrevClose": 1.6
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 294.24,
+        "pctFromPrevClose": -1.21
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 298.03,
+        "pctFromPrevClose": 1.29
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 303.58,
+        "pctFromPrevClose": 1.86
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 305.82,
+        "pctFromPrevClose": 0.74
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 303.11,
+        "pctFromPrevClose": -0.89
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 309.75,
+        "pctFromPrevClose": 2.19
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 304.5,
+        "pctFromPrevClose": -1.69
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 303.81,
+        "pctFromPrevClose": -0.23
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 305.61,
+        "pctFromPrevClose": 0.59
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 303.6,
+        "pctFromPrevClose": -0.66
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 311.67,
+        "pctFromPrevClose": 2.66
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 308.91,
+        "pctFromPrevClose": -0.89
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 310.9,
+        "pctFromPrevClose": 0.64
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 309.33,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 305.18,
+        "pctFromPrevClose": -1.34
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 306.62,
+        "pctFromPrevClose": 0.47
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 306.71,
+        "pctFromPrevClose": 0.03
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 308.37,
+        "pctFromPrevClose": 0.54
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 312.2,
+        "pctFromPrevClose": 1.24
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 316.29,
+        "pctFromPrevClose": 1.31
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 311.78,
+        "pctFromPrevClose": -1.43
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 311.94,
+        "pctFromPrevClose": 0.05
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 310.26,
+        "pctFromPrevClose": -0.54
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 310.13,
+        "pctFromPrevClose": -0.04
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 311.08,
+        "pctFromPrevClose": 0.31
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 306.19,
+        "pctFromPrevClose": -1.57
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 307.12,
+        "pctFromPrevClose": 0.3
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 306.78,
+        "pctFromPrevClose": -0.11
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 301.22,
+        "pctFromPrevClose": -1.81
+      }
     ]
   },
   {
@@ -123,14 +4500,561 @@
     "name": "CBOE Volatility Index",
     "category": "volatility",
     "points": [
-      { "datetime": "2025-06-12T16:00:00-04:00", "price": 18.02, "pctFromPrevClose": 0 },
-      { "datetime": "2025-06-13T16:00:00-04:00", "price": 20.82, "pctFromPrevClose": 15.54 },
-      { "datetime": "2025-06-16T16:00:00-04:00", "price": 19.11, "pctFromPrevClose": -8.21 },
-      { "datetime": "2025-06-17T16:00:00-04:00", "price": 21.60, "pctFromPrevClose": 13.03 },
-      { "datetime": "2025-06-18T16:00:00-04:00", "price": 20.14, "pctFromPrevClose": -6.76 },
-      { "datetime": "2025-06-20T16:00:00-04:00", "price": 20.62, "pctFromPrevClose": 2.38 },
-      { "datetime": "2025-06-23T16:00:00-04:00", "price": 19.83, "pctFromPrevClose": -3.83 },
-      { "datetime": "2025-06-24T16:00:00-04:00", "price": 17.48, "pctFromPrevClose": -11.85 }
+      {
+        "datetime": "2025-01-17T16:00:00-05:00",
+        "price": 15.97,
+        "pctFromPrevClose": 0
+      },
+      {
+        "datetime": "2025-01-21T16:00:00-05:00",
+        "price": 15.06,
+        "pctFromPrevClose": -5.7
+      },
+      {
+        "datetime": "2025-01-22T16:00:00-05:00",
+        "price": 15.1,
+        "pctFromPrevClose": 0.27
+      },
+      {
+        "datetime": "2025-01-23T16:00:00-05:00",
+        "price": 15.02,
+        "pctFromPrevClose": -0.53
+      },
+      {
+        "datetime": "2025-01-24T16:00:00-05:00",
+        "price": 14.85,
+        "pctFromPrevClose": -1.13
+      },
+      {
+        "datetime": "2025-01-27T16:00:00-05:00",
+        "price": 17.9,
+        "pctFromPrevClose": 20.54
+      },
+      {
+        "datetime": "2025-01-28T16:00:00-05:00",
+        "price": 16.41,
+        "pctFromPrevClose": -8.32
+      },
+      {
+        "datetime": "2025-01-29T16:00:00-05:00",
+        "price": 16.56,
+        "pctFromPrevClose": 0.91
+      },
+      {
+        "datetime": "2025-01-30T16:00:00-05:00",
+        "price": 15.84,
+        "pctFromPrevClose": -4.35
+      },
+      {
+        "datetime": "2025-01-31T16:00:00-05:00",
+        "price": 16.43,
+        "pctFromPrevClose": 3.72
+      },
+      {
+        "datetime": "2025-02-03T16:00:00-05:00",
+        "price": 18.62,
+        "pctFromPrevClose": 13.33
+      },
+      {
+        "datetime": "2025-02-04T16:00:00-05:00",
+        "price": 17.21,
+        "pctFromPrevClose": -7.57
+      },
+      {
+        "datetime": "2025-02-05T16:00:00-05:00",
+        "price": 15.77,
+        "pctFromPrevClose": -8.37
+      },
+      {
+        "datetime": "2025-02-06T16:00:00-05:00",
+        "price": 15.5,
+        "pctFromPrevClose": -1.71
+      },
+      {
+        "datetime": "2025-02-07T16:00:00-05:00",
+        "price": 16.54,
+        "pctFromPrevClose": 6.71
+      },
+      {
+        "datetime": "2025-02-10T16:00:00-05:00",
+        "price": 15.81,
+        "pctFromPrevClose": -4.41
+      },
+      {
+        "datetime": "2025-02-11T16:00:00-05:00",
+        "price": 16.02,
+        "pctFromPrevClose": 1.33
+      },
+      {
+        "datetime": "2025-02-12T16:00:00-05:00",
+        "price": 15.89,
+        "pctFromPrevClose": -0.81
+      },
+      {
+        "datetime": "2025-02-13T16:00:00-05:00",
+        "price": 15.1,
+        "pctFromPrevClose": -4.97
+      },
+      {
+        "datetime": "2025-02-14T16:00:00-05:00",
+        "price": 14.77,
+        "pctFromPrevClose": -2.19
+      },
+      {
+        "datetime": "2025-02-18T16:00:00-05:00",
+        "price": 15.35,
+        "pctFromPrevClose": 3.93
+      },
+      {
+        "datetime": "2025-02-19T16:00:00-05:00",
+        "price": 15.27,
+        "pctFromPrevClose": -0.52
+      },
+      {
+        "datetime": "2025-02-20T16:00:00-05:00",
+        "price": 15.66,
+        "pctFromPrevClose": 2.55
+      },
+      {
+        "datetime": "2025-02-21T16:00:00-05:00",
+        "price": 18.21,
+        "pctFromPrevClose": 16.28
+      },
+      {
+        "datetime": "2025-02-24T16:00:00-05:00",
+        "price": 18.98,
+        "pctFromPrevClose": 4.23
+      },
+      {
+        "datetime": "2025-02-25T16:00:00-05:00",
+        "price": 19.43,
+        "pctFromPrevClose": 2.37
+      },
+      {
+        "datetime": "2025-02-26T16:00:00-05:00",
+        "price": 19.1,
+        "pctFromPrevClose": -1.7
+      },
+      {
+        "datetime": "2025-02-27T16:00:00-05:00",
+        "price": 21.13,
+        "pctFromPrevClose": 10.63
+      },
+      {
+        "datetime": "2025-02-28T16:00:00-05:00",
+        "price": 19.63,
+        "pctFromPrevClose": -7.1
+      },
+      {
+        "datetime": "2025-03-03T16:00:00-05:00",
+        "price": 22.78,
+        "pctFromPrevClose": 16.05
+      },
+      {
+        "datetime": "2025-03-04T16:00:00-05:00",
+        "price": 23.51,
+        "pctFromPrevClose": 3.2
+      },
+      {
+        "datetime": "2025-03-05T16:00:00-05:00",
+        "price": 21.93,
+        "pctFromPrevClose": -6.72
+      },
+      {
+        "datetime": "2025-03-06T16:00:00-05:00",
+        "price": 24.87,
+        "pctFromPrevClose": 13.41
+      },
+      {
+        "datetime": "2025-03-07T16:00:00-05:00",
+        "price": 23.37,
+        "pctFromPrevClose": -6.03
+      },
+      {
+        "datetime": "2025-03-10T16:00:00-04:00",
+        "price": 27.86,
+        "pctFromPrevClose": 19.21
+      },
+      {
+        "datetime": "2025-03-11T16:00:00-04:00",
+        "price": 26.92,
+        "pctFromPrevClose": -3.37
+      },
+      {
+        "datetime": "2025-03-12T16:00:00-04:00",
+        "price": 24.23,
+        "pctFromPrevClose": -9.99
+      },
+      {
+        "datetime": "2025-03-13T16:00:00-04:00",
+        "price": 24.66,
+        "pctFromPrevClose": 1.77
+      },
+      {
+        "datetime": "2025-03-14T16:00:00-04:00",
+        "price": 21.77,
+        "pctFromPrevClose": -11.72
+      },
+      {
+        "datetime": "2025-03-17T16:00:00-04:00",
+        "price": 20.51,
+        "pctFromPrevClose": -5.79
+      },
+      {
+        "datetime": "2025-03-18T16:00:00-04:00",
+        "price": 21.7,
+        "pctFromPrevClose": 5.8
+      },
+      {
+        "datetime": "2025-03-19T16:00:00-04:00",
+        "price": 19.9,
+        "pctFromPrevClose": -8.29
+      },
+      {
+        "datetime": "2025-03-20T16:00:00-04:00",
+        "price": 19.8,
+        "pctFromPrevClose": -0.5
+      },
+      {
+        "datetime": "2025-03-21T16:00:00-04:00",
+        "price": 19.28,
+        "pctFromPrevClose": -2.63
+      },
+      {
+        "datetime": "2025-03-24T16:00:00-04:00",
+        "price": 17.48,
+        "pctFromPrevClose": -9.34
+      },
+      {
+        "datetime": "2025-03-25T16:00:00-04:00",
+        "price": 17.15,
+        "pctFromPrevClose": -1.89
+      },
+      {
+        "datetime": "2025-03-26T16:00:00-04:00",
+        "price": 18.33,
+        "pctFromPrevClose": 6.88
+      },
+      {
+        "datetime": "2025-03-27T16:00:00-04:00",
+        "price": 18.69,
+        "pctFromPrevClose": 1.96
+      },
+      {
+        "datetime": "2025-03-28T16:00:00-04:00",
+        "price": 21.65,
+        "pctFromPrevClose": 15.84
+      },
+      {
+        "datetime": "2025-03-31T16:00:00-04:00",
+        "price": 22.28,
+        "pctFromPrevClose": 2.91
+      },
+      {
+        "datetime": "2025-04-01T16:00:00-04:00",
+        "price": 21.77,
+        "pctFromPrevClose": -2.29
+      },
+      {
+        "datetime": "2025-04-02T16:00:00-04:00",
+        "price": 21.51,
+        "pctFromPrevClose": -1.19
+      },
+      {
+        "datetime": "2025-04-03T16:00:00-04:00",
+        "price": 30.02,
+        "pctFromPrevClose": 39.56
+      },
+      {
+        "datetime": "2025-04-04T16:00:00-04:00",
+        "price": 45.31,
+        "pctFromPrevClose": 50.93
+      },
+      {
+        "datetime": "2025-04-07T16:00:00-04:00",
+        "price": 46.98,
+        "pctFromPrevClose": 3.69
+      },
+      {
+        "datetime": "2025-04-08T16:00:00-04:00",
+        "price": 52.33,
+        "pctFromPrevClose": 11.39
+      },
+      {
+        "datetime": "2025-04-09T16:00:00-04:00",
+        "price": 33.62,
+        "pctFromPrevClose": -35.75
+      },
+      {
+        "datetime": "2025-04-10T16:00:00-04:00",
+        "price": 40.72,
+        "pctFromPrevClose": 21.12
+      },
+      {
+        "datetime": "2025-04-11T16:00:00-04:00",
+        "price": 37.56,
+        "pctFromPrevClose": -7.76
+      },
+      {
+        "datetime": "2025-04-14T16:00:00-04:00",
+        "price": 30.89,
+        "pctFromPrevClose": -17.76
+      },
+      {
+        "datetime": "2025-04-15T16:00:00-04:00",
+        "price": 30.12,
+        "pctFromPrevClose": -2.49
+      },
+      {
+        "datetime": "2025-04-16T16:00:00-04:00",
+        "price": 32.64,
+        "pctFromPrevClose": 8.37
+      },
+      {
+        "datetime": "2025-04-17T16:00:00-04:00",
+        "price": 29.65,
+        "pctFromPrevClose": -9.16
+      },
+      {
+        "datetime": "2025-04-21T16:00:00-04:00",
+        "price": 33.82,
+        "pctFromPrevClose": 14.06
+      },
+      {
+        "datetime": "2025-04-22T16:00:00-04:00",
+        "price": 30.57,
+        "pctFromPrevClose": -9.61
+      },
+      {
+        "datetime": "2025-04-23T16:00:00-04:00",
+        "price": 28.45,
+        "pctFromPrevClose": -6.93
+      },
+      {
+        "datetime": "2025-04-24T16:00:00-04:00",
+        "price": 26.47,
+        "pctFromPrevClose": -6.96
+      },
+      {
+        "datetime": "2025-04-25T16:00:00-04:00",
+        "price": 24.84,
+        "pctFromPrevClose": -6.16
+      },
+      {
+        "datetime": "2025-04-28T16:00:00-04:00",
+        "price": 25.15,
+        "pctFromPrevClose": 1.25
+      },
+      {
+        "datetime": "2025-04-29T16:00:00-04:00",
+        "price": 24.17,
+        "pctFromPrevClose": -3.9
+      },
+      {
+        "datetime": "2025-04-30T16:00:00-04:00",
+        "price": 24.7,
+        "pctFromPrevClose": 2.19
+      },
+      {
+        "datetime": "2025-05-01T16:00:00-04:00",
+        "price": 24.6,
+        "pctFromPrevClose": -0.4
+      },
+      {
+        "datetime": "2025-05-02T16:00:00-04:00",
+        "price": 22.68,
+        "pctFromPrevClose": -7.8
+      },
+      {
+        "datetime": "2025-05-05T16:00:00-04:00",
+        "price": 23.64,
+        "pctFromPrevClose": 4.23
+      },
+      {
+        "datetime": "2025-05-06T16:00:00-04:00",
+        "price": 24.76,
+        "pctFromPrevClose": 4.74
+      },
+      {
+        "datetime": "2025-05-07T16:00:00-04:00",
+        "price": 23.55,
+        "pctFromPrevClose": -4.89
+      },
+      {
+        "datetime": "2025-05-08T16:00:00-04:00",
+        "price": 22.48,
+        "pctFromPrevClose": -4.54
+      },
+      {
+        "datetime": "2025-05-09T16:00:00-04:00",
+        "price": 21.9,
+        "pctFromPrevClose": -2.58
+      },
+      {
+        "datetime": "2025-05-12T16:00:00-04:00",
+        "price": 18.39,
+        "pctFromPrevClose": -16.03
+      },
+      {
+        "datetime": "2025-05-13T16:00:00-04:00",
+        "price": 18.22,
+        "pctFromPrevClose": -0.92
+      },
+      {
+        "datetime": "2025-05-14T16:00:00-04:00",
+        "price": 18.62,
+        "pctFromPrevClose": 2.2
+      },
+      {
+        "datetime": "2025-05-15T16:00:00-04:00",
+        "price": 17.83,
+        "pctFromPrevClose": -4.24
+      },
+      {
+        "datetime": "2025-05-16T16:00:00-04:00",
+        "price": 17.24,
+        "pctFromPrevClose": -3.31
+      },
+      {
+        "datetime": "2025-05-19T16:00:00-04:00",
+        "price": 18.14,
+        "pctFromPrevClose": 5.22
+      },
+      {
+        "datetime": "2025-05-20T16:00:00-04:00",
+        "price": 18.09,
+        "pctFromPrevClose": -0.28
+      },
+      {
+        "datetime": "2025-05-21T16:00:00-04:00",
+        "price": 20.87,
+        "pctFromPrevClose": 15.37
+      },
+      {
+        "datetime": "2025-05-22T16:00:00-04:00",
+        "price": 20.28,
+        "pctFromPrevClose": -2.83
+      },
+      {
+        "datetime": "2025-05-23T16:00:00-04:00",
+        "price": 22.29,
+        "pctFromPrevClose": 9.91
+      },
+      {
+        "datetime": "2025-05-27T16:00:00-04:00",
+        "price": 18.96,
+        "pctFromPrevClose": -14.94
+      },
+      {
+        "datetime": "2025-05-28T16:00:00-04:00",
+        "price": 19.31,
+        "pctFromPrevClose": 1.85
+      },
+      {
+        "datetime": "2025-05-29T16:00:00-04:00",
+        "price": 19.18,
+        "pctFromPrevClose": -0.67
+      },
+      {
+        "datetime": "2025-05-30T16:00:00-04:00",
+        "price": 18.57,
+        "pctFromPrevClose": -3.18
+      },
+      {
+        "datetime": "2025-06-02T16:00:00-04:00",
+        "price": 18.36,
+        "pctFromPrevClose": -1.13
+      },
+      {
+        "datetime": "2025-06-03T16:00:00-04:00",
+        "price": 17.69,
+        "pctFromPrevClose": -3.65
+      },
+      {
+        "datetime": "2025-06-04T16:00:00-04:00",
+        "price": 17.61,
+        "pctFromPrevClose": -0.45
+      },
+      {
+        "datetime": "2025-06-05T16:00:00-04:00",
+        "price": 18.48,
+        "pctFromPrevClose": 4.94
+      },
+      {
+        "datetime": "2025-06-06T16:00:00-04:00",
+        "price": 16.77,
+        "pctFromPrevClose": -9.25
+      },
+      {
+        "datetime": "2025-06-09T16:00:00-04:00",
+        "price": 17.16,
+        "pctFromPrevClose": 2.33
+      },
+      {
+        "datetime": "2025-06-10T16:00:00-04:00",
+        "price": 16.95,
+        "pctFromPrevClose": -1.22
+      },
+      {
+        "datetime": "2025-06-11T16:00:00-04:00",
+        "price": 17.26,
+        "pctFromPrevClose": 1.83
+      },
+      {
+        "datetime": "2025-06-12T16:00:00-04:00",
+        "price": 18.02,
+        "pctFromPrevClose": 4.4
+      },
+      {
+        "datetime": "2025-06-13T16:00:00-04:00",
+        "price": 20.82,
+        "pctFromPrevClose": 15.54
+      },
+      {
+        "datetime": "2025-06-16T16:00:00-04:00",
+        "price": 19.11,
+        "pctFromPrevClose": -8.21
+      },
+      {
+        "datetime": "2025-06-17T16:00:00-04:00",
+        "price": 21.6,
+        "pctFromPrevClose": 13.03
+      },
+      {
+        "datetime": "2025-06-18T16:00:00-04:00",
+        "price": 20.14,
+        "pctFromPrevClose": -6.76
+      },
+      {
+        "datetime": "2025-06-20T16:00:00-04:00",
+        "price": 20.62,
+        "pctFromPrevClose": 2.38
+      },
+      {
+        "datetime": "2025-06-23T16:00:00-04:00",
+        "price": 19.83,
+        "pctFromPrevClose": -3.83
+      },
+      {
+        "datetime": "2025-06-24T16:00:00-04:00",
+        "price": 17.48,
+        "pctFromPrevClose": -11.85
+      },
+      {
+        "datetime": "2025-06-25T16:00:00-04:00",
+        "price": 16.76,
+        "pctFromPrevClose": -4.12
+      },
+      {
+        "datetime": "2025-06-26T16:00:00-04:00",
+        "price": 16.59,
+        "pctFromPrevClose": -1.01
+      },
+      {
+        "datetime": "2025-06-27T16:00:00-04:00",
+        "price": 16.32,
+        "pctFromPrevClose": -1.63
+      }
     ]
   }
 ]

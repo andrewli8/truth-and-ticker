@@ -32,6 +32,11 @@ const ACCENT: Record<AnnType, string> = {
 
 export default function App() {
   const events = useMemo(() => correlateAll(announcements, markets, WINDOW_MINS), [])
+  // The scrolly deep-dive uses featured events only (fall back to all if none flagged).
+  const featured = useMemo(() => {
+    const f = events.filter((e) => e.announcement.featured)
+    return f.length ? f : events
+  }, [events])
   const fallbackSeries = useMemo(
     () => seriesByTicker(markets, PRIMARY) ?? markets[0],
     [],
@@ -45,9 +50,9 @@ export default function App() {
       <StatBand markets={markets} />
       <MasterTimeline series={fallbackSeries} announcements={announcements} accentFor={(t) => ACCENT[t]} />
 
-      <ScrollStage steps={events.length} markers={events.map((e) => e.announcement.summary)}>
+      <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
-          const event = events[step]
+          const event = featured[step]
           const accent = ACCENT[event.announcement.type]
           const spotlight = spotlightTicker(event.announcement.type)
           const series = seriesByTicker(markets, spotlight) ?? fallbackSeries
@@ -64,7 +69,7 @@ export default function App() {
               </div>
               <div className="stageCard">
                 <div className="stageStep">
-                  {String(step + 1).padStart(2, '0')} / {String(events.length).padStart(2, '0')}
+                  {String(step + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
                 </div>
                 <AnnouncementCard event={event} primaryTicker={spotlight} />
               </div>

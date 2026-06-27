@@ -17,6 +17,8 @@ export interface Announcement {
   type: AnnType
   citationUrl: string
   citationLabel: string
+  /** When true, this event is featured in the scrollytelling deep-dive. */
+  featured?: boolean
 }
 
 export type Category = 'index' | 'oil' | 'defense' | 'energy' | 'safe-haven' | 'volatility'
