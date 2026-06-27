@@ -48,3 +48,9 @@ and tightening layout density.
 
 ## Next
 
+1. d3-array is an unused dependency.
+   Evidence: package.json:20 lists "d3-array" (and @types/d3-array) but no file under
+   src/ imports it (only d3-scale and d3-shape are used, both in src/lib/scales.ts)
+   Acceptance: remove d3-array and @types/d3-array from package.json, refresh the
+   lockfile; verify green.
+
