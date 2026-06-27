@@ -39,10 +39,10 @@ export function Outro({ events, primaryTicker }: Props) {
         </tbody>
       </table>
       <p className={styles.method}>
-        Methodology: each reaction compares the price at (or just after) the announcement
-        timestamp with the price a fixed window later, using publicly reported figures.
-        Every event links to its source. This piece shows timing correlation; it does not
-        allege trading by any named individual.
+        Methodology: each reaction compares the market&apos;s prior close (the last close
+        before the announcement) with its next close (the first close on or after it),
+        using publicly reported figures. Every event links to its source. This piece shows
+        timing correlation; it does not allege trading by any named individual.
       </p>
       <ShareButton />
     </section>
