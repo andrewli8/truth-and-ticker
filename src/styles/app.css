@@ -1,7 +1,8 @@
 .app {
   position: relative;
   width: 100%;
-  overflow-x: hidden;
+  /* `clip` (not `hidden`) prevents horizontal scroll WITHOUT breaking position:sticky */
+  overflow-x: clip;
 }
 
 /* Film-grain / scanline texture overlay */
@@ -27,8 +28,8 @@
   margin: 0 auto;
   padding: 0 3rem;
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.4fr 1.05fr;
+  gap: 2.5rem;
   align-items: center;
 }
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { buildLinePath, domainFor } from '../scales'
+import { buildLinePath, domainFor, pointPositions } from '../scales'
 import type { Point } from '../types'
 
 const pts: Point[] = [
@@ -34,5 +34,21 @@ describe('buildLinePath', () => {
     const before = JSON.stringify(pts)
     buildLinePath(pts, 800, 400, 0.5)
     expect(JSON.stringify(pts)).toBe(before)
+  })
+})
+
+describe('pointPositions', () => {
+  it('returns one position per point', () => {
+    expect(pointPositions(pts, 800, 400)).toHaveLength(pts.length)
+  })
+  it('x increases left to right', () => {
+    const xs = pointPositions(pts, 800, 400).map((p) => p.x)
+    expect(xs).toEqual([...xs].sort((a, b) => a - b))
+  })
+  it('maps the highest price to the smallest y (top)', () => {
+    const pos = pointPositions(pts, 800, 400)
+    const yOfMax = pos[1].y // price 110 is the max
+    const others = pos.filter((_, i) => i !== 1).map((p) => p.y)
+    others.forEach((y) => expect(yOfMax).toBeLessThanOrEqual(y))
   })
 })

@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { buildLinePath, domainFor } from '../lib/scales'
+import { buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { formatPrice } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
 const W = 1000
-const H = 520
+const H = 460
 const PAD = 24
 const GRID_LINES = 4
 
@@ -19,14 +19,20 @@ interface Props {
 
 /** Pure SVG line chart. All animation comes from the `progress` prop — no internal state. */
 export function MarketChart({ series, progress, accent }: Props) {
-  const path = useMemo(
-    () => buildLinePath(series.points, W, H, progress),
-    [series.points, progress],
+  const clamped = Math.max(0, Math.min(1, progress))
+
+  const fullPath = useMemo(() => buildLinePath(series.points, W, H, 1), [series.points])
+  const revealedPath = useMemo(
+    () => buildLinePath(series.points, W, H, clamped),
+    [series.points, clamped],
   )
+  const positions = useMemo(() => pointPositions(series.points, W, H), [series.points])
   const { min, max } = useMemo(() => domainFor(series.points), [series.points])
 
-  const visibleCount = Math.max(1, Math.ceil(Math.max(0, Math.min(1, progress)) * series.points.length))
-  const current = series.points[Math.min(visibleCount, series.points.length) - 1]
+  const n = series.points.length
+  const idx = Math.min(n - 1, Math.max(0, Math.ceil(clamped * n) - 1))
+  const current = series.points[idx]
+  const head = positions[idx]
 
   const gridY = Array.from({ length: GRID_LINES + 1 }, (_, i) => {
     const t = i / GRID_LINES
@@ -36,7 +42,7 @@ export function MarketChart({ series, progress, accent }: Props) {
   return (
     <figure className={styles.wrap}>
       <figcaption className={styles.head}>
-        <span className={styles.ticker}>{series.ticker}</span>
+        <span className={styles.ticker} style={{ color: accent }}>{series.ticker}</span>
         <span className={styles.name}>{series.name}</span>
       </figcaption>
       <svg
@@ -49,14 +55,26 @@ export function MarketChart({ series, progress, accent }: Props) {
         {gridY.map((g, i) => (
           <g key={i}>
             <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
-            <text x={PAD} y={g.y - 4} className={styles.gridLabel}>
+            <text x={PAD} y={g.y - 6} className={styles.gridLabel}>
               {formatPrice(g.value)}
             </text>
           </g>
         ))}
-        <path data-testid="line" d={path} fill="none" stroke={accent} className={styles.line} />
+
+        {/* Full trajectory, dimmed — context for the whole window */}
+        <path d={fullPath} fill="none" stroke={accent} className={styles.ghost} />
+        {/* Revealed portion, bright */}
+        <path data-testid="line" d={revealedPath} fill="none" stroke={accent} className={styles.line} />
+
+        {head && (
+          <>
+            <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} stroke={accent} className={styles.playhead} />
+            <circle cx={head.x} cy={head.y} r={6} fill={accent} className={styles.dot} />
+          </>
+        )}
+
         {current && (
-          <text x={W - PAD} y={PAD + 16} className={styles.current} fill={accent} textAnchor="end">
+          <text x={W - PAD} y={PAD + 18} className={styles.current} fill={accent} textAnchor="end">
             {formatPrice(current.price)}
           </text>
         )}

@@ -21,6 +21,24 @@ export function domainFor(points: Point[]): Domain {
   return { min, max }
 }
 
+export interface PointPos {
+  x: number
+  y: number
+}
+
+/** Screen-space coordinates for every point, with consistent padding. Pure. */
+export function pointPositions(points: Point[], width: number, height: number): PointPos[] {
+  if (points.length === 0) return []
+  const { min, max } = domainFor(points)
+  const x = scaleLinear()
+    .domain([0, Math.max(1, points.length - 1)])
+    .range([PAD, width - PAD])
+  const y = scaleLinear()
+    .domain([min, max])
+    .range([height - PAD, PAD])
+  return points.map((p, i) => ({ x: x(i), y: y(p.price) }))
+}
+
 /**
  * SVG path `d` for the visible fraction (`progress` 0–1) of the series.
  * X is time-ordered index across the full width; Y is price within [min,max].
@@ -34,22 +52,15 @@ export function buildLinePath(
 ): string {
   if (points.length === 0) return ''
 
-  const { min, max } = domainFor(points)
-  const x = scaleLinear()
-    .domain([0, Math.max(1, points.length - 1)])
-    .range([PAD, width - PAD])
-  const y = scaleLinear()
-    .domain([min, max])
-    .range([height - PAD, PAD])
-
   const clamped = Math.max(0, Math.min(1, progress))
   const visibleCount = Math.max(1, Math.ceil(clamped * points.length))
   const visible = points.slice(0, visibleCount)
+  const positions = pointPositions(points, width, height).slice(0, visibleCount)
 
-  const generator = line<Point>()
-    .x((_d, i) => x(i))
-    .y((d) => y(d.price))
+  const generator = line<PointPos>()
+    .x((d) => d.x)
+    .y((d) => d.y)
     .curve(curveMonotoneX)
 
-  return generator(visible) ?? ''
+  return generator(visible.map((_p, i) => positions[i])) ?? ''
 }
