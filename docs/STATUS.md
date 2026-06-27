@@ -41,6 +41,24 @@ and tightening layout density.
 
 ## Next
 
+1. The master-timeline overview chart has a generic accessible name.
+   Evidence: src/components/MasterTimeline.tsx (svg aria-label `${series.name} over the
+   term`) carries no data, unlike MarketChart which now uses chartAriaLabel
+   Acceptance: the overview svg announces the series, the covered period, and the term's
+   overall first→last move via a pure helper that is unit-tested; verify green.
+
+2. useTheme hook is untested.
+   Evidence: src/lib/useTheme.ts (localStorage persistence + data-theme attribute) has no
+   src/lib/__tests__/useTheme.test.ts, unlike the sibling useMediaQuery now covered
+   Acceptance: a unit test covers the default theme, toggling sets the data-theme
+   attribute and persists, and a persisted value is read on init; verify green.
+
+3. AnnouncementCard carries redundant per-type tag classes.
+   Evidence: src/components/AnnouncementCard.module.css .tag_strike…tag_policy set color,
+   but .tag now derives colour from the per-event --accent and the component still
+   concatenates styles[`tag_${type}`]
+   Acceptance: remove the dead tag_* rules and the className concat; the tag colour still
+   tracks the event accent; verify green.
 1. The hero is flat centered text with no visual anchor.
    Evidence: src/components/Hero.tsx (kicker/title/thesis/scrollHint only; the section is
    plain text on a flat background — the one screen guaranteed to be seen)
