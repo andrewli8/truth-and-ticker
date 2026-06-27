@@ -8,8 +8,13 @@ export function spotlightTicker(type: AnnType): string {
       return 'CL' // oil — the thing being jawboned
     case 'strike':
       return 'LMT' // defense — the war trade
+    case 'tariff':
+    case 'trade-deal':
+      return 'NDX' // tariffs hit the tech-heavy Nasdaq hardest
     case 'threat':
     case 'ceasefire':
+    case 'fed':
+    case 'policy':
     default:
       return 'SPX' // the broad market
   }

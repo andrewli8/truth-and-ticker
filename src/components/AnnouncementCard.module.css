@@ -27,6 +27,10 @@
 .tag_strike { color: var(--risk); border-color: var(--risk); }
 .tag_ceasefire { color: var(--relief); border-color: var(--relief); }
 .tag_market_jawbone { color: var(--warn); border-color: var(--warn); }
+.tag_tariff { color: var(--risk); border-color: var(--risk); }
+.tag_trade_deal { color: var(--relief); border-color: var(--relief); }
+.tag_fed { color: var(--warn); border-color: var(--warn); }
+.tag_policy { color: var(--warn); border-color: var(--warn); }
 
 .time {
   font-size: 0.78rem;

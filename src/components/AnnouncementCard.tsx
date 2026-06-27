@@ -7,6 +7,10 @@ const TYPE_LABEL: Record<string, string> = {
   threat: 'THREAT / SIGNAL',
   ceasefire: 'CEASEFIRE',
   'market-jawbone': 'MARKET JAWBONE',
+  tariff: 'TARIFF',
+  'trade-deal': 'TRADE DEAL',
+  fed: 'FED PRESSURE',
+  policy: 'POLICY',
 }
 
 /** Curated secondary tickers surfaced on the card: oil, defense, fear gauge. */
