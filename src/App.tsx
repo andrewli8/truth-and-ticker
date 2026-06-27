@@ -8,6 +8,7 @@ import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
+import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker } from './lib/stats'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
@@ -51,7 +52,7 @@ export default function App() {
                   series={series}
                   progress={progress}
                   accent={accent}
-                  activeAnnId={event.announcement.id}
+                  momentLabel={formatDay(event.announcement.datetime)}
                 />
                 <TickerRail markets={markets} progress={progress} />
               </div>

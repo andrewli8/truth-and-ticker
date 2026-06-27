@@ -24,6 +24,14 @@
   letter-spacing: 0.12em;
 }
 
+.moment {
+  margin-left: auto;
+  color: var(--chart-accent);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
 .svg {
   width: 100%;
   height: auto;

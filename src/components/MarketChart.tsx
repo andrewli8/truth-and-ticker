@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties } from 'react'
 import { buildLinePath, domainFor, pointPositions } from '../lib/scales'
-import { formatPrice, formatDay } from '../lib/format'
+import { formatPrice } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
@@ -14,11 +14,12 @@ interface Props {
   /** 0–1 reveal fraction driven by scroll. */
   progress: number
   accent: string
-  activeAnnId?: string
+  /** Short label for the active announcement's date, shown in the header. */
+  momentLabel?: string
 }
 
 /** Pure SVG line chart. All animation comes from the `progress` prop — no internal state. */
-export function MarketChart({ series, progress, accent }: Props) {
+export function MarketChart({ series, progress, accent, momentLabel }: Props) {
   const clamped = Math.max(0, Math.min(1, progress))
 
   const fullPath = useMemo(() => buildLinePath(series.points, W, H, 1), [series.points])
@@ -48,6 +49,7 @@ export function MarketChart({ series, progress, accent }: Props) {
       <figcaption className={styles.head}>
         <span className={styles.ticker}>{series.ticker}</span>
         <span className={styles.name}>{series.name}</span>
+        {momentLabel && <span className={styles.moment}>{momentLabel}</span>}
       </figcaption>
       <svg
         className={styles.svg}
@@ -74,16 +76,6 @@ export function MarketChart({ series, progress, accent }: Props) {
           <>
             <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} className={styles.playhead} />
             <circle cx={head.x} cy={head.y} r={6} className={styles.dot} />
-            {current && (
-              <text
-                x={Math.min(W - 40, Math.max(40, head.x))}
-                y={H - 4}
-                className={styles.dayLabel}
-                textAnchor="middle"
-              >
-                {formatDay(current.datetime)}
-              </text>
-            )}
           </>
         )}
 
