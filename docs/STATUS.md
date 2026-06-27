@@ -29,18 +29,14 @@ and tightening layout density.
 - Hero copy rescoped to the whole second term.
 - Page metadata rescoped to the whole second term (title/OG/Twitter/JSON-LD).
 - Single shared typeLabel for event types (no raw enums/dupes).
+- Data-rich accessible name for the deep-dive chart (chartAriaLabel).
 
 ## Next
 
 
 
-1. The deep-dive chart's accessible name carries no data.
-   Evidence: src/components/MarketChart.tsx (aria-label={`${series.name} price line`})
-   Acceptance: the chart's accessible name states the instrument and the window's move
-   (e.g. "S&P 500, Jan 20 window, +0.9%") via a pure helper that is unit-tested; verify
-   green.
 
-2. Outro methodology text predates the close-to-close method.
+1. Outro methodology text predates the close-to-close method.
    Evidence: src/components/Outro.tsx:41 ("price … a fixed window later") vs
    src/lib/correlate.ts reactionFor (prior close → next close)
    Acceptance: the methodology paragraph describes the prior-close→next-close basis;
