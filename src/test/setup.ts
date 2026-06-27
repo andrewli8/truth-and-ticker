@@ -25,3 +25,8 @@ if (typeof globalThis.ResizeObserver === 'undefined') {
     disconnect() {}
   } as unknown as typeof ResizeObserver
 }
+
+// jsdom doesn't implement scrollIntoView (used by the timeline/ledger jumps).
+if (typeof Element !== 'undefined' && typeof Element.prototype.scrollIntoView !== 'function') {
+  Element.prototype.scrollIntoView = () => {}
+}
