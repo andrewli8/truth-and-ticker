@@ -1,4 +1,5 @@
 import { formatPct, formatTime } from '../lib/format'
+import { typeLabel } from '../lib/labels'
 import type { CorrelatedEvent } from '../lib/types'
 import { ShareButton } from './ShareButton'
 import styles from './Outro.module.css'
@@ -30,7 +31,7 @@ export function Outro({ events, primaryTicker }: Props) {
               <tr key={e.announcement.id} data-testid="summary-row">
                 <td className={styles.mono}>{formatTime(e.announcement.datetime)}</td>
                 <td>{e.announcement.summary}</td>
-                <td className={styles.type}>{e.announcement.type}</td>
+                <td className={styles.type}>{typeLabel(e.announcement.type)}</td>
                 <td className={`${styles.num} ${styles.mono} ${styles[dir]}`}>{formatPct(delta)}</td>
               </tr>
             )

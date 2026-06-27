@@ -15,6 +15,7 @@ import {
 } from '../lib/scales'
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
+import { typeLabel } from '../lib/labels'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -270,7 +271,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
       {selected && (
         <article className={styles.detail} style={{ '--sel': accentFor(selected.type) } as CSSProperties}>
           <div className={styles.detailMeta}>
-            <span className={styles.detailTag}>{selected.type.replace('-', ' ')}</span>
+            <span className={styles.detailTag}>{typeLabel(selected.type)}</span>
             <time>{formatTime(selected.datetime)}</time>
           </div>
           {selected.quote ? (

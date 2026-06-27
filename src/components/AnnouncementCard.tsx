@@ -1,18 +1,8 @@
 import { type CSSProperties } from 'react'
 import { formatPct, formatTime } from '../lib/format'
+import { typeLabel } from '../lib/labels'
 import type { CorrelatedEvent, AnnType } from '../lib/types'
 import styles from './AnnouncementCard.module.css'
-
-const TYPE_LABEL: Record<string, string> = {
-  strike: 'MILITARY STRIKE',
-  threat: 'THREAT / SIGNAL',
-  ceasefire: 'CEASEFIRE',
-  'market-jawbone': 'MARKET JAWBONE',
-  tariff: 'TARIFF',
-  'trade-deal': 'TRADE DEAL',
-  fed: 'FED PRESSURE',
-  policy: 'POLICY',
-}
 
 // Event-type accent (CSS vars so it recolors with the theme). The spine, tag, and
 // quote mark all hang off this single through-line.
@@ -50,7 +40,7 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
     <article className={styles.card} style={accentStyle}>
       <header className={styles.meta}>
         <span className={`${styles.tag} ${styles[`tag_${announcement.type.replace('-', '_')}`] ?? ''}`}>
-          {TYPE_LABEL[announcement.type] ?? announcement.type}
+          {typeLabel(announcement.type)}
         </span>
         <time className={styles.time}>{formatTime(announcement.datetime)}</time>
       </header>
