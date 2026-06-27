@@ -1,7 +1,17 @@
 import type { Announcement, Series, Reaction, CorrelatedEvent, Point } from './types'
 
+/** Last point strictly before the given epoch ms, or null. Assumes points sorted ascending. */
+function lastPointBefore(points: Point[], targetMs: number): Point | null {
+  let found: Point | null = null
+  for (const p of points) {
+    if (Date.parse(p.datetime) < targetMs) found = p
+    else break
+  }
+  return found
+}
+
 /** First point at or after the given epoch ms, or null. Assumes points sorted ascending. */
-function pointAtOrAfter(points: Point[], targetMs: number): Point | null {
+function firstPointAtOrAfter(points: Point[], targetMs: number): Point | null {
   for (const p of points) {
     if (Date.parse(p.datetime) >= targetMs) return p
   }
@@ -9,13 +19,16 @@ function pointAtOrAfter(points: Point[], targetMs: number): Point | null {
 }
 
 /**
- * Market reaction to an announcement: price at announcement time (or just after)
- * vs. price `windowMins` later. Missing data yields null deltas, never NaN.
+ * Market reaction to an announcement, measured close-to-close: the price recorded
+ * just BEFORE the announcement (the prior close) vs. the first price recorded ON OR
+ * AFTER it (the reaction close — the next session for after-hours/weekend news).
+ * Missing data on either side yields a null delta, never NaN. `windowMins` is retained
+ * as metadata describing the comparison basis.
  */
 export function reactionFor(a: Announcement, s: Series, windowMins: number): Reaction {
-  const startMs = Date.parse(a.datetime)
-  const from = pointAtOrAfter(s.points, startMs)
-  const to = pointAtOrAfter(s.points, startMs + windowMins * 60_000)
+  const annMs = Date.parse(a.datetime)
+  const from = lastPointBefore(s.points, annMs)
+  const to = firstPointAtOrAfter(s.points, annMs)
 
   const fromPrice = from ? from.price : null
   const toPrice = to ? to.price : null
