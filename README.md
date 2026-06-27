@@ -1,9 +1,11 @@
 # TRUTH & TICKER
 
 A single-page, scroll-driven visualization correlating Donald Trump's public
-announcements during the **June 2025 Israel–Iran "12-Day War"** with the U.S.
-markets that moved on them — the S&P 500, the Dow, oil, defense names, gold, and
-the VIX.
+announcements across his **second term (Jan–Jun 2025)** — tariffs, threats,
+strikes, ceasefires, Fed pressure — with the U.S. markets that moved on them: the
+S&P 500, the Nasdaq, the Dow, oil, defense names, gold, and the VIX. A
+full-presidency master timeline anchors the piece; featured events get a
+windowed deep-dive.
 
 The framing is deliberate: **timing correlation, not accusation.** Each verified
 announcement timestamp is laid against the verified market reaction that
@@ -13,7 +15,10 @@ reader judges it.
 ## Stack
 
 - **Vite + React + TypeScript**
-- **GSAP ScrollTrigger + Lenis** — smooth-scroll, scroll-progress, pinned stage
+- **Native rAF scroll** — the pinned stage derives scroll progress from native
+  scroll position (no smooth-scroll library), so scrolling stays responsive
+- **GSAP (`useGSAP`)** — entrance + scroll-into-view reveals (hero, timeline
+  draw-on), all reduced-motion safe
 - **D3 (d3-scale / d3-shape)** — math only; the chart is hand-rolled SVG for full
   control of the line-draw reveal, playhead, and dot
 - **Vitest + Testing Library** — unit + component + dataset-integrity tests
