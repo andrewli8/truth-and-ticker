@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 import { buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { formatPrice } from '../lib/format'
 import type { Series } from '../lib/types'
@@ -39,10 +39,14 @@ export function MarketChart({ series, progress, accent }: Props) {
     return { y: PAD + t * (H - 2 * PAD), value: max - t * (max - min) }
   })
 
+  // Expose the accent as a custom property so nested var() (e.g. var(--risk))
+  // resolves and recolors with the theme.
+  const accentStyle = { '--chart-accent': accent, color: accent } as CSSProperties
+
   return (
-    <figure className={styles.wrap}>
+    <figure className={styles.wrap} style={accentStyle}>
       <figcaption className={styles.head}>
-        <span className={styles.ticker} style={{ color: accent }}>{series.ticker}</span>
+        <span className={styles.ticker}>{series.ticker}</span>
         <span className={styles.name}>{series.name}</span>
       </figcaption>
       <svg
@@ -62,19 +66,19 @@ export function MarketChart({ series, progress, accent }: Props) {
         ))}
 
         {/* Full trajectory, dimmed — context for the whole window */}
-        <path d={fullPath} fill="none" stroke={accent} className={styles.ghost} />
+        <path d={fullPath} fill="none" className={styles.ghost} />
         {/* Revealed portion, bright */}
-        <path data-testid="line" d={revealedPath} fill="none" stroke={accent} className={styles.line} />
+        <path data-testid="line" d={revealedPath} fill="none" className={styles.line} />
 
         {head && (
           <>
-            <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} stroke={accent} className={styles.playhead} />
-            <circle cx={head.x} cy={head.y} r={6} fill={accent} className={styles.dot} />
+            <line x1={head.x} x2={head.x} y1={PAD} y2={H - PAD} className={styles.playhead} />
+            <circle cx={head.x} cy={head.y} r={6} className={styles.dot} />
           </>
         )}
 
         {current && (
-          <text x={W - PAD} y={PAD + 18} className={styles.current} fill={accent} textAnchor="end">
+          <text x={W - PAD} y={PAD + 18} className={styles.current} textAnchor="end">
             {formatPrice(current.price)}
           </text>
         )}

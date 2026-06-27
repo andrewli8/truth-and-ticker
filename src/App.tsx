@@ -5,6 +5,7 @@ import { ScrollStage } from './components/ScrollStage'
 import { MarketChart } from './components/MarketChart'
 import { AnnouncementCard } from './components/AnnouncementCard'
 import { TickerRail } from './components/TickerRail'
+import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
@@ -13,11 +14,12 @@ import './styles/app.css'
 const PRIMARY = 'SPX'
 const WINDOW_MINS = 120
 
+// Theme-aware accents: CSS variables so colors recolor in light/dark.
 const ACCENT: Record<AnnType, string> = {
-  strike: '#ff4d3d',
-  threat: '#ffb938',
-  'market-jawbone': '#ffb938',
-  ceasefire: '#3ddc84',
+  strike: 'var(--risk)',
+  threat: 'var(--warn)',
+  'market-jawbone': 'var(--warn)',
+  ceasefire: 'var(--relief)',
 }
 
 export default function App() {
@@ -30,6 +32,7 @@ export default function App() {
   return (
     <main className="app">
       <div className="grain" aria-hidden="true" />
+      <ThemeToggle />
       <Hero />
 
       <ScrollStage steps={events.length}>

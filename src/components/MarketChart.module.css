@@ -14,6 +14,7 @@
 .ticker {
   font-weight: 700;
   letter-spacing: 0.08em;
+  color: var(--chart-accent);
 }
 
 .name {
@@ -47,21 +48,25 @@
   font-family: 'JetBrains Mono', monospace;
   font-size: 22px;
   font-weight: 700;
+  fill: var(--chart-accent);
 }
 
 .ghost {
+  stroke: var(--chart-accent);
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
   opacity: 0.22;
 }
 
 .line {
+  stroke: var(--chart-accent);
   stroke-width: 3;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 0 8px currentColor);
+  filter: drop-shadow(0 0 calc(8px * var(--glow, 1)) currentColor);
 }
 
 .playhead {
+  stroke: var(--chart-accent);
   stroke-width: 1;
   stroke-dasharray: 3 4;
   vector-effect: non-scaling-stroke;
@@ -69,5 +74,6 @@
 }
 
 .dot {
-  filter: drop-shadow(0 0 6px currentColor);
+  fill: var(--chart-accent);
+  filter: drop-shadow(0 0 calc(6px * var(--glow, 1)) currentColor);
 }

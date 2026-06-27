@@ -1,7 +1,7 @@
 .card {
   max-width: 30rem;
   padding: 1.5rem 1.6rem;
-  background: rgba(18, 18, 20, 0.72);
+  background: var(--surface);
   border: 1px solid var(--steel);
   border-radius: 14px;
   backdrop-filter: blur(8px);
@@ -26,7 +26,7 @@
 
 .tag_strike { color: var(--risk); border-color: var(--risk); }
 .tag_ceasefire { color: var(--relief); border-color: var(--relief); }
-.tag_market_jawbone { color: #ffb938; border-color: #ffb938; }
+.tag_market_jawbone { color: var(--warn); border-color: var(--warn); }
 
 .time {
   font-size: 0.78rem;
@@ -64,9 +64,9 @@
   border-radius: 6px;
 }
 
-.up { color: var(--relief); background: rgba(61, 220, 132, 0.12); }
-.down { color: var(--risk); background: rgba(255, 77, 61, 0.12); }
-.flat { color: var(--muted); background: rgba(138, 138, 147, 0.12); }
+.up { color: var(--relief); background: color-mix(in srgb, var(--relief) 14%, transparent); }
+.down { color: var(--risk); background: color-mix(in srgb, var(--risk) 14%, transparent); }
+.flat { color: var(--muted); background: color-mix(in srgb, var(--muted) 14%, transparent); }
 
 .others {
   display: flex;

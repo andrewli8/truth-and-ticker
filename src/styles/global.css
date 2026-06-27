@@ -1,15 +1,43 @@
+/* Light is the default theme. Dark is opt-in via [data-theme="dark"]. */
 :root {
+  --bg: #f4f1ea;
+  --surface: rgba(255, 255, 255, 0.66);
+  --text: #15140f;
+  --muted: #6a6a72;
+  --steel: #d6d2c8;
+  --risk: #d62f1c;
+  --relief: #138a4a;
+  --warn: #b5790a;
+  --grain-opacity: 0.04;
+  --grain-color: rgba(0, 0, 0, 0.5);
+  --glow: 0;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
   --bg: #0a0a0b;
+  --surface: rgba(18, 18, 20, 0.72);
   --text: #ece8e1;
+  --muted: #8a8a93;
+  --steel: #2a2a2e;
   --risk: #ff4d3d;
   --relief: #3ddc84;
-  --steel: #2a2a2e;
-  --muted: #8a8a93;
+  --warn: #ffb938;
+  --grain-opacity: 0.05;
+  --grain-color: rgba(255, 255, 255, 0.5);
+  --glow: 1;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { background: var(--bg); color: var(--text); overflow-x: clip; max-width: 100%; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: clip;
+  max-width: 100%;
+  transition: background 0.4s ease, color 0.4s ease;
+}
 
 body {
   font-family: 'Space Grotesk', system-ui, sans-serif;
