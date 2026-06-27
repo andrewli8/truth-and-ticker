@@ -10,6 +10,7 @@ import {
   valueAt,
   timeLinePath,
   msAtX,
+  windowAround,
 } from '../scales'
 import type { Point } from '../types'
 
@@ -126,5 +127,33 @@ describe('pointPositions', () => {
     const yOfMax = pos[1].y // price 110 is the max
     const others = pos.filter((_, i) => i !== 1).map((p) => p.y)
     others.forEach((y) => expect(yOfMax).toBeLessThanOrEqual(y))
+  })
+})
+
+describe('windowAround', () => {
+  const daily: Point[] = Array.from({ length: 11 }, (_, i) => ({
+    datetime: `2025-03-${String(i + 1).padStart(2, '0')}T16:00:00-05:00`,
+    price: 100 + i,
+    pctFromPrevClose: 0,
+  }))
+
+  it('keeps points within ±days of the event, centred', () => {
+    const win = windowAround(daily, '2025-03-06T16:00:00-05:00', 2)
+    // Mar 4,5,6,7,8 are within 2 days of Mar 6 (boundaries inclusive).
+    expect(win.map((p) => p.datetime.slice(8, 10))).toEqual(['04', '05', '06', '07', '08'])
+  })
+  it('clamps at the start of the data', () => {
+    const win = windowAround(daily, '2025-03-01T16:00:00-05:00', 2)
+    expect(win.map((p) => p.datetime.slice(8, 10))).toEqual(['01', '02', '03'])
+  })
+  it('preserves order and never mutates the input', () => {
+    const before = JSON.stringify(daily)
+    const win = windowAround(daily, '2025-03-06T16:00:00-05:00', 3)
+    expect(JSON.stringify(daily)).toBe(before)
+    const ts = win.map((p) => Date.parse(p.datetime))
+    expect(ts).toEqual([...ts].sort((a, b) => a - b))
+  })
+  it('returns [] for empty input', () => {
+    expect(windowAround([], '2025-03-06T12:00:00-05:00', 5)).toEqual([])
   })
 })

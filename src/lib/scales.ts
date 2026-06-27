@@ -31,6 +31,23 @@ export function priceY(price: number, height: number, domain: Domain): number {
   return scaleLinear().domain([domain.min, domain.max]).range([height - PAD, PAD])(price)
 }
 
+/**
+ * Slice a series to the points within `days` either side of `datetimeISO` — the
+ * market action around one event. Pure; preserves order; clamps naturally at the
+ * data's edges (fewer points near the start/end). Returns [] for empty input and
+ * the whole series (copy) for an unparseable date.
+ */
+export function windowAround(points: Point[], datetimeISO: string, days: number): Point[] {
+  if (points.length === 0) return []
+  const center = Date.parse(datetimeISO)
+  if (Number.isNaN(center)) return points.slice()
+  const half = Math.max(0, days) * 24 * 60 * 60 * 1000
+  return points.filter((p) => {
+    const t = Date.parse(p.datetime)
+    return t >= center - half && t <= center + half
+  })
+}
+
 /** Price of the last point at or before `ms` (step-hold), or null if none. */
 export function valueAt(points: Point[], ms: number): number | null {
   let v: number | null = null
