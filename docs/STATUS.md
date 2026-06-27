@@ -28,24 +28,19 @@ and tightening layout density.
 - Scrub snaps to the nearest real close (nearestPointIndex helper).
 - Hero copy rescoped to the whole second term.
 - Page metadata rescoped to the whole second term (title/OG/Twitter/JSON-LD).
+- Single shared typeLabel for event types (no raw enums/dupes).
 
 ## Next
 
 
-1. One shared event-type label, used everywhere (no raw enums, no duplication).
-   Evidence: src/components/AnnouncementCard.tsx defines TYPE_LABEL; src/components/
-   Outro.tsx:33 prints the raw enum (e.g. "market-jawbone"); MasterTimeline uses
-   type.replace('-',' ')
-   Acceptance: a pure typeLabel(type) helper is the single source, used by card, Outro,
-   and master-timeline detail; unit-tested; verify green.
 
-2. The deep-dive chart's accessible name carries no data.
+1. The deep-dive chart's accessible name carries no data.
    Evidence: src/components/MarketChart.tsx (aria-label={`${series.name} price line`})
    Acceptance: the chart's accessible name states the instrument and the window's move
    (e.g. "S&P 500, Jan 20 window, +0.9%") via a pure helper that is unit-tested; verify
    green.
 
-3. Outro methodology text predates the close-to-close method.
+2. Outro methodology text predates the close-to-close method.
    Evidence: src/components/Outro.tsx:41 ("price … a fixed window later") vs
    src/lib/correlate.ts reactionFor (prior close → next close)
    Acceptance: the methodology paragraph describes the prior-close→next-close basis;
