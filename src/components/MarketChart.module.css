@@ -46,6 +46,17 @@
   display: block;
 }
 
+.axisNote {
+  margin-top: 0.4rem;
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
 /* Single-column + pinned: chart and card must share one viewport, so the chart
    takes a smaller slice to avoid overflowing the 100vh stage. */
 @media (min-width: 769px) and (max-width: 1100px) {

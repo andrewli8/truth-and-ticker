@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
 import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
-import { formatPrice } from '../lib/format'
+import { formatPrice, axisFloorLabel } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
@@ -124,6 +124,7 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
           )}
         </svg>
       </div>
+      <figcaption className={styles.axisNote}>{axisFloorLabel(min)}</figcaption>
     </figure>
   )
 }

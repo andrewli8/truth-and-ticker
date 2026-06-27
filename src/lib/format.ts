@@ -22,6 +22,15 @@ export function formatPrice(n: number | null | undefined): string {
   }).format(n)
 }
 
+/**
+ * A short cue that a zoomed chart's y-axis floor is the data low, not zero — so
+ * the move isn't read as bigger than it is. Empty string when there's no floor.
+ */
+export function axisFloorLabel(min: number | null | undefined): string {
+  if (isBad(min)) return ''
+  return `Axis floor ${formatPrice(min)} · not zero-based`
+}
+
 const TIME_FMT = new Intl.DateTimeFormat('en-US', {
   timeZone: 'America/New_York',
   month: 'short',
