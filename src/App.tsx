@@ -12,6 +12,7 @@ import { correlateAll } from './lib/correlate'
 import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround } from './lib/scales'
+import { localProgress } from './lib/scroll'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
 import './styles/app.css'
@@ -63,12 +64,14 @@ export default function App() {
           // series if the window is too sparse to draw a line.
           const win = windowAround(fullSeries.points, event.announcement.datetime, WINDOW_DAYS)
           const series = win.length >= 2 ? { ...fullSeries, points: win } : fullSeries
+          // Reveal each event's chart over its OWN panel, not the whole scrolly.
+          const local = localProgress(progress, featured.length, step)
           return (
             <div className="stage">
               <div className="stageChart">
                 <MarketChart
                   series={series}
-                  progress={progress}
+                  progress={local}
                   accent={accent}
                   momentLabel={formatDay(event.announcement.datetime)}
                 />

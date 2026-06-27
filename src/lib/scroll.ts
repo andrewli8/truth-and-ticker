@@ -18,3 +18,14 @@ export function stepScrollTarget(
   const p = Math.min(1, Math.max(0, (i + 0.5) / steps))
   return offsetTop + p * range
 }
+
+/**
+ * Convert whole-scrolly progress (0–1 across all steps) into progress WITHIN the
+ * active step (0→1), so each panel's content animates over its own screen rather
+ * than over the whole stage. The mobile encoding global = (i+1)/steps maps to 1.
+ * Pure.
+ */
+export function localProgress(global: number, steps: number, step: number): number {
+  if (steps <= 0) return 0
+  return Math.min(1, Math.max(0, global * steps - step))
+}
