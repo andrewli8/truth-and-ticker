@@ -350,7 +350,12 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
       </svg>
 
       {selected && (
-        <article className={styles.detail} style={{ '--sel': accentFor(selected.type) } as CSSProperties}>
+        <article
+          className={styles.detail}
+          style={{ '--sel': accentFor(selected.type) } as CSSProperties}
+          aria-live="polite"
+          data-testid="detail"
+        >
           <div className={styles.detailMeta}>
             <span className={styles.detailTag}>{typeLabel(selected.type)}</span>
             <time>{formatTime(selected.datetime)}</time>

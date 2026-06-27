@@ -141,6 +141,13 @@ describe('MasterTimeline', () => {
     expect(getAllByTestId('marker')[0].getAttribute('aria-pressed')).toBe('true')
   })
 
+  it('announces selection changes via an aria-live detail region', () => {
+    const { getByTestId } = render(
+      <MasterTimeline series={spx} announcements={twoEvents} accentFor={() => 'var(--risk)'} />,
+    )
+    expect(getByTestId('detail').getAttribute('aria-live')).toBe('polite')
+  })
+
   it('copies a deep-link to the selected event', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
     Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
