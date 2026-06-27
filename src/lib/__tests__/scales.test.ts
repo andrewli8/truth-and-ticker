@@ -35,6 +35,11 @@ describe('buildLinePath', () => {
   it('starts with a move command at full progress', () => {
     expect(buildLinePath(pts, 800, 400, 1).startsWith('M')).toBe(true)
   })
+  it('uses straight segments (no smoothing) so it invents no motion between closes', () => {
+    const d = buildLinePath(pts, 800, 400, 1)
+    expect(d).toContain('L') // line-to segments
+    expect(d).not.toContain('C') // no cubic-bezier smoothing
+  })
   it('returns empty string for no points', () => {
     expect(buildLinePath([], 800, 400, 1)).toBe('')
   })

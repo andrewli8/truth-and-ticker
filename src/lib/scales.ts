@@ -1,8 +1,11 @@
 import { scaleLinear, scaleTime } from 'd3-scale'
-import { line, area, curveMonotoneX } from 'd3-shape'
+import { line, area, curveLinear } from 'd3-shape'
 import type { Point } from './types'
 
 const PAD = 24
+// Daily closes are discrete; straight segments between them tell the truth.
+// A smoothing curve (e.g. monotoneX) would imply intraday motion the data lacks.
+const CURVE = curveLinear
 
 /** [minMs, maxMs] epoch range spanning a series' points (fallback to a unit range). */
 export function dateDomainOf(points: Point[]): [number, number] {
@@ -98,7 +101,7 @@ export function timeLinePath(points: Point[], width: number, height: number): st
   const gen = line<Point>()
     .x((p) => timeX(Date.parse(p.datetime), width, domain))
     .y((p) => priceY(p.price, height, dom))
-    .curve(curveMonotoneX)
+    .curve(CURVE)
   return gen(points) ?? ''
 }
 
@@ -111,7 +114,7 @@ export function timeAreaPath(points: Point[], width: number, height: number): st
     .x((p) => timeX(Date.parse(p.datetime), width, domain))
     .y0(height - PAD)
     .y1((p) => priceY(p.price, height, dom))
-    .curve(curveMonotoneX)
+    .curve(CURVE)
   return gen(points) ?? ''
 }
 
@@ -171,7 +174,7 @@ export function buildLinePath(
   const generator = line<PointPos>()
     .x((d) => d.x)
     .y((d) => d.y)
-    .curve(curveMonotoneX)
+    .curve(CURVE)
 
   return generator(visible.map((_p, i) => positions[i])) ?? ''
 }
@@ -198,7 +201,7 @@ export function buildAreaPath(
     .x((d) => d.x)
     .y0(baseline)
     .y1((d) => d.y)
-    .curve(curveMonotoneX)
+    .curve(CURVE)
 
   return generator(positions) ?? ''
 }
