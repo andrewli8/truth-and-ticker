@@ -37,6 +37,7 @@ and tightening layout density.
 - useMediaQuery hook covered by tests.
 - Hero covered by a component test.
 - Deep-dive charts reveal per-panel (localProgress); mobile fully draws.
+- Hero has a faint market-line backdrop (reduced-motion safe).
 
 ## Next
 
