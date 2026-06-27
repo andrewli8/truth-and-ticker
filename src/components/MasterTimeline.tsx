@@ -35,6 +35,8 @@ interface Props {
   series: Series
   announcements: Announcement[]
   accentFor: (t: AnnType) => string
+  /** Jump to a featured event's deep-dive panel (called on marker activation). */
+  onJump?: (id: string) => void
 }
 
 interface Tick {
@@ -57,7 +59,7 @@ function monthTicks([minMs, maxMs]: [number, number]): Tick[] {
 }
 
 /** Full-period overview: the index line with every announcement plotted as a marker. */
-export function MasterTimeline({ series, announcements, accentFor }: Props) {
+export function MasterTimeline({ series, announcements, accentFor, onJump }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(
     () => announcements[announcements.length - 1]?.id ?? null,
   )
@@ -138,6 +140,12 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
     const dx = decollide(vis.map((m) => m.x), MARKER_GAP, PAD, W - PAD)
     return vis.map((m, i) => ({ ...m, dx: dx[i] }))
   }, [markers, hiddenGroups])
+
+  // Select a marker; if it's a featured event, also jump to its deep-dive panel.
+  function activate(a: Announcement) {
+    setSelectedId(a.id)
+    if (a.featured) onJump?.(a.id)
+  }
 
   // ←/→ step through the VISIBLE markers in order, moving focus along.
   function stepSelection(currentIndex: number, dir: number) {
@@ -265,14 +273,14 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
                 className={`${styles.marker} ${isSel ? styles.markerSel : ''}`}
                 role="button"
                 tabIndex={0}
-                aria-label={`${formatTime(a.datetime)}: ${a.summary}`}
+                aria-label={`${formatTime(a.datetime)}: ${a.summary}${a.featured ? ' — open deep-dive' : ''}`}
                 aria-pressed={isSel}
-                onClick={() => setSelectedId(a.id)}
+                onClick={() => activate(a)}
                 onMouseEnter={() => setSelectedId(a.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    setSelectedId(a.id)
+                    activate(a)
                   } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
                     e.preventDefault()
                     stepSelection(i, 1)

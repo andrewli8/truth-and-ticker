@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useCallback } from 'react'
 import { Hero } from './components/Hero'
 import { Outro } from './components/Outro'
 import { ScrollStage } from './components/ScrollStage'
@@ -12,7 +12,8 @@ import { correlateAll } from './lib/correlate'
 import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround } from './lib/scales'
-import { localProgress } from './lib/scroll'
+import { localProgress, stepScrollTarget } from './lib/scroll'
+import { useReducedMotion } from './lib/useReducedMotion'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
 import './styles/app.css'
@@ -46,14 +47,36 @@ export default function App() {
     [],
   )
 
+  const scrollyRef = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
+
+  // Jump from an overview marker to that event's deep-dive panel.
+  const jumpToEvent = useCallback(
+    (id: string) => {
+      const idx = featured.findIndex((e) => e.announcement.id === id)
+      const el = scrollyRef.current
+      if (idx < 0 || !el) return
+      const top = el.getBoundingClientRect().top + window.scrollY
+      const target = stepScrollTarget(idx, featured.length, top, el.offsetHeight, window.innerHeight)
+      window.scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' })
+    },
+    [featured, reduced],
+  )
+
   return (
     <main className="app">
       <div className="grain" aria-hidden="true" />
       <ThemeToggle />
       <Hero />
       <StatBand markets={markets} />
-      <MasterTimeline series={fallbackSeries} announcements={announcements} accentFor={(t) => ACCENT[t]} />
+      <MasterTimeline
+        series={fallbackSeries}
+        announcements={announcements}
+        accentFor={(t) => ACCENT[t]}
+        onJump={jumpToEvent}
+      />
 
+      <div ref={scrollyRef}>
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
           const event = featured[step]
@@ -87,6 +110,7 @@ export default function App() {
           )
         }}
       </ScrollStage>
+      </div>
 
       <Outro events={events} primaryTicker={PRIMARY} />
     </main>

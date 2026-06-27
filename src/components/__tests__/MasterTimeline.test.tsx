@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, fireEvent } from '@testing-library/react'
 import { MasterTimeline } from '../MasterTimeline'
 import { announcements, markets } from '../../data'
@@ -80,6 +80,23 @@ describe('MasterTimeline', () => {
     fireEvent.keyDown(markers[lastIdx], { key: 'ArrowLeft' })
     expect(getAllByTestId('marker')[lastIdx - 1].getAttribute('aria-pressed')).toBe('true')
     expect(getAllByTestId('marker')[lastIdx].getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('jumps to the deep-dive only when a featured marker is activated', () => {
+    const anns: Announcement[] = [
+      { id: 'f', datetime: '2025-03-01T16:00:00-05:00', source: 's', quote: 'Q', summary: 'feat', type: 'tariff', citationUrl: '', citationLabel: '', featured: true },
+      { id: 'n', datetime: '2025-04-01T16:00:00-04:00', source: 's', quote: 'Q2', summary: 'plain', type: 'policy', citationUrl: '', citationLabel: '' },
+    ]
+    const onJump = vi.fn()
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={anns} accentFor={() => 'var(--risk)'} onJump={onJump} />,
+    )
+    const markers = getAllByTestId('marker')
+    fireEvent.click(markers[0]) // featured → jumps
+    expect(onJump).toHaveBeenCalledWith('f')
+    onJump.mockClear()
+    fireEvent.click(markers[1]) // not featured → no jump
+    expect(onJump).not.toHaveBeenCalled()
   })
 
   it('filters markers when a legend category is toggled off', () => {
