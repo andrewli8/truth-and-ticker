@@ -49,13 +49,13 @@ and tightening layout density.
 - Overview markers jump to their deep-dive panel (featured events).
 - 'Biggest run-up' stat now measures the true max run-up.
 - Deep-linkable events via URL hash (#event-<id>).
+- Timeline re-selects on URL hash change (back/forward/links).
 
 ## Next
 
-1. Deep-link selection only applies on first load, not on later hash changes.
-   Evidence: src/components/MasterTimeline.tsx reads the hash in the useState
-   initialiser only; editing the URL, using back/forward, or any future in-app link
-   won't update the selection
-   Acceptance: a hashchange listener re-selects the event when the URL hash changes to a
-   valid #event-<id> (ignored otherwise); covered by a component test firing hashchange;
-   verify green.
+1. The Outro ledger rows are inert; they can't take you to the moment.
+   Evidence: src/components/Outro.tsx renders 30 rows of <td>s with no affordance to
+   view an event, despite deep-linking + an overview timeline now existing
+   Acceptance: each row exposes a control that selects the event (sets the #event-<id>
+   hash) and scrolls to the master timeline; App wires it via a ref + the existing hash
+   mechanism; a test asserts the row handler is called with the event id; verify green.
