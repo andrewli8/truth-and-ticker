@@ -43,16 +43,6 @@
   background: color-mix(in srgb, var(--accent, var(--muted)) 12%, transparent);
 }
 
-/* Type colors now flow from --accent (set per event), so these only need to
-   exist for the rare type without an accent; kept for safety/back-compat. */
-.tag_strike { color: var(--risk); }
-.tag_ceasefire { color: var(--relief); }
-.tag_market_jawbone { color: var(--warn); }
-.tag_tariff { color: var(--risk); }
-.tag_trade_deal { color: var(--relief); }
-.tag_fed { color: var(--warn); }
-.tag_policy { color: var(--warn); }
-
 .time {
   font-size: 0.78rem;
   color: var(--muted);

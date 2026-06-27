@@ -39,9 +39,7 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
   return (
     <article className={styles.card} style={accentStyle}>
       <header className={styles.meta}>
-        <span className={`${styles.tag} ${styles[`tag_${announcement.type.replace('-', '_')}`] ?? ''}`}>
-          {typeLabel(announcement.type)}
-        </span>
+        <span className={styles.tag}>{typeLabel(announcement.type)}</span>
         <time className={styles.time}>{formatTime(announcement.datetime)}</time>
       </header>
 
