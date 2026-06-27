@@ -31,6 +31,11 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  /* Gentle snap to each announcement inside the stage; never traps mid-scroll. */
+  scroll-snap-type: y proximity;
+}
+
 html, body {
   background: var(--bg);
   color: var(--text);
@@ -56,6 +61,7 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none !important; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

@@ -3,8 +3,8 @@ import { useReducedMotion } from '../lib/useReducedMotion'
 import { stepScrollTarget } from '../lib/scroll'
 import styles from './ScrollStage.module.css'
 
-/** Scroll distance allotted to each narrative step (in vh). Shorter = snappier. */
-const STEP_VH = 70
+/** Scroll distance allotted to each narrative step (in vh). One viewport per event. */
+const STEP_VH = 100
 
 interface Props {
   /** Number of discrete narrative steps. */
@@ -67,6 +67,15 @@ export function ScrollStage({ steps, markers, children }: Props) {
 
   return (
     <div ref={containerRef} className={styles.container} style={{ height: `${steps * STEP_VH}vh` }}>
+      {/* Zero-size snap anchors at each step boundary — proximity-snap targets. */}
+      {Array.from({ length: steps }).map((_, i) => (
+        <div
+          key={`snap-${i}`}
+          className={styles.snapPoint}
+          style={{ top: `${i * STEP_VH}vh` }}
+          aria-hidden="true"
+        />
+      ))}
       <div className={styles.sticky}>
         <div className={styles.progress} aria-hidden="true">
           <span className={styles.progressFill} style={{ transform: `scaleX(${progress})` }} />
