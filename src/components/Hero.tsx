@@ -24,15 +24,15 @@ export function Hero() {
 
   return (
     <header className={styles.hero} ref={root}>
-      <div className={styles.kicker} data-hero>JUNE 2025 · THE 12-DAY WAR</div>
+      <div className={styles.kicker} data-hero>JAN – JUN 2025 · TRUMP&apos;S SECOND TERM</div>
       <h1 className={styles.title} data-hero>
         TRUTH<span className={styles.amp}>&amp;</span>TICKER
       </h1>
       <p className={styles.thesis} data-hero>
-        For twelve days, a war was fought in headlines and on Truth Social — and the
-        markets moved on every word. Scroll to see each announcement laid against the
-        S&amp;P 500, oil, and the defense stocks that rose and fell with it. The timing
-        is the story. Judge it yourself.
+        From day one, a presidency has played out in headlines and on Truth Social —
+        tariffs, threats, strikes, ceasefires — and the markets moved on every word.
+        Scroll to see thirty announcements laid against the S&amp;P 500, oil, defense,
+        and the dollar. The timing is the story. Judge it yourself.
       </p>
       <div className={styles.scrollHint} data-hero>SCROLL ↓</div>
     </header>
