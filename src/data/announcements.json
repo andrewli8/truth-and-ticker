@@ -1,73 +1,73 @@
 [
   {
     "id": "israel-rising-lion-trump-reaction",
-    "datetime": "2025-06-13T09:00:00-04:00",
-    "source": "Truth Social / ABC News interview",
+    "datetime": "2025-06-13T05:56:00-04:00",
+    "source": "Truth Social",
     "quote": "Iran must make a deal, before there is nothing left, and save what was once known as the Iranian Empire.",
-    "summary": "Hours after Israel's overnight 'Operation Rising Lion' strikes, Trump pressed Iran to deal and signaled support for more attacks.",
+    "summary": "Trump's first post the morning after Israel's overnight 'Operation Rising Lion' strikes — pressing Iran to deal and warning it 'will only get worse.'",
     "type": "threat",
-    "citationUrl": "https://www.cnbc.com/2025/06/13/trump-urges-iran-to-reach-nuclear-deal-before-there-is-nothing-left-.html",
-    "citationLabel": "CNBC, Jun 13 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31492",
+    "citationLabel": "Truth Social · Jun 13 2025"
   },
   {
     "id": "evacuate-tehran-post",
-    "datetime": "2025-06-16T18:00:00-04:00",
+    "datetime": "2025-06-16T18:30:00-04:00",
     "source": "Truth Social",
     "quote": "IRAN CAN NOT HAVE A NUCLEAR WEAPON. I said it over and over again! Everyone should immediately evacuate Tehran!",
-    "summary": "From the G7 summit, Trump issued a sudden mass-evacuation warning for Tehran, then departed a day early.",
+    "summary": "From the G7 summit, Trump warned Tehran to evacuate — then left the summit a day early.",
     "type": "threat",
-    "citationUrl": "https://www.axios.com/2025/06/16/trump-evacuate-tehran-warning-israel",
-    "citationLabel": "Axios, Jun 16 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31512",
+    "citationLabel": "Truth Social · Jun 16 2025"
   },
   {
     "id": "unconditional-surrender-post",
-    "datetime": "2025-06-17T11:00:00-04:00",
+    "datetime": "2025-06-17T12:22:00-04:00",
     "source": "Truth Social",
-    "quote": "We now have complete and total control of the skies over Iran. … UNCONDITIONAL SURRENDER!",
-    "summary": "Trump escalated in a cluster of posts — claiming air dominance, threatening Iran's Supreme Leader, demanding capitulation.",
+    "quote": "UNCONDITIONAL SURRENDER!",
+    "summary": "Minutes after claiming 'complete and total control of the skies over Iran,' Trump demanded capitulation in a two-word post.",
     "type": "threat",
-    "citationUrl": "https://www.cbsnews.com/news/trump-claims-complete-control-iran-skies/",
-    "citationLabel": "CBS News, Jun 17 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31532",
+    "citationLabel": "Truth Social · Jun 17 2025"
   },
   {
     "id": "nobody-knows-what-im-going-to-do",
     "datetime": "2025-06-18T09:00:00-04:00",
-    "source": "White House remarks to reporters",
-    "quote": "I may do it. I may not do it. Nobody knows what I'm going to do.",
-    "summary": "Asked whether the U.S. would strike Iran's nuclear sites, Trump kept the decision deliberately ambiguous.",
+    "source": "Spoken to reporters · White House",
+    "quote": "I may do it, I may not do it. Nobody knows what I'm going to do.",
+    "summary": "Asked whether the U.S. would strike Iran's nuclear sites, Trump kept it deliberately ambiguous — spoken to reporters, not posted.",
     "type": "threat",
-    "citationUrl": "https://www.timesofisrael.com/nobody-knows-what-im-going-to-do-trump-wont-say-whether-hell-strike-iran/",
-    "citationLabel": "Times of Israel, Jun 18 2025"
+    "citationUrl": "https://www.c-span.org/program/white-house-event/president-trump-remarks-to-reporters-on-iran/676888",
+    "citationLabel": "Spoken remarks · C-SPAN, Jun 18 2025"
   },
   {
     "id": "two-weeks-decision-statement",
     "datetime": "2025-06-19T13:00:00-04:00",
     "source": "White House Press Briefing",
     "quote": "I will make my decision whether or not to go within the next two weeks.",
-    "summary": "Trump signaled a roughly two-week window before deciding on direct U.S. action — markets were closed for Juneteenth.",
+    "summary": "A statement from Trump, read by the press secretary, signaling a ~two-week window — markets were closed for Juneteenth.",
     "type": "threat",
     "citationUrl": "https://www.whitehouse.gov/videos/press-secretary-karoline-leavitt-briefs-members-of-the-media-june-19-2025/",
-    "citationLabel": "White House, Jun 19 2025"
+    "citationLabel": "White House · Jun 19 2025"
   },
   {
     "id": "midnight-hammer-strike-announcement",
     "datetime": "2025-06-21T19:50:00-04:00",
-    "source": "Truth Social, then televised address",
-    "quote": "We have completed our very successful attack on the three Nuclear sites in Iran… NOW IS THE TIME FOR PEACE!",
-    "summary": "Trump announced completed U.S. airstrikes ('Operation Midnight Hammer') on Iran's three main nuclear facilities.",
+    "source": "Truth Social",
+    "quote": "We have completed our very successful attack on the three Nuclear sites in Iran, including Fordow, Natanz, and Esfahan. … NOW IS THE TIME FOR PEACE!",
+    "summary": "Trump announced completed U.S. airstrikes ('Operation Midnight Hammer') on Iran's three main nuclear sites.",
     "type": "strike",
-    "citationUrl": "https://www.cbsnews.com/news/u-s-launches-strikes-iranian-nuclear-facilities-trump-says/",
-    "citationLabel": "CBS News, Jun 21 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31600",
+    "citationLabel": "Truth Social · Jun 21 2025"
   },
   {
     "id": "keep-oil-prices-down-drill-baby-drill",
-    "datetime": "2025-06-23T10:00:00-04:00",
-    "source": "Truth Social (two posts)",
-    "quote": "EVERYONE, KEEP OIL PRICES DOWN. I'M WATCHING! … DRILL, BABY, DRILL!!! And I mean NOW!!!",
-    "summary": "With markets fearing an oil spike and a possible Strait of Hormuz closure, Trump pressured producers to hold prices and drill.",
+    "datetime": "2025-06-23T09:35:00-04:00",
+    "source": "Truth Social",
+    "quote": "EVERYONE, KEEP OIL PRICES DOWN. I’M WATCHING! YOU’RE PLAYING RIGHT INTO THE HANDS OF THE ENEMY. DON’T DO IT!",
+    "summary": "Two minutes later he told the Dept. of Energy: 'DRILL, BABY, DRILL!!! And I mean NOW!!!' Markets feared a Strait of Hormuz oil shock.",
     "type": "market-jawbone",
-    "citationUrl": "https://www.cnbc.com/2025/06/23/trump-oil-prices-iran-israel.html",
-    "citationLabel": "CNBC, Jun 23 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31617",
+    "citationLabel": "Truth Social · Jun 23 2025"
   },
   {
     "id": "iran-al-udeid-retaliation",
@@ -83,20 +83,20 @@
     "id": "complete-total-ceasefire-post",
     "datetime": "2025-06-23T18:02:00-04:00",
     "source": "Truth Social",
-    "quote": "It has been fully agreed … that there will be a Complete and Total CEASEFIRE … an Official END to THE 12 DAY WAR.",
+    "quote": "CONGRATULATIONS TO EVERYONE! … there will be a Complete and Total CEASEFIRE … an Official END to THE 12 DAY WAR will be saluted by the World.",
     "summary": "Trump unilaterally announced a phased Israel–Iran ceasefire, branding the conflict 'THE 12 DAY WAR.'",
     "type": "ceasefire",
-    "citationUrl": "https://www.cbsnews.com/news/trump-israel-iran-ceasefire/",
-    "citationLabel": "CBS News, Jun 23 2025"
+    "citationUrl": "https://trumpstruth.org/statuses/31624",
+    "citationLabel": "Truth Social · Jun 23 2025"
   },
   {
     "id": "dont-know-what-theyre-doing-remark",
     "datetime": "2025-06-24T11:14:00-04:00",
-    "source": "White House South Lawn remarks",
+    "source": "Spoken to reporters · White House",
     "quote": "We basically have two countries that have been fighting so long and so hard that they don't know what the f*** they're doing.",
     "summary": "Trump vented that both sides appeared to be violating his ceasefire, before leaving for the NATO summit.",
     "type": "ceasefire",
     "citationUrl": "https://www.nbcnews.com/politics/white-house/trump-lashes-israel-iran-dont-know-f-re-rcna214712",
-    "citationLabel": "NBC News, Jun 24 2025"
+    "citationLabel": "Spoken remarks · NBC News, Jun 24 2025"
   }
 ]

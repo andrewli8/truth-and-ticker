@@ -13,6 +13,27 @@ This piece's thesis depends on verifiable data, so provenance matters.
 - **Gold** — spot XAU/USD per troy ounce (NOT the GLD ETF; verified GLD closes
   could not be obtained from a settlement-grade source).
 
+## Announcement text
+
+Every Truth Social quote is **verbatim**, verified against the public Truth Social
+archive at [trumpstruth.org](https://trumpstruth.org) — each `citationUrl` is the
+individual post permalink (`/statuses/<id>`), with the timestamp as displayed by
+the archive (U.S. Eastern, EDT = UTC−04:00). Original capitalization, smart quotes,
+and apostrophes are preserved. Long posts are shown as faithful excerpts with `…`
+marking elision.
+
+Two entries are **spoken remarks, not posts**, and are labeled as such:
+- Jun 18 "I may do it, I may not do it…" — spoken to reporters (C-SPAN video).
+- Jun 24 "they don't know what the f*** they're doing" — spoken to reporters (NBC).
+
+Notes from verification:
+- The Jun 21 strike post exists as two near-duplicates (7:46 PM and 7:50 PM ET);
+  we use the 7:50 PM post (`/statuses/31600`).
+- "KEEP OIL PRICES DOWN" (9:35 AM) and "DRILL, BABY, DRILL" (9:37 AM) are two
+  separate posts; the card quotes the first verbatim and notes the second.
+- The "unconditional surrender" post (12:22 PM) followed a separate "control of
+  the skies" post (11:55 AM) the same morning.
+
 ## Reaction metric
 
 Each announcement's "reaction" is measured **close-to-close**: the instrument's
