@@ -1,0 +1,17 @@
+:root {
+  --bg: #0a0a0b;
+  --text: #ece8e1;
+  --risk: #ff4d3d;
+  --relief: #3ddc84;
+  --steel: #2a2a2e;
+  --muted: #8a8a93;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--bg); color: var(--text); }
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
