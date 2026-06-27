@@ -41,6 +41,17 @@ npm run build     # production build to dist/
 
 See [`src/data/SOURCES.md`](src/data/SOURCES.md) for data provenance and caveats.
 
+## Push to GitHub
+
+The repo is initialized locally on the `main` branch with full history. To create
+the remote and push (pick `--public` if you want it shareable):
+
+```bash
+gh repo create truth-and-ticker --private --source=. --remote=origin --push
+# or, with an existing empty repo:
+git remote add origin git@github.com:<you>/truth-and-ticker.git && git push -u origin main
+```
+
 ## Design & methodology docs
 
 - Spec: `docs/superpowers/specs/2026-06-27-truth-and-ticker-design.md`

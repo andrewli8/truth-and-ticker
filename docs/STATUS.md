@@ -4,8 +4,9 @@ Continuous looptight-gated improvement loop. Each task: implement → `npm run v
 (tsc + vitest + build) green → commit. Generate more when this list empties.
 
 ## Now
-Polishing toward an Awwwards-grade, viral, fully responsive piece. Light default +
-dark mode, OG/share, stat band, marquee ticker, tablet layout, and a11y all shipped.
+Focus: data accuracy/consistency + verbatim Trump posts + git. Local git is set up
+(main branch, consistent green commits). Remote creation needs the user (blocked by
+auto-mode classifier) — see README "Push to GitHub".
 
 ## Done
 - Theme system: light default + optional dark, no-flash, persisted.
@@ -14,6 +15,13 @@ dark mode, OG/share, stat band, marquee ticker, tablet layout, and a11y all ship
 - Viral stat band: dataset-computed count-up numbers.
 - Responsive hardening: marquee ticker, tablet layout, no overflow 320–1280.
 - A11y: AA contrast, focus-visible rings, reduced-motion guard.
+- Scroll progress bar + keyboard event dot-nav.
+- Animated hero entrance (GSAP), reduced-motion safe.
+- Per-event instrument spotlight (oil/defense/S&P).
+- SEO: theme-color, canonical, robots, Article JSON-LD.
+- Date readout at the chart playhead.
+- Stat band counts up on scroll-into-view (useInView).
+- Accuracy gate: pctFromPrevClose consistency test.
 
 ## Next
 
