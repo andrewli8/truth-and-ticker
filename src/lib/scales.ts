@@ -83,6 +83,21 @@ export function decollide(
   return out
 }
 
+/** Index of the point whose datetime is closest to `ms`, or -1 if none. Pure. */
+export function nearestPointIndex(points: Point[], ms: number): number {
+  if (points.length === 0) return -1
+  let best = 0
+  let bestDist = Infinity
+  for (let i = 0; i < points.length; i++) {
+    const dist = Math.abs(Date.parse(points[i].datetime) - ms)
+    if (dist < bestDist) {
+      bestDist = dist
+      best = i
+    }
+  }
+  return best
+}
+
 /** Price of the last point at or before `ms` (step-hold), or null if none. */
 export function valueAt(points: Point[], ms: number): number | null {
   let v: number | null = null

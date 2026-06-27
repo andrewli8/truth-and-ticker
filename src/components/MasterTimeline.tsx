@@ -9,6 +9,7 @@ import {
   valueAt,
   msAtX,
   decollide,
+  nearestPointIndex,
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
@@ -138,16 +139,18 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const animatedPct = useCountUp(reactionPct, reduced, true)
   const reactionDir = reactionPct === null ? 'flat' : reactionPct >= 0 ? 'up' : 'down'
 
-  // Resolve the cursor into the chart's live readout (date + index price).
+  // Resolve the cursor to the NEAREST real close, so the dot/readout sit exactly
+  // on a plotted vertex of the line rather than floating between sparse points.
   const hover = useMemo(() => {
     if (hoverMs === null || !Number.isFinite(hoverMs)) return null
-    const price = valueAt(series.points, hoverMs) ?? series.points[0]?.price ?? null
-    if (price === null) return null
+    const i = nearestPointIndex(series.points, hoverMs)
+    if (i < 0) return null
+    const p = series.points[i]
     return {
-      x: timeX(hoverMs, W, domain),
-      y: priceY(price, H, vdom),
-      price,
-      label: formatDay(new Date(hoverMs).toISOString()),
+      x: timeX(Date.parse(p.datetime), W, domain),
+      y: priceY(p.price, H, vdom),
+      price: p.price,
+      label: formatDay(p.datetime),
     }
   }, [hoverMs, series.points, domain, vdom])
 

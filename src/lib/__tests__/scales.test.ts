@@ -12,6 +12,7 @@ import {
   msAtX,
   windowAround,
   decollide,
+  nearestPointIndex,
 } from '../scales'
 import type { Point } from '../types'
 
@@ -187,5 +188,23 @@ describe('decollide', () => {
   })
   it('returns [] for empty input', () => {
     expect(decollide([], 16)).toEqual([])
+  })
+})
+
+describe('nearestPointIndex', () => {
+  const ms = (s: string) => Date.parse(s)
+  it('returns -1 for an empty series', () => {
+    expect(nearestPointIndex([], ms('2025-06-24T10:00:00-04:00'))).toBe(-1)
+  })
+  it('finds the exact match', () => {
+    expect(nearestPointIndex(pts, ms('2025-06-24T11:00:00-04:00'))).toBe(2)
+  })
+  it('picks the closer neighbour for an in-between time', () => {
+    // 10:40 is closer to the 11:00 point (index 2) than the 10:00 point (index 1)
+    expect(nearestPointIndex(pts, ms('2025-06-24T10:40:00-04:00'))).toBe(2)
+  })
+  it('clamps to the ends for out-of-range times', () => {
+    expect(nearestPointIndex(pts, ms('2025-06-24T06:00:00-04:00'))).toBe(0)
+    expect(nearestPointIndex(pts, ms('2025-06-24T23:00:00-04:00'))).toBe(pts.length - 1)
   })
 })
