@@ -11,10 +11,10 @@
         fill="none" stroke="#ff4d3d" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
   <circle cx="1060" cy="200" r="12" fill="#ff4d3d"/>
   <!-- kicker -->
-  <text x="80" y="150" font-family="monospace" font-size="26" letter-spacing="8" fill="#ff4d3d">JUNE 2025 · THE 12-DAY WAR</text>
+  <text x="80" y="150" font-family="monospace" font-size="26" letter-spacing="8" fill="#ff4d3d">JAN–JUN 2025 · TRUMP'S SECOND TERM</text>
   <!-- title -->
   <text x="76" y="320" font-family="'Arial Black', Arial, sans-serif" font-weight="800" font-size="128" letter-spacing="-3" fill="#ece8e1">TRUTH<tspan fill="#ff4d3d">&amp;</tspan>TICKER</text>
   <!-- subtitle -->
-  <text x="80" y="430" font-family="Arial, sans-serif" font-weight="700" font-size="40" fill="#ece8e1">When Trump posted, the market moved.</text>
-  <text x="80" y="560" font-family="monospace" font-size="26" letter-spacing="3" fill="#8a8a93">S&amp;P 500 · DOW · OIL · DEFENSE · GOLD · VIX</text>
+  <text x="80" y="430" font-family="Arial, sans-serif" font-weight="700" font-size="40" fill="#ece8e1">When Trump posts, the market moves.</text>
+  <text x="80" y="560" font-family="monospace" font-size="26" letter-spacing="3" fill="#8a8a93">S&amp;P 500 · NASDAQ · OIL · DEFENSE · GOLD · DOLLAR</text>
 </svg>
