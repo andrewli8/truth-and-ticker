@@ -39,4 +39,13 @@ describe('MarketChart', () => {
     )
     expect(getByText(/S&P 500/)).toBeInTheDocument()
   })
+
+  it('preserves aspect ratio so slopes are not distorted', () => {
+    const { container } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" />,
+    )
+    const svg = container.querySelector('svg')!
+    // Non-uniform scaling ("none") would stretch the line and lie about slopes.
+    expect(svg.getAttribute('preserveAspectRatio')).not.toBe('none')
+  })
 })

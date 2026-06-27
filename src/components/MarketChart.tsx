@@ -58,7 +58,6 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
       <svg
         className={styles.svg}
         viewBox={`0 0 ${W} ${H}`}
-        preserveAspectRatio="none"
         role="img"
         aria-label={`${series.name} price line`}
       >
