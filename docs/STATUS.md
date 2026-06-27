@@ -46,6 +46,7 @@ and tightening layout density.
 - OG share image rescoped to the whole second term.
 - Interactive legend filters timeline markers by category.
 - Dropped unused d3-array direct dependency.
+- Overview markers jump to their deep-dive panel (featured events).
 
 ## Next
 
