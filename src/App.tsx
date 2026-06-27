@@ -13,6 +13,7 @@ import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
+import { hashForEvent } from './lib/hash'
 import { useReducedMotion } from './lib/useReducedMotion'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
@@ -48,7 +49,17 @@ export default function App() {
   )
 
   const scrollyRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
+
+  // From the closing ledger, jump up to the master timeline with the event open.
+  const pickEvent = useCallback(
+    (id: string) => {
+      if (typeof window !== 'undefined') window.location.hash = hashForEvent(id)
+      timelineRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+    },
+    [reduced],
+  )
 
   // Jump from an overview marker to that event's deep-dive panel.
   const jumpToEvent = useCallback(
@@ -69,12 +80,14 @@ export default function App() {
       <ThemeToggle />
       <Hero />
       <StatBand markets={markets} />
-      <MasterTimeline
-        series={fallbackSeries}
-        announcements={announcements}
-        accentFor={(t) => ACCENT[t]}
-        onJump={jumpToEvent}
-      />
+      <div ref={timelineRef}>
+        <MasterTimeline
+          series={fallbackSeries}
+          announcements={announcements}
+          accentFor={(t) => ACCENT[t]}
+          onJump={jumpToEvent}
+        />
+      </div>
 
       <div ref={scrollyRef}>
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
@@ -112,7 +125,7 @@ export default function App() {
       </ScrollStage>
       </div>
 
-      <Outro events={events} primaryTicker={PRIMARY} />
+      <Outro events={events} primaryTicker={PRIMARY} onPickEvent={pickEvent} />
     </main>
   )
 }

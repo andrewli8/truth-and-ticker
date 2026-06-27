@@ -7,9 +7,11 @@ import styles from './Outro.module.css'
 interface Props {
   events: CorrelatedEvent[]
   primaryTicker: string
+  /** Open an event in the master timeline (deep-link + scroll). */
+  onPickEvent?: (id: string) => void
 }
 
-export function Outro({ events, primaryTicker }: Props) {
+export function Outro({ events, primaryTicker, onPickEvent }: Props) {
   return (
     <section className={styles.outro}>
       <h2 className={styles.heading}>Words moved markets. Here is the ledger.</h2>
@@ -30,7 +32,20 @@ export function Outro({ events, primaryTicker }: Props) {
             return (
               <tr key={e.announcement.id} data-testid="summary-row">
                 <td className={styles.mono}>{formatTime(e.announcement.datetime)}</td>
-                <td>{e.announcement.summary}</td>
+                <td>
+                  {onPickEvent ? (
+                    <button
+                      type="button"
+                      className={styles.rowBtn}
+                      onClick={() => onPickEvent(e.announcement.id)}
+                      aria-label={`View on the timeline: ${e.announcement.summary}`}
+                    >
+                      {e.announcement.summary}
+                    </button>
+                  ) : (
+                    e.announcement.summary
+                  )}
+                </td>
                 <td className={styles.type}>{typeLabel(e.announcement.type)}</td>
                 <td className={`${styles.num} ${styles.mono} ${styles[dir]}`}>{formatPct(delta)}</td>
               </tr>

@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { render } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import { render, fireEvent } from '@testing-library/react'
 import { Outro } from '../Outro'
 import type { CorrelatedEvent } from '../../lib/types'
 
@@ -26,5 +26,12 @@ describe('Outro', () => {
   it('renders one data row per event', () => {
     const { getAllByTestId } = render(<Outro events={events} primaryTicker="SPX" />)
     expect(getAllByTestId('summary-row')).toHaveLength(2)
+  })
+
+  it('calls onPickEvent with the event id when a row is activated', () => {
+    const onPick = vi.fn()
+    const { getByRole } = render(<Outro events={events} primaryTicker="SPX" onPickEvent={onPick} />)
+    fireEvent.click(getByRole('button', { name: /s1/i }))
+    expect(onPick).toHaveBeenCalledWith('a1')
   })
 })

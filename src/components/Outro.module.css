@@ -39,6 +39,22 @@
   vertical-align: top;
 }
 
+.rowBtn {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.rowBtn:hover { color: var(--risk); border-bottom-color: var(--risk); }
+.rowBtn:focus-visible { outline: 2px solid var(--risk); outline-offset: 2px; border-radius: 2px; }
+
 .mono { font-family: 'JetBrains Mono', monospace; }
 .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
 .type { color: var(--muted); text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em; }
