@@ -98,6 +98,23 @@ export function nearestPointIndex(points: Point[], ms: number): number {
   return best
 }
 
+/**
+ * SVG path for a compact sparkline of the market action within `days` of an
+ * event — the series windowed around `datetimeISO`, drawn full. '' if too sparse.
+ * Pure (composes {@link windowAround} + {@link buildLinePath}).
+ */
+export function sparklinePath(
+  points: Point[],
+  datetimeISO: string,
+  days: number,
+  width: number,
+  height: number,
+): string {
+  const win = windowAround(points, datetimeISO, days)
+  if (win.length < 2) return ''
+  return buildLinePath(win, width, height, 1)
+}
+
 /** Price of the last point at or before `ms` (step-hold), or null if none. */
 export function valueAt(points: Point[], ms: number): number | null {
   let v: number | null = null

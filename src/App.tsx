@@ -126,7 +126,7 @@ export default function App() {
       </ScrollStage>
       </div>
 
-      <Outro events={events} primaryTicker={PRIMARY} onPickEvent={pickEvent} />
+      <Outro events={events} primaryTicker={PRIMARY} series={fallbackSeries} onPickEvent={pickEvent} />
     </main>
   )
 }

@@ -13,6 +13,7 @@ import {
   windowAround,
   decollide,
   nearestPointIndex,
+  sparklinePath,
 } from '../scales'
 import type { Point } from '../types'
 
@@ -188,6 +189,22 @@ describe('decollide', () => {
   })
   it('returns [] for empty input', () => {
     expect(decollide([], 16)).toEqual([])
+  })
+})
+
+describe('sparklinePath', () => {
+  const daily: Point[] = Array.from({ length: 11 }, (_, i) => ({
+    datetime: `2025-03-${String(i + 1).padStart(2, '0')}T16:00:00-05:00`,
+    price: 100 + i,
+    pctFromPrevClose: 0,
+  }))
+  it('draws a line path for the window around the event', () => {
+    const d = sparklinePath(daily, '2025-03-06T16:00:00-05:00', 3, 80, 24)
+    expect(d.startsWith('M')).toBe(true)
+  })
+  it('is empty when the window has fewer than two points', () => {
+    expect(sparklinePath(daily, '2024-01-01T00:00:00-05:00', 1, 80, 24)).toBe('')
+    expect(sparklinePath([], '2025-03-06T16:00:00-05:00', 3, 80, 24)).toBe('')
   })
 })
 

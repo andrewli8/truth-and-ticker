@@ -80,6 +80,10 @@
 .down { color: var(--risk); }
 .flat { color: var(--muted); }
 
+/* Per-row mini sparkline: ±10 trading days of the index around the event. */
+.spark { display: block; }
+.spark path { stroke: currentColor; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+
 .method {
   margin-top: 2.5rem;
   color: var(--muted);
