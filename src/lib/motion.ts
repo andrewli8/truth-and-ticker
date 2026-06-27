@@ -18,3 +18,14 @@ export function drawOnVars(len: number): DrawOnVars | null {
   if (!Number.isFinite(len) || len <= 0) return null
   return { dasharray: len, from: len, to: 0 }
 }
+
+/**
+ * Next index in `[0, len)` stepping by the sign of `dir`, clamped at both ends.
+ * A `current` of -1 (nothing selected) enters from the matching edge. Returns
+ * -1 for an empty list. Pure — used for keyboard event-stepping.
+ */
+export function adjacentIndex(len: number, current: number, dir: number): number {
+  if (len <= 0) return -1
+  if (current < 0) return dir >= 0 ? 0 : len - 1
+  return Math.max(0, Math.min(len - 1, current + Math.sign(dir)))
+}

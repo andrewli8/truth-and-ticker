@@ -33,6 +33,20 @@ describe('MasterTimeline', () => {
     expect(line.style.strokeDashoffset === '' || line.style.strokeDashoffset === '0').toBe(true)
   })
 
+  it('steps the selected event with the arrow keys', () => {
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const markers = getAllByTestId('marker')
+    // The last announcement is selected by default (aria-pressed).
+    const lastIdx = announcements.length - 1
+    expect(markers[lastIdx].getAttribute('aria-pressed')).toBe('true')
+    // ArrowLeft from the last marker selects its predecessor.
+    fireEvent.keyDown(markers[lastIdx], { key: 'ArrowLeft' })
+    expect(getAllByTestId('marker')[lastIdx - 1].getAttribute('aria-pressed')).toBe('true')
+    expect(getAllByTestId('marker')[lastIdx].getAttribute('aria-pressed')).toBe('false')
+  })
+
   it('reveals a live scrub crosshair on pointer move', () => {
     const { container, queryByTestId, getByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,

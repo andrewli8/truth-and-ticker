@@ -11,7 +11,7 @@ import {
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
-import { drawOnVars } from '../lib/motion'
+import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { formatTime, formatDay, formatPrice } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -56,6 +56,15 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const [hoverMs, setHoverMs] = useState<number | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const lineRef = useRef<SVGPathElement>(null)
+  const markerRefs = useRef<(SVGCircleElement | null)[]>([])
+
+  // ←/→ step through announcements in chronological order, moving focus along.
+  function stepSelection(currentIndex: number, dir: number) {
+    const next = adjacentIndex(announcements.length, currentIndex, dir)
+    if (next < 0) return
+    setSelectedId(announcements[next].id)
+    markerRefs.current[next]?.focus()
+  }
 
   // Scroll-into-view reveal: draw the line on, then pop the markers in sequence.
   const reduced = useReducedMotion()
@@ -179,12 +188,13 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         <path d={areaPath} fill="url(#masterFill)" className={styles.area} />
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
-        {markers.map(({ a, x, y }) => {
+        {markers.map(({ a, x, y }, i) => {
           const isSel = a.id === selectedId
           return (
             <g key={a.id} style={{ color: accentFor(a.type) }}>
               {isSel && <line x1={x} x2={x} y1={PAD} y2={H - PAD} className={styles.markerLine} />}
               <circle
+                ref={(el) => (markerRefs.current[i] = el)}
                 data-testid="marker"
                 data-marker
                 cx={x}
@@ -201,6 +211,12 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
                     setSelectedId(a.id)
+                  } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                    e.preventDefault()
+                    stepSelection(i, 1)
+                  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    stepSelection(i, -1)
                   }
                 }}
               />
