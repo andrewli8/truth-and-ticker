@@ -51,3 +51,10 @@ and tightening layout density.
 
 ## Next
 
+1. Events aren't deep-linkable; a shared link can't open a specific moment.
+   Evidence: src/components/MasterTimeline.tsx selection lives only in component state;
+   src/components/ShareButton.tsx shares window.location.href with no event in it
+   Acceptance: pure eventIdFromHash(hash)/hashForEvent(id) helpers (unit-tested) drive
+   a URL hash like #event-<id>; the timeline initialises its selection from the hash and
+   updates the hash on explicit selection (click/keyboard, not hover); verify green.
+
