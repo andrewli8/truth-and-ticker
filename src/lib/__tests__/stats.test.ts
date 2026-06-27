@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdownPct } from '../stats'
 import type { Series, CorrelatedEvent } from '../types'
 
 const s = (ticker: string, prices: number[]): Series => ({
@@ -37,6 +37,28 @@ describe('maxRunupPct', () => {
   })
   it('returns null for empty', () => {
     expect(maxRunupPct({ ...s('X', []), points: [] })).toBeNull()
+  })
+})
+
+describe('netReturnPct', () => {
+  it('is first→last as a percent', () => {
+    expect(netReturnPct(s('X', [100, 80, 106]))).toBeCloseTo(6)
+  })
+  it('null for empty', () => {
+    expect(netReturnPct({ ...s('X', []), points: [] })).toBeNull()
+  })
+})
+
+describe('maxDrawdownPct', () => {
+  it('is the deepest peak→later-trough decline (negative)', () => {
+    // peak 120 then trough 90 ⇒ -25%
+    expect(maxDrawdownPct(s('X', [100, 120, 90, 110]))).toBeCloseTo(-25)
+  })
+  it('is 0 for a monotonically rising series', () => {
+    expect(maxDrawdownPct(s('X', [100, 110, 120]))).toBe(0)
+  })
+  it('null for empty', () => {
+    expect(maxDrawdownPct({ ...s('X', []), points: [] })).toBeNull()
   })
 })
 

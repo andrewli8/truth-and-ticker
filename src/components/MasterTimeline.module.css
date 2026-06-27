@@ -29,6 +29,21 @@
   text-transform: uppercase;
 }
 
+.termStat {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+.termVal {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.termVal[data-dir='up'] { color: var(--relief); }
+.termVal[data-dir='down'] { color: var(--risk); }
+
 .legend {
   display: flex;
   gap: 0.6rem;

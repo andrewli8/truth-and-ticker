@@ -67,6 +67,33 @@ export function maxRunupPct(series: Series): number | null {
   return best
 }
 
+/** Net return from the first to the last point, as a percent. Null if empty. */
+export function netReturnPct(series: Series): number | null {
+  const pts = series.points
+  if (pts.length === 0) return null
+  const first = pts[0].price
+  if (first === 0) return null
+  return ((pts[pts.length - 1].price - first) / first) * 100
+}
+
+/**
+ * Deepest drawdown: the largest decline from a running peak to a LATER trough,
+ * as a percent (≤ 0). A running-maximum sweep — the standard risk measure.
+ */
+export function maxDrawdownPct(series: Series): number | null {
+  if (series.points.length === 0) return null
+  let peak = series.points[0].price
+  let worst = 0
+  for (const p of series.points) {
+    if (p.price > peak) peak = p.price
+    if (peak > 0) {
+      const dd = ((p.price - peak) / peak) * 100
+      if (dd < worst) worst = dd
+    }
+  }
+  return worst
+}
+
 /** Convenience lookup by ticker. */
 export function seriesByTicker(markets: Series[], ticker: string): Series | undefined {
   return markets.find((m) => m.ticker === ticker)

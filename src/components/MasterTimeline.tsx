@@ -16,7 +16,7 @@ import {
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
 import { typeLabel, accentGroup, type AccentGroup } from '../lib/labels'
-import { timelineAriaLabel } from '../lib/stats'
+import { timelineAriaLabel, netReturnPct, maxDrawdownPct } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -161,6 +161,8 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
   const linePath = useMemo(() => timeLinePath(series.points, W, H), [series.points])
   const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series.points])
   const ticks = useMemo(() => monthTicks(domain), [domain])
+  const net = useMemo(() => netReturnPct(series), [series])
+  const drawdown = useMemo(() => maxDrawdownPct(series), [series])
 
   const markers = useMemo(
     () =>
@@ -233,6 +235,13 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
           <h2 className={styles.title}>The whole presidency, on one line.</h2>
           <p className={styles.sub}>
             {series.name} · every market-moving moment, {announcements.length} of them
+          </p>
+          <p className={styles.termStat} data-testid="term-stat">
+            <span className={styles.termVal} data-dir={net === null ? 'flat' : net >= 0 ? 'up' : 'down'}>
+              {formatPct(net)}
+            </span>{' '}
+            net over the term · deepest drawdown{' '}
+            <span className={styles.termVal} data-dir="down">{formatPct(drawdown)}</span>
           </p>
         </div>
         <div className={styles.legend} role="group" aria-label="Filter events by category">
