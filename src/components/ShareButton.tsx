@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react'
 import styles from './ShareButton.module.css'
 
-const TWEET_TEXT =
-  'When Trump posted, the market moved. Truth & Ticker maps his June 2025 Israel–Iran war announcements against the S&P 500, oil & defense stocks 👇'
+export const TWEET_TEXT =
+  'When Trump posts, the market moves. Truth & Ticker maps 30 second-term announcements — tariffs, threats, strikes, ceasefires — against the S&P 500, oil, defense & the dollar 👇'
 
 function shareUrl(): string {
   if (typeof window === 'undefined') return ''
