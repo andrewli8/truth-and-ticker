@@ -50,12 +50,14 @@ and tightening layout density.
 - 'Biggest run-up' stat now measures the true max run-up.
 - Deep-linkable events via URL hash (#event-<id>).
 - Timeline re-selects on URL hash change (back/forward/links).
+- Outro ledger rows jump to the moment on the timeline.
 
 ## Next
 
-1. The Outro ledger rows are inert; they can't take you to the moment.
-   Evidence: src/components/Outro.tsx renders 30 rows of <td>s with no affordance to
-   view an event, despite deep-linking + an overview timeline now existing
-   Acceptance: each row exposes a control that selects the event (sets the #event-<id>
-   hash) and scrolls to the master timeline; App wires it via a ref + the existing hash
-   mechanism; a test asserts the row handler is called with the event id; verify green.
+1. No way to copy a shareable link to the selected moment.
+   Evidence: deep-links exist (#event-<id>) but the master-timeline detail panel offers
+   only the citation link; nothing copies the link to *this* event
+   Acceptance: a pure eventShareUrl(origin, pathname, id) helper (unit-tested) builds the
+   absolute deep-link; the detail panel gains a 'Copy link' control that writes it to the
+   clipboard (guarded when unavailable) and confirms; a component test covers the click;
+   verify green.
