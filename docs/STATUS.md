@@ -36,19 +36,11 @@ and tightening layout density.
 - ScrollStage dot-nav/render-prop covered by tests.
 - useMediaQuery hook covered by tests.
 - Hero covered by a component test.
+- Deep-dive charts reveal per-panel (localProgress); mobile fully draws.
 
 ## Next
 
-1. Deep-dive chart reveal is global, so early events' charts barely draw.
-   Evidence: src/App.tsx passes ScrollStage's whole-scrolly progress (0–1 across all
-   steps) straight to MarketChart, and ScrollStage.tsx:78 hands mobile (i+1)/steps —
-   both only make sense if the consumer derives a per-step local progress, which App
-   never does, so panel 1's chart shows ~9–18% revealed (confirmed on mobile)
-   Acceptance: a pure localProgress(global, steps, step) helper returns 0→1 within each
-   step (and 1 for the mobile encoding), unit-tested; App feeds it to MarketChart so each
-   event's chart fully reveals on its own panel; verify green.
-
-2. The hero is flat centered text with no visual anchor.
+1. The hero is flat centered text with no visual anchor.
    Evidence: src/components/Hero.tsx (kicker/title/thesis/scrollHint only; the section is
    plain text on a flat background — the one screen guaranteed to be seen)
    Acceptance: add a tasteful, on-theme decorative backdrop (e.g. a faint generative
