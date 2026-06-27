@@ -94,3 +94,4 @@
 .source { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
 .cite { color: var(--text); text-decoration: none; }
 .cite:hover { color: var(--risk); }
+.cite:focus-visible { outline: 2px solid var(--risk); outline-offset: 2px; border-radius: 2px; }
