@@ -51,13 +51,7 @@ and tightening layout density.
 - Deep-linkable events via URL hash (#event-<id>).
 - Timeline re-selects on URL hash change (back/forward/links).
 - Outro ledger rows jump to the moment on the timeline.
+- Copy a shareable deep-link to the selected moment.
 
 ## Next
 
-1. No way to copy a shareable link to the selected moment.
-   Evidence: deep-links exist (#event-<id>) but the master-timeline detail panel offers
-   only the citation link; nothing copies the link to *this* event
-   Acceptance: a pure eventShareUrl(origin, pathname, id) helper (unit-tested) builds the
-   absolute deep-link; the detail panel gains a 'Copy link' control that writes it to the
-   clipboard (guarded when unavailable) and confirms; a component test covers the click;
-   verify green.
