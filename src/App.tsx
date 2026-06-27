@@ -117,7 +117,7 @@ export default function App() {
                 <div className="stageStep">
                   {String(step + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
                 </div>
-                <AnnouncementCard event={event} primaryTicker={spotlight} />
+                <AnnouncementCard key={event.announcement.id} event={event} primaryTicker={spotlight} />
               </div>
             </div>
           )
