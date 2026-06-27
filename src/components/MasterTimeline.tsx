@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import {
   timeLinePath,
   timeAreaPath,
@@ -9,7 +11,10 @@ import {
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
+import { drawOnVars } from '../lib/motion'
 import { formatTime, formatDay, formatPrice } from '../lib/format'
+import { useReducedMotion } from '../lib/useReducedMotion'
+import { useInView } from '../lib/useInView'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -50,6 +55,45 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
   const [hoverMs, setHoverMs] = useState<number | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
+  const lineRef = useRef<SVGPathElement>(null)
+
+  // Scroll-into-view reveal: draw the line on, then pop the markers in sequence.
+  const reduced = useReducedMotion()
+  const { ref: rootRef, inView } = useInView<HTMLElement>()
+  const revealed = useRef(false)
+
+  useGSAP(
+    () => {
+      if (reduced || !inView || revealed.current) return
+      revealed.current = true
+
+      const line = lineRef.current
+      let len = 0
+      if (line && typeof line.getTotalLength === 'function') {
+        try {
+          len = line.getTotalLength()
+        } catch {
+          len = 0
+        }
+      }
+      const draw = drawOnVars(len)
+      const tl = gsap.timeline()
+      if (line && draw) {
+        tl.fromTo(
+          line,
+          { strokeDasharray: draw.dasharray, strokeDashoffset: draw.from },
+          { strokeDashoffset: draw.to, duration: 1.15, ease: 'power2.out' },
+          0,
+        )
+      }
+      tl.from(
+        '[data-marker]',
+        { opacity: 0, y: 14, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.045 },
+        line && draw ? 0.55 : 0,
+      )
+    },
+    { dependencies: [reduced, inView], scope: rootRef },
+  )
 
   const domain = useMemo(() => dateDomainOf(series.points), [series.points])
   const vdom = useMemo(() => domainFor(series.points), [series.points])
@@ -90,7 +134,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   }
 
   return (
-    <section className={styles.section} aria-label="Trump's second term, market timeline">
+    <section ref={rootRef} className={styles.section} aria-label="Trump's second term, market timeline">
       <header className={styles.head}>
         <div>
           <h2 className={styles.title}>The whole presidency, on one line.</h2>
@@ -133,7 +177,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         })}
 
         <path d={areaPath} fill="url(#masterFill)" className={styles.area} />
-        <path d={linePath} fill="none" className={styles.line} />
+        <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
         {markers.map(({ a, x, y }) => {
           const isSel = a.id === selectedId
@@ -142,6 +186,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
               {isSel && <line x1={x} x2={x} y1={PAD} y2={H - PAD} className={styles.markerLine} />}
               <circle
                 data-testid="marker"
+                data-marker
                 cx={x}
                 cy={y}
                 r={isSel ? 8 : 5}

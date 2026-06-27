@@ -22,6 +22,17 @@ describe('MasterTimeline', () => {
     expect(container.querySelector('blockquote, p')).toBeTruthy()
   })
 
+  it('leaves the line fully drawn (no dash offset) under reduced motion', () => {
+    const { container } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const line = container.querySelector('path[data-line]') as SVGPathElement
+    expect(line).toBeTruthy()
+    expect(line.getAttribute('d')).toBeTruthy()
+    // The reveal must never strand the line hidden when motion is disabled.
+    expect(line.style.strokeDashoffset === '' || line.style.strokeDashoffset === '0').toBe(true)
+  })
+
   it('reveals a live scrub crosshair on pointer move', () => {
     const { container, queryByTestId, getByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
