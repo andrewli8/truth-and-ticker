@@ -1,13 +1,10 @@
-import { useRef, useState, type ReactNode } from 'react'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Lenis from 'lenis'
+import { useRef, useState, useEffect, type ReactNode } from 'react'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { stepScrollTarget } from '../lib/scroll'
 import styles from './ScrollStage.module.css'
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+/** Scroll distance allotted to each narrative step (in vh). Shorter = snappier. */
+const STEP_VH = 70
 
 interface Props {
   /** Number of discrete narrative steps. */
@@ -24,53 +21,39 @@ function clamp01(n: number): number {
 
 /**
  * Pins a viewport (CSS sticky) while the page scrolls through `steps` screens,
- * exposing a continuous scroll progress. Lenis + ScrollTrigger add smooth scrub;
- * with reduced motion we fall back to a plain scroll listener and no smoothing.
+ * exposing a continuous scroll progress derived from native scroll position.
+ * Progress updates are throttled to one per animation frame — no smooth-scroll
+ * library, so scrolling stays native and responsive.
  */
 export function ScrollStage({ steps, markers, children }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const reduced = useReducedMotion()
 
-  useGSAP(
-    () => {
-      const el = containerRef.current
-      if (!el) return
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
 
-      if (reduced) {
-        const onScroll = () => {
-          const rect = el.getBoundingClientRect()
-          const total = rect.height - window.innerHeight
-          const p = total > 0 ? clamp01(-rect.top / total) : 0
-          setProgress(p)
-        }
-        onScroll()
-        window.addEventListener('scroll', onScroll, { passive: true })
-        return () => window.removeEventListener('scroll', onScroll)
-      }
+    let raf = 0
+    const compute = () => {
+      raf = 0
+      const rect = el.getBoundingClientRect()
+      const total = rect.height - window.innerHeight
+      setProgress(total > 0 ? clamp01(-rect.top / total) : 0)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(compute)
+    }
 
-      const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
-      lenis.on('scroll', ScrollTrigger.update)
-      const raf = (time: number) => lenis.raf(time)
-      gsap.ticker.add(raf)
-      gsap.ticker.lagSmoothing(0)
-
-      const trigger = ScrollTrigger.create({
-        trigger: el,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-        onUpdate: (self) => setProgress(self.progress),
-      })
-
-      return () => {
-        trigger.kill()
-        gsap.ticker.remove(raf)
-        lenis.destroy()
-      }
-    },
-    { dependencies: [reduced, steps], scope: containerRef },
-  )
+    compute()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [steps])
 
   const step = Math.min(steps - 1, Math.floor(progress * steps))
 
@@ -83,7 +66,7 @@ export function ScrollStage({ steps, markers, children }: Props) {
   }
 
   return (
-    <div ref={containerRef} className={styles.container} style={{ height: `${steps * 100}vh` }}>
+    <div ref={containerRef} className={styles.container} style={{ height: `${steps * STEP_VH}vh` }}>
       <div className={styles.sticky}>
         <div className={styles.progress} aria-hidden="true">
           <span className={styles.progressFill} style={{ transform: `scaleX(${progress})` }} />
