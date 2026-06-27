@@ -39,16 +39,11 @@ and tightening layout density.
 - Deep-dive charts reveal per-panel (localProgress); mobile fully draws.
 - Hero has a faint market-line backdrop (reduced-motion safe).
 - Data-rich accessible name for the overview timeline (timelineAriaLabel).
+- useTheme hook covered by tests.
 
 ## Next
 
-1. useTheme hook is untested.
-   Evidence: src/lib/useTheme.ts (localStorage persistence + data-theme attribute) has no
-   src/lib/__tests__/useTheme.test.ts, unlike the sibling useMediaQuery now covered
-   Acceptance: a unit test covers the default theme, toggling sets the data-theme
-   attribute and persists, and a persisted value is read on init; verify green.
-
-2. AnnouncementCard carries redundant per-type tag classes.
+1. AnnouncementCard carries redundant per-type tag classes.
    Evidence: src/components/AnnouncementCard.module.css .tag_strike…tag_policy set color,
    but .tag now derives colour from the per-event --accent and the component still
    concatenates styles[`tag_${type}`]
