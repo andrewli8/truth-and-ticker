@@ -32,17 +32,13 @@ and tightening layout density.
 - Data-rich accessible name for the deep-dive chart (chartAriaLabel).
 - Outro methodology text matches the close-to-close basis.
 - StatBand copy/framing rescoped to the whole term.
+- Share text rescoped to the whole second term.
 
 ## Next
 
 
-1. Share text still pitches only the June Israel–Iran war.
-   Evidence: src/components/ShareButton.tsx:5 ("maps his June 2025 Israel–Iran war
-   announcements…")
-   Acceptance: the share text describes the whole second term (tariffs…ceasefires across
-   the S&P, oil, defense, dollar); a test pins the updated text; verify green.
 
-2. ScrollStage has no component test.
+1. ScrollStage has no component test.
    Evidence: src/components/__tests__/ has no ScrollStage.test.tsx, yet ScrollStage owns
    dot-nav and the render-prop stage
    Acceptance: a test renders ScrollStage with N steps and asserts N nav dots plus that
