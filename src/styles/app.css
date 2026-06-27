@@ -53,6 +53,15 @@
   margin-bottom: 1rem;
 }
 
+/* Tablet: single column, still pinned, with a compact chart so both fit. */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .stage {
     grid-template-columns: 1fr;
