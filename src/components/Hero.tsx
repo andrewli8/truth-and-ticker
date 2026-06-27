@@ -24,6 +24,31 @@ export function Hero() {
 
   return (
     <header className={styles.hero} ref={root}>
+      <svg
+        className={styles.backdrop}
+        viewBox="0 0 1200 300"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        data-testid="hero-backdrop"
+      >
+        <defs>
+          <linearGradient id="heroLineFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--risk)" stopOpacity="0.10" />
+            <stop offset="100%" stopColor="var(--risk)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {/* An abstract market line: choppy start, the April drop, recovery to highs. */}
+        <path
+          className={styles.backdropArea}
+          d="M0,170 L100,150 L200,176 L300,140 L400,162 L470,150 L500,250 L560,232 L600,256 L660,206 L760,150 L860,120 L960,134 L1060,92 L1200,70 L1200,300 L0,300 Z"
+          fill="url(#heroLineFill)"
+        />
+        <path
+          className={styles.backdropLine}
+          d="M0,170 L100,150 L200,176 L300,140 L400,162 L470,150 L500,250 L560,232 L600,256 L660,206 L760,150 L860,120 L960,134 L1060,92 L1200,70"
+          fill="none"
+        />
+      </svg>
       <div className={styles.kicker} data-hero>JAN – JUN 2025 · TRUMP&apos;S SECOND TERM</div>
       <h1 className={styles.title} data-hero>
         TRUTH<span className={styles.amp}>&amp;</span>TICKER

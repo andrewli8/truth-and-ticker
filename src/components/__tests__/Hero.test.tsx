@@ -11,6 +11,15 @@ describe('Hero', () => {
     expect(getByText(/From day one/i)).toBeInTheDocument()
   })
 
+  it('renders a decorative, aria-hidden market-line backdrop', () => {
+    const { getByTestId } = render(<Hero />)
+    const backdrop = getByTestId('hero-backdrop')
+    expect(backdrop).toBeInTheDocument()
+    expect(backdrop.getAttribute('aria-hidden')).toBe('true')
+    // It carries the abstract line path, not just an empty frame.
+    expect(backdrop.querySelector('path')?.getAttribute('d')).toBeTruthy()
+  })
+
   it('mounts without error under reduced motion (GSAP entrance skipped)', () => {
     // The test environment reports prefers-reduced-motion: reduce, so the GSAP
     // timeline is skipped; the hero must still render its content.
