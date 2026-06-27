@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: auto !important;
+  }
+  .sticky {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+  }
+}
