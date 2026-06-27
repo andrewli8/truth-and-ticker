@@ -48,13 +48,14 @@ and tightening layout density.
 - Dropped unused d3-array direct dependency.
 - Overview markers jump to their deep-dive panel (featured events).
 - 'Biggest run-up' stat now measures the true max run-up.
+- Deep-linkable events via URL hash (#event-<id>).
 
 ## Next
 
-1. Events aren't deep-linkable; a shared link can't open a specific moment.
-   Evidence: src/components/MasterTimeline.tsx selection lives only in component state;
-   src/components/ShareButton.tsx shares window.location.href with no event in it
-   Acceptance: pure eventIdFromHash(hash)/hashForEvent(id) helpers (unit-tested) drive
-   a URL hash like #event-<id>; the timeline initialises its selection from the hash and
-   updates the hash on explicit selection (click/keyboard, not hover); verify green.
-
+1. Deep-link selection only applies on first load, not on later hash changes.
+   Evidence: src/components/MasterTimeline.tsx reads the hash in the useState
+   initialiser only; editing the URL, using back/forward, or any future in-app link
+   won't update the selection
+   Acceptance: a hashchange listener re-selects the event when the URL hash changes to a
+   valid #event-<id> (ignored otherwise); covered by a component test firing hashchange;
+   verify green.
