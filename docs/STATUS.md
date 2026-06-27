@@ -33,22 +33,17 @@ and tightening layout density.
 - Outro methodology text matches the close-to-close basis.
 - StatBand copy/framing rescoped to the whole term.
 - Share text rescoped to the whole second term.
+- ScrollStage dot-nav/render-prop covered by tests.
 
 ## Next
 
-1. ScrollStage has no component test.
-   Evidence: src/components/ScrollStage.tsx (owns dot-nav + the render-prop stage) has no
-   src/components/__tests__/ScrollStage.test.tsx
-   Acceptance: a test renders ScrollStage with N steps and asserts N nav dots plus that
-   the render-prop children appear; verify green.
-
-2. useMediaQuery hook is untested.
+1. useMediaQuery hook is untested.
    Evidence: src/lib/useMediaQuery.ts (matchMedia subscription + SSR guard) has no
    src/lib/__tests__/useMediaQuery.test.ts
    Acceptance: a unit test covers the matched/unmatched result and the SSR-safe path when
    matchMedia is unavailable; verify green.
 
-3. Hero has no component test after its rescope.
+2. Hero has no component test after its rescope.
    Evidence: src/components/Hero.tsx (GSAP entrance, reduced-motion guard) has no
    src/components/__tests__/Hero.test.tsx
    Acceptance: a test asserts the rescoped kicker/thesis render and that it mounts
