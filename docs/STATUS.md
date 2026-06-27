@@ -46,3 +46,12 @@ and tightening layout density.
 - OG share image rescoped to the whole second term.
 
 ## Next
+
+1. The master-timeline legend is static; make it filter markers by category.
+   Evidence: src/components/MasterTimeline.tsx legend renders risk-off/pressure/relief
+   swatches as plain <span>s — no interactivity, despite the page's goal of user
+   involvement
+   Acceptance: a pure accentGroup(type)→'risk'|'warn'|'relief' helper (unit-tested)
+   classifies each event; the legend swatches become toggle buttons that show/hide their
+   category's markers (all shown by default; keyboard-operable, aria-pressed); verify
+   green.
