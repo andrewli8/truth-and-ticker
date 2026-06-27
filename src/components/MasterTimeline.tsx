@@ -21,7 +21,7 @@ import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
-import { eventIdFromHash, hashForEvent } from '../lib/hash'
+import { eventIdFromHash, hashForEvent, eventShareUrl } from '../lib/hash'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -77,6 +77,21 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
     }
   }
 
+  // Copy a shareable deep-link to the selected event.
+  function copyLink(id: string) {
+    if (typeof window === 'undefined') return
+    const url = eventShareUrl(window.location.origin, window.location.pathname, id)
+    const writer = navigator?.clipboard?.writeText
+    if (!writer) return
+    writer
+      .call(navigator.clipboard, url)
+      .then(() => {
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 2000)
+      })
+      .catch(() => {})
+  }
+
   // Re-select when the URL hash changes (back/forward, edited URL, in-app links).
   useEffect(() => {
     const onHash = () => {
@@ -88,6 +103,7 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
   }, [announcements])
   // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
   const [hoverMs, setHoverMs] = useState<number | null>(null)
+  const [copied, setCopied] = useState(false)
   const svgRef = useRef<SVGSVGElement>(null)
   const lineRef = useRef<SVGPathElement>(null)
   const markerRefs = useRef<(SVGCircleElement | null)[]>([])
@@ -357,7 +373,12 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
           </div>
           <div className={styles.detailFoot}>
             <span>{selected.source}</span>
-            <a href={selected.citationUrl} target="_blank" rel="noreferrer">{selected.citationLabel} ↗</a>
+            <span className={styles.detailActions}>
+              <button type="button" className={styles.copyLink} onClick={() => copyLink(selected.id)}>
+                {copied ? 'Link copied ✓' : 'Copy link'}
+              </button>
+              <a href={selected.citationUrl} target="_blank" rel="noreferrer">{selected.citationLabel} ↗</a>
+            </span>
           </div>
         </article>
       )}

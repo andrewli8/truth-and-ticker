@@ -141,6 +141,18 @@ describe('MasterTimeline', () => {
     expect(getAllByTestId('marker')[0].getAttribute('aria-pressed')).toBe('true')
   })
 
+  it('copies a deep-link to the selected event', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    window.location.hash = '#event-a'
+    const { getByRole } = render(
+      <MasterTimeline series={spx} announcements={twoEvents} accentFor={() => 'var(--risk)'} />,
+    )
+    fireEvent.click(getByRole('button', { name: /copy link/i }))
+    expect(writeText).toHaveBeenCalledTimes(1)
+    expect(writeText.mock.calls[0][0]).toContain('#event-a')
+  })
+
   it('filters markers when a legend category is toggled off', () => {
     const { getByRole, getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,

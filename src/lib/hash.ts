@@ -15,3 +15,8 @@ export function eventIdFromHash(hash: string | null | undefined): string | null 
 export function hashForEvent(id: string): string {
   return `${PREFIX}${encodeURIComponent(id)}`
 }
+
+/** Absolute shareable deep-link to an event (origin + path + event hash). */
+export function eventShareUrl(origin: string, pathname: string, id: string): string {
+  return `${origin}${pathname}${hashForEvent(id)}`
+}

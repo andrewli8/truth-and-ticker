@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { eventIdFromHash, hashForEvent } from '../hash'
+import { eventIdFromHash, hashForEvent, eventShareUrl } from '../hash'
 
 describe('hash deep-linking', () => {
   it('round-trips an id through the hash', () => {
@@ -16,5 +16,8 @@ describe('hash deep-linking', () => {
   })
   it('tolerates a hash missing its leading #', () => {
     expect(eventIdFromHash('event-x')).toBe('x')
+  })
+  it('builds an absolute shareable deep-link', () => {
+    expect(eventShareUrl('https://x.dev', '/', 'ceasefire')).toBe('https://x.dev/#event-ceasefire')
   })
 })
