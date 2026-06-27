@@ -9,6 +9,7 @@ import {
   priceY,
   valueAt,
   timeLinePath,
+  msAtX,
 } from '../scales'
 import type { Point } from '../types'
 
@@ -95,6 +96,20 @@ describe('time-axis helpers', () => {
   it('timeLinePath starts with a move command', () => {
     expect(timeLinePath(pts, 800, 400).startsWith('M')).toBe(true)
     expect(timeLinePath([], 800, 400)).toBe('')
+  })
+  it('msAtX inverts timeX (round-trips a mid-domain time)', () => {
+    const dom = dateDomainOf(pts)
+    const mid = ms('2025-06-24T10:30:00-04:00')
+    expect(msAtX(timeX(mid, 800, dom), 800, dom)).toBeCloseTo(mid, -3)
+  })
+  it('msAtX clamps x outside the padded range to the domain ends', () => {
+    const dom = dateDomainOf(pts)
+    expect(msAtX(-9999, 800, dom)).toBeCloseTo(dom[0], -3)
+    expect(msAtX(9999, 800, dom)).toBeCloseTo(dom[1], -3)
+  })
+  it('msAtX increases left to right', () => {
+    const dom = dateDomainOf(pts)
+    expect(msAtX(100, 800, dom)).toBeLessThan(msAtX(700, 800, dom))
   })
 })
 

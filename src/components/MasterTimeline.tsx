@@ -1,14 +1,15 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useMemo, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
 import {
   timeLinePath,
   timeAreaPath,
   timeX,
   priceY,
   valueAt,
+  msAtX,
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
-import { formatTime } from '../lib/format'
+import { formatTime, formatDay, formatPrice } from '../lib/format'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -46,6 +47,9 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(
     () => announcements[announcements.length - 1]?.id ?? null,
   )
+  // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
+  const [hoverMs, setHoverMs] = useState<number | null>(null)
+  const svgRef = useRef<SVGSVGElement>(null)
 
   const domain = useMemo(() => dateDomainOf(series.points), [series.points])
   const vdom = useMemo(() => domainFor(series.points), [series.points])
@@ -65,6 +69,26 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
 
   const selected = announcements.find((a) => a.id === selectedId) ?? null
 
+  // Resolve the cursor into the chart's live readout (date + index price).
+  const hover = useMemo(() => {
+    if (hoverMs === null || !Number.isFinite(hoverMs)) return null
+    const price = valueAt(series.points, hoverMs) ?? series.points[0]?.price ?? null
+    if (price === null) return null
+    return {
+      x: timeX(hoverMs, W, domain),
+      y: priceY(price, H, vdom),
+      price,
+      label: formatDay(new Date(hoverMs).toISOString()),
+    }
+  }, [hoverMs, series.points, domain, vdom])
+
+  function scrub(e: PointerEvent<SVGSVGElement>) {
+    const rect = svgRef.current?.getBoundingClientRect()
+    if (!rect || rect.width === 0 || !Number.isFinite(e.clientX)) return
+    const vbX = ((e.clientX - rect.left) / rect.width) * W
+    setHoverMs(msAtX(vbX, W, domain))
+  }
+
   return (
     <section className={styles.section} aria-label="Trump's second term, market timeline">
       <header className={styles.head}>
@@ -81,7 +105,16 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         </div>
       </header>
 
-      <svg className={styles.svg} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${series.name} over the term`}>
+      <svg
+        ref={svgRef}
+        className={styles.svg}
+        viewBox={`0 0 ${W} ${H}`}
+        role="img"
+        aria-label={`${series.name} over the term`}
+        onPointerMove={scrub}
+        onPointerDown={scrub}
+        onPointerLeave={() => setHoverMs(null)}
+      >
         <defs>
           <linearGradient id="masterFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--text)" stopOpacity="0.16" />
@@ -129,6 +162,21 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
             </g>
           )
         })}
+
+        {hover && (
+          <g className={styles.scrub} pointerEvents="none" data-testid="scrub">
+            <line x1={hover.x} x2={hover.x} y1={PAD} y2={H - PAD} className={styles.scrubLine} />
+            <circle cx={hover.x} cy={hover.y} r={5} className={styles.scrubDot} />
+            <g transform={`translate(${hover.x < W / 2 ? hover.x + 10 : hover.x - 10}, ${PAD + 6})`}>
+              <text
+                className={styles.scrubLabel}
+                textAnchor={hover.x < W / 2 ? 'start' : 'end'}
+              >
+                {hover.label} · {formatPrice(hover.price)}
+              </text>
+            </g>
+          </g>
+        )}
       </svg>
 
       {selected && (

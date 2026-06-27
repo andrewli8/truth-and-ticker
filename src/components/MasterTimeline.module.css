@@ -46,6 +46,32 @@
   height: auto;
   display: block;
   color: var(--muted);
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+
+.scrubLine {
+  stroke: var(--text);
+  stroke-width: 1;
+  opacity: 0.35;
+  vector-effect: non-scaling-stroke;
+}
+
+.scrubDot {
+  fill: var(--text);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.scrubLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .grid {

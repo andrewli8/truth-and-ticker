@@ -16,6 +16,16 @@ export function timeX(ms: number, width: number, domain: [number, number]): numb
   return scaleTime().domain(domain).range([PAD, width - PAD])(new Date(ms))
 }
 
+/**
+ * Inverse of {@link timeX}: the epoch ms under an x coordinate. The x is clamped
+ * to the padded plot range so scrubbing past either edge reads the nearest end.
+ * Pure.
+ */
+export function msAtX(x: number, width: number, domain: [number, number]): number {
+  const clampedX = Math.max(PAD, Math.min(width - PAD, x))
+  return scaleTime().domain(domain).range([PAD, width - PAD]).invert(clampedX).getTime()
+}
+
 /** Y coordinate for a price within a value domain, padded (higher price = smaller y). */
 export function priceY(price: number, height: number, domain: Domain): number {
   return scaleLinear().domain([domain.min, domain.max]).range([height - PAD, PAD])(price)
