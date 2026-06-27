@@ -1,5 +1,6 @@
+import { type CSSProperties } from 'react'
 import { formatPct, formatTime } from '../lib/format'
-import type { CorrelatedEvent } from '../lib/types'
+import type { CorrelatedEvent, AnnType } from '../lib/types'
 import styles from './AnnouncementCard.module.css'
 
 const TYPE_LABEL: Record<string, string> = {
@@ -11,6 +12,19 @@ const TYPE_LABEL: Record<string, string> = {
   'trade-deal': 'TRADE DEAL',
   fed: 'FED PRESSURE',
   policy: 'POLICY',
+}
+
+// Event-type accent (CSS vars so it recolors with the theme). The spine, tag, and
+// quote mark all hang off this single through-line.
+const ACCENT: Record<AnnType, string> = {
+  strike: 'var(--risk)',
+  threat: 'var(--warn)',
+  'market-jawbone': 'var(--warn)',
+  ceasefire: 'var(--relief)',
+  tariff: 'var(--risk)',
+  'trade-deal': 'var(--relief)',
+  fed: 'var(--warn)',
+  policy: 'var(--warn)',
 }
 
 /** Curated secondary tickers surfaced on the card: oil, defense, fear gauge. */
@@ -30,8 +44,10 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
     .map((t) => reactions.find((r) => r.ticker === t))
     .filter((r): r is NonNullable<typeof r> => Boolean(r))
 
+  const accentStyle = { '--accent': ACCENT[announcement.type] } as CSSProperties
+
   return (
-    <article className={styles.card}>
+    <article className={styles.card} style={accentStyle}>
       <header className={styles.meta}>
         <span className={`${styles.tag} ${styles[`tag_${announcement.type.replace('-', '_')}`] ?? ''}`}>
           {TYPE_LABEL[announcement.type] ?? announcement.type}
@@ -39,18 +55,14 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
         <time className={styles.time}>{formatTime(announcement.datetime)}</time>
       </header>
 
-      {announcement.quote ? (
-        <blockquote className={styles.quote}>“{announcement.quote}”</blockquote>
-      ) : (
-        <p className={styles.quote}>{announcement.summary}</p>
-      )}
+      <blockquote className={styles.quote}>
+        <span className={styles.mark} aria-hidden="true">“</span>
+        <span className={styles.quoteText}>{announcement.quote || announcement.summary}</span>
+      </blockquote>
       {announcement.quote && <p className={styles.summary}>{announcement.summary}</p>}
 
       <div className={styles.reactionRow}>
-        <span
-          data-testid="delta-badge"
-          className={`${styles.badge} ${styles[dir]}`}
-        >
+        <span data-testid="delta-badge" className={`${styles.badge} ${styles[dir]}`}>
           {primary?.ticker} {formatPct(delta)}
         </span>
         <div className={styles.others}>

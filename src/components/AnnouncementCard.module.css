@@ -1,36 +1,56 @@
+/* The quote is composed into the column, not boxed: a vivid accent spine on the
+   left, an oversized hanging quotation mark, and the words as the hero. */
 .card {
-  max-width: 30rem;
-  padding: 1.5rem 1.6rem;
-  background: var(--surface);
-  border: 1px solid var(--steel);
-  border-radius: 14px;
-  backdrop-filter: blur(8px);
+  position: relative;
+  max-width: 34rem;
+  padding: 0.25rem 0 0.25rem 1.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+/* Accent spine — the structural through-line, tied to the event type. */
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  bottom: 0.1rem;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent, var(--steel)),
+    color-mix(in srgb, var(--accent, var(--steel)) 8%, transparent)
+  );
 }
 
 .meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   font-family: 'JetBrains Mono', monospace;
 }
 
 .tag {
   font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  padding: 0.25rem 0.5rem;
-  border: 1px solid var(--steel);
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  padding: 0.22rem 0.55rem;
   border-radius: 4px;
-  color: var(--muted);
+  color: var(--accent, var(--muted));
+  background: color-mix(in srgb, var(--accent, var(--muted)) 12%, transparent);
 }
 
-.tag_strike { color: var(--risk); border-color: var(--risk); }
-.tag_ceasefire { color: var(--relief); border-color: var(--relief); }
-.tag_market_jawbone { color: var(--warn); border-color: var(--warn); }
-.tag_tariff { color: var(--risk); border-color: var(--risk); }
-.tag_trade_deal { color: var(--relief); border-color: var(--relief); }
-.tag_fed { color: var(--warn); border-color: var(--warn); }
-.tag_policy { color: var(--warn); border-color: var(--warn); }
+/* Type colors now flow from --accent (set per event), so these only need to
+   exist for the rare type without an accent; kept for safety/back-compat. */
+.tag_strike { color: var(--risk); }
+.tag_ceasefire { color: var(--relief); }
+.tag_market_jawbone { color: var(--warn); }
+.tag_tariff { color: var(--risk); }
+.tag_trade_deal { color: var(--relief); }
+.tag_fed { color: var(--warn); }
+.tag_policy { color: var(--warn); }
 
 .time {
   font-size: 0.78rem;
@@ -38,26 +58,50 @@
 }
 
 .quote {
-  font-size: clamp(1.15rem, 1.5vw, 1.45rem);
-  line-height: 1.28;
-  font-weight: 500;
-  margin-bottom: 0.85rem;
+  position: relative;
+  margin: 0;
+  padding-top: 0.45rem;
+}
+
+/* Oversized decorative opening mark the words hang from. */
+.mark {
+  position: absolute;
+  top: -1.6rem;
+  left: -0.5rem;
+  font-size: 5.5rem;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--accent, var(--steel));
+  opacity: 0.22;
+  pointer-events: none;
+  user-select: none;
+}
+
+.quoteText {
+  position: relative;
+  display: block;
+  font-size: clamp(1.45rem, 2.5vw, 2.4rem);
+  line-height: 1.16;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
 .summary {
   color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.45;
-  margin-bottom: 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30rem;
 }
 
+/* The market's verdict, set off as a deliberate data line. */
 .reactionRow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.1rem;
+  gap: 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--steel);
 }
 
 .badge {
@@ -75,7 +119,7 @@
 .others {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 0.7rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   color: var(--muted);
@@ -89,13 +133,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.4rem 1rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--steel);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
 }
 
 .source { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
 .cite { color: var(--text); text-decoration: none; }
-.cite:hover { color: var(--risk); }
-.cite:focus-visible { outline: 2px solid var(--risk); outline-offset: 2px; border-radius: 2px; }
+.cite:hover { color: var(--accent, var(--risk)); }
+.cite:focus-visible { outline: 2px solid var(--accent, var(--risk)); outline-offset: 2px; border-radius: 2px; }

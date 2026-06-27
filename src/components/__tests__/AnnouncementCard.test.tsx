@@ -33,6 +33,15 @@ describe('AnnouncementCard', () => {
     expect(badge.className).toMatch(/up/)
   })
 
+  it('hides the decorative quote mark from assistive tech but keeps the words readable', () => {
+    const { container, getByText } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    const mark = container.querySelector('[aria-hidden="true"]')
+    expect(mark).toBeTruthy()
+    expect(mark!.textContent).toContain('“')
+    // The verbatim quote is its own node, not swallowed by the decorative mark.
+    expect(getByText(/IT’S TIME FOR PEACE/).getAttribute('aria-hidden')).toBeNull()
+  })
+
   it('links to the citation', () => {
     const { getByRole } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
     const link = getByRole('link') as HTMLAnchorElement
