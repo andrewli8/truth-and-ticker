@@ -18,37 +18,37 @@ and tightening layout density.
 - Hover-scrub crosshair with live date/price readout; keyboard arrow event-stepping.
 - Animated market-reaction readout (shared useCountUp).
 - Editorial pull-quote treatment (deep-dive card + master timeline detail).
+- Deep-dive chart windowed to each event (±21d via pure windowAround).
+- Ticker rail shows the active event's moves, biggest first (eventMoves).
+- Chart aspect honest (no preserveAspectRatio=none); responsive measured viewBox.
+- Deep-dive chart fills the stage; dead band halved (225→119px at 1440).
 
 ## Next
 
-1. Window the deep-dive chart to each event's moment.
-   Evidence: src/App.tsx:58 (every featured panel renders the full Jan–Jun series; the
-   momentLabel claims one date but the chart spans the whole term)
-   Acceptance: a pure `windowAround(points, datetimeISO, days)` helper slices a series
-   to a window centred on the event (unit-tested: centred, clamped at both ends, empty
-   input); the deep-dive MarketChart receives the windowed series so each panel shows
-   the action around that announcement; verify green.
-
-2. Ticker rail reflects the active event, not day-zero zeros.
-   Evidence: src/components/TickerRail.tsx:14 (currentPct reads pctFromPrevClose at the
-   scroll index; at a panel's entry progress≈0 → day 0 → every chip reads +0.00%)
-   Acceptance: each chip shows the instrument's move for the active event (its
-   correlated reaction), via a pure helper that is unit-tested; verify green.
-
-3. Stop the deep-dive chart from distorting the line.
-   Evidence: src/components/MarketChart.tsx:61 (preserveAspectRatio="none" scales X and
-   Y independently, so slopes are visually false)
-   Acceptance: the chart preserves aspect (no "none") without layout regression at
-   320–1440px; existing chart tests stay green; verify green.
-
-4. Remove dead space in the pinned deep-dive stage.
-   Evidence: src/styles/app.css:25 (.stage uses align-items:center; large empty bands
-   above/below at 1024–1440px, visible in screenshots)
-   Acceptance: the stage distributes content to fill the viewport with no large dead
-   zone at 1024px and 1440px; chart claims more vertical space; verify green.
-
-5. De-collide clustered master-timeline markers.
+1. De-collide clustered master-timeline markers.
    Evidence: src/components/MasterTimeline.tsx (markers overlap where events bunch, e.g.
-   the June war cluster — several dots merge)
+   the June war cluster — several dots merge into a blob)
    Acceptance: overlapping markers are separated legibly via a pure de-collision helper
-   that is unit-tested (stable order, minimum spacing); verify green.
+   that is unit-tested (stable order, minimum spacing, idempotent); verify green.
+
+2. Stop the line curve from inventing motion between daily closes.
+   Evidence: src/lib/scales.ts (buildLinePath/timeLinePath use curveMonotoneX; on the
+   sparse ~21-day window the smoothing overshoots into sine-like waves that imply
+   intraday movement the daily data does not contain)
+   Acceptance: the price line uses an interpolation that does not overshoot daily
+   closes (e.g. curveLinear or curveMonotoneX replaced); a test pins the chosen curve;
+   verify green.
+
+3. Honest y-axis baseline cue on the deep-dive chart.
+   Evidence: src/components/MarketChart.tsx (domainFor uses min..max, so the area fill
+   starts at the window low — a truncated axis that visually exaggerates the move with
+   no indication the baseline isn't zero)
+   Acceptance: the chart signals the truncated baseline (e.g. a "low" axis label or a
+   zero-baseline note) so the move isn't overstated; a pure label helper is
+   unit-tested; verify green.
+
+4. Master-timeline scrub should snap its readout to the nearest real close.
+   Evidence: src/components/MasterTimeline.tsx (scrub uses valueAt step-hold; between
+   sparse points the readout price can sit visually off the drawn line)
+   Acceptance: the scrub dot/readout aligns to the nearest plotted point via a pure
+   nearest-point helper that is unit-tested; verify green.
