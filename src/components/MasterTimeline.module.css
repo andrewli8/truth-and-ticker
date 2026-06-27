@@ -136,8 +136,13 @@
   transition: r 0.15s ease;
 }
 
-.marker:hover { opacity: 0.85; }
+/* Grow unselected dots a touch on hover for an obvious affordance. */
+.marker:hover:not(.markerSel) { r: 7; }
 .marker:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marker { transition: none; }
+}
 
 .markerSel {
   filter: drop-shadow(0 0 calc(7px * var(--glow, 1)) currentColor);

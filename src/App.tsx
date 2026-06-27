@@ -106,6 +106,7 @@ export default function App() {
             <div className="stage">
               <div className="stageChart">
                 <MarketChart
+                  key={event.announcement.id}
                   series={series}
                   progress={local}
                   accent={accent}
