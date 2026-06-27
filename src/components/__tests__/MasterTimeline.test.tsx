@@ -82,6 +82,18 @@ describe('MasterTimeline', () => {
     expect(getAllByTestId('marker')[lastIdx].getAttribute('aria-pressed')).toBe('false')
   })
 
+  it('filters markers when a legend category is toggled off', () => {
+    const { getByRole, getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const before = getAllByTestId('marker').length
+    const riskBtn = getByRole('button', { name: /risk-off/i })
+    expect(riskBtn.getAttribute('aria-pressed')).toBe('true')
+    fireEvent.click(riskBtn)
+    expect(riskBtn.getAttribute('aria-pressed')).toBe('false')
+    expect(getAllByTestId('marker').length).toBeLessThan(before)
+  })
+
   it('reveals a live scrub crosshair on pointer move', () => {
     const { container, queryByTestId, getByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,

@@ -31,15 +31,33 @@
 
 .legend {
   display: flex;
-  gap: 1.1rem;
+  gap: 0.6rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
 }
-.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
-.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--steel);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+.legendItem:hover { border-color: var(--muted); }
+.legendItem:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.legendItem i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legendOff { opacity: 0.4; }
+.legendOff i { filter: grayscale(1); }
 
 .svg {
   width: 100%;

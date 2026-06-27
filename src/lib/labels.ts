@@ -17,3 +17,22 @@ const LABELS: Record<AnnType, string> = {
 export function typeLabel(type: AnnType): string {
   return LABELS[type] ?? type
 }
+
+export type AccentGroup = 'risk' | 'warn' | 'relief'
+
+// Which legend bucket each type falls in — mirrors the theme accent colours.
+const GROUP: Record<AnnType, AccentGroup> = {
+  strike: 'risk',
+  tariff: 'risk',
+  threat: 'warn',
+  'market-jawbone': 'warn',
+  fed: 'warn',
+  policy: 'warn',
+  ceasefire: 'relief',
+  'trade-deal': 'relief',
+}
+
+/** Legend category (risk-off / pressure / relief) for an announcement type. */
+export function accentGroup(type: AnnType): AccentGroup {
+  return GROUP[type] ?? 'warn'
+}

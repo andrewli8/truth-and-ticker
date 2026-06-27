@@ -15,7 +15,7 @@ import {
 } from '../lib/scales'
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
-import { typeLabel } from '../lib/labels'
+import { typeLabel, accentGroup, type AccentGroup } from '../lib/labels'
 import { timelineAriaLabel } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
@@ -67,12 +67,14 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const lineRef = useRef<SVGPathElement>(null)
   const markerRefs = useRef<(SVGCircleElement | null)[]>([])
 
-  // ←/→ step through announcements in chronological order, moving focus along.
-  function stepSelection(currentIndex: number, dir: number) {
-    const next = adjacentIndex(announcements.length, currentIndex, dir)
-    if (next < 0) return
-    setSelectedId(announcements[next].id)
-    markerRefs.current[next]?.focus()
+  // Legend filter: categories the reader has toggled off (all shown by default).
+  const [hiddenGroups, setHiddenGroups] = useState<Set<AccentGroup>>(() => new Set())
+  function toggleGroup(g: AccentGroup) {
+    setHiddenGroups((prev) => {
+      const next = new Set(prev)
+      next.has(g) ? next.delete(g) : next.add(g)
+      return next
+    })
   }
 
   // Scroll-into-view reveal: draw the line on, then pop the markers in sequence.
@@ -119,17 +121,31 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
   const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series.points])
   const ticks = useMemo(() => monthTicks(domain), [domain])
 
-  const markers = useMemo(() => {
-    const base = announcements.map((a) => {
-      const ms = Date.parse(a.datetime)
-      const price = valueAt(series.points, ms) ?? series.points[0]?.price ?? 0
-      return { a, x: timeX(ms, W, domain), y: priceY(price, H, vdom) }
-    })
-    // Fan out dots that bunch in time (e.g. the June war) so they stay legible;
-    // `dx` is the display x, `x` remains the true time position for the connector.
-    const dx = decollide(base.map((m) => m.x), MARKER_GAP, PAD, W - PAD)
-    return base.map((m, i) => ({ ...m, dx: dx[i] }))
-  }, [announcements, series.points, domain, vdom])
+  const markers = useMemo(
+    () =>
+      announcements.map((a) => {
+        const ms = Date.parse(a.datetime)
+        const price = valueAt(series.points, ms) ?? series.points[0]?.price ?? 0
+        return { a, x: timeX(ms, W, domain), y: priceY(price, H, vdom) }
+      }),
+    [announcements, series.points, domain, vdom],
+  )
+
+  // Only the markers whose category is enabled, then fan out the dots that bunch
+  // in time so they stay legible. `dx` is the display x; `x` stays the true time.
+  const visible = useMemo(() => {
+    const vis = markers.filter((m) => !hiddenGroups.has(accentGroup(m.a.type)))
+    const dx = decollide(vis.map((m) => m.x), MARKER_GAP, PAD, W - PAD)
+    return vis.map((m, i) => ({ ...m, dx: dx[i] }))
+  }, [markers, hiddenGroups])
+
+  // ←/→ step through the VISIBLE markers in order, moving focus along.
+  function stepSelection(currentIndex: number, dir: number) {
+    const next = adjacentIndex(visible.length, currentIndex, dir)
+    if (next < 0) return
+    setSelectedId(visible[next].a.id)
+    markerRefs.current[next]?.focus()
+  }
 
   const selected = announcements.find((a) => a.id === selectedId) ?? null
 
@@ -172,10 +188,27 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
             {series.name} · every market-moving moment, {announcements.length} of them
           </p>
         </div>
-        <div className={styles.legend}>
-          <span><i style={{ background: 'var(--risk)' }} />risk-off</span>
-          <span><i style={{ background: 'var(--warn)' }} />pressure</span>
-          <span><i style={{ background: 'var(--relief)' }} />relief</span>
+        <div className={styles.legend} role="group" aria-label="Filter events by category">
+          {([
+            ['risk', 'risk-off', 'var(--risk)'],
+            ['warn', 'pressure', 'var(--warn)'],
+            ['relief', 'relief', 'var(--relief)'],
+          ] as [AccentGroup, string, string][]).map(([key, label, color]) => {
+            const on = !hiddenGroups.has(key)
+            return (
+              <button
+                key={key}
+                type="button"
+                className={`${styles.legendItem} ${on ? '' : styles.legendOff}`}
+                aria-pressed={on}
+                aria-label={`${label} events${on ? ' (shown)' : ' (hidden)'}`}
+                onClick={() => toggleGroup(key)}
+              >
+                <i style={{ background: color }} />
+                {label}
+              </button>
+            )
+          })}
         </div>
       </header>
 
@@ -209,7 +242,7 @@ export function MasterTimeline({ series, announcements, accentFor }: Props) {
         <path d={areaPath} fill="url(#masterFill)" className={styles.area} />
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
-        {markers.map(({ a, x, dx, y }, i) => {
+        {visible.map(({ a, x, dx, y }, i) => {
           const isSel = a.id === selectedId
           return (
             <g key={a.id} style={{ color: accentFor(a.type) }}>
