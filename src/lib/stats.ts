@@ -1,4 +1,5 @@
 import { domainFor } from './scales'
+import { formatPrice, formatPct } from './format'
 import type { Series, AnnType, CorrelatedEvent } from './types'
 
 export interface TickerMove {
@@ -59,4 +60,19 @@ export function maxRunupPct(series: Series): number | null {
 /** Convenience lookup by ticker. */
 export function seriesByTicker(markets: Series[], ticker: string): Series | undefined {
   return markets.find((m) => m.ticker === ticker)
+}
+
+/**
+ * A spoken-language accessible name for a chart: the instrument, the window it
+ * covers, and its first→last move — so screen readers get the data, not just
+ * "price line". Pure.
+ */
+export function chartAriaLabel(series: Series, momentLabel?: string): string {
+  const pts = series.points
+  if (pts.length === 0) return `${series.name} price chart`
+  const first = pts[0].price
+  const last = pts[pts.length - 1].price
+  const pct = first ? ((last - first) / first) * 100 : null
+  const moment = momentLabel ? `, ${momentLabel} window` : ''
+  return `${series.name}${moment}: ${formatPrice(first)} to ${formatPrice(last)}, ${formatPct(pct)}`
 }

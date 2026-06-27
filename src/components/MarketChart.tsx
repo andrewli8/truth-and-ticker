@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
 import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
+import { chartAriaLabel } from '../lib/stats'
 import { formatPrice, axisFloorLabel } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
@@ -84,7 +85,7 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
           className={styles.svg}
           viewBox={`0 0 ${W} ${H}`}
           role="img"
-          aria-label={`${series.name} price line`}
+          aria-label={chartAriaLabel(series, momentLabel)}
         >
           <defs>
             <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
