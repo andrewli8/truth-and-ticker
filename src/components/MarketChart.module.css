@@ -129,10 +129,3 @@
   fill: var(--chart-accent);
   filter: drop-shadow(0 0 calc(6px * var(--glow, 1)) currentColor);
 }
-
-.dayLabel {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  fill: var(--chart-accent);
-}
