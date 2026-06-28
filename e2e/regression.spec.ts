@@ -29,6 +29,20 @@ test.describe('category band', () => {
       return w
     }, { timeout: 3000 }).toBeGreaterThan(50)
   })
+
+  test('re-titles when the timeline instrument changes', async ({ page }) => {
+    await page.goto('/')
+    const band = page.getByRole('region', { name: /reaction by announcement type/i })
+    await band.scrollIntoViewIfNeeded()
+    await expect(band.getByRole('heading')).toContainText(/S&P 500/i)
+    // Switch the instrument on the timeline (below the band).
+    const instruments = page.getByRole('group', { name: /Choose or compare the instrument/i })
+    await instruments.scrollIntoViewIfNeeded()
+    await instruments.getByRole('button', { name: 'Oil', exact: true }).click()
+    // The band (above) recomputes for the new instrument.
+    await band.scrollIntoViewIfNeeded()
+    await expect(band.getByRole('heading')).toContainText(/Oil/i)
+  })
 })
 
 test.describe('target sizes (WCAG 2.2 SC 2.5.8)', () => {
