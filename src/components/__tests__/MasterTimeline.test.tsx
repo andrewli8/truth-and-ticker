@@ -24,6 +24,16 @@ describe('MasterTimeline', () => {
     expect(getAllByTestId('marker')).toHaveLength(announcements.length)
   })
 
+  it('exposes the interactive chart as a group (not a leaf image)', () => {
+    const { container } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    // role="group" keeps the focusable marker buttons exposed to assistive tech.
+    const svg = container.querySelector('svg[role="group"]')
+    expect(svg).toBeTruthy()
+    expect(svg!.getAttribute('aria-label')).toBeTruthy()
+  })
+
   it('renders the series name and a default detail', () => {
     const { getByText, container } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,

@@ -325,7 +325,7 @@ export function MasterTimeline({
         ref={svgRef}
         className={styles.svg}
         viewBox={`0 0 ${W} ${H}`}
-        role="img"
+        role="group"
         aria-label={timelineAriaLabel(series)}
         onPointerMove={scrub}
         onPointerDown={scrub}
