@@ -96,41 +96,39 @@ describe('dataset integrity', () => {
     })
   })
 
-  it('any WTI percentage cited in a summary matches the CL data (close-to-close)', () => {
-    const cl = markets.find((m) => m.ticker === 'CL')!
-    // Magnitude of any "WTI ... <n>%" figure (e.g. "WTI +7.6%", "WTI plunged ~7.2%").
-    const wtiClaim = /WTI\D*?(\d+(?:\.\d+)?)\s*%/i
-    let checked = 0
+  it('index moves are stated in percent, never raw points', () => {
+    // "Dow +2,962" obscures relative magnitude next to percentages; require percent.
     announcements.forEach((a) => {
-      const match = a.summary.match(wtiClaim)
-      if (!match) return
-      checked += 1
-      const claimed = Number(match[1])
-      const actual = reactionFor(a, cl, REACTION_WINDOW_MINS).deltaPct
-      expect(actual).not.toBeNull()
-      // Prose states magnitude (sign is conveyed by words like "spiked"/"plunged").
-      expect(Math.abs(Math.abs(actual!) - claimed)).toBeLessThanOrEqual(0.2)
+      expect(a.summary).not.toMatch(/(Dow|S&P|Nasdaq) [+-]?[0-9],[0-9]{3}/)
     })
-    expect(checked).toBeGreaterThan(0) // guard the guard: ensure WTI claims exist
   })
 
-  it('any Dow percentage cited in a summary matches the DJI data, and none use raw points', () => {
-    const dji = markets.find((m) => m.ticker === 'DJI')!
-    // Index moves should be stated in percent, not raw points (comparability/honesty).
-    announcements.forEach((a) => {
-      expect(a.summary).not.toMatch(/Dow [+-]?[0-9],[0-9]{3}/)
-    })
-    const dowClaim = /Dow\s*([+-]?\d+(?:\.\d+)?)\s*%/i
+  it('every index/commodity percentage in a summary matches its close-to-close reaction', () => {
+    // Each summary states moves on the SAME close-to-close basis as the chart/ledger.
+    // <ticker label> ... <number>% → compare |claim| to the event's reaction for that ticker.
+    // The (?!\s*from) lookahead skips peak-relative figures ("down 10.1% from its record"),
+    // which are a different basis than the chart's close-to-close reaction.
+    // \b after the label avoids false hits (e.g. "Dow" inside "down"); "oil" aliases WTI.
+    const claimPatterns: { label: RegExp; ticker: string }[] = [
+      { label: /S&P\b\D*?(\d+(?:\.\d+)?)\s*%(?!\s*from)/i, ticker: 'SPX' },
+      { label: /Nasdaq\b\D*?(\d+(?:\.\d+)?)\s*%(?!\s*from)/i, ticker: 'NDX' },
+      { label: /Dow\b\D*?(\d+(?:\.\d+)?)\s*%(?!\s*from)/i, ticker: 'DJI' },
+      { label: /(?:WTI|oil)\b\D*?(\d+(?:\.\d+)?)\s*%(?!\s*from)/i, ticker: 'CL' },
+    ]
+    const seriesFor = (t: string) => markets.find((m) => m.ticker === t)!
     let checked = 0
     announcements.forEach((a) => {
-      const match = a.summary.match(dowClaim)
-      if (!match) return
-      checked += 1
-      const claimed = Number(match[1])
-      const actual = reactionFor(a, dji, REACTION_WINDOW_MINS).deltaPct
-      expect(actual).not.toBeNull()
-      expect(Math.abs(actual! - claimed)).toBeLessThanOrEqual(0.2)
+      claimPatterns.forEach(({ label, ticker }) => {
+        const match = a.summary.match(label)
+        if (!match) return
+        checked += 1
+        const claimed = Number(match[1])
+        const actual = reactionFor(a, seriesFor(ticker), REACTION_WINDOW_MINS).deltaPct
+        expect(actual, `${a.id} ${ticker}`).not.toBeNull()
+        // Prose states magnitude; sign is carried by words ("spiked"/"plunged"/"sold off").
+        expect(Math.abs(Math.abs(actual!) - claimed), `${a.id} ${ticker}`).toBeLessThanOrEqual(0.2)
+      })
     })
-    expect(checked).toBeGreaterThan(0)
+    expect(checked).toBeGreaterThan(8) // guard the guard: claims exist across instruments
   })
 })
