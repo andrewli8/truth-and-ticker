@@ -108,3 +108,12 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - ≥24px tap target for AnnouncementCard citation link (WCAG 2.2 target size).
 
 ## Next
+
+1. Make the ScrollStage dot-nav dots a ≥24px target. They're 11px with ~11px gaps
+   (~22px center-to-center), failing WCAG 2.2 SC 2.5.8 on both size and spacing. Evidence:
+   src/components/ScrollStage.module.css:55 (.dot 11px); Evidence:
+   src/components/ScrollStage.module.css:51 (.dots gap). Acceptance: each dot button
+   becomes a 24px target with the 11px visual dot drawn via ::before (hover/active/border
+   styles moved to the pseudo-element), spacing adjusted so 24px targets don't overlap;
+   confirmed by Playwright boundingBox (≥24px) + a screenshot showing the dots look
+   unchanged; verify gate stays green.
