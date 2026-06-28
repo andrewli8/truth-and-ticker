@@ -402,13 +402,9 @@ nav/zoom/switch/skip-link/mobile, plus POC); CI runs verify + coverage threshold
 
 ## Next
 
-ONE-SCREEN REDESIGN — shipped (phase 1 hub+filmstrip+zoom; phase 2 breakdown layers;
-phase 3 dead-code removal). Follow-ups:
+ONE-SCREEN REDESIGN — shipped end to end (phase 1 hub+filmstrip+click-to-zoom event
+detail; phase 2 breakdown zoom layers reusing CategoryBand/ReactionSpread/ledger; phase 3
+dead-code removal; docs reconciled; preview regenerated). index.html is the hub; poc.html
+untouched. verify + coverage + 12 E2E green; CI green.
 
-1. The docs still describe the retired scrollytelling and the removed components.
-   Evidence: docs/ARCHITECTURE.md "## Components" lists Hero/ScrollStage/MasterTimeline/
-   Outro etc. and a scroll flow; README "How it works" references ScrollStage/MasterChart
-   scroll and components now deleted; neither describes src/hub/.
-   Acceptance: ARCHITECTURE + README describe the hub (filmstrip, EventZoom, BreakdownZoom,
-   instrument switcher) and drop references to deleted components; provable by grep (no
-   ScrollStage/MasterTimeline mention; "hub"/"filmstrip" present).
+(empty — no evidence-backed improvement currently queued)
