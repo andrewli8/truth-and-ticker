@@ -191,11 +191,14 @@
   stroke: var(--bg);
   stroke-width: 2;
   cursor: pointer;
-  transition: r 0.15s ease;
+  /* Scale (GPU-friendly) rather than animating the SVG r geometry attribute. */
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s ease;
 }
 
-/* Grow unselected dots a touch on hover for an obvious affordance. */
-.marker:hover:not(.markerSel) { r: 7; }
+/* Grow unselected dots a touch on hover for an obvious affordance (5px → ~7px). */
+.marker:hover:not(.markerSel) { transform: scale(1.4); }
 .marker:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
