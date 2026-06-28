@@ -35,6 +35,11 @@
   line-height: 1;
 }
 
+/* Interactive chrome — no place on the printed page (and it overlaps the ledger). */
+@media print {
+  .toggle { display: none; }
+}
+
 @media (max-width: 480px) {
   .label { display: none; }
   .toggle { padding: 0.5rem; }

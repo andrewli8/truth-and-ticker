@@ -25,6 +25,12 @@
   .heading, .table, .method { opacity: 1; transform: none; transition: none; }
 }
 
+/* The print path hides the deep-dive and relies on this ledger to carry the data, so it must
+   never depend on the scroll-into-view reveal (which doesn't fire for print). */
+@media print {
+  .heading, .table, .method, .highlights { opacity: 1 !important; transform: none !important; }
+}
+
 .heading {
   font-size: clamp(1.8rem, 5vw, 3.5rem);
   font-weight: 700;

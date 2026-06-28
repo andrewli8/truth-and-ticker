@@ -382,6 +382,11 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   it into view (IntersectionObserver doesn't fire for print, and the print block disables
   transitions). Added `@media print` fallbacks forcing both visible. Confirmed via print-emulation
   capture (no scroll). Verify green.
+- Print path hardened further: the Outro ledger (heading/table/method/highlights) — which the
+  print stylesheet relies on (it hides the deep-dive) — was reveal-gated and would print blank
+  without first scrolling; added an @media print fallback forcing it visible. Confirmed via
+  print-emulation capture: the full 30-row ledger + methodology print without scrolling. Also
+  hide the fixed ThemeToggle in print (it overlapped the ledger).
 
 ## Next
 
