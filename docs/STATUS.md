@@ -105,12 +105,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - :active press-states on chips + share buttons (completes the hover→press tactile loop).
 - Roomier mobile touch targets (~36px) for timeline switcher/legend chips (desktop unchanged).
 - ≥24px tap targets for EventDetail footer (copy-link + citation), WCAG 2.2 target size.
+- ≥24px tap target for AnnouncementCard citation link (WCAG 2.2 target size).
 
 ## Next
-
-1. Bring the AnnouncementCard citation link to a ≥24px tap target too. The deep-dive
-   card's footer citation (.cite) is the same ~15px small-target as the EventDetail one
-   just fixed, but a separate component. Evidence: src/components/AnnouncementCard.module.css
-   (.cite). Acceptance: .cite reaches ≥24px tall via vertical padding (inline-block) with
-   the footer staying aligned, confirmed by Playwright boundingBox + screenshot; verify
-   gate stays green.
