@@ -114,14 +114,12 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   single-day moves), not just single stocks.
 - Tested ShareButton onShare (native share + clipboard fallback); 59%→95% line coverage.
 - Tested StatBand null-series path (n/a, no NaN); StatBand now 100% covered.
+- Covered AnnouncementCard empty-quote + null-delta + ticker-fallback branches.
 
 ## Next
 
-1. Cover AnnouncementCard's untested edge branches (58% branch coverage). Untested:
-   empty-quote fallback (quote || summary, and the summary <p> only when a quote exists),
-   null-delta → 'flat' dir + n/a badge, and primaryTicker-not-found → reactions[0] fallback.
-   Evidence: src/components/AnnouncementCard.tsx:17 (fallbacks); Evidence:
-   src/components/AnnouncementCard.tsx:35 (quote||summary). Acceptance: a new test renders
-   a card for an event with an empty quote and a null primary delta, asserting the summary
-   shows in the quote slot (no duplicate summary paragraph) and the badge reads n/a/flat;
-   AnnouncementCard branch coverage rises; verify gate stays green.
+1. Cover the typeLabel/accentGroup unknown-type fallbacks in labels.ts (60% branch). The
+   `?? type` and `?? 'warn'` guards (for an AnnType not in the maps) are untested.
+   Evidence: src/lib/labels.ts:18; Evidence: src/lib/labels.ts:37. Acceptance: a test
+   passes an unknown type (cast) and asserts typeLabel returns it verbatim and accentGroup
+   returns 'warn'; labels.ts branch coverage rises; verify gate stays green.
