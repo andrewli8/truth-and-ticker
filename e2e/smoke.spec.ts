@@ -29,6 +29,14 @@ test('a ledger row deep-links the event into the URL', async ({ page }) => {
   await expect(page).toHaveURL(/#event-/)
 })
 
+test('instrument choice is reflected in the URL and survives reload', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await expect(page).toHaveURL(/[?&]i=CL/)
+  await page.reload()
+  await expect(page.getByText(/WTI Crude Oil/)).toBeVisible()
+})
+
 test('a deep link opens the event on load', async ({ page }) => {
   await page.goto('/')
   // Capture a real event hash by activating a ledger row, then load it fresh.
