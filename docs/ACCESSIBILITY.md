@@ -64,3 +64,13 @@ Measured WCAG contrast on the light background (dark theme is comparable):
 
 A `<noscript>` block (`index.html`) shows the headline, thesis, and a prompt to enable
 JavaScript, so the page is never blank without scripting.
+
+## Print
+
+A print stylesheet (`src/styles/global.css`) renders a readable light document on white,
+disables animations/grain, and drops the non-paginating pinned deep-dive (the Outro ledger
+below carries every event's data). Scroll-into-view reveals don't fire for print, so each
+reveal-gated surface has a print fallback — the Outro ledger, the CategoryBand bars, and the
+ReactionSpread dots force visible, the hero entrance settles, and the StatBand count-ups snap
+to their real values on `beforeprint` (so they never print as `+0.00%`). The interactive
+ThemeToggle is hidden. An E2E guard asserts the ledger + stats print without scrolling.
