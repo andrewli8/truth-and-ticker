@@ -81,3 +81,18 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 
 ## Next
 
+1. Animate the timeline marker hover with a GPU-friendly transform, not the SVG `r`
+   attribute. `.marker` transitions `r` and grows to `r: 7` on hover; animating a
+   geometry attribute forces layout/paint (the project's motion guideline says animate
+   only transform/opacity). Keep the inline `r={isSel?8:5}` selection sizing; swap only
+   the hover growth to `transform: scale(1.4)` (5→7px equivalent) with
+   `transform-box: fill-box; transform-origin: center`. Evidence:
+   src/components/MasterTimeline.module.css:194; Acceptance: `.marker`/`.marker:hover`
+   no longer animate or set the `r` property and instead use a transform-based scale
+   (provable by diffing the file); verify gate stays green.
+2. Remove the unused `maxDrawdownPct` export. Every sibling stat (peakToTroughPct,
+   maxRunupPct, maxDrawdown, netReturnPct) is consumed by a component, but
+   maxDrawdownPct is referenced only by its own test — dead public API. Evidence:
+   src/lib/stats.ts:110; Acceptance: the function is removed from stats.ts and its now-
+   orphaned test block dropped; `grep -rn maxDrawdownPct src` returns no matches and the
+   verify gate (incl. coverage thresholds) stays green.
