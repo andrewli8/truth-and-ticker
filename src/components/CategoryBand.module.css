@@ -54,6 +54,20 @@
 .bar.up { background: var(--relief); }
 .bar.down { background: var(--risk); }
 
+/* In Windows High Contrast / forced-colors mode, CSS background colours are flattened,
+   which would erase the bars. Render them with system colours so the chart still shows
+   (monochrome; the +/- value text carries direction). */
+@media (forced-colors: active) {
+  .track {
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
+  .bar.up,
+  .bar.down {
+    background: CanvasText;
+  }
+}
+
 .val {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
