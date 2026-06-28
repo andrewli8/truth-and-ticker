@@ -115,11 +115,13 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Tested ShareButton onShare (native share + clipboard fallback); 59%→95% line coverage.
 - Tested StatBand null-series path (n/a, no NaN); StatBand now 100% covered.
 - Covered AnnouncementCard empty-quote + null-delta + ticker-fallback branches.
+- Covered labels.ts unknown-type fallbacks (now 100%).
 
 ## Next
 
-1. Cover the typeLabel/accentGroup unknown-type fallbacks in labels.ts (60% branch). The
-   `?? type` and `?? 'warn'` guards (for an AnnType not in the maps) are untested.
-   Evidence: src/lib/labels.ts:18; Evidence: src/lib/labels.ts:37. Acceptance: a test
-   passes an unknown type (cast) and asserts typeLabel returns it verbatim and accentGroup
-   returns 'warn'; labels.ts branch coverage rises; verify gate stays green.
+1. Cover TickerRail's motion-on branch. The test env forces reduced-motion, so the
+   `!reduced` marquee path (duplicate chip set + `live` class) is never exercised.
+   Evidence: src/components/TickerRail.tsx:31 (duplicate set when !reduced). Acceptance: a
+   test mocks useReducedMotion to return false and asserts the rail renders the chips
+   twice (seamless-loop duplicate) with the `live` class and stays aria-hidden;
+   TickerRail branch coverage rises; verify gate stays green.
