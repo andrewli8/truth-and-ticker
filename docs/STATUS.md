@@ -146,3 +146,12 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - og:image:alt + twitter:image:alt describe the social card.
 
 ## Next
+
+1. Add a pure `topReactions(events, n, exclude?)` in stats.ts: flatten every
+   (announcement × instrument) non-null close-to-close reaction, sort by absolute move
+   desc, return the top n as {announcement, ticker, deltaPct}. Surfaces the most dramatic
+   single-day cross-instrument reactions (the S&P-only ledger can't). `exclude` lets the UI
+   drop the VIX volatility gauge for price interpretability. Evidence: src/lib/stats.ts
+   (CorrelatedEvent/reactions); Evidence: src/lib/correlate.ts (reaction shape).
+   Acceptance: a test asserts it ranks by |deltaPct| desc, skips null reactions, honors
+   exclude, and caps at n; verify gate green. (UI lead-in to the Outro added next.)
