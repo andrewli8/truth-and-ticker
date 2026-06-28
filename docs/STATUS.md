@@ -6,13 +6,16 @@ honest data representation.
 
 ## Now
 Whole-second-term scope, honest data representation, editorial design, and a connected
-interactive experience are all in place: master timeline (filterable legend, scrub,
-de-collided markers, term-outcome line) ↔ windowed deep-dive (per-event reveal,
-pull-quote, reaction count-up + per-event fade) ↔ ledger (sparklines, jump-to-moment),
-with deep-linkable + shareable events, an instrument switcher, a real-data hero backdrop,
-and broad a11y coverage. Testing: 199 unit/component (the verify gate) with measured
-coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suite
-(npm run test:e2e, outside the gate).
+interactive experience are all in place: hero → key-swing StatBand → CategoryBand
+("which posts moved <instrument>?", reveals on scroll, follows the instrument switcher)
+→ master timeline (filterable legend, scrub, de-collided markers, term-outcome line) ↔
+windowed deep-dive (per-event reveal, pull-quote, reaction count-up + per-event fade) ↔
+ledger (sparklines, jump-to-moment), with deep-linkable + shareable events, a real-data
+hero backdrop, cohesive motion (shared --ease, hover-lift/press states), WCAG 2.2 target
+sizes, and broad a11y coverage (docs/ACCESSIBILITY.md). Every charted-instrument figure
+in the prose is test-asserted against the data. Testing: 219 unit/component (the verify
+gate) at 95.7% stmts / 86.7% branches, plus a Playwright E2E suite (npm run test:e2e,
+outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
