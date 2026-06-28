@@ -220,16 +220,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   close-to-close reaction ("…, reaction +0.88%") when given, so SR users hear the headline
   number now drawn on the line. MarketChart passes its reactionPct; tests cover the clause
   present-when-provided / absent-when-not.
+- Deep-dive per-step data (spotlight, accent, reactionPct, windowed series) is precomputed
+  once in a useMemo (deepDiveSteps) instead of inside the ScrollStage render-prop, which
+  re-runs every scroll frame. Each step's `series` is now a stable reference, so MarketChart's
+  fullPath/positions/eventIdx memos survive scroll frames (only the reveal paths recompute).
+  windowAround no longer runs ~60×/s. App + E2E stay green.
 
 ## Next
-
-1. Stop rebuilding the deep-dive per-step series on every scroll frame. The ScrollStage
-   render-prop runs each progress tick (~60/s) and calls windowAround + builds a fresh
-   `series` object every time, so MarketChart's useMemos (fullPath, positions, eventIdx —
-   which depend only on the step, not progress) invalidate and recompute every frame.
-   Evidence: src/App.tsx:131 (windowAround + `series` built inside the children callback);
-   src/components/MarketChart.tsx:50 (useMemo keyed on series.points, defeated by the new
-   reference each frame). Acceptance: App precomputes the per-step derived data
-   (spotlight, accent, reactionPct, windowed series) in a useMemo keyed on featured, and the
-   render-prop reads steps[step] instead of recomputing — provable by diffing src/App.tsx
-   (no windowAround call inside the children callback); existing App and E2E tests stay green.

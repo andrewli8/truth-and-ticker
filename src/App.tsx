@@ -44,6 +44,23 @@ export default function App() {
     () => seriesByTicker(markets, PRIMARY) ?? markets[0],
     [],
   )
+
+  // Per-step deep-dive data, derived once per featured set. Computing it here (rather than
+  // inside the scroll render-prop, which re-runs ~60×/s) keeps each step's `series` a stable
+  // reference, so MarketChart's path/position memos survive scroll frames.
+  const deepDiveSteps = useMemo(
+    () =>
+      featured.map((event) => {
+        const accent = accentVar(event.announcement.type)
+        const spotlight = spotlightTicker(event.announcement.type)
+        const reactionPct = event.reactions.find((r) => r.ticker === spotlight)?.deltaPct ?? null
+        const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
+        const win = windowAround(fullSeries.points, event.announcement.datetime, WINDOW_DAYS)
+        const series = win.length >= 2 ? { ...fullSeries, points: win } : fullSeries
+        return { event, accent, spotlight, reactionPct, series }
+      }),
+    [featured, fallbackSeries],
+  )
   // Real S&P 500 shape for the hero backdrop (viewBox 0 0 1200 300).
   const heroLine = useMemo(() => buildLinePath(fallbackSeries.points, 1200, 300, 1), [fallbackSeries])
   const heroArea = useMemo(() => buildAreaPath(fallbackSeries.points, 1200, 300, 1), [fallbackSeries])
@@ -122,17 +139,7 @@ export default function App() {
       <div ref={scrollyRef} tabIndex={-1} className="focusTarget" role="region" aria-label="Event-by-event deep dive">
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
-          const event = featured[step]
-          const accent = accentVar(event.announcement.type)
-          const spotlight = spotlightTicker(event.announcement.type)
-          // The shown series' own close-to-close reaction, labelled on the chart at
-          // the playhead so the quote's market effect reads on the line itself.
-          const reactionPct = event.reactions.find((r) => r.ticker === spotlight)?.deltaPct ?? null
-          const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
-          // Focus the chart on the action around this event; fall back to the full
-          // series if the window is too sparse to draw a line.
-          const win = windowAround(fullSeries.points, event.announcement.datetime, WINDOW_DAYS)
-          const series = win.length >= 2 ? { ...fullSeries, points: win } : fullSeries
+          const { event, accent, spotlight, reactionPct, series } = deepDiveSteps[step]
           // Reveal each event's chart over its OWN panel, not the whole scrolly.
           const local = localProgress(progress, featured.length, step)
           return (
