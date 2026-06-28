@@ -143,11 +143,6 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Full E2E suite green (24 specs) after the CategoryBand work.
 - Copy honesty: "the dollar" → "gold" everywhere (hero, share, OG/Twitter/JSON-LD,
   noscript, og-image regenerated) — gold (GLD) is what's charted; no USD series exists.
+- og:image:alt + twitter:image:alt describe the social card.
 
 ## Next
-
-1. Add alt text for the social share image (og:image:alt + twitter:image:alt). The OG and
-   Twitter image tags have width/height but no alt, so the card is unlabeled for
-   assistive tech on social platforms. Evidence: index.html:14 (og:image, no alt).
-   Acceptance: og:image:alt and twitter:image:alt describe the card (e.g. the title +
-   instruments); verify gate green.
