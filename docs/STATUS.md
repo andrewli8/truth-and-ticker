@@ -84,3 +84,14 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   Jun 23 ~7.2→~8.6%); guarded by a WTI-claim-vs-CL-data integrity test.
 
 ## Next
+
+1. State Dow moves in percent (not raw points) so the three indices are comparable in
+   one sentence. Four summaries mix units, e.g. "S&P +9.52%, Nasdaq +12.16%, Dow +2,962"
+   — the raw +2,962 reads larger than +9.52% but is actually +7.87% close-to-close.
+   Verified vs DJI data: Apr 9 +2,962→+7.9%, Apr 21 -971→-2.5%, Apr 22 +1,017→+2.7%,
+   May 12 +1,160→+2.8%. Evidence: src/data/announcements.json:151; Evidence:
+   src/data/announcements.json:172; Evidence: src/data/announcements.json:183; Evidence:
+   src/data/announcements.json:193. Acceptance: those four "Dow <points>" figures become
+   percentages and a new data-integrity test parses any "Dow <±n>%" figure and asserts it
+   matches that event's DJI close-to-close reaction within 0.2pp (green after the edit);
+   `grep -nE "Dow [+-]?[0-9],[0-9]{3}" src/data/announcements.json` returns nothing.
