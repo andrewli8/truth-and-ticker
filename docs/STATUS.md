@@ -123,15 +123,8 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   Outro reveal, MasterTimeline) which the Playwright E2E suite exercises in a real browser.
 - E2E regression guards for the StatBand fit (1280px no-overflow) and 24px touch targets.
 - reactionByType aggregator (mean S&P reaction by announcement category), TDD.
+- CategoryBand view ("Which posts moved the S&P 500?"): ranked sign-colored bars by
+  announcement type with sample counts; mounted between StatBand and timeline; tested and
+  verified in light + dark.
 
 ## Next
-
-1. Add a CategoryBand component that visualizes reactionByType: one row per announcement
-   type (label + a sign-colored bar sized by |avg| + the signed avg % + n=count), titled
-   so readers grasp which kinds of posts moved the S&P and which way. Place it between the
-   StatBand and the master timeline. Evidence: src/lib/stats.ts (reactionByType +
-   TypeAggregate); Evidence: src/App.tsx (composition + events already correlated).
-   Acceptance: a new CategoryBand renders a row per type with typeLabel text and a signed
-   percentage, is reduced-motion safe, has an accessible section label, and is covered by
-   a component test; it's mounted in App; verify gate green + a Playwright screenshot
-   confirms it reads cleanly in light and dark.
