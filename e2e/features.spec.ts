@@ -30,6 +30,24 @@ test('the ledger shows a sparkline per row', async ({ page }) => {
   expect(sparkCount).toBeGreaterThanOrEqual(await rows.count())
 })
 
+test('a combined URL restores both the instrument and the event', async ({ page }) => {
+  await page.goto('/')
+  await page.getByTestId('summary-row').first().getByRole('button').click()
+  const hash = new URL(page.url()).hash
+  await page.goto(`/?i=CL${hash}`)
+  await expect(page.getByText(/WTI Crude Oil/)).toBeVisible() // instrument restored
+  await expect(page.getByTestId('detail')).toBeVisible() // event restored
+})
+
+test('compare overlay disappears when switching to the benchmark itself', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await page.getByRole('button', { name: /vs S&P 500/i }).click()
+  await expect(page.getByTestId('compare-line')).toBeVisible()
+  await page.getByRole('button', { name: 'S&P 500', exact: true }).click()
+  await expect(page.getByTestId('compare-line')).toHaveCount(0) // no self-compare
+})
+
 test('the timeline shows a net + drawdown term outcome', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByTestId('term-stat')).toContainText(/net over the term/i)
