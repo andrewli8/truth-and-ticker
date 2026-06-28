@@ -125,7 +125,7 @@ export default function App() {
         />
       </div>
 
-      <div ref={scrollyRef}>
+      <div ref={scrollyRef} role="region" aria-label="Event-by-event deep dive">
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
           const event = featured[step]
