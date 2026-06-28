@@ -124,3 +124,13 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - E2E regression guards for the StatBand fit (1280px no-overflow) and 24px touch targets.
 
 ## Next
+
+1. Add a pure `reactionByType` aggregator in stats.ts: for a given ticker, the mean
+   close-to-close reaction (and count) grouped by announcement type, sorted most-positive
+   first. This powers a new "how markets reacted by category" view (tariffs vs strikes vs
+   ceasefires) — real analytical value aligned with informing readers. Evidence:
+   src/lib/stats.ts:3 (CorrelatedEvent/AnnType already imported); Evidence:
+   src/lib/correlate.ts (CorrelatedEvent shape). Acceptance: a new test asserts
+   reactionByType groups events by type, averages the chosen ticker's deltaPct (ignoring
+   null reactions), returns the count per type, and is sorted by avg descending; verify
+   gate stays green. (UI consumer added in a follow-up task.)
