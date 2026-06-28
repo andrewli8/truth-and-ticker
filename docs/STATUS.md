@@ -341,6 +341,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   aria-hidden, consistent with the on-chart ChartReactionLabel — the chart's accessible name and
   the term-stat carry the levels/drawdown for screen readers, so they aren't re-announced.
 
+- EventDetail cross-instrument strip now shows ALL other instruments (was capped at 5),
+  consistent with the deep-dive TickerRail and giving the complete market picture per event
+  (still biggest-first, nulls skipped). Verify + E2E green; no mobile overflow.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

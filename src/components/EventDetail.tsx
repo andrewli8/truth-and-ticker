@@ -6,9 +6,6 @@ import type { TickerMove } from '../lib/stats'
 import type { Announcement } from '../lib/types'
 import styles from './EventDetail.module.css'
 
-/** How many other-instrument moves to surface in the cross-instrument strip. */
-const MAX_OTHER_MOVES = 5
-
 interface Props {
   event: Announcement
   /** Accent color for the spine/tag (event-type color). */
@@ -29,9 +26,7 @@ export function EventDetail({ event, accent, seriesTicker, reactionPct, animated
   // The OTHER instruments' moves (the shown series already has its own reaction line),
   // biggest first — the cross-instrument picture, which is otherwise only visible in the
   // deep-dive and only for featured events.
-  const otherMoves = (moves ?? [])
-    .filter((m) => m.ticker !== seriesTicker && m.pct !== null)
-    .slice(0, MAX_OTHER_MOVES)
+  const otherMoves = (moves ?? []).filter((m) => m.ticker !== seriesTicker && m.pct !== null)
 
   function copyLink() {
     if (typeof window === 'undefined') return
