@@ -32,7 +32,7 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
       aria-label={`Average ${tickerLabel} reaction by announcement type`}
     >
       <h2 className={styles.intro}>
-        Which posts moved the <span translate="no">{tickerLabel}</span>?
+        Which posts moved <span translate="no">{tickerLabel}</span>?
       </h2>
       <ul className={styles.rows}>
         {rows.map((r, i) => {
@@ -54,9 +54,8 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
       </ul>
       <p className={styles.note}>
         Average close-to-close <span translate="no">{tickerLabel}</span> move on the day of
-        each post, grouped by what the post was. Some types — strikes especially — moved
-        oil, defense, or gold far more than the {tickerLabel}; switch instruments on the
-        timeline below to see.
+        each post, grouped by what the post was. The same kind of post can move different
+        markets very differently — switch instruments on the timeline below to compare.
       </p>
     </section>
   )

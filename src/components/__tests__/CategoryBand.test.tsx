@@ -22,11 +22,12 @@ describe('CategoryBand', () => {
     expect(getAllByText(/^n=\d+$/).length).toBeGreaterThan(1)
   })
 
-  it('flags that the view is S&P-specific (other instruments moved more)', () => {
+  it('notes the cross-instrument caveat and points to the switcher', () => {
     const { getByText } = render(
       <CategoryBand events={events} ticker="SPX" tickerLabel="S&P 500" />,
     )
-    expect(getByText(/moved\s+oil, defense, or gold far more/i)).toBeInTheDocument()
+    expect(getByText(/move different\s+markets very differently/i)).toBeInTheDocument()
+    expect(getByText(/switch instruments on the timeline below/i)).toBeInTheDocument()
   })
 
   it('renders nothing breaking when there are no events', () => {

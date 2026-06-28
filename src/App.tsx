@@ -64,6 +64,8 @@ export default function App() {
     () => seriesByTicker(markets, timelineTicker) ?? fallbackSeries,
     [timelineTicker, fallbackSeries],
   )
+  const timelineLabel =
+    TIMELINE_INSTRUMENTS.find((t) => t.ticker === timelineTicker)?.name ?? timelineTicker
   const pickInstrument = useCallback((ticker: string) => {
     setTimelineTicker(ticker)
     if (typeof window === 'undefined') return
@@ -104,7 +106,7 @@ export default function App() {
       <ThemeToggle />
       <Hero linePath={heroLine} areaPath={heroArea} />
       <StatBand markets={markets} />
-      <CategoryBand events={events} ticker={PRIMARY} tickerLabel="S&P 500" />
+      <CategoryBand events={events} ticker={timelineTicker} tickerLabel={timelineLabel} />
       <div ref={timelineRef} tabIndex={-1} className="focusTarget">
         <MasterTimeline
           series={timelineSeries}
