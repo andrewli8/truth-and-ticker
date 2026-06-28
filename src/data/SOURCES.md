@@ -5,7 +5,9 @@ This piece's thesis depends on verifiable data, so provenance matters.
 ## Market data
 
 - **S&P 500, Nasdaq Composite, Dow, VIX** — daily closes from the St. Louis Fed
-  (FRED) series `SP500`, `NASDAQCOM`, `DJIA`, `VIXCLS`.
+  (FRED) series `SP500`, `NASDAQCOM`, `DJIA`, `VIXCLS`. (The Nasdaq **Composite**
+  is keyed internally as `NDX` — note that symbol conventionally denotes the
+  Nasdaq-100; the figures and display name are the Composite.)
 - **LMT, RTX, XOM** — daily closes cross-checked between StockAnalysis.com and
   Yahoo Finance (matched to the cent).
 - **WTI crude (`CL`)** — front-month settlements from Reuters-wire
