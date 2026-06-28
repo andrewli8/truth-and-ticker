@@ -242,3 +242,13 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   overflow — dark mode was a major feature with zero E2E before. 9/9 regression specs green.
 
 ## Next
+
+1. E2E the ledger→timeline jump. Clicking a ledger "View on the timeline" row sets the URL
+   hash, scrolls up, and the MasterTimeline re-selects that event via its hashchange listener
+   — a real cross-component flow (App + Outro + MasterTimeline) that jsdom can't fully
+   exercise (real scroll + hash-driven re-selection). Evidence: src/components/Outro.tsx
+   (rowBtn onPickEvent, aria-label "View on the timeline: …"); src/App.tsx (pickEvent sets
+   location.hash + scrollIntoView); src/components/MasterTimeline.tsx (hashchange → select).
+   Acceptance: a new e2e test clicks a ledger row button, then asserts the URL hash is
+   #event-… and that marker becomes selected (its marker has aria-pressed="true"); playwright
+   passes.
