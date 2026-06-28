@@ -54,3 +54,17 @@ test('arrow keys scrub the POC chart (focusable slider)', async ({ page }) => {
   await page.keyboard.press('ArrowRight')
   await expect(meta).toHaveText(before ?? '')
 })
+
+test.describe('reduced motion', () => {
+  test.use({ reducedMotion: 'reduce' })
+
+  test('shows the full scene on load — the entrance is JS-gated', async ({ page }) => {
+    await page.goto('/poc.html')
+    // The GSAP entrance returns early under reduced motion, so the line and the
+    // masked title must already be in place (not stuck mid-reveal / opacity 0).
+    const line = page.locator('.poc-line')
+    await expect(line).toBeVisible()
+    await expect(line).toHaveAttribute('d', /\d/)
+    await expect(page.getByText(/the market/)).toBeVisible()
+  })
+})
