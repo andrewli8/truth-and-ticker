@@ -33,6 +33,12 @@ describe('accentGroup', () => {
     ]
     for (const t of all) expect(['risk', 'warn', 'relief']).toContain(accentGroup(t))
   })
+  it('falls back safely for an unknown type', () => {
+    const unknown = 'mystery' as AnnType
+    expect(typeLabel(unknown)).toBe('mystery') // verbatim, not undefined
+    expect(accentGroup(unknown)).toBe('warn') // neutral default
+    expect(accentVar(unknown)).toBe('var(--warn)')
+  })
 })
 
 describe('accentVar', () => {
