@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, within } from '@testing-library/react'
 import { Outro } from '../Outro'
 import { markets } from '../../data'
 import { seriesByTicker } from '../../lib/stats'
@@ -79,10 +79,25 @@ describe('Outro', () => {
     expect(header.tagName).toBe('TH')
   })
 
-  it('calls onPickEvent with the event id when a row is activated', () => {
+  it('calls onPickEvent with the event id when a ledger row is activated', () => {
     const onPick = vi.fn()
     const { getByRole } = render(<Outro events={events} primaryTicker="SPX" onPickEvent={onPick} />)
-    fireEvent.click(getByRole('button', { name: /s1/i }))
+    fireEvent.click(within(getByRole('table')).getByRole('button', { name: /s1/i }))
     expect(onPick).toHaveBeenCalledWith('a1')
+  })
+
+  it('calls onPickEvent when a highlight card is activated', () => {
+    const onPick = vi.fn()
+    const { getByRole } = render(<Outro events={events} primaryTicker="SPX" onPickEvent={onPick} />)
+    const highlights = getByRole('list', { name: /Biggest single-day market reactions/i })
+    // The diverse highlight set keeps one move per ticker — the biggest SPX move (s2/a2).
+    fireEvent.click(within(highlights).getByRole('button', { name: /s2/i }))
+    expect(onPick).toHaveBeenCalledWith('a2')
+  })
+
+  it('renders highlights as static (non-button) when no onPickEvent is provided', () => {
+    const { getByRole } = render(<Outro events={events} primaryTicker="SPX" />)
+    const highlights = getByRole('list', { name: /Biggest single-day market reactions/i })
+    expect(within(highlights).queryAllByRole('button')).toHaveLength(0)
   })
 })

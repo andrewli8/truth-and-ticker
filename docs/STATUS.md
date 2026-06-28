@@ -358,6 +358,12 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   drawdown marker with %, and the EventDetail cross-instrument strip) — extends the
   regression-spec "behaviour jsdom can't verify" coverage to the new features. 32 E2E green.
 
+- Outro "biggest single-day reactions" highlight cards are now clickable (jump to that event on
+  the timeline), consistent with the ledger rows — more interactivity / discoverability. Full
+  button reset keeps the card appearance; subtle hover-lift; distinct accessible label; only
+  interactive when onPickEvent is provided. Outro-tested (highlight click, static fallback);
+  verify + 32 E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

@@ -96,6 +96,32 @@
   border: 1px solid color-mix(in srgb, var(--steel) 60%, transparent);
   border-radius: 0.6rem;
   background: color-mix(in srgb, var(--steel) 12%, transparent);
+  transition: border-color 0.15s var(--ease), transform 0.15s var(--ease);
+}
+/* When interactive, the whole card is a button (jump to the event on the timeline). */
+.bigCard:has(.bigBtn):hover {
+  border-color: color-mix(in srgb, var(--text) 45%, transparent);
+  transform: translateY(-2px);
+}
+.bigBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.bigBtn:focus-visible {
+  outline: 2px solid var(--risk);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bigCard { transition: none; }
 }
 .bigVal {
   font-family: 'JetBrains Mono', monospace;

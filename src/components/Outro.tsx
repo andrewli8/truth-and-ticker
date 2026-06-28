@@ -33,13 +33,29 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
         <ul className={styles.highlights} aria-label="Biggest single-day market reactions">
           {highlights.map((h) => {
             const dir = direction(h.deltaPct)
-            return (
-              <li key={`${h.ticker}-${h.announcement.id}`} className={styles.bigCard}>
+            const inner = (
+              <>
                 <span className={`${styles.bigVal} ${styles[dir]}`}>{formatPct(h.deltaPct)}</span>
                 <span className={styles.bigMeta}>
                   <span translate="no">{h.ticker}</span> · {formatDay(h.announcement.datetime)}
                 </span>
                 <span className={styles.bigDesc}>{h.announcement.summary}</span>
+              </>
+            )
+            return (
+              <li key={`${h.ticker}-${h.announcement.id}`} className={styles.bigCard}>
+                {onPickEvent ? (
+                  <button
+                    type="button"
+                    className={styles.bigBtn}
+                    onClick={() => onPickEvent(h.announcement.id)}
+                    aria-label={`${h.ticker} ${formatPct(h.deltaPct)}, ${h.announcement.summary} — view on the timeline`}
+                  >
+                    {inner}
+                  </button>
+                ) : (
+                  inner
+                )}
               </li>
             )
           })}
