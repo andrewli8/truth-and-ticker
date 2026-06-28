@@ -45,6 +45,18 @@ test.describe('category band', () => {
   })
 })
 
+test.describe('timeline scrub', () => {
+  test('hovering the chart shows the crosshair readout', async ({ page }) => {
+    await page.goto('/')
+    // The master-timeline chart SVG carries the event markers and the pointer handlers.
+    const chart = page.locator('svg:has([data-testid="marker"])').first()
+    await chart.scrollIntoViewIfNeeded()
+    await expect(page.getByTestId('scrub')).toHaveCount(0) // hidden until hover
+    await chart.hover({ position: { x: 400, y: 180 } })
+    await expect(page.getByTestId('scrub')).toBeVisible()
+  })
+})
+
 test.describe('outro highlights', () => {
   test('renders the "biggest single-day reactions" cards', async ({ page }) => {
     await page.goto('/')
