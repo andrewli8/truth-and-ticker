@@ -379,7 +379,9 @@ export function MasterTimeline({
         </defs>
 
         {priceGrid.map((g) => (
-          <g key={g.value} data-testid="price-grid">
+          // Decorative visual reference: the chart's accessible name + the term-stat carry the
+          // levels for screen readers, so the axis labels don't need re-announcing.
+          <g key={g.value} data-testid="price-grid" aria-hidden="true">
             <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
             <text x={PAD} y={g.y - 4} className={styles.priceLabel}>{formatPrice(g.value)}</text>
           </g>
@@ -407,7 +409,7 @@ export function MasterTimeline({
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
         {drawdownPos && (
-          <g data-testid="drawdown-marker" pointerEvents="none">
+          <g data-testid="drawdown-marker" pointerEvents="none" aria-hidden="true">
             <circle cx={drawdownPos.x} cy={drawdownPos.y} r={4} className={styles.drawdownDot} />
             <text
               x={drawdownPos.x}

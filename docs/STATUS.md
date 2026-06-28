@@ -337,6 +337,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   term-stat's "(to <date>)" to its location on the chart. Only shows when there's a drawdown.
   MasterTimeline-tested; verify + E2E green; screenshot-confirmed unobtrusive.
 
+- Decorative chart annotations (master-timeline price-grid labels + drawdown marker) are now
+  aria-hidden, consistent with the on-chart ChartReactionLabel — the chart's accessible name and
+  the term-stat carry the levels/drawdown for screen readers, so they aren't re-announced.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)
