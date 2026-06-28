@@ -76,9 +76,13 @@ export function decollide(
       if (out[i + 1] - out[i] < minGap) out[i] = out[i + 1] - minGap
     }
   }
-  // Never cross the lower bound.
-  for (let i = 0; i < out.length; i++) {
-    if (out[i] < min) out[i] = min
+  // If we crossed the lower bound, pin the first and fan back rightward (mirror of
+  // the upper-bound pass) so the min gap is preserved instead of naively clamped.
+  if (out[0] < min) {
+    out[0] = min
+    for (let i = 1; i < out.length; i++) {
+      if (out[i] - out[i - 1] < minGap) out[i] = out[i - 1] + minGap
+    }
   }
   return out
 }

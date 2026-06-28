@@ -190,6 +190,17 @@ describe('decollide', () => {
   it('returns [] for empty input', () => {
     expect(decollide([], 16)).toEqual([])
   })
+  it('keeps the min gap and stays idempotent when clamped at the lower bound', () => {
+    const out = decollide([20, 40], 30, 30, 100)
+    // Every neighbour gap must still be >= minGap, within [min, max].
+    for (let i = 1; i < out.length; i++) {
+      expect(out[i] - out[i - 1]).toBeGreaterThanOrEqual(30)
+    }
+    expect(Math.min(...out)).toBeGreaterThanOrEqual(30)
+    expect(Math.max(...out)).toBeLessThanOrEqual(100)
+    // Re-running must be a no-op.
+    expect(decollide(out, 30, 30, 100)).toEqual(out)
+  })
 })
 
 describe('sparklinePath', () => {
