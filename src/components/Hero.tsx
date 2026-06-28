@@ -22,15 +22,32 @@ export function Hero({ linePath, areaPath }: Props) {
   useGSAP(
     () => {
       if (reduced) return
-      gsap.from('[data-hero]', {
-        y: 34,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.12,
-      })
+      gsap
+        .timeline()
+        // Kinetic title: each glyph rises and fades in on a tight stagger.
+        .from(`.${styles.titleChar}`, {
+          yPercent: 120,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          stagger: 0.035,
+        })
+        // Kicker, thesis and scroll-hint settle in just after, as blocks.
+        .from('[data-hero]', { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1 }, 0.2)
     },
     { dependencies: [reduced], scope: root },
+  )
+
+  // A title word split into per-glyph spans (animated individually). aria-hidden because
+  // the h1 carries the accessible name via aria-label.
+  const Word = ({ text }: { text: string }) => (
+    <span className={styles.titleWord} aria-hidden="true">
+      {text.split('').map((c, i) => (
+        <span key={i} className={styles.titleChar}>
+          {c}
+        </span>
+      ))}
+    </span>
   )
 
   return (
@@ -53,8 +70,10 @@ export function Hero({ linePath, areaPath }: Props) {
         <path className={styles.backdropLine} d={linePath || FALLBACK_LINE} fill="none" />
       </svg>
       <div className={styles.kicker} data-hero>JAN&nbsp;–&nbsp;JUN&nbsp;2025 · TRUMP’S SECOND&nbsp;TERM</div>
-      <h1 className={styles.title} data-hero>
-        TRUTH<span className={styles.amp}>&amp;</span>TICKER
+      <h1 className={styles.title} aria-label="Truth & Ticker">
+        <Word text="TRUTH" />
+        <span className={`${styles.amp} ${styles.titleChar}`} aria-hidden="true">&amp;</span>
+        <Word text="TICKER" />
       </h1>
       <p className={styles.thesis} data-hero>
         From day one, a presidency has played out in headlines and on Truth Social —

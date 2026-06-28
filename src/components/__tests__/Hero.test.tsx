@@ -26,4 +26,11 @@ describe('Hero', () => {
     const { getByRole } = render(<Hero />)
     expect(getByRole('heading', { level: 1 })).toBeInTheDocument()
   })
+
+  it('keeps the title accessible name despite per-glyph kinetic spans', () => {
+    // The title is split into animated character spans; the h1 carries the readable
+    // name via aria-label so screen readers hear "Truth & Ticker", not fragments.
+    const { getByRole } = render(<Hero />)
+    expect(getByRole('heading', { level: 1, name: 'Truth & Ticker' })).toBeInTheDocument()
+  })
 })

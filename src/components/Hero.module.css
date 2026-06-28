@@ -61,6 +61,16 @@
   justify-content: center;
 }
 
+/* A word keeps its glyphs together (no mid-word wrap); each glyph animates on its own. */
+.titleWord {
+  display: inline-block;
+  white-space: nowrap;
+}
+.titleChar {
+  display: inline-block;
+  will-change: transform;
+}
+
 .amp {
   color: var(--risk);
   font-size: 0.7em;
