@@ -428,11 +428,12 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
    onKeyDown arrow/Home/End handler added on the same `<svg className="poc-chart">`.
    Acceptance: the `.poc-hint` text mentions arrow-key scrubbing; a PocApp test
    asserts the hint references keys (e.g. /arrow/i).
-2. The POC entrance is entirely JS-gated (`useGSAP` returns early when reduced), so
-   a reduced-motion regression that left content hidden would ship unguarded — there
-   is no E2E asserting the reduced-motion scene is fully visible.
-   Evidence: src/poc/PocApp.tsx (`if (reduced) return` in the entrance useGSAP);
-   e2e/poc.spec.ts has no reduced-motion case.
-   Acceptance: e2e/poc.spec.ts gains a `prefers-reduced-motion: reduce` test asserting
-   `.poc-line` and the title ("the market") are visible on load without interaction;
-   green in the Playwright run.
+1. The "When he posts" one-screen POC (src/poc/, poc.html — a separate Vite entry,
+   now linked from the Outro, with unit + E2E coverage and an awwwards-grade GSAP
+   entrance) is undocumented: README, docs/ARCHITECTURE.md, and the STATUS `## Now`
+   summary make zero mention of it. Evidence: `grep -ic poc README.md docs/ARCHITECTURE.md`
+   both return 0; STATUS `## Now` (lines 7–25) doesn't mention the POC.
+   Acceptance: README and docs/ARCHITECTURE.md each describe the POC (what it is, that
+   it's a second Vite entry at /poc.html, reusing the real data + pure chart helpers),
+   and STATUS `## Now` notes the linked interactive concept; provable by grep finding
+   the POC in all three.
