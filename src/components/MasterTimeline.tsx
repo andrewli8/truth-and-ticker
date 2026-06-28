@@ -8,7 +8,6 @@ import {
   priceY,
   valueAt,
   msAtX,
-  decollide,
   nearestPointIndex,
   dateDomainOf,
   domainFor,
@@ -30,8 +29,6 @@ import styles from './MasterTimeline.module.css'
 const W = 1000
 const H = 420
 const PAD = 24
-// Minimum horizontal spacing between marker dots (viewBox units).
-const MARKER_GAP = 18
 
 interface Instrument {
   ticker: string
@@ -229,13 +226,13 @@ export function MasterTimeline({
     [announcements, series.points, domain, vdom],
   )
 
-  // Only the markers whose category is enabled, then fan out the dots that bunch
-  // in time so they stay legible. `dx` is the display x; `x` stays the true time.
-  const visible = useMemo(() => {
-    const vis = markers.filter((m) => !hiddenGroups.has(accentGroup(m.a.type)))
-    const dx = decollide(vis.map((m) => m.x), MARKER_GAP, PAD, W - PAD)
-    return vis.map((m, i) => ({ ...m, dx: dx[i] }))
-  }, [markers, hiddenGroups])
+  // Only the markers whose category is enabled. Each dot sits on the line at its TRUE
+  // (x, y) — no horizontal nudging — so dots and line always align; the bg-stroked dots
+  // stay distinct even where events bunch in time, and selecting one brings it forward.
+  const visible = useMemo(
+    () => markers.filter((m) => !hiddenGroups.has(accentGroup(m.a.type))).map((m) => ({ ...m, dx: m.x })),
+    [markers, hiddenGroups],
+  )
 
   // Select a marker; if it's a featured event, also jump to its deep-dive panel.
   function activate(a: Announcement) {
@@ -422,18 +419,12 @@ export function MasterTimeline({
           </g>
         )}
 
-        {visible.map(({ a, x, dx, y }, i) => {
+        {visible.map(({ a, dx, y }, i) => {
           const isSel = a.id === selectedId
           return (
             <g key={a.id} style={{ color: accentFor(a.type) }}>
               {isSel && (
-                <>
-                  <line x1={dx} x2={dx} y1={PAD} y2={H - PAD} className={styles.markerLine} />
-                  {/* if the dot was nudged off its true time, tie it back to the axis */}
-                  {Math.abs(dx - x) > 0.5 && (
-                    <line x1={x} x2={dx} y1={H - PAD} y2={y} className={styles.markerTie} />
-                  )}
-                </>
+                <line x1={dx} x2={dx} y1={PAD} y2={H - PAD} className={styles.markerLine} />
               )}
               <circle
                 ref={(el) => (markerRefs.current[i] = el)}
