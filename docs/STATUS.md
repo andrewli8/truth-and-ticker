@@ -282,4 +282,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Add CI (GitHub Actions). The repo is public with a full test suite, and playwright.config.ts
+   already branches on process.env.CI (retries, forbidOnly, reuseExistingServer) — CI is intended
+   but absent, so nothing runs automatically on push/PR. Evidence: playwright.config.ts:13-24
+   (CI branches); no .github/workflows/. Acceptance: a .github/workflows/ci.yml runs on push to
+   main and on PRs — Node 22 + `npm ci` + `npm run verify` (tsc/vitest/build) + Playwright
+   chromium + `npm run test:e2e`; the workflow run succeeds on push (verified via gh).
