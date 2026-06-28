@@ -41,4 +41,23 @@ describe('PocApp (one-screen POC)', () => {
     const { container } = render(<PocApp />)
     expect(container.querySelector('.poc-hint')?.textContent).toMatch(/arrow/i)
   })
+
+  it('jumps to the first and last announcement with Home/End', () => {
+    const { container } = render(<PocApp />)
+    const chart = container.querySelector('svg.poc-chart') as SVGSVGElement
+    const meta = () => container.querySelector('.poc-meta')?.textContent
+
+    // Default is the latest post (rightmost). End keeps us there; Home jumps to the first.
+    const last = meta()
+    fireEvent.keyDown(chart, { key: 'Home' })
+    const first = meta()
+    expect(first).not.toBe(last)
+    fireEvent.keyDown(chart, { key: 'End' })
+    expect(meta()).toBe(last)
+    // From the first post, End must reach the same latest post.
+    fireEvent.keyDown(chart, { key: 'Home' })
+    expect(meta()).toBe(first)
+    fireEvent.keyDown(chart, { key: 'End' })
+    expect(meta()).toBe(last)
+  })
 })
