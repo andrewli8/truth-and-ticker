@@ -49,7 +49,9 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
   stacks panels on mobile. **MarketChart** renders the windowed per-event chart
   (responsive viewBox); **AnnouncementCard** is the editorial pull-quote;
   **TickerRail** shows the event's cross-instrument moves.
-- **Outro** — the full ledger with per-row sparklines and jump-to-moment links.
+- **Outro** — a "biggest single-day reactions" highlight (`topReactions`, the most
+  dramatic cross-instrument moves, deduped to distinct ticker+day moments) leading into
+  the full ledger with per-row sparklines and jump-to-moment links.
 
 ## Conventions
 

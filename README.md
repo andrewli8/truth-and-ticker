@@ -44,7 +44,9 @@ npm run build     # production build to dist/
 - `src/lib/correlate.ts` — joins each announcement to its **close-to-close**
   market reaction (the close before vs. the reaction close after), null-safe.
 - `src/lib/stats.ts` `reactionByType` — averages those reactions by announcement
-  category, powering the **CategoryBand** ("which posts moved <instrument>?").
+  category, powering the **CategoryBand** ("which posts moved <instrument>?");
+  `topReactions` ranks the biggest cross-instrument single-day moves for the **Outro**
+  "biggest single-day reactions" highlight.
 - `src/components/ScrollStage.tsx` — pins the chart and emits scroll progress.
 - `src/components/MarketChart.tsx` — pure SVG renderer driven entirely by a
   `progress` prop (ghost full line + bright revealed line + playhead + dot).

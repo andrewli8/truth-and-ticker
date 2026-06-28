@@ -45,6 +45,20 @@ test.describe('category band', () => {
   })
 })
 
+test.describe('outro highlights', () => {
+  test('renders the "biggest single-day reactions" cards', async ({ page }) => {
+    await page.goto('/')
+    const hl = page.getByRole('list', { name: /Biggest single-day market reactions/i })
+    await hl.scrollIntoViewIfNeeded()
+    await expect(hl).toBeVisible()
+    const cards = hl.locator('li')
+    const count = await cards.count()
+    expect(count).toBeGreaterThan(0)
+    expect(count).toBeLessThanOrEqual(3)
+    await expect(hl).toContainText('%')
+  })
+})
+
 test.describe('target sizes (WCAG 2.2 SC 2.5.8)', () => {
   test('instrument chips and dot-nav meet the 24px minimum', async ({ page }) => {
     await page.goto('/')
