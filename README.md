@@ -22,6 +22,8 @@ reader judges it.
 - **D3 (d3-scale / d3-shape)** — math only; the chart is hand-rolled SVG for full
   control of the line-draw reveal, playhead, and dot
 - **Vitest + Testing Library** — unit + component + dataset-integrity tests
+- **Playwright** — E2E smoke suite for critical flows (`npm run test:e2e`), kept
+  outside the `verify` gate
 
 ## Develop
 
@@ -30,6 +32,7 @@ npm install
 npm run dev       # local dev server
 npm run test      # vitest
 npm run verify    # tsc --noEmit && vitest run && vite build  (the looptight gate)
+npm run test:e2e  # Playwright E2E smoke suite (real Chromium; outside the gate)
 npm run build     # production build to dist/
 ```
 
