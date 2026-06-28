@@ -104,14 +104,13 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Subtle hover-lift on instrument/legend chips (tactile consistency w/ ShareButton + dots).
 - :active press-states on chips + share buttons (completes the hover→press tactile loop).
 - Roomier mobile touch targets (~36px) for timeline switcher/legend chips (desktop unchanged).
+- ≥24px tap targets for EventDetail footer (copy-link + citation), WCAG 2.2 target size.
 
 ## Next
 
-1. Enlarge the deep-dive footer controls to a ≥24px tap target. The "Copy link" button
-   (16px) and citation link (15px) in the EventDetail footer are below the WCAG 2.2 AA
-   24px target-size minimum. Evidence: src/components/EventDetail.module.css:116 (.copyLink
-   padding:0); Evidence: src/components/EventDetail.module.css:112 (.detailFoot a).
-   Acceptance: both controls reach ≥24px tall via vertical padding (copy-link hover
-   underline switched from border-bottom to text-decoration so it stays tight to the text;
-   detailActions kept vertically centered), confirmed by Playwright boundingBox + a footer
-   screenshot showing no layout breakage; verify gate stays green.
+1. Bring the AnnouncementCard citation link to a ≥24px tap target too. The deep-dive
+   card's footer citation (.cite) is the same ~15px small-target as the EventDetail one
+   just fixed, but a separate component. Evidence: src/components/AnnouncementCard.module.css
+   (.cite). Acceptance: .cite reaches ≥24px tall via vertical padding (inline-block) with
+   the footer staying aligned, confirmed by Playwright boundingBox + screenshot; verify
+   gate stays green.
