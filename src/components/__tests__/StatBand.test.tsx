@@ -26,4 +26,13 @@ describe('StatBand', () => {
     const { getByText } = render(<StatBand markets={markets} />)
     expect(getByText(/^-\d/)).toBeInTheDocument()
   })
+
+  it('renders "n/a" (not NaN) when the underlying series are missing', () => {
+    // No CL/LMT/VIX in the data → each stat value is null → graceful n/a, flat styling.
+    const { getAllByText, queryByText } = render(<StatBand markets={[]} />)
+    expect(getAllByText(/n\/a/i).length).toBe(3)
+    expect(queryByText(/NaN/)).toBeNull()
+    // Labels still render so the band keeps its structure.
+    expect(queryByText('WTI crude')).toBeInTheDocument()
+  })
 })
