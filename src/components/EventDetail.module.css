@@ -109,19 +109,20 @@
   font-size: 0.72rem;
   color: var(--muted);
 }
-.detailFoot a { color: var(--text); text-decoration: none; }
+/* inline-block + vertical padding give a >=24px touch target without altering the row. */
+.detailFoot a { color: var(--text); text-decoration: none; display: inline-block; padding: 0.45rem 0; }
 .detailFoot a:hover { color: var(--sel, var(--risk)); }
 
 .detailActions { display: inline-flex; gap: 1rem; align-items: center; }
 .copyLink {
-  padding: 0;
+  padding: 0.45rem 0;
   border: 0;
   background: none;
   font: inherit;
   color: var(--muted);
   cursor: pointer;
-  border-bottom: 1px solid transparent;
-  transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
+  text-decoration: none;
+  transition: color 0.15s var(--ease);
 }
-.copyLink:hover { color: var(--sel, var(--risk)); border-bottom-color: currentColor; }
+.copyLink:hover { color: var(--sel, var(--risk)); text-decoration: underline; text-underline-offset: 3px; }
 .copyLink:focus-visible { outline: 2px solid var(--sel, var(--risk)); outline-offset: 2px; border-radius: 2px; }
