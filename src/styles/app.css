@@ -4,6 +4,33 @@
   /* `clip` (not `hidden`) prevents horizontal scroll WITHOUT breaking position:sticky */
   overflow-x: clip;
 }
+.app:focus { outline: none; }
+
+/* Skip-to-content link: hidden until focused, then slides in. */
+.skipLink {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  transform: translateY(-130%);
+  padding: 0.6rem 1rem;
+  background: var(--text);
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.skipLink:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--risk);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skipLink { transition: none; }
+}
 
 /* Film-grain / scanline texture overlay */
 .grain {

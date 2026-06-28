@@ -14,6 +14,12 @@ describe('App', () => {
     expect(getAllByTestId('summary-row').length).toBeGreaterThanOrEqual(6)
   })
 
+  it('provides a skip-to-content link targeting the main region', () => {
+    const { getByText } = render(<App />)
+    const skip = getByText('Skip to content') as HTMLAnchorElement
+    expect(skip.getAttribute('href')).toBe('#main-content')
+  })
+
   it('ledger → deep-link → timeline selection flows end to end', () => {
     const { getAllByTestId, getByTestId } = render(<App />)
     const first = announcements[0]

@@ -94,7 +94,8 @@ export default function App() {
   )
 
   return (
-    <main className="app">
+    <main className="app" id="main-content" tabIndex={-1}>
+      <a className="skipLink" href="#main-content">Skip to content</a>
       <div className="grain" aria-hidden="true" />
       <ThemeToggle />
       <Hero linePath={heroLine} areaPath={heroArea} />
