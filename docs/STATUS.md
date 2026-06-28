@@ -311,6 +311,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   and colouring it good/bad editorialized against the piece's "judge it yourself" stance (and
   re-raised the VIX sentiment issue). Net return + drawdown keep their colours.
 
+- Covered remaining genuinely-reachable defensive branches: windowAround's unparseable-date
+  fallback (returns a copy of the whole series), plus the stats/useTheme edge branches above.
+  Coverage: lib stats 98.9% / scales 90.5% branch — the rest are d3/Intl `?? ''` fallbacks and a
+  domainFor-padded guard that valid inputs can't reach (left intentionally uncovered).
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

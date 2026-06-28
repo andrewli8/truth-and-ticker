@@ -167,6 +167,11 @@ describe('windowAround', () => {
   it('returns [] for empty input', () => {
     expect(windowAround([], '2025-03-06T12:00:00-05:00', 5)).toEqual([])
   })
+  it('returns the whole series (copy) for an unparseable center date', () => {
+    const win = windowAround(daily, 'not-a-date', 2)
+    expect(win).toEqual(daily)
+    expect(win).not.toBe(daily) // a copy, not the same reference
+  })
 })
 
 describe('decollide', () => {
