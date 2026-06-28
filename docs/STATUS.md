@@ -178,10 +178,7 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - apple-touch-icon (180×180 brand mark) for iOS home-screen bookmarks.
 - Security response headers via vercel.json (nosniff, Referrer-Policy, X-Frame-Options,
   Permissions-Policy, HSTS; CSP omitted to avoid breaking inline theme script/fonts).
+- format-detection=telephone=no (stops iOS auto-linking the page's numbers).
+- Added og:url + og:site_name for correct social attribution.
 
 ## Next
-
-1. Prevent iOS Safari from auto-linking the page's many numbers (dates, prices,
-   percentages) into phone links. No format-detection meta exists. Evidence: index.html
-   (head, no format-detection). Acceptance: <meta name="format-detection"
-   content="telephone=no"> added to the head (provable by diffing index.html); verify green.
