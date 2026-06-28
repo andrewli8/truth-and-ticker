@@ -133,5 +133,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - CategoryBand follows the selected timeline instrument (heading/bars morph; switching to
   Oil shows ceasefires/jawboning dropped it); footnote generalized, grammar fixed.
 - ARCHITECTURE.md documents CategoryBand + reactionByType.
+- README How-it-works notes reactionByType + CategoryBand.
 
 ## Next
