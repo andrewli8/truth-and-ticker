@@ -50,7 +50,9 @@ npm run build     # production build to dist/
 - `src/lib/stats.ts` `reactionByType` — averages those reactions by announcement
   category, powering the **CategoryBand** ("which posts moved <instrument>?");
   `topReactions` ranks the biggest cross-instrument single-day moves for the **Outro**
-  "biggest single-day reactions" highlight.
+  "biggest single-day reactions" highlight; `reactionHitRate` powers the timeline's
+  "rose on N of M posts" tally and `reactionSpread` the **ReactionSpread** distribution plot
+  ("most posts nudge the market, a few move it hard").
 - `src/components/ScrollStage.tsx` — pins the chart and emits scroll progress.
 - `src/components/MarketChart.tsx` — pure SVG renderer driven entirely by a
   `progress` prop (ghost full line + bright revealed line + playhead + dot), and it
