@@ -57,6 +57,45 @@ test.describe('timeline scrub', () => {
   })
 })
 
+test.describe('on-chart reaction labels', () => {
+  test('the selected marker labels its reaction within the overview chart', async ({ page }) => {
+    await page.goto('/')
+    const chart = page.locator('svg:has([data-testid="marker"])').first()
+    await chart.scrollIntoViewIfNeeded()
+    const label = page.getByTestId('marker-reaction')
+    await expect(label).toBeVisible()
+    await expect(label).toContainText('%')
+
+    // The label must sit inside the chart SVG (no clipping past its edges).
+    const svgBox = await chart.boundingBox()
+    const labelBox = await label.boundingBox()
+    expect(svgBox).not.toBeNull()
+    expect(labelBox).not.toBeNull()
+    expect(labelBox!.x).toBeGreaterThanOrEqual(svgBox!.x - 1)
+    expect(labelBox!.x + labelBox!.width).toBeLessThanOrEqual(svgBox!.x + svgBox!.width + 1)
+    expect(labelBox!.y).toBeGreaterThanOrEqual(svgBox!.y - 1)
+    expect(labelBox!.y + labelBox!.height).toBeLessThanOrEqual(svgBox!.y + svgBox!.height + 1)
+  })
+
+  test('the deep-dive chart labels the move at the playhead', async ({ page }) => {
+    await page.goto('/')
+    const deepDive = page.getByRole('region', { name: 'Event-by-event deep dive' })
+    await deepDive.scrollIntoViewIfNeeded()
+    const callout = page.getByTestId('reaction-callout').first()
+    await expect(callout).toBeVisible()
+    await expect(callout).toContainText('%')
+
+    // The callout stays inside its chart figure's SVG.
+    const svg = deepDive.locator('figure svg').first()
+    const svgBox = await svg.boundingBox()
+    const calloutBox = await callout.boundingBox()
+    expect(svgBox).not.toBeNull()
+    expect(calloutBox).not.toBeNull()
+    expect(calloutBox!.x).toBeGreaterThanOrEqual(svgBox!.x - 1)
+    expect(calloutBox!.x + calloutBox!.width).toBeLessThanOrEqual(svgBox!.x + svgBox!.width + 1)
+  })
+})
+
 test.describe('outro highlights', () => {
   test('renders the "biggest single-day reactions" cards', async ({ page }) => {
     await page.goto('/')
