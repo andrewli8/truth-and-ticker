@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://truth-and-ticker.vercel.app/sitemap.xml
