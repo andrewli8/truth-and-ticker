@@ -59,12 +59,14 @@ practice and avoids over-reading noisy intraday ticks.
   series interpolates across the gap for those days.
 - Intraday oil peaks on Jun 23 (~$78 WTI / ~$81 Brent) were widely reported but
   are approximate and not used in the close-to-close metric.
-- A few summaries mention **single-stock moves that are not in the charted dataset**
-  (e.g. GM −7.3% / Ford −3.7% on Mar 26, AAPL ~3% on May 23, TSLA −14.3% on Jun 5).
-  These are externally reported figures, sourced via each event's citation link, and are
-  given for context only — the charted series cover CL, DJI, GLD, LMT, NDX, RTX, SPX,
-  VIX, and XOM. Every percentage stated for a *charted* instrument matches its
-  close-to-close reaction (enforced by a data-integrity test).
+- Some summaries cite **figures that are not in the charted dataset** — single-stock
+  moves (e.g. GM −7.3% / Ford −3.7% on Mar 26, AAPL ~3% on May 23, TSLA −14.3% on Jun 5),
+  market value wiped (~$5T on Apr 2, ~$151B on Jun 5), the 30-yr Treasury yield (~5% in
+  mid-May), and individual single-day moves (Trump Media +22.67% on Apr 9). These are
+  externally reported figures, sourced via each event's citation link, and are given for
+  context only — the charted series cover CL, DJI, GLD, LMT, NDX, RTX, SPX, VIX, and XOM.
+  Every percentage stated for a *charted* instrument matches its close-to-close reaction
+  (enforced by a data-integrity test).
 
 ## Verification note
 
