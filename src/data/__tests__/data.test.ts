@@ -113,4 +113,24 @@ describe('dataset integrity', () => {
     })
     expect(checked).toBeGreaterThan(0) // guard the guard: ensure WTI claims exist
   })
+
+  it('any Dow percentage cited in a summary matches the DJI data, and none use raw points', () => {
+    const dji = markets.find((m) => m.ticker === 'DJI')!
+    // Index moves should be stated in percent, not raw points (comparability/honesty).
+    announcements.forEach((a) => {
+      expect(a.summary).not.toMatch(/Dow [+-]?[0-9],[0-9]{3}/)
+    })
+    const dowClaim = /Dow\s*([+-]?\d+(?:\.\d+)?)\s*%/i
+    let checked = 0
+    announcements.forEach((a) => {
+      const match = a.summary.match(dowClaim)
+      if (!match) return
+      checked += 1
+      const claimed = Number(match[1])
+      const actual = reactionFor(a, dji, REACTION_WINDOW_MINS).deltaPct
+      expect(actual).not.toBeNull()
+      expect(Math.abs(actual! - claimed)).toBeLessThanOrEqual(0.2)
+    })
+    expect(checked).toBeGreaterThan(0)
+  })
 })
