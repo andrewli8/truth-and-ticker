@@ -105,6 +105,9 @@ export function HubApp() {
           When he posts, the market moves. Thirty second-term moments — tariffs, threats,
           strikes, ceasefires — on one screen.
         </p>
+        <a className={styles.pocLink} href="/poc.html">
+          See the “When he posts” concept <span aria-hidden="true">↗</span>
+        </a>
       </header>
 
       <div className={styles.stats} role="group" aria-label="Summary">

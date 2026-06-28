@@ -19,6 +19,11 @@ describe('App (one-screen hub)', () => {
     expect(skip.getAttribute('href')).toBe('#main-content')
   })
 
+  it('links to the standalone POC concept', () => {
+    const { getByRole } = render(<App />)
+    expect(getByRole('link', { name: /concept/i }).getAttribute('href')).toBe('/poc.html')
+  })
+
   it('opens a zoom detail dialog when the active moment is clicked', () => {
     const { getByRole, queryByRole } = render(<App />)
     expect(queryByRole('dialog')).toBeNull()

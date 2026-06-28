@@ -62,6 +62,26 @@
   font-size: clamp(0.82rem, 1.4vw, 1rem);
   line-height: 1.45;
 }
+.pocLink {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.pocLink:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.pocLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 /* ── Summary chips ─────────────────────────────────────────────────────────── */
 .stats {
