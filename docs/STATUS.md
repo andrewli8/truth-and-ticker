@@ -151,5 +151,6 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Tightened StatBand→CategoryBand vertical gap for a connected flow.
 - Kinetic-typography hero title: per-glyph staggered rise (was a block reveal); layout
   preserved, aria-label keeps the name, reduced-motion safe; verified via screenshot.
+- E2E guards the kinetic hero title is visible under reduced motion.
 
 ## Next
