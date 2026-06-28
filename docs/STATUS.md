@@ -99,3 +99,11 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Data test uses REACTION_WINDOW_MINS (not a literal 120).
 
 ## Next
+
+1. Fix StatBand value overflow: the largest stat (VIX +254.30%, 8 chars) clips at the
+   right edge because the value font-size clamp maxes at 5.5rem — too large for an 8-char
+   monospace value in the ~352px grid cell at desktop widths (≈420px of text). Verified by
+   a Playwright screenshot of the StatBand. Evidence: src/components/StatBand.module.css:30.
+   Acceptance: the value font-size clamp is reduced so a +254.30%-width value fits its
+   cell without clipping (e.g. max ≈4.3rem), confirmed by re-screenshot; provable by
+   diffing StatBand.module.css; verify gate stays green.
