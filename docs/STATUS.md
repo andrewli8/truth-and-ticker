@@ -407,10 +407,4 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-1. The enforced coverage thresholds aren't run by any automation, so a coverage
-   regression slips in silently (the POC just did — caught only by a manual run).
-   Evidence: .github/workflows/ci.yml runs `npm run verify` and `npm run test:e2e` but
-   never `npm run test:coverage`, though vitest.config.ts defines enforced
-   `thresholds` (statements/branches/functions/lines).
-   Acceptance: .github/workflows/ci.yml runs `npm run test:coverage` (so a sub-threshold
-   drop fails CI); provable by diffing the workflow.
+(empty — no evidence-backed improvement currently queued)
