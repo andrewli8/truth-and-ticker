@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render } from '@testing-library/react'
 import { TickerRail } from '../TickerRail'
 import type { TickerMove } from '../../lib/stats'
+
+// Force motion on so the marquee-duplicate branch is exercised (the jsdom test env
+// otherwise reports reduced-motion, which skips the duplicate set).
+vi.mock('../../lib/useReducedMotion', () => ({ useReducedMotion: () => false }))
 
 const moves: TickerMove[] = [
   { ticker: 'CL', pct: 7.3 },
@@ -16,5 +20,14 @@ describe('TickerRail', () => {
     expect(getAllByText('CL').length).toBeGreaterThanOrEqual(1)
     expect(getAllByText('LMT').length).toBeGreaterThanOrEqual(1)
     expect(getAllByText(/7\.30%/).length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('renders the duplicated marquee set (live, aria-hidden) when motion is allowed', () => {
+    const { getAllByText, container } = render(<TickerRail moves={moves} />)
+    // Original + seamless-loop duplicate ⇒ each symbol appears exactly twice.
+    expect(getAllByText('CL')).toHaveLength(2)
+    const rail = container.firstChild as HTMLElement
+    expect(rail.className).toMatch(/live/)
+    expect(rail.getAttribute('aria-hidden')).toBe('true')
   })
 })
