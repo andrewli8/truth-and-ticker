@@ -39,6 +39,22 @@ describe('Outro', () => {
     expect(withoutS.container.querySelectorAll('svg[class*="spark"]').length).toBe(0)
   })
 
+  it('omits a row sparkline when the series has no points near that event', () => {
+    // Series provided, but its dates don't overlap the events' windows → empty spark path.
+    const farSeries = {
+      ticker: 'SPX',
+      name: 'SPX',
+      category: 'index' as const,
+      points: [
+        { datetime: '2024-01-01T16:00:00-04:00', price: 100, pctFromPrevClose: 0 },
+        { datetime: '2024-01-02T16:00:00-04:00', price: 101, pctFromPrevClose: 1 },
+      ],
+    }
+    const { container } = render(<Outro events={events} primaryTicker="SPX" series={farSeries} />)
+    // The column header still renders (series is provided) but no row draws a sparkline.
+    expect(container.querySelectorAll('svg[class*="spark"]').length).toBe(0)
+  })
+
   it('labels the sparkline column with a visible header describing the window', () => {
     const { getByText } = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
     const header = getByText(/±10d/i)
