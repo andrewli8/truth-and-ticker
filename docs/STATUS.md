@@ -268,4 +268,11 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Surface the directional hit-rate — the site's central question ("do his posts move the
+   market up or down?") is never answered as a tally. Evidence: src/components/MasterTimeline.tsx
+   term-stat line (shows net return + drawdown only); src/lib/stats.ts (has reactionByType but no
+   up/down count). Acceptance: a pure, tested `reactionHitRate(events, ticker)` returns
+   {up,down,flat,total} (using the shared `direction()` so negligible moves count as flat); App
+   passes it for the current instrument and the MasterTimeline term-stat appends "· rose on N of
+   M posts"; a stats test covers the counts (incl. a flat/negligible case); verify gate green and
+   no mobile overflow (E2E).
