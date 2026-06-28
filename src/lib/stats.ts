@@ -1,5 +1,5 @@
 import { domainFor } from './scales'
-import { formatPrice, formatPct, formatDay } from './format'
+import { formatPrice, formatPct, formatDay, direction } from './format'
 import type { Series, AnnType, CorrelatedEvent } from './types'
 
 export interface TickerMove {
@@ -193,6 +193,28 @@ export function reactionByType(events: CorrelatedEvent[], ticker: string): TypeA
  * covers, and its first→last move — so screen readers get the data, not just
  * "price line". Pure.
  */
+export interface HitRate {
+  up: number
+  down: number
+  flat: number
+  total: number
+}
+
+/**
+ * Directional tally of an instrument's reactions across events — how often it rose, fell, or
+ * barely moved. Uses the shared {@link direction} so negligible (~0%) moves count as flat, not
+ * gains. Pure; a missing reaction for the ticker counts as flat.
+ */
+export function reactionHitRate(events: CorrelatedEvent[], ticker: string): HitRate {
+  const out: HitRate = { up: 0, down: 0, flat: 0, total: events.length }
+  for (const e of events) {
+    const r = e.reactions.find((x) => x.ticker === ticker)
+    const dir = direction(r?.deltaPct ?? null)
+    out[dir] += 1
+  }
+  return out
+}
+
 export function chartAriaLabel(
   series: Series,
   momentLabel?: string,

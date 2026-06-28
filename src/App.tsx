@@ -11,7 +11,7 @@ import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll, REACTION_WINDOW_MINS } from './lib/correlate'
 import { formatDay } from './lib/format'
-import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
+import { spotlightTicker, seriesByTicker, eventMoves, reactionHitRate } from './lib/stats'
 import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
 import { hashForEvent, instrumentFromQuery } from './lib/hash'
@@ -83,6 +83,8 @@ export default function App() {
   )
   const timelineLabel =
     TIMELINE_INSTRUMENTS.find((t) => t.ticker === timelineTicker)?.name ?? timelineTicker
+  // How often the current instrument rose / fell / barely moved across all announcements.
+  const timelineHitRate = useMemo(() => reactionHitRate(events, timelineTicker), [events, timelineTicker])
   const pickInstrument = useCallback((ticker: string) => {
     setTimelineTicker(ticker)
     if (typeof window === 'undefined') return
@@ -133,6 +135,7 @@ export default function App() {
           instruments={TIMELINE_INSTRUMENTS}
           onPickInstrument={pickInstrument}
           benchmark={fallbackSeries}
+          hitRate={timelineHitRate}
         />
       </div>
 

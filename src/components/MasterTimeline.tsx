@@ -16,7 +16,7 @@ import {
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor, REACTION_WINDOW_MINS } from '../lib/correlate'
 import { accentGroup, type AccentGroup } from '../lib/labels'
-import { timelineAriaLabel, netReturnPct, maxDrawdown } from '../lib/stats'
+import { timelineAriaLabel, netReturnPct, maxDrawdown, type HitRate } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct, direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -49,6 +49,8 @@ interface Props {
   onPickInstrument?: (ticker: string) => void
   /** Benchmark series for the optional "compare vs" overlay (e.g. the S&P 500). */
   benchmark?: Series
+  /** Directional tally (up/down/flat) of this instrument's reactions, for the term-stat. */
+  hitRate?: HitRate
 }
 
 interface Tick {
@@ -79,6 +81,7 @@ export function MasterTimeline({
   instruments,
   onPickInstrument,
   benchmark,
+  hitRate,
 }: Props) {
   const [showCompare, setShowCompare] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(() => {
@@ -272,6 +275,15 @@ export function MasterTimeline({
             net over the term · deepest drawdown{' '}
             <span className={styles.termVal} data-dir="down">{formatPct(drawdown?.pct ?? null)}</span>
             {drawdown && drawdown.pct < 0 ? ` (to ${formatDay(drawdown.troughISO)})` : ''}
+            {hitRate && hitRate.total > 0 && (
+              <>
+                {' · rose on '}
+                <span className={styles.termVal} data-dir={hitRate.up > hitRate.down ? 'up' : hitRate.up < hitRate.down ? 'down' : 'flat'}>
+                  {hitRate.up} of {hitRate.total}
+                </span>
+                {' posts'}
+              </>
+            )}
           </p>
         </div>
         <div className={styles.legend} role="group" aria-label="Filter events by category">
