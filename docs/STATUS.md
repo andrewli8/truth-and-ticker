@@ -106,14 +106,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Roomier mobile touch targets (~36px) for timeline switcher/legend chips (desktop unchanged).
 - ≥24px tap targets for EventDetail footer (copy-link + citation), WCAG 2.2 target size.
 - ≥24px tap target for AnnouncementCard citation link (WCAG 2.2 target size).
+- 24px hit target for dot-nav (11px dot via ::before); WCAG 2.2 SC 2.5.8.
 
 ## Next
-
-1. Make the ScrollStage dot-nav dots a ≥24px target. They're 11px with ~11px gaps
-   (~22px center-to-center), failing WCAG 2.2 SC 2.5.8 on both size and spacing. Evidence:
-   src/components/ScrollStage.module.css:55 (.dot 11px); Evidence:
-   src/components/ScrollStage.module.css:51 (.dots gap). Acceptance: each dot button
-   becomes a 24px target with the 11px visual dot drawn via ::before (hover/active/border
-   styles moved to the pseudo-element), spacing adjusted so 24px targets don't overlap;
-   confirmed by Playwright boundingBox (≥24px) + a screenshot showing the dots look
-   unchanged; verify gate stays green.
