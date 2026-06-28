@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { EventDetail } from '../EventDetail'
 import type { Announcement } from '../../lib/types'
 
@@ -24,7 +24,7 @@ describe('EventDetail', () => {
     expect(getByTestId('detail').getAttribute('aria-live')).toBe('polite')
   })
 
-  it('copies a deep-link to the event', () => {
+  it('copies a deep-link to the event', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
     Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
     window.location.hash = ''
@@ -34,6 +34,8 @@ describe('EventDetail', () => {
     fireEvent.click(getByRole('button', { name: /copy link/i }))
     expect(writeText).toHaveBeenCalledTimes(1)
     expect(writeText.mock.calls[0][0]).toContain('#event-ceasefire')
+    // Await the post-copy state update so it's wrapped in act (button shows confirmation).
+    await waitFor(() => expect(getByRole('button').textContent).toMatch(/copied/i))
   })
 
   it('links to the citation', () => {

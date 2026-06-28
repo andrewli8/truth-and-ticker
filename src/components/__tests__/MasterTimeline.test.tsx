@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { MasterTimeline } from '../MasterTimeline'
 import { announcements, markets } from '../../data'
 import { seriesByTicker } from '../../lib/stats'
@@ -168,6 +168,8 @@ describe('MasterTimeline', () => {
     fireEvent.click(getByRole('button', { name: /copy link/i }))
     expect(writeText).toHaveBeenCalledTimes(1)
     expect(writeText.mock.calls[0][0]).toContain('#event-a')
+    // Await the post-copy state update so it's wrapped in act (no unwrapped-update warning).
+    await waitFor(() => expect(getByRole('button', { name: /copied/i })).toBeInTheDocument())
   })
 
   it('overlays the benchmark when "compare" is toggled (and only for other instruments)', () => {
