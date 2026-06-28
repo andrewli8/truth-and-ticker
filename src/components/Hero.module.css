@@ -68,7 +68,6 @@
 }
 .titleChar {
   display: inline-block;
-  will-change: transform;
 }
 
 .amp {
