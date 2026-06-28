@@ -407,4 +407,12 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. The POC docs say it charts only the S&P 500, but it now has a six-instrument
+   switcher — the docs no longer match the code.
+   Evidence: README.md:69 ("S&P 500 across the second term as a glowing line"),
+   docs/ARCHITECTURE.md:72 ("the full S&P term as one glowing line"), and
+   docs/STATUS.md:26 ("the whole S&P term") all predate the switcher added in
+   src/poc/PocApp.tsx (instrument rail over src/lib/instruments.ts INSTRUMENTS).
+   Acceptance: README, ARCHITECTURE, and STATUS `## Now` each note the POC's
+   instrument switcher (six markets, default S&P 500); provable by grep finding
+   "switch"/"instrument" in the POC description of all three.
