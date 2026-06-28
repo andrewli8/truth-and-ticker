@@ -36,4 +36,9 @@ describe('PocApp (one-screen POC)', () => {
     fireEvent.keyDown(chart, { key: 'ArrowRight' })
     expect(meta()).toBe(before)
   })
+
+  it('advertises keyboard scrubbing in the on-screen hint', () => {
+    const { container } = render(<PocApp />)
+    expect(container.querySelector('.poc-hint')?.textContent).toMatch(/arrow/i)
+  })
 })

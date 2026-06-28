@@ -250,7 +250,7 @@ export function PocApp() {
         <line x1={active.x} x2={active.x} y1={0} y2={H} className="poc-playhead" />
       </svg>
 
-      <p className="poc-hint" data-poc-fade>Drag across to scrub the timeline</p>
+      <p className="poc-hint" data-poc-fade>Drag or use arrow keys to scrub the timeline</p>
     </main>
   )
 }
