@@ -97,3 +97,15 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - <noscript> fallback (headline + thesis + enable-JS prompt) for the client-rendered SPA.
 
 ## Next
+
+1. Add robots.txt and sitemap.xml for crawl/discovery hygiene. The public site has
+   neither, so crawlers get no sitemap hint. Evidence: index.html:30 (canonical origin
+   https://truth-and-ticker.vercel.app/ to reuse). Acceptance: public/robots.txt (allows
+   all, references the sitemap) and public/sitemap.xml (single <url> for the canonical
+   origin) exist and are copied into dist/ by the build (provable by `ls dist/robots.txt
+   dist/sitemap.xml` after build); verify gate stays green.
+2. Use the REACTION_WINDOW_MINS constant instead of the literal 120 in the data test, so
+   the test tracks the real window if it changes. Evidence:
+   src/data/__tests__/data.test.ts:94 (correlateAll(announcements, markets, 120)).
+   Acceptance: the literal 120 there is replaced by the imported REACTION_WINDOW_MINS
+   (provable by diffing the file); verify gate stays green.
