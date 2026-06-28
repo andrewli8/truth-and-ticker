@@ -78,3 +78,21 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 
 ## Next
 
+1. Give the Outro ledger's sparkline column a visible header. The `<th>` for the mini
+   market path is empty except for an aria-label, so sighted users can't tell what the
+   column shows. The path is a ±10-day window (SPARK_DAYS=10, a half-window in
+   windowAround). Evidence: src/components/Outro.tsx:33; Acceptance: that header renders
+   non-empty visible text describing the window (e.g. "±10d path"), asserted by a new
+   Outro test that finds the header by its visible text.
+2. Make the Outro table row borders theme-aware. The `td` border hardcodes
+   `rgba(42,42,46,0.5)` (the dark steel), which shows as dark lines in the light theme
+   while the header border correctly uses `var(--steel)`. Evidence:
+   src/components/Outro.module.css:55; Acceptance: line 55 uses a theme token
+   (`var(--steel)`) instead of the hardcoded rgba (provable by diffing the file); verify
+   gate stays green.
+3. Remove the dead `.dayLabel` CSS rule. It is defined in MarketChart.module.css but
+   never referenced anywhere in the codebase. Evidence:
+   src/components/MarketChart.module.css:133; Acceptance: the `.dayLabel` block is gone
+   (provable by diffing the file) and `grep -r dayLabel src` returns no matches; verify
+   gate stays green.
+
