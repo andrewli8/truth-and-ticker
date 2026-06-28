@@ -175,10 +175,14 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Print stylesheet: readable light document on white (theme-independent), animations/grain
   off, non-paginating deep-dive hidden (ledger carries the data); verified print-media.
 
+- apple-touch-icon (180×180 brand mark) for iOS home-screen bookmarks.
+
 ## Next
 
-1. Add an apple-touch-icon so iOS home-screen bookmarks use the brand mark, not a generic
-   screenshot. index.html has an inline SVG favicon but no apple-touch-icon. Evidence:
-   index.html (favicon link, no apple-touch-icon). Acceptance: a 180×180 PNG generated from
-   the favicon design lives in public/, linked via <link rel="apple-touch-icon">; it's
-   copied into dist by the build; verify gate green.
+1. Add security response headers via vercel.json (the deploy target per the canonical
+   origin). The site ships no security headers. Evidence: index.html:30 (canonical
+   vercel.app origin); no vercel.json exists. Acceptance: a vercel.json applies standard
+   safe headers to all routes — X-Content-Type-Options: nosniff, Referrer-Policy:
+   strict-origin-when-cross-origin, X-Frame-Options: SAMEORIGIN, a Permissions-Policy
+   disabling unused features, and HSTS — omitting CSP (would break the inline theme script
+   + Google Fonts); valid JSON; verify gate green (config-only, build unaffected).
