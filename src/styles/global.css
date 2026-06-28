@@ -5,8 +5,11 @@
   --text: #15140f;
   --muted: #5d5d66; /* AA contrast on light bg */
   --steel: #d6d2c8;
-  --risk: #d62f1c;
-  --relief: #138a4a;
+  /* risk/relief darkened just enough that colored % text meets WCAG AA (4.5:1) on the
+     light bg (risk 4.76, relief 4.67); still vivid red/green. warn is non-text accent
+     only (meets the 3:1 graphical-object threshold). */
+  --risk: #cb2c1a;
+  --relief: #117c42;
   --warn: #b5790a;
   --grain-opacity: 0.04;
   --grain-color: rgba(0, 0, 0, 0.5);

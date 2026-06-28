@@ -50,13 +50,12 @@ screens; the markers remain a precise pointer/keyboard affordance on larger ones
 Measured WCAG contrast on the light background (dark theme is comparable):
 
 - Body text 16:1, muted text 5.8:1 — pass AA for normal text (≥4.5:1).
-- The semantic accents used for coloured ± values — risk 4.35:1, relief 3.91:1,
-  warn 3.26:1 — meet AA Large (≥3:1) and so clear the big StatBand numbers; the small
-  reaction values fall just short of AA Normal. **Direction is never conveyed by colour
-  alone** — the `+`/`−` sign and the number carry it (WCAG 1.4.1 met), so the colour is
-  reinforcing, not load-bearing. Bringing the small coloured values to strict AA Normal
-  would mean slightly darker accent tokens — a brand/design-owner decision, deliberately
-  not changed automatically.
+- The semantic accents used for coloured ± values were nudged to meet **AA Normal**
+  (≥4.5:1) on the light background: risk #cb2c1a (4.76:1), relief #117c42 (4.67:1) — still
+  vivid red/green. `warn` (#b5790a, 3.26:1) is used only as a non-text accent (legend dot,
+  marker, spine), which needs the 3:1 graphical-object threshold (SC 1.4.11), which it
+  meets. The dark theme's brighter accents pass comfortably (6–11:1). Direction is also
+  never conveyed by colour alone — the `+`/`−` sign and the number carry it (SC 1.4.1).
 
 ## No-JS
 
