@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { eventIdFromHash, hashForEvent, eventShareUrl } from '../hash'
+import { eventIdFromHash, hashForEvent, eventShareUrl, instrumentFromQuery } from '../hash'
 
 describe('hash deep-linking', () => {
   it('round-trips an id through the hash', () => {
@@ -19,5 +19,10 @@ describe('hash deep-linking', () => {
   })
   it('builds an absolute shareable deep-link', () => {
     expect(eventShareUrl('https://x.dev', '/', 'ceasefire')).toBe('https://x.dev/#event-ceasefire')
+  })
+  it('reads an allowed instrument from the query, else null', () => {
+    expect(instrumentFromQuery('?i=CL', ['SPX', 'CL'])).toBe('CL')
+    expect(instrumentFromQuery('?i=ZZZ', ['SPX', 'CL'])).toBeNull()
+    expect(instrumentFromQuery('', ['SPX', 'CL'])).toBeNull()
   })
 })

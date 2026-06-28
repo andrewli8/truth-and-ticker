@@ -13,7 +13,7 @@ import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
-import { hashForEvent } from './lib/hash'
+import { hashForEvent, instrumentFromQuery } from './lib/hash'
 import { useReducedMotion } from './lib/useReducedMotion'
 import { announcements, markets } from './data'
 import type { AnnType } from './lib/types'
@@ -64,12 +64,26 @@ export default function App() {
   const timelineRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
 
-  // Which instrument the master-timeline overview plots (user-switchable).
-  const [timelineTicker, setTimelineTicker] = useState('SPX')
+  // Which instrument the master-timeline overview plots (user-switchable,
+  // reflected in the URL as ?i= so the view is shareable/deep-linkable).
+  const [timelineTicker, setTimelineTicker] = useState(
+    () =>
+      (typeof window !== 'undefined' &&
+        instrumentFromQuery(window.location.search, TIMELINE_INSTRUMENTS.map((t) => t.ticker))) ||
+      'SPX',
+  )
   const timelineSeries = useMemo(
     () => seriesByTicker(markets, timelineTicker) ?? fallbackSeries,
     [timelineTicker, fallbackSeries],
   )
+  const pickInstrument = useCallback((ticker: string) => {
+    setTimelineTicker(ticker)
+    if (typeof window === 'undefined') return
+    const url = new URL(window.location.href)
+    if (ticker === 'SPX') url.searchParams.delete('i')
+    else url.searchParams.set('i', ticker)
+    window.history.replaceState(null, '', url) // preserves the #event hash
+  }, [])
 
   // From the closing ledger, jump up to the master timeline with the event open.
   const pickEvent = useCallback(
@@ -107,7 +121,7 @@ export default function App() {
           accentFor={(t) => ACCENT[t]}
           onJump={jumpToEvent}
           instruments={TIMELINE_INSTRUMENTS}
-          onPickInstrument={setTimelineTicker}
+          onPickInstrument={pickInstrument}
         />
       </div>
 

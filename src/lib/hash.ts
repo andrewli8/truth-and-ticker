@@ -20,3 +20,12 @@ export function hashForEvent(id: string): string {
 export function eventShareUrl(origin: string, pathname: string, id: string): string {
   return `${origin}${pathname}${hashForEvent(id)}`
 }
+
+/**
+ * The `?i=<ticker>` instrument from a location search string, if it's one of the
+ * allowed tickers; otherwise null. Lets the overview instrument be deep-linked.
+ */
+export function instrumentFromQuery(search: string, allowed: string[]): string | null {
+  const i = new URLSearchParams(search).get('i')
+  return i && allowed.includes(i) ? i : null
+}
