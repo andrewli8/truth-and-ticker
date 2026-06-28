@@ -203,6 +203,24 @@ test.describe('timeline annotations', () => {
   })
 })
 
+test.describe('ledger pagination + sort', () => {
+  test('paginates the ledger and sorts by clicking a column', async ({ page }) => {
+    await page.goto('/')
+    const pager = page.getByRole('navigation', { name: /Ledger pages/i })
+    await pager.scrollIntoViewIfNeeded()
+    await expect(pager).toContainText(/Page 1 of \d/)
+
+    // Pagination: Next advances the page.
+    await pager.getByRole('button', { name: /Next/i }).click()
+    await expect(pager).toContainText('Page 2 of')
+
+    // Sort: clicking a column header sets aria-sort on it.
+    const typeHeader = page.getByRole('columnheader', { name: /^Type/i })
+    await typeHeader.getByRole('button').click()
+    await expect(typeHeader).toHaveAttribute('aria-sort', /ascending|descending/)
+  })
+})
+
 test.describe('ledger → timeline jump', () => {
   test('a ledger row selects that event on the master timeline', async ({ page }) => {
     await page.goto('/')

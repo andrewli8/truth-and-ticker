@@ -170,3 +170,51 @@
   .table td, .table th { padding: 0.6rem 0.5rem; }
   .highlights { grid-template-columns: 1fr; gap: 0.75rem; }
 }
+
+/* Sortable column headers. */
+.sortBtn {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.sortBtn:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.sortBtn:focus-visible { outline: 2px solid var(--risk); outline-offset: 2px; border-radius: 2px; }
+.sortBtnNum { width: 100%; text-align: right; }
+
+/* Pagination: off-page rows stay in the DOM (for print) but are hidden on screen. */
+.offPage { display: none; }
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+.pageBtn {
+  font: inherit;
+  background: none;
+  border: 1px solid var(--steel);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease);
+}
+.pageBtn:hover:not(:disabled) { border-color: var(--text); }
+.pageBtn:disabled { opacity: 0.4; cursor: default; }
+.pageBtn:focus-visible { outline: 2px solid var(--risk); outline-offset: 2px; }
+.pageInfo { color: var(--muted); }
+
+/* Print shows the whole ledger (no pagination) and hides the pager controls. */
+@media print {
+  .offPage { display: table-row; }
+  .pager { display: none; }
+}
