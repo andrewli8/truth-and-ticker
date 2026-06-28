@@ -65,11 +65,13 @@ See [`src/data/SOURCES.md`](src/data/SOURCES.md) for data provenance and caveats
 
 Alongside the scrollytelling main piece, the repo ships a standalone one-screen
 interactive concept at **`/poc.html`** (`src/poc/`, a second Vite entry — see
-`vite.config.ts`). It distills the whole thesis into a single full-bleed view: the
-S&P 500 across the second term as a glowing line you scrub by **dragging or with the
+`vite.config.ts`). It distills the whole thesis into a single full-bleed view: a chosen
+market across the second term as a glowing line you scrub by **dragging or with the
 arrow keys**, with the reaction readout and the entire scene's accent colour flipping
-green/red to the active post's gain or loss. It reuses the real data and the same
-pure chart helpers (`scales`, `correlate`) as the main app, adds an awwwards-grade
+green/red to the active post's gain or loss. An **instrument switcher** (the six markets
+of `src/lib/instruments.ts`, defaulting to the S&P 500) re-plots the line — so the same
+post can read green on one instrument and red on another. It reuses the real data and the
+same pure chart helpers (`scales`, `correlate`) as the main app, adds an awwwards-grade
 GSAP entrance (line draw-on, masked kinetic title, count-up readout, lerp-follow
 cursor — all reduced-motion safe), and is covered by unit (`src/poc/__tests__`) and
 real-browser E2E (`e2e/poc.spec.ts`) tests. It's linked from the Outro footer.

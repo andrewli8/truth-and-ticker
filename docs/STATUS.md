@@ -23,12 +23,13 @@ states), WCAG 2.2 target sizes, forced-colors, and broad a11y (docs/ACCESSIBILIT
 aria-hidden on decorative chart echoes). Every charted-instrument figure in
 the prose is test-asserted against the data. Alongside the main piece, a standalone
 one-screen interactive concept ("When he posts, the market moves") ships as a second
-Vite entry at /poc.html (src/poc/), linked from the Outro footer: the whole S&P term as
-one glowing line you scrub by drag or arrow keys, the scene's accent flipping to each
-post's gain/loss, with an awwwards-grade GSAP entrance (reduced-motion safe), reusing the
-real data + pure chart helpers. Testing: 284 unit/component (the verify gate) plus a
-40-spec Playwright E2E suite (incl. POC drag/keyboard/reduced-motion); GitHub Actions CI
-runs verify + E2E on every push/PR.
+Vite entry at /poc.html (src/poc/), linked from the Outro footer: a chosen market's term
+as one glowing line you scrub by drag or arrow keys, the scene's accent flipping to each
+post's gain/loss, with an instrument switcher (six markets, default S&P 500; the line
+re-draws on switch) and an awwwards-grade GSAP entrance (reduced-motion safe), reusing the
+real data + pure chart helpers. Testing: 290 unit/component (the verify gate) plus a
+42-spec Playwright E2E suite (incl. POC drag/keyboard/switch/reduced-motion/mobile); CI
+runs verify + coverage thresholds + E2E on every push/PR.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
@@ -407,12 +408,4 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-1. The POC docs say it charts only the S&P 500, but it now has a six-instrument
-   switcher — the docs no longer match the code.
-   Evidence: README.md:69 ("S&P 500 across the second term as a glowing line"),
-   docs/ARCHITECTURE.md:72 ("the full S&P term as one glowing line"), and
-   docs/STATUS.md:26 ("the whole S&P term") all predate the switcher added in
-   src/poc/PocApp.tsx (instrument rail over src/lib/instruments.ts INSTRUMENTS).
-   Acceptance: README, ARCHITECTURE, and STATUS `## Now` each note the POC's
-   instrument switcher (six markets, default S&P 500); provable by grep finding
-   "switch"/"instrument" in the POC description of all three.
+(empty — no evidence-backed improvement currently queued)
