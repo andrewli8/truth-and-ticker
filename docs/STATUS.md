@@ -254,15 +254,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Removed two duplicate regression specs (compare overlay, instrument switch) that re-tested
   flows already covered in smoke.spec.ts:10/40; kept the ledger-selection and dark-mode-label
   specs (they assert outcomes smoke doesn't). Suite trimmed 32→30, no unique coverage lost.
-
-## Next
-
-(empty — no evidence-backed improvement currently queued)
-
-## Recently done (continued)
-
 - De-duplicated the up/down/flat direction ternary into a pure, tested `direction(value)` helper
   in lib/format.ts; all 9 sites (TickerRail, StatBand, CategoryBand, MasterTimeline term-stat,
   EventDetail, Outro ×2, AnnouncementCard, ChartReactionLabel) now call it instead of an inline
   `x === null ? 'flat' : x >= 0 ? 'up' : 'down'`. Behavior-preserving; single source of truth.
   Covered by format.test (positive/negative/zero/null/NaN). Verify + 30 E2E green.
+
+## Next
+
+(empty — no evidence-backed improvement currently queued)
