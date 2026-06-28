@@ -230,6 +230,17 @@ describe('MasterTimeline', () => {
     expect(getAllByTestId('marker').length).toBeLessThan(before)
   })
 
+  it('clamps arrow navigation at the last marker', () => {
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const markers = getAllByTestId('marker')
+    const last = announcements.length - 1
+    expect(markers[last].getAttribute('aria-pressed')).toBe('true') // default
+    fireEvent.keyDown(markers[last], { key: 'ArrowRight' }) // forward past the end
+    expect(getAllByTestId('marker')[last].getAttribute('aria-pressed')).toBe('true') // unchanged
+  })
+
   it('reveals a live scrub crosshair on pointer move', () => {
     const { container, queryByTestId, getByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
@@ -246,6 +257,9 @@ describe('MasterTimeline', () => {
     Object.defineProperty(move, 'clientY', { value: 120 })
     fireEvent(svg, move)
     expect(getByTestId('scrub')).toBeInTheDocument()
+    // The readout shows a date · price (e.g. "Jun 24 · 5,996.66").
+    expect(getByTestId('scrub').textContent).toMatch(/·/)
+    expect(getByTestId('scrub').textContent).toMatch(/\d/)
     fireEvent.pointerLeave(svg)
     expect(queryByTestId('scrub')).toBeNull()
   })
