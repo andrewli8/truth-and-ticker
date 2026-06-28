@@ -253,3 +253,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   and the deep-dive callout waits for the sticky chart to lay out. Full suite: 32/32 green.
 
 ## Next
+
+1. Remove duplicate E2E tests I just added. The new regression specs for the compare overlay
+   and the instrument switch duplicate existing smoke coverage. Evidence: e2e/smoke.spec.ts:40
+   ("compare overlay adds a benchmark line…") and e2e/smoke.spec.ts:10 ("instrument switcher
+   re-plots the master timeline") already cover these; e2e/regression.spec.ts has near-identical
+   "benchmark compare overlay" and "timeline instrument switch" describes. Acceptance: those two
+   describe blocks are deleted from regression.spec.ts (the ledger-selection and dark-mode-label
+   specs stay — they assert outcomes smoke does not); the full E2E suite stays green with no loss
+   of unique coverage.
