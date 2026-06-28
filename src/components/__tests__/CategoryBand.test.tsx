@@ -22,6 +22,13 @@ describe('CategoryBand', () => {
     expect(getAllByText(/^n=\d+$/).length).toBeGreaterThan(1)
   })
 
+  it('flags that the view is S&P-specific (other instruments moved more)', () => {
+    const { getByText } = render(
+      <CategoryBand events={events} ticker="SPX" tickerLabel="S&P 500" />,
+    )
+    expect(getByText(/moved\s+oil, defense, or gold far more/i)).toBeInTheDocument()
+  })
+
   it('renders nothing breaking when there are no events', () => {
     const { container, queryAllByText } = render(
       <CategoryBand events={[]} ticker="SPX" tickerLabel="S&P 500" />,

@@ -46,7 +46,10 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
         })}
       </ul>
       <p className={styles.note}>
-        Average close-to-close move on the day of each post, grouped by what the post was.
+        Average close-to-close <span translate="no">{tickerLabel}</span> move on the day of
+        each post, grouped by what the post was. Some types — strikes especially — moved
+        oil, defense, or gold far more than the {tickerLabel}; switch instruments on the
+        timeline below to see.
       </p>
     </section>
   )
