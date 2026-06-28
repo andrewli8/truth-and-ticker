@@ -106,11 +106,6 @@ export function maxDrawdown(series: Series): Drawdown | null {
   return { pct: worst, troughISO }
 }
 
-/** Deepest drawdown as a percent (≤ 0); see {@link maxDrawdown}. */
-export function maxDrawdownPct(series: Series): number | null {
-  return maxDrawdown(series)?.pct ?? null
-}
-
 /** Convenience lookup by ticker. */
 export function seriesByTicker(markets: Series[], ticker: string): Series | undefined {
   return markets.find((m) => m.ticker === ticker)

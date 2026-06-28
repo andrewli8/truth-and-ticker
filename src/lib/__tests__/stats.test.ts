@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdownPct, maxDrawdown } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown } from '../stats'
 import type { Series, CorrelatedEvent } from '../types'
 
 const s = (ticker: string, prices: number[]): Series => ({
@@ -49,16 +49,16 @@ describe('netReturnPct', () => {
   })
 })
 
-describe('maxDrawdownPct', () => {
+describe('maxDrawdown', () => {
   it('is the deepest peak→later-trough decline (negative)', () => {
     // peak 120 then trough 90 ⇒ -25%
-    expect(maxDrawdownPct(s('X', [100, 120, 90, 110]))).toBeCloseTo(-25)
+    expect(maxDrawdown(s('X', [100, 120, 90, 110]))?.pct).toBeCloseTo(-25)
   })
   it('is 0 for a monotonically rising series', () => {
-    expect(maxDrawdownPct(s('X', [100, 110, 120]))).toBe(0)
+    expect(maxDrawdown(s('X', [100, 110, 120]))?.pct).toBe(0)
   })
   it('null for empty', () => {
-    expect(maxDrawdownPct({ ...s('X', []), points: [] })).toBeNull()
+    expect(maxDrawdown({ ...s('X', []), points: [] })).toBeNull()
   })
   it('reports the trough date of the deepest drawdown', () => {
     // peak 120 (Jun 13), trough 90 (Jun 14) ⇒ -25% bottoming on the 14th
