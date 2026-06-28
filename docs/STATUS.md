@@ -279,4 +279,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Cover the hit-rate term-stat rendering in MasterTimeline. The reactionHitRate stat is unit
+   tested, but the new "rose on N of M posts" UI in the term-stat has no component test. Evidence:
+   src/components/MasterTimeline.tsx (term-stat renders hitRate.up / hitRate.total when the prop is
+   passed); src/components/__tests__/MasterTimeline.test.tsx (no hit-rate case). Acceptance: a new
+   MasterTimeline test passes a hitRate prop and asserts the term-stat text contains "rose on N of
+   M posts"; verify gate green.
