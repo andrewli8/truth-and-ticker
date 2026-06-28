@@ -334,4 +334,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Mark the deepest-drawdown trough on the master timeline. The term-stat cites "deepest
+   drawdown −X% (to <date>)" but the trough is invisible on the chart, so the reader can't
+   locate it — the same stat↔chart disconnect the reaction labels fixed. Evidence:
+   src/components/MasterTimeline.tsx (maxDrawdown gives {pct, troughISO}; valueAt/timeX/priceY
+   available; nothing marks the trough). Acceptance: a subtle, distinct annotation (a hollow
+   ring + faint "−X%" label, not a filled event dot) marks the trough point, only when there is
+   a drawdown; a MasterTimeline test asserts it renders with the drawdown %; verify + E2E green;
+   visually unobtrusive (screenshot-checked).
