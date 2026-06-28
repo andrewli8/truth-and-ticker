@@ -110,3 +110,9 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - docs/ACCESSIBILITY.md records the a11y posture (target sizes, motion, keyboard, SR, no-JS).
 
 ## Next
+
+1. Link the Accessibility and Data-provenance docs from the README's "Design &
+   methodology docs" list so they're discoverable. ACCESSIBILITY.md is unlinked and
+   SOURCES.md is only mentioned mid-prose. Evidence: README.md:63 (docs list). Acceptance:
+   the docs list includes entries for docs/ACCESSIBILITY.md and src/data/SOURCES.md
+   (provable by diffing README.md); verify gate stays green.
