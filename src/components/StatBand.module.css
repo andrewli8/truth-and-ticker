@@ -27,7 +27,9 @@
 .value {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  /* Sized so the widest value (e.g. VIX "+254.30%", 8 monospace chars) fits its
+     grid cell without clipping at desktop widths. */
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
   line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
