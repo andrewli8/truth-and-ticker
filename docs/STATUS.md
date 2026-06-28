@@ -228,14 +228,8 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - ARCHITECTURE.md now documents ChartReactionLabel (shared on-chart reaction label) and notes
   that MasterTimeline (selected marker) and MarketChart (event point + hollow ring) state the
   reaction on the line — the doc matches the code again.
+- README front matter corrected: the obsolete "Push to GitHub" creation section is replaced
+  with a "Source" link to the live public repo, and the MarketChart bullet now notes the
+  on-chart reaction label (hollow ring + close-to-close %). Front door matches reality.
 
 ## Next
-
-1. Fix the now-inaccurate README front matter. The repo is live and public, but README still
-   has a "Push to GitHub" section telling readers to create the remote (and recommends
-   --private), and the MarketChart bullet predates the on-chart reaction label. Evidence:
-   README.md:56 ("## Push to GitHub" creation instructions, now obsolete); README.md:51
-   (MarketChart description: "ghost full line + … + playhead + dot", no reaction label).
-   Acceptance: the obsolete push section is replaced with a link to the live repo
-   (https://github.com/andrewli8/truth-and-ticker), and the MarketChart bullet mentions the
-   on-chart reaction label at the event point — provable by diffing README.md; verify green.

@@ -49,20 +49,15 @@ npm run build     # production build to dist/
   "biggest single-day reactions" highlight.
 - `src/components/ScrollStage.tsx` — pins the chart and emits scroll progress.
 - `src/components/MarketChart.tsx` — pure SVG renderer driven entirely by a
-  `progress` prop (ghost full line + bright revealed line + playhead + dot).
+  `progress` prop (ghost full line + bright revealed line + playhead + dot), and it
+  labels the announcement's own data point with a hollow ring + its close-to-close
+  reaction (shared `ChartReactionLabel`) so the move reads on the line.
 
 See [`src/data/SOURCES.md`](src/data/SOURCES.md) for data provenance and caveats.
 
-## Push to GitHub
+## Source
 
-The repo is initialized locally on the `main` branch with full history. To create
-the remote and push (pick `--public` if you want it shareable):
-
-```bash
-gh repo create truth-and-ticker --private --source=. --remote=origin --push
-# or, with an existing empty repo:
-git remote add origin git@github.com:<you>/truth-and-ticker.git && git push -u origin main
-```
+Live on GitHub: **<https://github.com/andrewli8/truth-and-ticker>** (`main`).
 
 ## Design & methodology docs
 
