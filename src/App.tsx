@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback } from 'react'
+import { useMemo, useRef, useCallback, useState } from 'react'
 import { Hero } from './components/Hero'
 import { Outro } from './components/Outro'
 import { ScrollStage } from './components/ScrollStage'
@@ -23,6 +23,15 @@ const PRIMARY = 'SPX'
 const WINDOW_MINS = 120
 // Trading days of context shown on either side of an event in the deep-dive.
 const WINDOW_DAYS = 21
+// Curated instruments offered in the master-timeline switcher (short labels).
+const TIMELINE_INSTRUMENTS: { ticker: string; name: string }[] = [
+  { ticker: 'SPX', name: 'S&P 500' },
+  { ticker: 'NDX', name: 'Nasdaq' },
+  { ticker: 'CL', name: 'Oil' },
+  { ticker: 'LMT', name: 'Defense' },
+  { ticker: 'GLD', name: 'Gold' },
+  { ticker: 'VIX', name: 'VIX' },
+]
 
 // Theme-aware accents: CSS variables so colors recolor in light/dark.
 const ACCENT: Record<AnnType, string> = {
@@ -51,6 +60,13 @@ export default function App() {
   const scrollyRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
+
+  // Which instrument the master-timeline overview plots (user-switchable).
+  const [timelineTicker, setTimelineTicker] = useState('SPX')
+  const timelineSeries = useMemo(
+    () => seriesByTicker(markets, timelineTicker) ?? fallbackSeries,
+    [timelineTicker, fallbackSeries],
+  )
 
   // From the closing ledger, jump up to the master timeline with the event open.
   const pickEvent = useCallback(
@@ -82,10 +98,12 @@ export default function App() {
       <StatBand markets={markets} />
       <div ref={timelineRef}>
         <MasterTimeline
-          series={fallbackSeries}
+          series={timelineSeries}
           announcements={announcements}
           accentFor={(t) => ACCENT[t]}
           onJump={jumpToEvent}
+          instruments={TIMELINE_INSTRUMENTS}
+          onPickInstrument={setTimelineTicker}
         />
       </div>
 

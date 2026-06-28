@@ -74,6 +74,33 @@
 .legendOff { opacity: 0.4; }
 .legendOff i { filter: grayscale(1); }
 
+.instruments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+}
+.instBtn {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--steel);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.instBtn:hover { color: var(--text); border-color: var(--muted); }
+.instBtn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.instOn {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
 .svg {
   width: 100%;
   height: auto;

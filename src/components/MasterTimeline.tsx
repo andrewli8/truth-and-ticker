@@ -32,12 +32,20 @@ const WINDOW_MINS = 120
 // Minimum horizontal spacing between marker dots (viewBox units).
 const MARKER_GAP = 18
 
+interface Instrument {
+  ticker: string
+  name: string
+}
+
 interface Props {
   series: Series
   announcements: Announcement[]
   accentFor: (t: AnnType) => string
   /** Jump to a featured event's deep-dive panel (called on marker activation). */
   onJump?: (id: string) => void
+  /** Optional instrument switcher: which series the overview plots. */
+  instruments?: Instrument[]
+  onPickInstrument?: (ticker: string) => void
 }
 
 interface Tick {
@@ -60,7 +68,14 @@ function monthTicks([minMs, maxMs]: [number, number]): Tick[] {
 }
 
 /** Full-period overview: the index line with every announcement plotted as a marker. */
-export function MasterTimeline({ series, announcements, accentFor, onJump }: Props) {
+export function MasterTimeline({
+  series,
+  announcements,
+  accentFor,
+  onJump,
+  instruments,
+  onPickInstrument,
+}: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     // Deep-link: open the event named in the URL hash, else default to the latest.
     const fromHash = typeof window !== 'undefined' ? eventIdFromHash(window.location.hash) : null
@@ -267,6 +282,25 @@ export function MasterTimeline({ series, announcements, accentFor, onJump }: Pro
           })}
         </div>
       </header>
+
+      {instruments && instruments.length > 1 && (
+        <div className={styles.instruments} role="group" aria-label="Choose the instrument">
+          {instruments.map((ins) => {
+            const on = ins.ticker === series.ticker
+            return (
+              <button
+                key={ins.ticker}
+                type="button"
+                className={`${styles.instBtn} ${on ? styles.instOn : ''}`}
+                aria-pressed={on}
+                onClick={() => onPickInstrument?.(ins.ticker)}
+              >
+                {ins.name}
+              </button>
+            )
+          })}
+        </div>
+      )}
 
       <svg
         ref={svgRef}

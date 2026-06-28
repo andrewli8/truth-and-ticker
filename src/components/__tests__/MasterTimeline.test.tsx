@@ -160,6 +160,27 @@ describe('MasterTimeline', () => {
     expect(writeText.mock.calls[0][0]).toContain('#event-a')
   })
 
+  it('offers an instrument switcher and reports picks', () => {
+    const onPick = vi.fn()
+    const instruments = [
+      { ticker: 'SPX', name: 'S&P 500' },
+      { ticker: 'CL', name: 'Oil' },
+    ]
+    const { getByRole } = render(
+      <MasterTimeline
+        series={spx}
+        announcements={twoEvents}
+        accentFor={() => 'var(--risk)'}
+        instruments={instruments}
+        onPickInstrument={onPick}
+      />,
+    )
+    const spxBtn = getByRole('button', { name: 'S&P 500' })
+    expect(spxBtn.getAttribute('aria-pressed')).toBe('true') // active = series.ticker
+    fireEvent.click(getByRole('button', { name: 'Oil' }))
+    expect(onPick).toHaveBeenCalledWith('CL')
+  })
+
   it('filters markers when a legend category is toggled off', () => {
     const { getByRole, getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
