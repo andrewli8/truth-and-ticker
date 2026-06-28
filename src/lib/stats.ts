@@ -111,6 +111,34 @@ export function seriesByTicker(markets: Series[], ticker: string): Series | unde
   return markets.find((m) => m.ticker === ticker)
 }
 
+/** A single (announcement × instrument) close-to-close reaction. */
+export interface RankedReaction {
+  announcement: CorrelatedEvent['announcement']
+  ticker: string
+  deltaPct: number
+}
+
+/**
+ * The `n` most dramatic single-day reactions across every announcement and instrument,
+ * ranked by absolute move (null reactions skipped). `exclude` drops instruments by ticker
+ * (e.g. the VIX volatility gauge, so the list reads as price moves). Pure; immutable.
+ */
+export function topReactions(
+  events: CorrelatedEvent[],
+  n: number,
+  exclude: string[] = [],
+): RankedReaction[] {
+  const skip = new Set(exclude)
+  const all: RankedReaction[] = []
+  for (const e of events) {
+    for (const r of e.reactions) {
+      if (r.deltaPct === null || skip.has(r.ticker)) continue
+      all.push({ announcement: e.announcement, ticker: r.ticker, deltaPct: r.deltaPct })
+    }
+  }
+  return all.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct)).slice(0, n)
+}
+
 /** Mean reaction (and sample size) for one announcement type on one instrument. */
 export interface TypeAggregate {
   type: AnnType
