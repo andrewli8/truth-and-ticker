@@ -227,3 +227,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   windowAround no longer runs ~60×/s. App + E2E stay green.
 
 ## Next
+
+1. Bring ARCHITECTURE.md in step with the on-chart reaction work. The doc maps the pieces
+   for new contributors but predates the shared ChartReactionLabel component and the fact
+   that both charts now state the reaction on the line. Evidence: docs/ARCHITECTURE.md
+   Components section (lists MasterTimeline/MarketChart but no ChartReactionLabel, no mention
+   of on-chart reaction labels); src/components/ChartReactionLabel.tsx exists and is used by
+   both. Acceptance: ARCHITECTURE.md names ChartReactionLabel (shared SVG reaction label) and
+   notes that MasterTimeline (selected marker) and MarketChart (event point) label the
+   reaction on-chart — provable by diffing docs/ARCHITECTURE.md; verify gate green.
