@@ -329,4 +329,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Add a y-axis price reference to the master timeline. The overview chart shows month labels
+   (x) but no price levels (y), so readers see the shape but can't read the index level; the
+   deep-dive MarketChart already has faint horizontal gridlines + price labels. Evidence:
+   src/components/MasterTimeline.tsx (only vertical month ticks render; vdom + priceY exist);
+   src/components/MarketChart.tsx (the gridline + price-label pattern to mirror). Acceptance:
+   the master timeline renders ~4-5 faint horizontal gridlines with price labels (using
+   vdom/priceY), consistent with the deep-dive and not cluttering the markers/line; a
+   MasterTimeline test asserts price-axis labels render; verify + E2E green; no mobile overflow.
