@@ -407,15 +407,4 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-1. The POC's bottom overlays collide on mobile. At ~390px the readout moves to the
-   bottom (poc.css mobile block sets `.poc-readout { bottom: … }`) where it overlaps
-   the bottom-right `.poc-hint` and the bottom-left `.poc-back` back-link, mashing
-   "TIMELINE"/"THE FULL STORY" together and the readout meta over the hint (confirmed
-   via a 390px screenshot).
-   Evidence: src/poc/poc.css `@media (max-width: 720px)` repositions `.poc-readout` to
-   `bottom` but `.poc-hint` and `.poc-back` already occupy that bottom edge
-   (`bottom: clamp(1.5rem, 5vh, 2.5rem)`), so all three stack at the same band.
-   Acceptance: at a 390px viewport the readout, back-link, and hint do not overlap
-   (e.g. raise the readout and drop the keyboard-only hint on touch widths); a new
-   e2e/poc.spec.ts mobile case asserts the `.poc-readout` and `.poc-back` bounding
-   boxes don't intersect and there's no horizontal overflow.
+(empty — no evidence-backed improvement currently queued)
