@@ -103,3 +103,13 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   hover/press transitions for snappier, cohesive motion (reveals/theme left as-is).
 
 ## Next
+
+1. Give the instrument-switcher and legend chips a subtle hover-lift for consistent
+   tactile feedback. The ShareButton (translateY(-2px)) and ScrollStage dots (scale) give
+   transform feedback on hover, but .instBtn and .legendItem only change color/border —
+   inconsistent and less interactive. Evidence: src/components/MasterTimeline.module.css:96
+   (.instBtn:hover); Evidence: src/components/MasterTimeline.module.css:71
+   (.legendItem:hover); Evidence: src/components/ShareButton.module.css:34 (the existing
+   lift pattern). Acceptance: both chips gain a small translateY(-1px) on hover with
+   transform included in their (already --ease) transition; confirmed by a Playwright
+   hover screenshot showing the lift and no layout shift; verify gate stays green.
