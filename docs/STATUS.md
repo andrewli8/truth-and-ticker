@@ -422,8 +422,17 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
    Acceptance: a new e2e/poc.spec.ts loads /poc.html, drags across `.poc-chart`,
    and asserts `.poc` `data-dir` and `.poc-pct` text both change from the default;
    green in the Playwright run.
-4. poc.html is a built Vite entry (vite.config.ts input.poc) but nothing on the
-   main site links to it, so the concept ships in dist/ unreachable.
-   Evidence: index.html has no reference to poc.html (grep finds none); vite.config.ts:11.
-   Acceptance: the main app links to the POC (e.g. an Outro/footer "concept" link to
-   /poc.html); a test or grep confirms the anchor href resolves to poc.html.
+1. The POC now supports keyboard scrubbing, but the only on-screen instruction
+   ("Drag across to scrub the timeline") doesn't mention it, so the a11y affordance
+   is undiscoverable. Evidence: src/poc/PocApp.tsx (the `.poc-hint` text) vs the
+   onKeyDown arrow/Home/End handler added on the same `<svg className="poc-chart">`.
+   Acceptance: the `.poc-hint` text mentions arrow-key scrubbing; a PocApp test
+   asserts the hint references keys (e.g. /arrow/i).
+2. The POC entrance is entirely JS-gated (`useGSAP` returns early when reduced), so
+   a reduced-motion regression that left content hidden would ship unguarded — there
+   is no E2E asserting the reduced-motion scene is fully visible.
+   Evidence: src/poc/PocApp.tsx (`if (reduced) return` in the entrance useGSAP);
+   e2e/poc.spec.ts has no reduced-motion case.
+   Acceptance: e2e/poc.spec.ts gains a `prefers-reduced-motion: reduce` test asserting
+   `.poc-line` and the title ("the market") are visible on load without interaction;
+   green in the Playwright run.
