@@ -182,11 +182,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Added og:url + og:site_name for correct social attribution.
 - Article JSON-LD now has author + publisher (logo) for rich results.
 - robots meta: max-image-preview:large (+ max-snippet:-1) for rich search previews.
+- Web app manifest + 192/512 icons (Android/Chrome home-screen branding; display=browser).
 
 ## Next
 
-1. Add a web app manifest for cross-platform home-screen branding (Android/Chrome) to
-   complement the iOS apple-touch-icon. Evidence: index.html (no manifest link). Acceptance:
-   public/manifest.webmanifest with name/short_name, theme/background color, display=browser
-   (it's an article), and 192+512 icons generated from the brand mark; linked via <link
-   rel="manifest">; icons + manifest copied into dist by the build; verify gate green.
+1. Add a PNG favicon fallback. The only favicon is an inline SVG data-URI; some contexts
+   (older browsers, certain crawlers/RSS readers) don't render SVG favicons. Evidence:
+   index.html (icon link is SVG-only). Acceptance: a 32×32 PNG favicon (from the brand
+   mark) in public/, linked as <link rel="icon" type="image/png" sizes="32x32"> alongside
+   the SVG (SVG stays the preferred icon); copied into dist; verify gate green.
