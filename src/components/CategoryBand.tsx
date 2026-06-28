@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { reactionByType } from '../lib/stats'
 import { typeLabel } from '../lib/labels'
 import { formatPct } from '../lib/format'
@@ -20,8 +21,8 @@ interface Props {
  * instrument grouped by announcement type, as sign-coloured bars. Pure presentational.
  */
 export function CategoryBand({ events, ticker, tickerLabel }: Props) {
-  const rows = reactionByType(events, ticker)
-  const max = Math.max(...rows.map((r) => Math.abs(r.avgPct)), 0.01)
+  const rows = useMemo(() => reactionByType(events, ticker), [events, ticker])
+  const max = useMemo(() => Math.max(...rows.map((r) => Math.abs(r.avgPct)), 0.01), [rows])
   const { ref, inView } = useInView<HTMLElement>()
   const reduced = useReducedMotion()
 
