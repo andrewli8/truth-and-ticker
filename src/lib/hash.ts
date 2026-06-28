@@ -7,7 +7,15 @@ export function eventIdFromHash(hash: string | null | undefined): string | null 
   if (!hash) return null
   const h = hash.startsWith('#') ? hash : `#${hash}`
   if (!h.startsWith(PREFIX)) return null
-  const id = decodeURIComponent(h.slice(PREFIX.length))
+  const raw = h.slice(PREFIX.length)
+  // Malformed percent-encoding (e.g. `#event-%`) makes decodeURIComponent throw;
+  // treat an undecodable hash as "no event" rather than crashing the app.
+  let id: string
+  try {
+    id = decodeURIComponent(raw)
+  } catch {
+    return null
+  }
   return id.length > 0 ? id : null
 }
 

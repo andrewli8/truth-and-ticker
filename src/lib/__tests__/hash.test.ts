@@ -17,6 +17,10 @@ describe('hash deep-linking', () => {
   it('tolerates a hash missing its leading #', () => {
     expect(eventIdFromHash('event-x')).toBe('x')
   })
+  it('returns null (does not throw) on malformed percent-encoding', () => {
+    expect(eventIdFromHash('#event-%')).toBeNull()
+    expect(eventIdFromHash('#event-%E0%A4%A')).toBeNull()
+  })
   it('builds an absolute shareable deep-link', () => {
     expect(eventShareUrl('https://x.dev', '/', 'ceasefire')).toBe('https://x.dev/#event-ceasefire')
   })
