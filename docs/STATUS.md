@@ -265,15 +265,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   Applied consistently via the shared helper; added the missing `.flat` colour variants
   (CategoryBand val+bar incl. forced-colors, EventDetail, MasterTimeline term-stat,
   ChartReactionLabel). The +/- number still shows direction. format.test covers the threshold.
-
-## Next
-
-(empty — no evidence-backed improvement currently queued)
-
-## Recently done (cont.)
-
 - Surfaced the directional hit-rate, answering the site's central question on the overview: the
   term-stat now appends "· rose on N of M posts" for the current instrument (green/red/muted by
   whether ups outnumber downs). Pure `reactionHitRate(events, ticker)` → {up,down,flat,total}
   using the shared `direction()` (negligible moves count as flat); App passes it per instrument.
   Stats-tested (incl. flat/no-data cases); verify + 30 E2E green; no mobile overflow.
+
+## Next
+
+(empty — no evidence-backed improvement currently queued)
