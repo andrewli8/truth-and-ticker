@@ -407,4 +407,15 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. `npm run test:coverage` now fails the enforced threshold — adding the POC dropped
+   global functions coverage to 83.8% (< the 85% bar in vite.config.ts), and the POC
+   entry isn't excluded like the main one.
+   Evidence: vite.config.ts coverage `exclude` lists `src/main.tsx` but not
+   `src/poc/main.tsx`; src/poc/PocApp.tsx reports 55% functions (the scrub pointer
+   handler and the lerp-cursor `onMove`/`tick`/cleanup are uncovered in jsdom), pulling
+   the global functions metric under threshold.
+   Acceptance: `npm run test:coverage` exits 0 — exclude `src/poc/main.tsx` (mirroring
+   `src/main.tsx`) and add jsdom PocApp tests that exercise the `scrub` pointer path
+   (stub `getBoundingClientRect`, dispatch a pointer event) and the fine-pointer cursor
+   effect (mock `matchMedia('(pointer: fine)')`, dispatch `pointermove`), following the
+   project's existing browser-API-mock pattern (useInView/useCountUp tests).
