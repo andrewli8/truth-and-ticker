@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import styles from './ShareButton.module.css'
 
 export const TWEET_TEXT =
@@ -12,6 +12,13 @@ function shareUrl(): string {
 /** Share affordance: native share sheet when available, else copy-link + tweet intent. */
 export function ShareButton() {
   const [copied, setCopied] = useState(false)
+
+  // Reset the "copied" flag after 2s, cleaning the timer up on unmount/re-copy.
+  useEffect(() => {
+    if (!copied) return
+    const timer = window.setTimeout(() => setCopied(false), 2000)
+    return () => window.clearTimeout(timer)
+  }, [copied])
 
   const onShare = useCallback(async () => {
     const url = shareUrl()
@@ -28,7 +35,6 @@ export function ShareButton() {
       try {
         await nav.clipboard.writeText(url)
         setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
       } catch {
         /* ignore */
       }

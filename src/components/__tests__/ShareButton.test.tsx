@@ -43,6 +43,27 @@ describe('ShareButton', () => {
       await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1))
       await waitFor(() => expect(getByRole('button').textContent).toMatch(/copied/i))
     })
+
+    it('clears the copied-reset timer on unmount (no dangling timeout)', async () => {
+      vi.useFakeTimers()
+      try {
+        const clearSpy = vi.spyOn(globalThis, 'clearTimeout')
+        const writeText = vi.fn().mockResolvedValue(undefined)
+        Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+        const { getByRole, unmount } = render(<ShareButton />)
+        fireEvent.click(getByRole('button', { name: /share/i }))
+        // Let the awaited clipboard promise resolve so setCopied(true) runs.
+        await vi.advanceTimersByTimeAsync(0)
+        expect(getByRole('button').textContent).toMatch(/copied/i)
+        // Unmount before the 2s reset — the effect cleanup must clear the timer.
+        unmount()
+        expect(clearSpy).toHaveBeenCalled()
+        // Advancing past 2s must not throw (no setState on a gone component).
+        expect(() => vi.advanceTimersByTime(2500)).not.toThrow()
+      } finally {
+        vi.useRealTimers()
+      }
+    })
   })
 
   it('pitches the whole second term, not just the June war', () => {

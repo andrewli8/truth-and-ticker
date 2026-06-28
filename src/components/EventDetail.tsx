@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { formatPct, formatTime, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { eventShareUrl } from '../lib/hash'
@@ -22,6 +22,13 @@ interface Props {
 /** The editorial pull-quote detail panel for the selected master-timeline event. */
 export function EventDetail({ event, accent, seriesTicker, reactionPct, animatedPct, moves }: Props) {
   const [copied, setCopied] = useState(false)
+
+  // Reset the "copied" flag after 2s, cleaning the timer up on unmount/re-copy.
+  useEffect(() => {
+    if (!copied) return
+    const timer = window.setTimeout(() => setCopied(false), 2000)
+    return () => window.clearTimeout(timer)
+  }, [copied])
   const reactionDir = direction(reactionPct)
   // The OTHER instruments' moves (the shown series already has its own reaction line),
   // biggest first — the cross-instrument picture, which is otherwise only visible in the
@@ -37,7 +44,6 @@ export function EventDetail({ event, accent, seriesTicker, reactionPct, animated
       .call(navigator.clipboard, url)
       .then(() => {
         setCopied(true)
-        window.setTimeout(() => setCopied(false), 2000)
       })
       .catch(() => {})
   }
