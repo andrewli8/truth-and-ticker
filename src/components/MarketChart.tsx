@@ -31,7 +31,11 @@ interface Props {
  * reveal animation comes from the `progress` prop.
  */
 export function MarketChart({ series, progress, accent, momentLabel, reactionPct, eventISO }: Props) {
-  const clamped = Math.max(0, Math.min(1, progress))
+  // Reveal monotonically: once the line has drawn to a point, a slight scroll-up shouldn't
+  // retract it (that read as jittery). The chart is keyed per event, so this resets per panel.
+  const maxProgress = useRef(0)
+  const clamped = Math.max(0, Math.min(1, progress), maxProgress.current)
+  maxProgress.current = clamped
 
   const plotRef = useRef<HTMLDivElement>(null)
   const [{ w: W, h: H }, setDims] = useState({ w: FALLBACK_W, h: FALLBACK_H })
