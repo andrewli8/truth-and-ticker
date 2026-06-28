@@ -59,6 +59,18 @@ describe('useTheme', () => {
     expect(localStorage.getItem('theme')).toBe('light')
   })
 
+  it('toggles without throwing when localStorage.setItem fails (e.g. private mode)', () => {
+    vi.stubGlobal('localStorage', {
+      getItem: () => null,
+      setItem: () => { throw new Error('QuotaExceeded') },
+      removeItem: () => {},
+      clear: () => {},
+    })
+    const { result } = renderHook(() => useTheme())
+    expect(() => act(() => result.current.toggle())).not.toThrow()
+    expect(result.current.theme).toBe('dark')
+  })
+
   it('defaults to light without throwing when localStorage is unavailable (SSR guard)', () => {
     vi.stubGlobal('localStorage', undefined)
     const { result } = renderHook(() => useTheme())

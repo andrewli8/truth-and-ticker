@@ -35,6 +35,32 @@ describe('peakToTroughPct', () => {
   })
 })
 
+describe('pure edge branches', () => {
+  it('eventMoves sorts null-reaction instruments last', () => {
+    const event: CorrelatedEvent = {
+      announcement: {
+        id: 'z', datetime: '2025-01-01T00:00:00-05:00', source: 'x', quote: '', summary: '',
+        type: 'tariff', citationUrl: 'https://e.com', citationLabel: 'e',
+      },
+      reactions: [
+        { announcementId: 'z', ticker: 'GAP', deltaPct: null, fromPrice: 1, toPrice: 1, windowMins: 120 },
+        { announcementId: 'z', ticker: 'BIG', deltaPct: -3, fromPrice: 1, toPrice: 1, windowMins: 120 },
+        { announcementId: 'z', ticker: 'MID', deltaPct: 1, fromPrice: 1, toPrice: 1, windowMins: 120 },
+      ],
+    }
+    expect(eventMoves(event).map((m) => m.ticker)).toEqual(['BIG', 'MID', 'GAP'])
+  })
+  it('netReturnPct returns null when the first price is 0 (no base to divide by)', () => {
+    expect(netReturnPct(s('X', [0, 5]))).toBeNull()
+  })
+  it('chartAriaLabel degrades the move to n/a when the first price is 0', () => {
+    expect(chartAriaLabel(s('X', [0, 5]))).toContain('n/a')
+  })
+  it('timelineAriaLabel degrades the move to n/a when the first price is 0', () => {
+    expect(timelineAriaLabel(s('X', [0, 5]))).toContain('n/a')
+  })
+})
+
 describe('maxRunupPct', () => {
   it('measures the biggest rise from any prior trough, not just from day one', () => {
     // trough 80 (not the first point) → later high 120 ⇒ +50% (first→high would be +20%)
