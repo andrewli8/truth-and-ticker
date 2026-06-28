@@ -128,6 +128,26 @@ test.describe('outro highlights', () => {
   })
 })
 
+test.describe('ledger → timeline jump', () => {
+  test('a ledger row selects that event on the master timeline', async ({ page }) => {
+    await page.goto('/')
+    const row = page.locator('button[aria-label^="View on the timeline"]').first()
+    await row.scrollIntoViewIfNeeded()
+    const rowLabel = await row.getAttribute('aria-label')
+    const summary = (rowLabel ?? '').replace('View on the timeline: ', '')
+    expect(summary.length).toBeGreaterThan(0)
+
+    await row.click()
+
+    // The jump deep-links the event (URL hash) …
+    await expect(page).toHaveURL(/#event-/)
+    // … and the master timeline selects exactly that marker.
+    const selected = page.locator('[data-testid="marker"][aria-pressed="true"]')
+    await expect(selected).toHaveCount(1)
+    expect(await selected.getAttribute('aria-label')).toContain(summary)
+  })
+})
+
 test.describe('target sizes (WCAG 2.2 SC 2.5.8)', () => {
   test('instrument chips and dot-nav meet the 24px minimum', async ({ page }) => {
     await page.goto('/')
