@@ -135,5 +135,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - ARCHITECTURE.md documents CategoryBand + reactionByType.
 - README How-it-works notes reactionByType + CategoryBand.
 - Memoized CategoryBand derived data (rows, max) per app convention.
+- E2E guard: CategoryBand re-titles when the timeline instrument changes.
 
 ## Next
