@@ -5,6 +5,8 @@ test.describe('reduced motion', () => {
 
   test('content is fully visible with motion disabled', async ({ page }) => {
     await page.goto('/')
+    // The kinetic per-glyph title must not be stranded hidden when GSAP is skipped.
+    await expect(page.getByRole('heading', { level: 1, name: 'Truth & Ticker' })).toBeVisible()
     await expect(page.getByText(/The timing is the story/i)).toBeVisible()
     // The timeline line must not be stranded hidden by the draw-on reveal.
     await expect(page.locator('path[data-line]')).toBeVisible()
