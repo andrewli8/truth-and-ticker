@@ -249,3 +249,11 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   re-rendered for the new series, not just the CategoryBand. 11/11 regression specs green.
 
 ## Next
+
+1. E2E the benchmark compare overlay. Toggling "+vs S&P 500" on a non-SPX instrument draws a
+   second (dashed, own-scale) line on the timeline — a real data-viz interaction only verified
+   in jsdom (which doesn't render SVG geometry). Evidence: src/components/MasterTimeline.tsx
+   (compareBtn → data-testid="compare-line", shown only for instruments other than the
+   benchmark). Acceptance: a new e2e test switches to the Oil instrument, clicks the
+   "+ vs S&P 500" button, and asserts the compare-line path becomes visible (and is absent
+   beforehand); playwright passes.
