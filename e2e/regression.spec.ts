@@ -142,6 +142,14 @@ test.describe('outro highlights', () => {
     expect(count).toBeLessThanOrEqual(3)
     await expect(hl).toContainText('%')
   })
+
+  test('a highlight card jumps to that event on the timeline', async ({ page }) => {
+    await page.goto('/')
+    const hl = page.getByRole('list', { name: /Biggest single-day market reactions/i })
+    await hl.scrollIntoViewIfNeeded()
+    await hl.getByRole('button').first().click()
+    await expect(page).toHaveURL(/#event-/)
+  })
 })
 
 // Note: the compare overlay and instrument switch are covered in smoke.spec.ts

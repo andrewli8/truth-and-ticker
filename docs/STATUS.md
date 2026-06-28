@@ -364,6 +364,9 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   interactive when onPickEvent is provided. Outro-tested (highlight click, static fallback);
   verify + 32 E2E green.
 
+- E2E guard for the clickable highlight: clicking a "biggest reaction" card deep-links the event
+  (URL #event-…) in a real browser. 33 E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)
