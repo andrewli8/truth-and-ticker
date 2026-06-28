@@ -43,12 +43,18 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
   grouped by announcement type (`reactionByType`), as ranked sign-coloured bars that
   reveal on scroll and recompute when the timeline instrument changes.
 - **MasterTimeline** — full-term chart: filterable legend, instrument switcher +
-  compare overlay, scrub readout, de-collided event markers, term-outcome line.
+  compare overlay, scrub readout, de-collided event markers, term-outcome line. The
+  selected marker labels its reaction on the chart (via **ChartReactionLabel**).
   Selection is URL-deep-linked and announced via the **EventDetail** panel.
 - **ScrollStage** — pins the deep-dive and emits scroll progress (native rAF);
   stacks panels on mobile. **MarketChart** renders the windowed per-event chart
-  (responsive viewBox); **AnnouncementCard** is the editorial pull-quote;
-  **TickerRail** shows the event's cross-instrument moves.
+  (responsive viewBox) and marks the announcement's data point with a hollow ring +
+  its reaction (**ChartReactionLabel**), so the move reads on the line, not only in
+  the card; **AnnouncementCard** is the editorial pull-quote; **TickerRail** shows the
+  event's cross-instrument moves.
+- **ChartReactionLabel** — shared presentational SVG `<text>` for the on-chart reaction
+  (signed %, direction-coloured, bg-halo for legibility); used by both charts above so
+  the label is styled and tuned in one place.
 - **Outro** — a "biggest single-day reactions" highlight (`topReactions`, the most
   dramatic cross-instrument moves, deduped to distinct ticker+day moments) leading into
   the full ledger with per-row sparklines and jump-to-moment links.
