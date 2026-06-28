@@ -129,10 +129,17 @@ export function topReactions(
   exclude: string[] = [],
 ): RankedReaction[] {
   const skip = new Set(exclude)
+  // Same-day posts share one close-to-close reaction; collapse to one per ticker+day so
+  // the ranking shows distinct market moments, not the same move repeated.
+  const seen = new Set<string>()
   const all: RankedReaction[] = []
   for (const e of events) {
+    const day = e.announcement.datetime.slice(0, 10)
     for (const r of e.reactions) {
       if (r.deltaPct === null || skip.has(r.ticker)) continue
+      const key = `${r.ticker}@${day}`
+      if (seen.has(key)) continue
+      seen.add(key)
       all.push({ announcement: e.announcement, ticker: r.ticker, deltaPct: r.deltaPct })
     }
   }

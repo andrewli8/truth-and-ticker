@@ -177,10 +177,10 @@ describe('reactionByType', () => {
 })
 
 describe('topReactions', () => {
-  function evMulti(id: string, type: AnnType, reactions: { ticker: string; deltaPct: number | null }[]): CorrelatedEvent {
+  function evMulti(id: string, day: string, type: AnnType, reactions: { ticker: string; deltaPct: number | null }[]): CorrelatedEvent {
     return {
       announcement: {
-        id, datetime: '2025-01-01T00:00:00-05:00', source: 'x', quote: '', summary: '',
+        id, datetime: `${day}T00:00:00-05:00`, source: 'x', quote: '', summary: '',
         type, citationUrl: 'https://e.com', citationLabel: 'e',
       },
       reactions: reactions.map((r) => ({
@@ -189,9 +189,10 @@ describe('topReactions', () => {
     }
   }
 
+  // Distinct days so the ticker+day dedup doesn't collapse across these two events.
   const events = [
-    evMulti('a', 'tariff', [{ ticker: 'SPX', deltaPct: -2 }, { ticker: 'CL', deltaPct: 8 }, { ticker: 'VIX', deltaPct: 40 }]),
-    evMulti('b', 'ceasefire', [{ ticker: 'SPX', deltaPct: 1 }, { ticker: 'CL', deltaPct: -6 }, { ticker: 'GLD', deltaPct: null }]),
+    evMulti('a', '2025-01-01', 'tariff', [{ ticker: 'SPX', deltaPct: -2 }, { ticker: 'CL', deltaPct: 8 }, { ticker: 'VIX', deltaPct: 40 }]),
+    evMulti('b', '2025-02-01', 'ceasefire', [{ ticker: 'SPX', deltaPct: 1 }, { ticker: 'CL', deltaPct: -6 }, { ticker: 'GLD', deltaPct: null }]),
   ]
 
   it('ranks (event × instrument) reactions by absolute move, capped at n, nulls skipped', () => {
@@ -205,5 +206,21 @@ describe('topReactions', () => {
     const top = topReactions(events, 2, ['VIX'])
     expect(top.map((t) => t.ticker)).toEqual(['CL', 'CL']) // 8, then -6
     expect(top).toHaveLength(2)
+  })
+})
+
+describe('topReactions dedup', () => {
+  function ev2(id: string, day: string, ticker: string, delta: number): CorrelatedEvent {
+    return {
+      announcement: { id, datetime: `${day}T12:00:00-05:00`, source: 'x', quote: '', summary: '', type: 'tariff', citationUrl: 'https://e.com', citationLabel: 'e' },
+      reactions: [{ announcementId: id, ticker, deltaPct: delta, fromPrice: 1, toPrice: 1, windowMins: 120 }],
+    }
+  }
+  it('collapses same-day same-ticker reactions to one moment', () => {
+    // Two posts on the same day share the same NDX reaction → one entry, not two.
+    const evs = [ev2('a', '2025-04-09', 'NDX', 12), ev2('b', '2025-04-09', 'NDX', 12), ev2('c', '2025-04-10', 'NDX', -3)]
+    const top = topReactions(evs, 10)
+    expect(top.filter((t) => t.ticker === 'NDX' && Math.abs(t.deltaPct) === 12)).toHaveLength(1)
+    expect(top).toHaveLength(2) // the +12 moment + the -3 moment
   })
 })
