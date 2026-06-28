@@ -394,6 +394,11 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   real values (e.g. WTI −26.64%, LMT +14.95%, VIX +254.30%) print. Confirmed via print-emulation
   + dispatched beforeprint (no scroll). useCountUp-tested; verify + 34 E2E green.
 
+- Hero entrance forced visible in print (completes the print-hardening: every section now prints).
+- E2E print-rendering guard locks the whole print thread: emulate print + dispatch beforeprint,
+  then assert the Outro ledger + ReactionSpread dots print without scrolling, the StatBand shows
+  its real swing (not +0.00%), and the deep-dive is hidden. 35 E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

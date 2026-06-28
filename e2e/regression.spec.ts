@@ -155,6 +155,24 @@ test.describe('outro highlights', () => {
 // Note: the compare overlay and instrument switch are covered in smoke.spec.ts
 // ("compare overlay adds a benchmark line…" / "instrument switcher re-plots…").
 
+test.describe('print rendering', () => {
+  test('prints the ledger + real stat values without scrolling, and hides the deep-dive', async ({ page }) => {
+    await page.emulateMedia({ media: 'print' })
+    await page.goto('/')
+    // StatBand snaps its count-ups on beforeprint (emulateMedia doesn't fire it).
+    await page.evaluate(() => window.dispatchEvent(new Event('beforeprint')))
+
+    // Reveal-gated content must print even though it was never scrolled into view.
+    await expect(page.getByRole('table')).toBeVisible() // the Outro ledger
+    await expect(page.getByTestId('spread-dot').first()).toBeVisible()
+    const statband = page.getByRole('region', { name: /Key market swings/i })
+    expect(await statband.textContent()).toMatch(/-\d\d\.\d+%/) // real WTI swing, not +0.00%
+
+    // The pinned scrolly is omitted from print (the ledger carries the data).
+    await expect(page.getByRole('region', { name: 'Event-by-event deep dive' })).toBeHidden()
+  })
+})
+
 test.describe('reaction distribution', () => {
   test('plots the spread of reactions as dots on a zero-centered axis', async ({ page }) => {
     await page.goto('/')
