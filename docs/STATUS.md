@@ -8,15 +8,18 @@ honest data representation.
 Whole-second-term scope, honest data representation, editorial design, and a connected
 interactive experience are all in place: hero → key-swing StatBand → CategoryBand
 ("which posts moved <instrument>?", reveals on scroll, follows the instrument switcher)
-→ master timeline (filterable legend, scrub, de-collided markers, term-outcome line) ↔
-windowed deep-dive (per-event reveal, pull-quote, reaction count-up + per-event fade) ↔
-ledger (sparklines, jump-to-moment), with deep-linkable + shareable events, a real-data
-hero backdrop, a kinetic per-glyph hero title, an Outro "biggest single-day reactions"
-lead-in, cohesive motion (shared --ease, hover-lift/press states), WCAG 2.2 target sizes,
-and broad a11y coverage (docs/ACCESSIBILITY.md). Every charted-instrument figure in the
-prose is test-asserted against the data. Testing: 226 unit/component (the verify gate) at
-~96% stmts / ~87% branches, plus a 25-spec Playwright E2E suite (npm run test:e2e, outside
-the gate); remaining unit gaps are browser-API paths the E2E exercises.
+→ master timeline (filterable legend, scrub, de-collided markers, term-outcome line +
+"rose on N of M posts" hit-rate) ↔ windowed deep-dive (per-event reveal, pull-quote,
+reaction count-up + per-event fade) ↔ ledger (sparklines, jump-to-moment), with
+deep-linkable + shareable events, a real-data hero backdrop, a kinetic per-glyph hero
+title, and an Outro "biggest single-day reactions" lead-in. Both charts state the market
+reaction ON the line (shared ChartReactionLabel — deep-dive at the event's data point, the
+overview at the selected marker). Honest colour: direction() treats ~0% moves as flat, and
+a VIX spike is neutral (not a green "gain"). Theme follows the OS on first visit, then the
+user's choice. Cohesive motion (shared --ease, hover/press states), WCAG 2.2 target sizes,
+forced-colors, and broad a11y (docs/ACCESSIBILITY.md). Every charted-instrument figure in
+the prose is test-asserted against the data. Testing: 259 unit/component (the verify gate)
+plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on every push/PR.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
