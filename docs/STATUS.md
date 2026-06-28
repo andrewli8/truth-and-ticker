@@ -110,14 +110,7 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - docs/ACCESSIBILITY.md records the a11y posture (target sizes, motion, keyboard, SR, no-JS).
 - README links the Accessibility and Data-provenance docs.
 - Data test guards the deep-dive featured-event set (non-empty; each has SPX data).
+- Broadened SOURCES caveat to all externally-reported context figures (market-cap, yields,
+  single-day moves), not just single stocks.
 
 ## Next
-
-1. Generalize the SOURCES "externally reported" caveat beyond single stocks. Summaries
-   also cite other non-charted context figures — market-cap wiped ("~$5T", "~$151B"),
-   the 30-yr Treasury yield (~5%), and Trump Media's +22.67% day — which a reader can't
-   cross-check against the charted series. The current caveat only names single stocks.
-   Evidence: src/data/SOURCES.md (single-stock caveat). Acceptance: the caveat is reworded
-   to cover all externally-reported context figures (single-stock moves, market-cap,
-   yields, single-day individual moves) sourced via each event's citation and not in the
-   charted dataset (provable by diffing SOURCES.md); verify gate stays green.
