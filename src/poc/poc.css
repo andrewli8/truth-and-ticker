@@ -49,6 +49,10 @@ body {
   color: var(--poc-accent);
   touch-action: none;
 }
+.poc-chart:focus-visible {
+  outline: 2px solid var(--poc-accent);
+  outline-offset: -4px;
+}
 .poc-line {
   stroke: var(--poc-accent);
   stroke-width: 2.5;

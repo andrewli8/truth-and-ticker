@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { PocApp } from '../PocApp'
 
 describe('PocApp (one-screen POC)', () => {
@@ -17,5 +17,23 @@ describe('PocApp (one-screen POC)', () => {
     const { container } = render(<PocApp />)
     const dir = container.querySelector('.poc')?.getAttribute('data-dir')
     expect(['up', 'down', 'flat']).toContain(dir)
+  })
+
+  it('scrubs the timeline with the keyboard (focusable slider + arrow stepping)', () => {
+    const { container } = render(<PocApp />)
+    const chart = container.querySelector('svg.poc-chart') as SVGSVGElement
+    // Keyboard-accessible: focusable with a slider role.
+    expect(chart.getAttribute('tabindex')).toBe('0')
+    expect(chart.getAttribute('role')).toBe('slider')
+
+    const meta = () => container.querySelector('.poc-meta')?.textContent
+    const before = meta()
+    // Default is the latest post; ArrowLeft steps to an earlier one.
+    fireEvent.keyDown(chart, { key: 'ArrowLeft' })
+    const stepped = meta()
+    expect(stepped).not.toBe(before)
+    // ArrowRight steps back toward the latest.
+    fireEvent.keyDown(chart, { key: 'ArrowRight' })
+    expect(meta()).toBe(before)
   })
 })

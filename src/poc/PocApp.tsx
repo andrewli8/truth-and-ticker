@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type PointerEvent } from 'react'
+import { useMemo, useRef, useState, type PointerEvent, type KeyboardEvent } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { announcements, markets } from '../data'
@@ -46,6 +46,9 @@ export function PocApp() {
     [domain, vdom, spx],
   )
 
+  // Posts in chronological order, for keyboard stepping.
+  const ordered = useMemo(() => [...posts].sort((a, b) => a.ms - b.ms), [posts])
+
   const reduced = useReducedMotion()
   const rootRef = useRef<HTMLElement>(null)
   const lineRef = useRef<SVGPathElement>(null)
@@ -73,6 +76,12 @@ export function PocApp() {
     [active, spx],
   )
   const dir = direction(reaction)
+
+  // Index of the active post within the chronological order (for the slider value).
+  const activeIndex = useMemo(
+    () => ordered.findIndex((p) => p.a.id === active.a.id),
+    [ordered, active],
+  )
 
   // Count the latest reaction up on load (stable target → animates once); show the live value
   // instantly while scrubbing for responsiveness.
@@ -148,6 +157,35 @@ export function PocApp() {
     setHoverMs(msAtX(vbX, W, domain))
   }
 
+  // Keyboard scrubbing: step post-by-post (the chart is a slider over the announcements).
+  function stepTo(index: number) {
+    const i = Math.max(0, Math.min(ordered.length - 1, index))
+    setHoverMs(ordered[i].ms)
+  }
+  function onKeyDown(e: KeyboardEvent<SVGSVGElement>) {
+    const here = activeIndex < 0 ? ordered.length - 1 : activeIndex
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault()
+        stepTo(here + 1)
+        break
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault()
+        stepTo(here - 1)
+        break
+      case 'Home':
+        e.preventDefault()
+        stepTo(0)
+        break
+      case 'End':
+        e.preventDefault()
+        stepTo(ordered.length - 1)
+        break
+    }
+  }
+
   return (
     <main className="poc" data-dir={dir} ref={rootRef}>
       <div className="poc-grain" aria-hidden="true" />
@@ -178,11 +216,17 @@ export function PocApp() {
         className="poc-chart"
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMax slice"
-        role="img"
-        aria-label="S&P 500 across Trump's second term; move the pointer to scrub through the announcements."
+        role="slider"
+        tabIndex={0}
+        aria-label="S&P 500 across Trump's second term; drag or use arrow keys to scrub through the announcements."
+        aria-valuemin={0}
+        aria-valuemax={ordered.length - 1}
+        aria-valuenow={activeIndex < 0 ? ordered.length - 1 : activeIndex}
+        aria-valuetext={`${typeLabel(active.a.type)}, ${formatDay(active.a.datetime)}, reaction ${formatPct(reaction)}`}
         onPointerMove={scrub}
         onPointerDown={scrub}
         onPointerLeave={() => setHoverMs(null)}
+        onKeyDown={onKeyDown}
       >
         <defs>
           <linearGradient id="pocFill" x1="0" y1="0" x2="0" y2="1">
