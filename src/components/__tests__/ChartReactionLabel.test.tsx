@@ -26,6 +26,13 @@ describe('ChartReactionLabel', () => {
     expect(el.getAttribute('data-dir')).toBe('down')
   })
 
+  it('is decorative for screen readers (the value is exposed elsewhere)', () => {
+    const { getByTestId } = renderInSvg(
+      <ChartReactionLabel pct={1.5} x={10} y={10} anchor="start" testid="r" />,
+    )
+    expect(getByTestId('r').getAttribute('aria-hidden')).toBe('true')
+  })
+
   it('renders nothing when pct is null', () => {
     const { queryByTestId } = renderInSvg(
       <ChartReactionLabel pct={null} x={10} y={10} anchor="middle" testid="r" />,

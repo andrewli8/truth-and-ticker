@@ -22,6 +22,9 @@ export function ChartReactionLabel({ pct, x, y, anchor, testid }: Props) {
     <text
       data-testid={testid}
       data-dir={pct >= 0 ? 'up' : 'down'}
+      // Decorative: the value is exposed via the chart's accessible name (chartAriaLabel)
+      // and the live EventDetail panel, so hide this visual echo from screen readers.
+      aria-hidden="true"
       className={styles.label}
       x={x}
       y={y}
