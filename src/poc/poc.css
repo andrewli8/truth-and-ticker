@@ -230,3 +230,32 @@ body {
   .poc-readout { top: auto; bottom: clamp(1.5rem, 5vh, 2.5rem); }
   .poc-quote { display: none; }
 }
+
+/* Windows High Contrast / forced-colors: the custom-property accents, the readout's
+   dark text-shadow halo, and the grain all vanish, so pin the data line, markers, and
+   text to system colours and give the readout a solid backing so the line can't cut
+   through it. Mirrors the sibling charts (CategoryBand, ReactionSpread). */
+@media (forced-colors: active) {
+  .poc-line,
+  .poc-playhead { stroke: CanvasText; filter: none; }
+  .poc-dot,
+  .poc-dot-on { fill: CanvasText; opacity: 1; }
+  .poc-pct,
+  .poc-meta,
+  .poc-kicker,
+  .poc-title,
+  .poc-title em,
+  .poc-quote,
+  .poc-quote-mark,
+  .poc-hint {
+    color: CanvasText;
+    text-shadow: none;
+  }
+  /* Solid backing so the line never crosses the big reaction number. */
+  .poc-readout {
+    background: Canvas;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid CanvasText;
+  }
+  .poc-grain { display: none; }
+}
