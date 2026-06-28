@@ -97,13 +97,7 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - <noscript> fallback (headline + thesis + enable-JS prompt) for the client-rendered SPA.
 - robots.txt + sitemap.xml for crawl/discovery hygiene.
 - Data test uses REACTION_WINDOW_MINS (not a literal 120).
+- Fixed StatBand value clipping: 3-digit percentages (VIX +254.30%) overflowed their cell;
+  reduced the value font clamp so they fit (verified via Playwright screenshot).
 
 ## Next
-
-1. Fix StatBand value overflow: the largest stat (VIX +254.30%, 8 chars) clips at the
-   right edge because the value font-size clamp maxes at 5.5rem — too large for an 8-char
-   monospace value in the ~352px grid cell at desktop widths (≈420px of text). Verified by
-   a Playwright screenshot of the StatBand. Evidence: src/components/StatBand.module.css:30.
-   Acceptance: the value font-size clamp is reduced so a +254.30%-width value fits its
-   cell without clipping (e.g. max ≈4.3rem), confirmed by re-screenshot; provable by
-   diffing StatBand.module.css; verify gate stays green.
