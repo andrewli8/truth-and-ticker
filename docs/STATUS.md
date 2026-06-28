@@ -129,5 +129,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - CategoryBand footnote flags its S&P scope (strikes moved oil/defense more) → switch
   instruments; tested.
 - CategoryBand bars reveal on scroll (staggered grow-from-0, reduced-motion safe).
+- E2E guard: CategoryBand renders + bars reveal after scroll-in.
 
 ## Next
