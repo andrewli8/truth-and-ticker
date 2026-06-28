@@ -401,4 +401,29 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. POC chart is scrubbable by pointer only — no keyboard path, unlike the main
+   timeline's arrow-key event stepping. Add keyboard scrubbing to the one-screen POC.
+   Evidence: src/poc/PocApp.tsx:176; the `<svg className="poc-chart">` has
+   onPointerMove/onPointerDown/onPointerLeave + role="img" but no tabindex/onKeyDown,
+   whereas MasterTimeline supports arrow stepping.
+   Acceptance: a new PocApp test focuses the chart and fires ArrowRight/ArrowLeft
+   keydown, asserting the active post (and `.poc-pct` text) advances/retreats; the
+   chart exposes tabindex=0 and a keyboard-accessible role.
+2. The POC reaction readout `.poc-pct` (up to 7rem) renders directly over the S&P
+   line with no legibility treatment, so the stroke cuts through the digits.
+   Evidence: src/poc/poc.css:133 (`.poc-pct` — colour/size only, no shadow/halo),
+   mirroring the problem the main app solved with ChartReactionLabel's bg halo.
+   Acceptance: `.poc-pct` (or `.poc-readout`) gains a legibility treatment
+   (text-shadow/backdrop) provable by diffing src/poc/poc.css; a Playwright
+   screenshot confirms the number stays readable where the line crosses it.
+3. The one-screen POC has zero end-to-end coverage; its core scrub interaction is
+   real-browser-only behaviour. Evidence: src/poc/__tests__/PocApp.test.tsx is the
+   only POC test (jsdom unit, no pointer/drag); e2e/ has no poc spec.
+   Acceptance: a new e2e/poc.spec.ts loads /poc.html, drags across `.poc-chart`,
+   and asserts `.poc` `data-dir` and `.poc-pct` text both change from the default;
+   green in the Playwright run.
+4. poc.html is a built Vite entry (vite.config.ts input.poc) but nothing on the
+   main site links to it, so the concept ships in dist/ unreachable.
+   Evidence: index.html has no reference to poc.html (grep finds none); vite.config.ts:11.
+   Acceptance: the main app links to the POC (e.g. an Outro/footer "concept" link to
+   /poc.html); a test or grep confirms the anchor href resolves to poc.html.
