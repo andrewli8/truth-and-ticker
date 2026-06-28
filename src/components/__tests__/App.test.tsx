@@ -37,6 +37,13 @@ describe('App (one-screen hub)', () => {
     expect(within(dialog).getByRole('button', { name: /close/i })).toBeInTheDocument()
   })
 
+  it('opens a breakdown zoom layer from a topic chip', () => {
+    const { getByRole, queryByRole } = render(<App />)
+    expect(queryByRole('dialog')).toBeNull()
+    fireEvent.click(getByRole('button', { name: /which posts moved/i }))
+    expect(getByRole('dialog', { name: /which posts moved/i })).toBeInTheDocument()
+  })
+
   it('switches the charted instrument across the summary and cards', () => {
     const { getByRole } = render(<App />)
     const group = getByRole('group', { name: /choose the instrument/i })

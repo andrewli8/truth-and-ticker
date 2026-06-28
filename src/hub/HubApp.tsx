@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { ThemeToggle } from '../components/ThemeToggle'
 import { Filmstrip, type FilmItem } from './Filmstrip'
 import { EventZoom } from './EventZoom'
+import { BreakdownZoom, type BreakdownView } from './BreakdownZoom'
 import { correlateAll, REACTION_WINDOW_MINS } from '../lib/correlate'
 import { seriesByTicker, eventMoves } from '../lib/stats'
 import { windowAround } from '../lib/scales'
@@ -62,6 +63,17 @@ export function HubApp() {
 
   const [activeIndex, setActiveIndex] = useState(biggestIdx)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [breakdown, setBreakdown] = useState<BreakdownView | null>(null)
+
+  const fullSeries = useMemo(() => seriesByTicker(markets, ticker) ?? markets[0], [ticker])
+  // The ledger's row links open that event's detail in the hub.
+  const openEventById = (id: string) => {
+    const idx = ordered.findIndex((e) => e.announcement.id === id)
+    if (idx >= 0) {
+      setBreakdown(null)
+      setOpenIndex(idx)
+    }
+  }
 
   const safeActive = Math.min(activeIndex, items.length - 1)
   const activeItem = items[safeActive]
@@ -143,6 +155,18 @@ export function HubApp() {
         ))}
       </div>
 
+      <div className={styles.topics} role="group" aria-label="Explore the data">
+        <button type="button" className={styles.topic} onClick={() => setBreakdown('category')}>
+          Which posts moved it?
+        </button>
+        <button type="button" className={styles.topic} onClick={() => setBreakdown('spread')}>
+          Reaction spread
+        </button>
+        <button type="button" className={styles.topic} onClick={() => setBreakdown('ledger')}>
+          Full ledger
+        </button>
+      </div>
+
       <section className={styles.stage} aria-label="Timeline of announcements">
         <Filmstrip
           items={items}
@@ -165,6 +189,18 @@ export function HubApp() {
           series={zoom.series}
           moves={zoom.moves}
           onClose={() => setOpenIndex(null)}
+        />
+      )}
+
+      {breakdown && (
+        <BreakdownZoom
+          view={breakdown}
+          events={events}
+          ticker={ticker}
+          instrumentName={instrumentName}
+          series={fullSeries}
+          onPickEvent={openEventById}
+          onClose={() => setBreakdown(null)}
         />
       )}
     </main>

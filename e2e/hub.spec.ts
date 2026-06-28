@@ -41,6 +41,16 @@ test('clicking the active moment zooms it into a detail dialog; Escape closes', 
   await expect(page.getByRole('dialog')).toHaveCount(0)
 })
 
+test('a topic chip zooms into a breakdown layer; Escape closes', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /full ledger/i }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog).toBeVisible()
+  await expect(dialog.getByRole('table')).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+})
+
 test('the instrument switcher recolours the hub', async ({ page }) => {
   await page.goto('/')
   const group = page.getByRole('group', { name: /choose the instrument/i })
