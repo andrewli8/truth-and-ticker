@@ -94,3 +94,14 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   the charted dataset (provenance transparency).
 
 ## Next
+
+1. Fix decollide() to honor its documented min-gap/idempotency contract at the lower
+   bound. The final "never cross the lower bound" pass clamps elements to `min` without
+   re-opening the gap, so e.g. decollide([20,40],30,30,100) returns [30,50] (gap 20 <
+   minGap 30) and is non-idempotent (decollide([30,50],…)→[30,60]). The upper bound is
+   already handled symmetrically (pin + fan back); the lower bound needs the mirror (pin
+   first to min, fan forward). Latent today (MasterTimeline passes in-bounds coords), but
+   a real defect in an exported pure helper. Evidence: src/lib/scales.ts:79. Acceptance:
+   a new test asserts decollide([20,40],30,30,100) keeps all gaps ≥ minGap within [min,max]
+   AND is idempotent (decollide(result,…) deep-equals result) — RED now, GREEN after the
+   fix; existing decollide tests stay green.
