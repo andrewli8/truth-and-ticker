@@ -63,7 +63,11 @@ E2E smoke suite (npm run test:e2e, outside the gate).
 - Playwright E2E smoke suite for critical flows (outside the verify gate).
 - Line morph when switching instruments; instrument reflected in the URL (?i=).
 - Skip-to-content link + touch-action (Web Interface Guidelines pass).
-- E2E for reduced-motion and mobile viewport (175 unit/component + 11 E2E).
+- E2E for reduced-motion and mobile viewport.
+- Vendor code-split into cacheable chunks (app chunk 369K→126K).
+- A11y pass: role=group on the interactive chart, StatBand heading, deep-dive
+  landmark, decorative aria-hiding (178 unit/component + 11 E2E).
+- Compare overlay: benchmark line (own-scale, labeled) for shape/timing comparison.
 
 ## Next
 
