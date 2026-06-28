@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { renderHook } from '@testing-library/react'
+import { describe, it, expect, afterEach, vi } from 'vitest'
+import { renderHook, act } from '@testing-library/react'
 import { useCountUp } from '../useCountUp'
 
 describe('useCountUp', () => {
@@ -14,5 +14,45 @@ describe('useCountUp', () => {
   it('starts from 0 when motion is allowed and not yet started', () => {
     const { result } = renderHook(() => useCountUp(99, false, false))
     expect(result.current).toBe(0)
+  })
+
+  describe('animation path (rAF driven)', () => {
+    const origRaf = global.requestAnimationFrame
+    const origCancel = global.cancelAnimationFrame
+    const origNow = performance.now
+    afterEach(() => {
+      global.requestAnimationFrame = origRaf
+      global.cancelAnimationFrame = origCancel
+      performance.now = origNow
+      vi.restoreAllMocks()
+    })
+
+    it('eases up to the target across frames when motion is allowed', () => {
+      const frames: FrameRequestCallback[] = []
+      let now = 0
+      global.requestAnimationFrame = ((cb: FrameRequestCallback) => {
+        frames.push(cb)
+        return frames.length
+      }) as typeof requestAnimationFrame
+      global.cancelAnimationFrame = (() => {}) as typeof cancelAnimationFrame
+      performance.now = () => now
+
+      const { result } = renderHook(() => useCountUp(100, false, true))
+      expect(result.current).toBe(0) // pre-animation
+
+      // Drive a mid frame, then the final frame at the end of the ~1.1s ease.
+      act(() => {
+        now = 550
+        frames.shift()?.(now)
+      })
+      expect(result.current).toBeGreaterThan(0)
+      expect(result.current).toBeLessThan(100)
+
+      act(() => {
+        now = 1100
+        frames.shift()?.(now)
+      })
+      expect(result.current).toBeCloseTo(100, 0)
+    })
   })
 })
