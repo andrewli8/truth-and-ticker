@@ -10,10 +10,10 @@ This piece's thesis depends on verifiable data, so provenance matters.
   Yahoo Finance (matched to the cent).
 - **WTI crude (`CL`)** — front-month settlements from Reuters-wire
   republications (CNBC, Business Times).
-- **Gold (`GLD`)** — spot XAU/USD per troy ounce. The series is labeled
-  "SPDR Gold Shares" in the UI for familiarity, but the figures are **spot gold**:
-  settlement-grade GLD ETF closes could not be obtained, and spot tracks the ETF
-  closely in percentage terms (which is all the close-to-close metric uses).
+- **Gold (`GLD`)** — daily closes of the **SPDR Gold Shares ETF** (NYSEARCA: GLD),
+  cross-checked between StockAnalysis.com and Yahoo Finance. (The series carries
+  ETF prices — the ~$249–316 range over the period confirms the ETF, not spot
+  XAU/USD, which trades near $3,000/oz.)
 
 ## Announcement text
 
