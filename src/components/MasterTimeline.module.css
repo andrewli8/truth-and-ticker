@@ -213,4 +213,10 @@
 
 @media (max-width: 768px) {
   .section { padding: 4rem 1.25rem 3rem; }
+  /* Roomier touch targets on mobile for the primary controls (was ~27px tall). */
+  .instBtn,
+  .legendItem {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
 }
