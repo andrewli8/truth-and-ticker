@@ -101,3 +101,17 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   reduced the value font clamp so they fit (verified via Playwright screenshot).
 
 ## Next
+
+1. Unify interactive hover/press motion on a shared ease-out token for a snappier, more
+   cohesive feel. Interactive controls (instrument switcher, legend, theme toggle, share
+   buttons, ledger row button, copy-link/citation, dot-nav, marker) each transition with
+   the browser-default `ease` (symmetric, slightly lazy), while the card entrance already
+   uses cubic-bezier(0.16,1,0.3,1) (ease-out expo). Adopting that curve as a shared --ease
+   token makes interactions respond immediately and matches the existing design language.
+   Evidence: src/styles/global.css:2 (:root tokens); Evidence:
+   src/components/MasterTimeline.module.css:94; Evidence:
+   src/components/ThemeToggle.module.css:20. Acceptance: a --ease token
+   (cubic-bezier(0.16,1,0.3,1)) is defined in :root and the interactive hover/press
+   transitions reference var(--ease) instead of the bare `ease` keyword (provable by
+   diffing the CSS); reveal/theme transitions are left as-is; verify gate stays green and
+   no horizontal-overflow/visual regression in a re-screenshot.
