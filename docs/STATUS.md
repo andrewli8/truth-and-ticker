@@ -244,13 +244,8 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   deep-links the event (URL #event-…) and the master timeline selects exactly that marker
   (aria-pressed, aria-label matches the row's summary) — a cross-component flow (App + Outro +
   MasterTimeline, real scroll + hashchange) jsdom couldn't fully exercise. 10/10 specs green.
+- E2E now covers the timeline instrument switch at the chart level: clicking "Oil" changes the
+  master-timeline sub-header away from "S&P 500" and adds ?i=CL to the URL — proving the chart
+  re-rendered for the new series, not just the CategoryBand. 11/11 regression specs green.
 
 ## Next
-
-1. E2E the timeline instrument switch (the chart itself, not just the band). The category-band
-   spec clicks "Oil" and checks the band re-titles, but nothing asserts the master-timeline
-   chart re-rendered for the new series. Evidence: src/components/MasterTimeline.tsx:264 (the
-   sub-header renders `{series.name} · every market-moving moment`); src/App.tsx (pickInstrument
-   swaps timelineSeries + URL ?i=). Acceptance: a new e2e test reads the timeline sub-header
-   (initially S&P 500), clicks the "Oil" instrument button, and asserts the sub-header no
-   longer says "S&P 500" (the chart switched series) and the URL gains ?i=CL; playwright passes.
