@@ -128,15 +128,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   verified in light + dark.
 - CategoryBand footnote flags its S&P scope (strikes moved oil/defense more) → switch
   instruments; tested.
+- CategoryBand bars reveal on scroll (staggered grow-from-0, reduced-motion safe).
 
 ## Next
-
-1. Give CategoryBand a scroll-triggered staggered bar reveal. The bars render at full
-   width on mount; an awwwards-style grow-from-0 on scroll-into-view (staggered per row)
-   adds motion the piece is built around. Use the existing useInView + the .bar width
-   transition; gate the per-row transition-delay on useReducedMotion so reduced-motion
-   users see no staggered delay. Evidence: src/components/CategoryBand.tsx (bars + width);
-   Evidence: src/lib/useInView.ts (reveal hook). Acceptance: bars start at width 0 and
-   animate to their value when the section enters view, staggered by row index, with delay
-   removed under reduced motion; component test still passes (jsdom inView defaults true →
-   bars at full width); verify gate green; screenshot confirms final state intact.
