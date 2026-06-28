@@ -32,6 +32,9 @@ describe('formatTime', () => {
     expect(out).toMatch(/Jun 21/)
     expect(out).toMatch(/ET/)
   })
+  it('returns n/a for an unparseable datetime (no crash)', () => {
+    expect(formatTime('not-a-date')).toBe('n/a')
+  })
 })
 
 describe('formatDay', () => {
