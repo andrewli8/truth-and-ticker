@@ -117,12 +117,9 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Covered AnnouncementCard empty-quote + null-delta + ticker-fallback branches.
 - Covered labels.ts unknown-type fallbacks (now 100%).
 - Covered TickerRail marquee-duplicate (motion-on) branch (now 100%).
+- Covered useReducedMotion no-matchMedia + live-change branches.
+- Unit coverage now 95.7% statements / 86.7% branches. Remaining gaps are jsdom-hostile
+  browser-API paths (ResizeObserver/IntersectionObserver/GSAP/scroll in App, MarketChart,
+  Outro reveal, MasterTimeline) which the Playwright E2E suite exercises in a real browser.
 
 ## Next
-
-1. Cover useReducedMotion's untested branches (71%): the no-matchMedia guard (SSR
-   fallback returns false) and the live-change listener (reacts to a 'change' event).
-   Evidence: src/lib/useReducedMotion.ts:8 (guard); Evidence:
-   src/lib/useReducedMotion.ts:15 (onChange listener). Acceptance: tests assert (a) with
-   matchMedia undefined the hook returns false without throwing, and (b) firing a matchMedia
-   'change' flips the returned value; useReducedMotion branch coverage rises; verify green.
