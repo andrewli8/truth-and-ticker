@@ -236,3 +236,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   event-dot ring is drawn — the previously-untested `eventPos ?? head` fallback is now guarded.
 
 ## Next
+
+1. Mark the on-chart reaction label decorative for screen readers. It's a visual echo of data
+   already exposed via the chart's accessible name (chartAriaLabel now includes the reaction)
+   and the live EventDetail panel; but inside MasterTimeline's role="group" SVG the bare
+   <text> gets announced again, so SR users hear the number twice. Evidence:
+   src/components/ChartReactionLabel.tsx (the <text> has no aria-hidden);
+   src/components/MasterTimeline.tsx (svg role="group" exposes child text). Acceptance:
+   ChartReactionLabel renders aria-hidden="true"; its unit test asserts this; the reaction
+   stays available via chartAriaLabel and EventDetail (aria-live); verify gate green.
