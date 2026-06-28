@@ -407,4 +407,15 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. The sitemap lists only the home page, so the now-shipping /poc.html concept
+   isn't discoverable to crawlers.
+   Evidence: public/sitemap.xml has a single `<url>` for `https://truth-and-ticker.vercel.app/`;
+   poc.html is a built entry (vite.config.ts) linked from the Outro but absent from the sitemap.
+   Acceptance: public/sitemap.xml gains a `<url>` entry for `/poc.html`; provable by
+   diffing the file.
+2. A visitor who lands on the POC via a shared link is stranded — there's no link back
+   to the full story.
+   Evidence: src/poc/PocApp.tsx renders no anchor to the main piece (no `href="/"`),
+   though the main app links out to /poc.html.
+   Acceptance: the POC renders a link to the main story (`/`); a PocApp test asserts an
+   anchor whose href is `/`.
