@@ -145,6 +145,7 @@ export default function App() {
                   accent={accent}
                   momentLabel={formatDay(event.announcement.datetime)}
                   reactionPct={reactionPct}
+                  eventISO={event.announcement.datetime}
                 />
                 <TickerRail moves={eventMoves(event)} />
               </div>

@@ -75,6 +75,22 @@ describe('MarketChart', () => {
     expect(callout.getAttribute('data-dir')).toBe('down')
   })
 
+  it('anchors the reaction callout at the event, independent of scroll progress', () => {
+    const eventISO = series.points[1].datetime
+    const { getByTestId, rerender } = render(
+      <MarketChart series={series} progress={0.2} accent="#ff4d3d" reactionPct={0.88} eventISO={eventISO} />,
+    )
+    const xLow = getByTestId('reaction-callout').getAttribute('x')
+    rerender(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={0.88} eventISO={eventISO} />,
+    )
+    const xFull = getByTestId('reaction-callout').getAttribute('x')
+    // Pinned to the event's data point, so it does not slide with the reveal.
+    expect(xLow).toBe(xFull)
+    // A fixed marker anchors the label at the event point.
+    expect(getByTestId('event-dot')).toBeInTheDocument()
+  })
+
   it('omits the reaction callout when reactionPct is null or absent', () => {
     const { queryByTestId, rerender } = render(
       <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={null} />,

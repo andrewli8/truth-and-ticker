@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
-import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
+import { buildAreaPath, buildLinePath, domainFor, pointPositions, nearestPointIndex } from '../lib/scales'
 import { chartAriaLabel } from '../lib/stats'
 import { formatPrice, axisFloorLabel } from '../lib/format'
 import { ChartReactionLabel } from './ChartReactionLabel'
@@ -19,8 +19,10 @@ interface Props {
   accent: string
   /** Short label for the active announcement's date, shown in the header. */
   momentLabel?: string
-  /** Close-to-close reaction for the event; labels the move at the playhead. */
+  /** Close-to-close reaction for the event; labels the move at the event point. */
   reactionPct?: number | null
+  /** The announcement's datetime; anchors the reaction label to its data point. */
+  eventISO?: string
 }
 
 /**
@@ -28,7 +30,7 @@ interface Props {
  * container at any height with NO distortion (the draw helpers take W/H). All
  * reveal animation comes from the `progress` prop.
  */
-export function MarketChart({ series, progress, accent, momentLabel, reactionPct }: Props) {
+export function MarketChart({ series, progress, accent, momentLabel, reactionPct, eventISO }: Props) {
   const clamped = Math.max(0, Math.min(1, progress))
 
   const plotRef = useRef<HTMLDivElement>(null)
@@ -66,6 +68,15 @@ export function MarketChart({ series, progress, accent, momentLabel, reactionPct
   const idx = Math.min(n - 1, Math.max(0, Math.ceil(clamped * n) - 1))
   const current = series.points[idx]
   const head = positions[idx]
+
+  // The announcement's own data point — the reaction belongs to this date, so the
+  // label anchors here (fixed) rather than riding the scroll-driven playhead.
+  const eventIdx = useMemo(
+    () => (eventISO ? nearestPointIndex(series.points, Date.parse(eventISO)) : -1),
+    [eventISO, series.points],
+  )
+  const eventPos = eventIdx >= 0 ? positions[eventIdx] : null
+  const labelAt = eventPos ?? head
 
   const gridY = Array.from({ length: GRID_LINES + 1 }, (_, i) => {
     const t = i / GRID_LINES
@@ -127,15 +138,27 @@ export function MarketChart({ series, progress, accent, momentLabel, reactionPct
             </text>
           )}
 
-          {/* Label the move at the playhead so the quote's market reaction reads ON
-              the chart, not only in the side card. Sits below the dot when near the
-              top so it never collides with the current-price readout. */}
-          {head && (
+          {/* A fixed marker at the announcement's own data point — the focal moment
+              the chart is about — distinct from the moving reveal playhead. */}
+          {eventPos && reactionPct != null && (
+            <circle
+              data-testid="event-dot"
+              cx={eventPos.x}
+              cy={eventPos.y}
+              r={6}
+              className={styles.eventDot}
+            />
+          )}
+
+          {/* Label the move ON the chart at the event point, so the quote's market
+              reaction reads on the line — not only in the side card. Sits below the
+              point near the top edge so it never collides with the price readout. */}
+          {labelAt && (
             <ChartReactionLabel
               pct={reactionPct ?? null}
-              x={head.x + (head.x > W * 0.62 ? -10 : 10)}
-              y={head.y + (head.y < PAD + 48 ? 22 : -12)}
-              anchor={head.x > W * 0.62 ? 'end' : 'start'}
+              x={labelAt.x + (labelAt.x > W * 0.62 ? -10 : 10)}
+              y={labelAt.y + (labelAt.y < PAD + 48 ? 22 : -12)}
+              anchor={labelAt.x > W * 0.62 ? 'end' : 'start'}
               testid="reaction-callout"
             />
           )}

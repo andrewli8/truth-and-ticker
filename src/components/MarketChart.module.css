@@ -129,3 +129,12 @@
   fill: var(--chart-accent);
   filter: drop-shadow(0 0 calc(6px * var(--glow, 1)) currentColor);
 }
+
+/* The announcement's own data point: a hollow ring (bg fill + accent stroke) so it
+   reads as the focal moment, distinct from the solid reveal-playhead dot. */
+.eventDot {
+  fill: var(--bg);
+  stroke: var(--chart-accent);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
