@@ -96,6 +96,17 @@ describe('dataset integrity', () => {
     })
   })
 
+  it('the featured set (deep dive) is non-empty and every featured event has SPX data', () => {
+    const featured = announcements.filter((a) => a.featured)
+    expect(featured.length).toBeGreaterThan(0)
+    expect(featured.length).toBeLessThanOrEqual(announcements.length)
+    const spx = markets.find((m) => m.ticker === 'SPX')!
+    featured.forEach((a) => {
+      // Each featured event drives a windowed deep-dive chart; it must resolve a reaction.
+      expect(reactionFor(a, spx, REACTION_WINDOW_MINS).deltaPct, a.id).not.toBeNull()
+    })
+  })
+
   it('index moves are stated in percent, never raw points', () => {
     // "Dow +2,962" obscures relative magnitude next to percentages; require percent.
     announcements.forEach((a) => {
