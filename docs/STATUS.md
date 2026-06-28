@@ -112,13 +112,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Data test guards the deep-dive featured-event set (non-empty; each has SPX data).
 - Broadened SOURCES caveat to all externally-reported context figures (market-cap, yields,
   single-day moves), not just single stocks.
+- Tested ShareButton onShare (native share + clipboard fallback); 59%→95% line coverage.
 
 ## Next
-
-1. Test ShareButton's untested onShare logic (50% branch / 59% line coverage). The
-   native-share path and the clipboard fallback (set "Link copied", reset after a delay)
-   have no tests, so a regression in the primary share CTA would go uncaught. Evidence:
-   src/components/ShareButton.tsx:16 (onShare callback). Acceptance: new tests assert (a)
-   clicking Share calls navigator.share with the tweet text + current URL when available,
-   and (b) with no navigator.share but a clipboard, it writes the URL and the button shows
-   "Link copied"; ShareButton branch coverage rises; verify gate stays green.
