@@ -1,5 +1,5 @@
 import { peakToTroughPct, maxRunupPct, seriesByTicker } from '../lib/stats'
-import { formatPct, direction } from '../lib/format'
+import { formatPct, direction, type Direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
@@ -10,6 +10,11 @@ interface Stat {
   value: number | null
   label: string
   sub: string
+  /**
+   * Colour override. By default colour follows the value's sign, but for VIX a positive value
+   * is a fear spike, not a gain — colouring it green would read as "good", so it's neutral.
+   */
+  tone?: Direction
 }
 
 interface Props {
@@ -23,16 +28,18 @@ function buildStats(markets: Series[]): Stat[] {
   return [
     { value: cl ? peakToTroughPct(cl) : null, label: 'WTI crude', sub: 'peak-to-trough swing' },
     { value: lmt ? maxRunupPct(lmt) : null, label: 'Lockheed Martin', sub: 'biggest defense run-up' },
-    { value: vix ? maxRunupPct(vix) : null, label: 'VIX fear gauge', sub: 'biggest volatility spike' },
+    // VIX: a spike is a fear / risk-off event, not a gain — keep it neutral, not green.
+    { value: vix ? maxRunupPct(vix) : null, label: 'VIX fear gauge', sub: 'biggest volatility spike', tone: 'flat' },
   ]
 }
 
 function StatCell({ stat, reduced, start }: { stat: Stat; reduced: boolean; start: boolean }) {
   const v = useCountUp(stat.value, reduced, start)
-  const dir = direction(stat.value)
+  // An explicit tone wins (VIX), else colour follows the value's sign.
+  const dir = stat.tone ?? direction(stat.value)
   return (
     <div className={styles.cell}>
-      <div className={`${styles.value} ${styles[dir]}`}>{formatPct(stat.value === null ? null : v)}</div>
+      <div className={`${styles.value} ${styles[dir]}`} data-dir={dir}>{formatPct(stat.value === null ? null : v)}</div>
       <div className={styles.label}>{stat.label}</div>
       <div className={styles.sub}>{stat.sub}</div>
     </div>

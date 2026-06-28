@@ -289,12 +289,13 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - README shows the CI status badge under the title (links to the Actions tab) — standard
   at-a-glance build signal for the public repo.
 
+- VIX spike no longer coloured green (it read as a "gain"). The StatBand coloured by raw sign,
+  so the biggest volatility spike (+VIX) showed green — but a VIX spike is fear / risk-off, not a
+  gain. Added an optional per-Stat `tone` override; the VIX stat is neutral (muted), so the number
+  and "biggest volatility spike" label carry it without implying "good". WTI (red drawdown) and
+  Lockheed (green gain) keep meaningful colours. StatBand-tested (VIX cell data-dir='flat', LMT
+  still 'up'); verify + E2E green.
+
 ## Next
 
-1. Stop colouring the VIX spike green (it reads as a "gain"). The StatBand colours by raw sign,
-   so the "biggest volatility spike" (+234.73%) shows green — but a VIX spike is a fear / risk-off
-   event, not a gain; sign-as-sentiment is dishonest for VIX. Evidence: src/components/StatBand.tsx
-   (StatCell uses direction(stat.value); the VIX stat is `maxRunupPct(vix)`, always positive).
-   Acceptance: Stat gains an optional `tone` override; the VIX stat sets a neutral tone so its
-   value renders muted (not green) — the +/- number and "biggest volatility spike" label still
-   convey it; a StatBand test asserts the VIX cell is not coloured 'up'; verify gate green.
+(empty — no evidence-backed improvement currently queued)
