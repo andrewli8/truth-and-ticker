@@ -45,6 +45,19 @@ selectable from the Outro ledger's "View on the timeline" row buttons, which are
 full-width (well over 24px). The ledger is therefore the intended touch path on small
 screens; the markers remain a precise pointer/keyboard affordance on larger ones.
 
+## Colour & contrast
+
+Measured WCAG contrast on the light background (dark theme is comparable):
+
+- Body text 16:1, muted text 5.8:1 — pass AA for normal text (≥4.5:1).
+- The semantic accents used for coloured ± values — risk 4.35:1, relief 3.91:1,
+  warn 3.26:1 — meet AA Large (≥3:1) and so clear the big StatBand numbers; the small
+  reaction values fall just short of AA Normal. **Direction is never conveyed by colour
+  alone** — the `+`/`−` sign and the number carry it (WCAG 1.4.1 met), so the colour is
+  reinforcing, not load-bearing. Bringing the small coloured values to strict AA Normal
+  would mean slightly darker accent tokens — a brand/design-owner decision, deliberately
+  not changed automatically.
+
 ## No-JS
 
 A `<noscript>` block (`index.html`) shows the headline, thesis, and a prompt to enable
