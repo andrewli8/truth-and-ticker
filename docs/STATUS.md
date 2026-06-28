@@ -187,13 +187,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Accessible data-table semantics for the Outro ledger (scope=col headers + caption); tested.
 - Machine-readable <time datetime> for all event dates (ledger, EventDetail, AnnouncementCard).
 - Maskable PWA icon (Android adaptive-icon safe zone) so the brand mark isn't cropped.
+- CategoryBand bars stay visible in Windows High Contrast / forced-colors mode (the CSS
+  background-colored bars were flattened to nothing); @media (forced-colors: active) now
+  gives the track a CanvasText border and bars a CanvasText fill. Verified the SVG charts
+  (master timeline, deep-dive, sparklines) survive forced-colors natively — line strokes
+  and marker fills map to system colors — so no change needed there.
 
 ## Next
-
-1. Keep the CategoryBand bars visible in Windows High Contrast / forced-colors mode. Verified
-   via Playwright forcedColors:active: the bars (CSS background colors) are flattened away,
-   leaving only text — the bar chart disappears. Evidence: src/components/CategoryBand.module.css
-   (.bar/.track use background colors). Acceptance: an @media (forced-colors: active) block
-   gives the track a CanvasText border and the bars a CanvasText fill so the chart renders
-   (monochrome; direction still carried by the +/- value text); re-screenshot in forced-colors
-   confirms visible bars; verify gate green.
