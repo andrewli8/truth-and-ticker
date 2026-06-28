@@ -204,3 +204,14 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   Covered by tests (label renders the formatted reaction; tracks the selection).
 
 ## Next
+
+1. Add real-browser regression guards for the two new on-chart reaction labels. They are
+   unit-tested in jsdom, which has no layout — so clipping/overlap regressions in a real
+   browser would go uncaught, exactly what e2e/regression.spec.ts exists to prevent (it
+   already guards the scrub readout and outro highlights). Evidence: e2e/regression.spec.ts:48
+   (timeline-scrub guard pattern to mirror); src/components/MasterTimeline.tsx renders
+   [data-testid="marker-reaction"]; src/components/MarketChart.tsx renders
+   [data-testid="reaction-callout"]. Acceptance: a new e2e/regression.spec.ts test asserts
+   the master-timeline selected-marker label is visible, shows a %, and its bounding box sits
+   within the chart SVG's box (not clipped); and the deep-dive callout is visible within its
+   chart. `npx playwright test e2e/regression.spec.ts` passes.
