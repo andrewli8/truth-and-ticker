@@ -183,11 +183,7 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Article JSON-LD now has author + publisher (logo) for rich results.
 - robots meta: max-image-preview:large (+ max-snippet:-1) for rich search previews.
 - Web app manifest + 192/512 icons (Android/Chrome home-screen branding; display=browser).
+- PNG favicon fallback (favicon-32) for contexts without SVG-favicon support.
+- Accessible data-table semantics for the Outro ledger (scope=col headers + caption); tested.
 
 ## Next
-
-1. Add a PNG favicon fallback. The only favicon is an inline SVG data-URI; some contexts
-   (older browsers, certain crawlers/RSS readers) don't render SVG favicons. Evidence:
-   index.html (icon link is SVG-only). Acceptance: a 32×32 PNG favicon (from the brand
-   mark) in public/, linked as <link rel="icon" type="image/png" sizes="32x32"> alongside
-   the SVG (SVG stays the preferred icon); copied into dist; verify gate green.
