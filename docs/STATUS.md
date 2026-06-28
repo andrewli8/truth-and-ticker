@@ -302,6 +302,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 - Dependabot (.github/dependabot.yml): weekly grouped updates for npm (prod/dev groups) and
   github-actions, with PR limits — keeps the public repo's deps and CI actions patched.
 
+- Theme now persists only an EXPLICIT choice (toggle/setTheme), not the OS-derived default —
+  so a user who never toggles keeps following their OS across visits instead of having the
+  first-visit theme frozen. useTheme-tested (derived default not stored; explicit toggle is);
+  theme E2E (persist-across-reload, OS-dark first visit) still green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

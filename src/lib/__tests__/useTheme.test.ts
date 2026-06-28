@@ -48,6 +48,17 @@ describe('useTheme', () => {
     expect(result.current.theme).toBe('light')
   })
 
+  it('does not persist a derived (OS) default — only explicit choices are stored', () => {
+    vi.stubGlobal('matchMedia', (q: string) => ({
+      matches: q.includes('dark'), media: q, addEventListener() {}, removeEventListener() {},
+    }))
+    const { result } = renderHook(() => useTheme())
+    expect(result.current.theme).toBe('dark') // followed the OS…
+    expect(localStorage.getItem('theme')).toBeNull() // …but didn't freeze it as a choice
+    act(() => result.current.toggle()) // an explicit choice DOES persist
+    expect(localStorage.getItem('theme')).toBe('light')
+  })
+
   it('defaults to light without throwing when localStorage is unavailable (SSR guard)', () => {
     vi.stubGlobal('localStorage', undefined)
     const { result } = renderHook(() => useTheme())

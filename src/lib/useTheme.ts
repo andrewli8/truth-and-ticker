@@ -24,17 +24,41 @@ function apply(theme: Theme): void {
   else document.documentElement.removeAttribute('data-theme')
 }
 
-/** Theme state synced to <html data-theme> and localStorage. */
+function persist(theme: Theme): void {
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem(KEY, theme)
+    } catch {
+      /* storage unavailable (private mode / SSR) — non-fatal */
+    }
+  }
+}
+
+/**
+ * Theme state synced to `<html data-theme>`. Only an EXPLICIT choice is persisted, so a
+ * derived OS default isn't frozen — a user who never toggles keeps following their OS across
+ * visits, while a deliberate toggle sticks.
+ */
 export function useTheme(): { theme: Theme; toggle: () => void; setTheme: (t: Theme) => void } {
   const [theme, setThemeState] = useState<Theme>(readInitial)
 
   useEffect(() => {
     apply(theme)
-    if (typeof localStorage !== 'undefined') localStorage.setItem(KEY, theme)
   }, [theme])
 
-  const setTheme = useCallback((t: Theme) => setThemeState(t), [])
-  const toggle = useCallback(() => setThemeState((t) => (t === 'dark' ? 'light' : 'dark')), [])
+  const setTheme = useCallback((t: Theme) => {
+    persist(t)
+    setThemeState(t)
+  }, [])
+  const toggle = useCallback(
+    () =>
+      setThemeState((t) => {
+        const next = t === 'dark' ? 'light' : 'dark'
+        persist(next)
+        return next
+      }),
+    [],
+  )
 
   return { theme, toggle, setTheme }
 }
