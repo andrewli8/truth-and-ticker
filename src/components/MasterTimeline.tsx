@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect, type CSSProperties, type PointerEvent } from 'react'
+import { useMemo, useRef, useState, useEffect, type PointerEvent } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import {
@@ -15,13 +15,14 @@ import {
 } from '../lib/scales'
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
-import { typeLabel, accentGroup, type AccentGroup } from '../lib/labels'
+import { accentGroup, type AccentGroup } from '../lib/labels'
 import { timelineAriaLabel, netReturnPct, maxDrawdown } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
-import { eventIdFromHash, hashForEvent, eventShareUrl } from '../lib/hash'
+import { eventIdFromHash, hashForEvent } from '../lib/hash'
+import { EventDetail } from './EventDetail'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -96,21 +97,6 @@ export function MasterTimeline({
     }
   }
 
-  // Copy a shareable deep-link to the selected event.
-  function copyLink(id: string) {
-    if (typeof window === 'undefined') return
-    const url = eventShareUrl(window.location.origin, window.location.pathname, id)
-    const writer = navigator?.clipboard?.writeText
-    if (!writer) return
-    writer
-      .call(navigator.clipboard, url)
-      .then(() => {
-        setCopied(true)
-        window.setTimeout(() => setCopied(false), 2000)
-      })
-      .catch(() => {})
-  }
-
   // Re-select when the URL hash changes (back/forward, edited URL, in-app links).
   useEffect(() => {
     const onHash = () => {
@@ -122,7 +108,6 @@ export function MasterTimeline({
   }, [announcements])
   // Free hover-scrub: epoch ms under the cursor, or null when not scrubbing.
   const [hoverMs, setHoverMs] = useState<number | null>(null)
-  const [copied, setCopied] = useState(false)
   const svgRef = useRef<SVGSVGElement>(null)
   const lineRef = useRef<SVGPathElement>(null)
   const areaRef = useRef<SVGPathElement>(null)
@@ -249,7 +234,6 @@ export function MasterTimeline({
     [selected, series],
   )
   const animatedPct = useCountUp(reactionPct, reduced, true)
-  const reactionDir = reactionPct === null ? 'flat' : reactionPct >= 0 ? 'up' : 'down'
 
   // Resolve the cursor to the NEAREST real close, so the dot/readout sit exactly
   // on a plotted vertex of the line rather than floating between sparse points.
@@ -442,42 +426,13 @@ export function MasterTimeline({
       </svg>
 
       {selected && (
-        <article
-          className={styles.detail}
-          style={{ '--sel': accentFor(selected.type) } as CSSProperties}
-          aria-live="polite"
-          data-testid="detail"
-        >
-          <div className={styles.detailMeta}>
-            <span className={styles.detailTag}>{typeLabel(selected.type)}</span>
-            <time>{formatTime(selected.datetime)}</time>
-          </div>
-          {selected.quote ? (
-            <blockquote className={styles.detailQuote}>
-              <span className={styles.detailMark} aria-hidden="true">“</span>
-              <span className={styles.detailQuoteText}>{selected.quote}</span>
-            </blockquote>
-          ) : (
-            <p className={styles.detailQuote}>
-              <span className={styles.detailQuoteText}>{selected.summary}</span>
-            </p>
-          )}
-          <div className={styles.detailReaction} data-testid="reaction">
-            <span className={styles.reactionValue} data-dir={reactionDir}>
-              {formatPct(reactionPct === null ? null : animatedPct)}
-            </span>
-            <span className={styles.reactionLabel}>{series.ticker} · prior close → next close</span>
-          </div>
-          <div className={styles.detailFoot}>
-            <span>{selected.source}</span>
-            <span className={styles.detailActions}>
-              <button type="button" className={styles.copyLink} onClick={() => copyLink(selected.id)}>
-                {copied ? 'Link copied ✓' : 'Copy link'}
-              </button>
-              <a href={selected.citationUrl} target="_blank" rel="noreferrer">{selected.citationLabel} ↗</a>
-            </span>
-          </div>
-        </article>
+        <EventDetail
+          event={selected}
+          accent={accentFor(selected.type)}
+          seriesTicker={series.ticker}
+          reactionPct={reactionPct}
+          animatedPct={animatedPct}
+        />
       )}
     </section>
   )
