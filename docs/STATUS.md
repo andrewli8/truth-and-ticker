@@ -162,5 +162,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Fixed React act() warnings in the copy-link tests (await the post-copy state update);
   clean verify output.
 - Covered formatTime invalid-datetime guard (format.ts 100% lines).
+- Covered spotlightTicker NDX mapping, pointPositions empty input, useInView options +
+  null-ref branches; lib layer fully covered (stats/format/scales/useInView 100%);
+  overall ~96% stmts / ~88% branches (remaining gaps: unreachable d3 fallbacks, SSR
+  guards, and browser-API paths the E2E covers).
 
 ## Next
