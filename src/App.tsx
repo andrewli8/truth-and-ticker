@@ -11,7 +11,7 @@ import { ReactionSpread } from './components/ReactionSpread'
 import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll, REACTION_WINDOW_MINS } from './lib/correlate'
-import { formatDay } from './lib/format'
+import { formatDay, direction } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves, reactionHitRate } from './lib/stats'
 import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
@@ -52,9 +52,13 @@ export default function App() {
   const deepDiveSteps = useMemo(
     () =>
       featured.map((event) => {
-        const accent = accentVar(event.announcement.type)
         const spotlight = spotlightTicker(event.announcement.type)
         const reactionPct = event.reactions.find((r) => r.ticker === spotlight)?.deltaPct ?? null
+        // The chart + card accent represents the market's GAIN/LOSS on the event (green/red),
+        // not the announcement type — so the colour reads as the outcome.
+        const dir = direction(reactionPct)
+        const accent =
+          dir === 'up' ? 'var(--relief)' : dir === 'down' ? 'var(--risk)' : 'var(--muted)'
         const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
         const win = windowAround(fullSeries.points, event.announcement.datetime, WINDOW_DAYS)
         const series = win.length >= 2 ? { ...fullSeries, points: win } : fullSeries

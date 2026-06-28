@@ -1,6 +1,6 @@
 import { type CSSProperties } from 'react'
 import { formatPct, formatTime, direction } from '../lib/format'
-import { typeLabel, accentVar } from '../lib/labels'
+import { typeLabel } from '../lib/labels'
 import type { CorrelatedEvent } from '../lib/types'
 import styles from './AnnouncementCard.module.css'
 
@@ -21,7 +21,11 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
     .map((t) => reactions.find((r) => r.ticker === t))
     .filter((r): r is NonNullable<typeof r> => Boolean(r))
 
-  const accentStyle = { '--accent': accentVar(announcement.type) } as CSSProperties
+  // Accent the card by the market's gain/loss (green/red), matching the chart — so the colour
+  // reads as the outcome, not the announcement type (which the tag text already names).
+  const accentStyle = {
+    '--accent': dir === 'up' ? 'var(--relief)' : dir === 'down' ? 'var(--risk)' : 'var(--muted)',
+  } as CSSProperties
 
   return (
     <article className={styles.card} style={accentStyle}>
