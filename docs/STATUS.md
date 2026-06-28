@@ -14,7 +14,7 @@ ledger (sparklines, jump-to-moment), with deep-linkable + shareable events, a re
 hero backdrop, cohesive motion (shared --ease, hover-lift/press states), WCAG 2.2 target
 sizes, and broad a11y coverage (docs/ACCESSIBILITY.md). Every charted-instrument figure
 in the prose is test-asserted against the data. Testing: 219 unit/component (the verify
-gate) at 95.7% stmts / 86.7% branches, plus a Playwright E2E suite (npm run test:e2e,
+gate) at 95.7% stmts / 86.7% branches, plus a 24-spec Playwright E2E suite (npm run test:e2e,
 outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Done
@@ -139,5 +139,7 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - README How-it-works notes reactionByType + CategoryBand.
 - Memoized CategoryBand derived data (rows, max) per app convention.
 - E2E guard: CategoryBand re-titles when the timeline instrument changes.
+- Covered Outro empty-sparkline branch (series present, no window points).
+- Full E2E suite green (24 specs) after the CategoryBand work.
 
 ## Next
