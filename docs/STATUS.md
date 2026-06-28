@@ -181,11 +181,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - format-detection=telephone=no (stops iOS auto-linking the page's numbers).
 - Added og:url + og:site_name for correct social attribution.
 - Article JSON-LD now has author + publisher (logo) for rich results.
+- robots meta: max-image-preview:large (+ max-snippet:-1) for rich search previews.
 
 ## Next
 
-1. Enable large image previews in search: the robots meta is "index, follow" but lacks
-   max-image-preview:large (Google shows only a thumbnail without it — wasteful for a
-   visual data piece with a strong OG image). Evidence: index.html (meta robots).
-   Acceptance: robots content includes max-image-preview:large (and max-snippet:-1);
-   verify gate green.
+1. Add a web app manifest for cross-platform home-screen branding (Android/Chrome) to
+   complement the iOS apple-touch-icon. Evidence: index.html (no manifest link). Acceptance:
+   public/manifest.webmanifest with name/short_name, theme/background color, display=browser
+   (it's an article), and 192+512 icons generated from the brand mark; linked via <link
+   rel="manifest">; icons + manifest copied into dist by the build; verify gate green.
