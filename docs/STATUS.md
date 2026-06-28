@@ -291,4 +291,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Stop colouring the VIX spike green (it reads as a "gain"). The StatBand colours by raw sign,
+   so the "biggest volatility spike" (+234.73%) shows green — but a VIX spike is a fear / risk-off
+   event, not a gain; sign-as-sentiment is dishonest for VIX. Evidence: src/components/StatBand.tsx
+   (StatCell uses direction(stat.value); the VIX stat is `maxRunupPct(vix)`, always positive).
+   Acceptance: Stat gains an optional `tone` override; the VIX stat sets a neutral tone so its
+   value renders muted (not green) — the +/- number and "biggest volatility spike" label still
+   convey it; a StatBand test asserts the VIX cell is not coloured 'up'; verify gate green.
