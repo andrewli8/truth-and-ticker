@@ -46,6 +46,8 @@ interface Props {
   /** Optional instrument switcher: which series the overview plots. */
   instruments?: Instrument[]
   onPickInstrument?: (ticker: string) => void
+  /** Benchmark series for the optional "compare vs" overlay (e.g. the S&P 500). */
+  benchmark?: Series
 }
 
 interface Tick {
@@ -75,7 +77,9 @@ export function MasterTimeline({
   onJump,
   instruments,
   onPickInstrument,
+  benchmark,
 }: Props) {
+  const [showCompare, setShowCompare] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     // Deep-link: open the event named in the URL hash, else default to the latest.
     const fromHash = typeof window !== 'undefined' ? eventIdFromHash(window.location.hash) : null
@@ -179,6 +183,14 @@ export function MasterTimeline({
   const ticks = useMemo(() => monthTicks(domain), [domain])
   const net = useMemo(() => netReturnPct(series), [series])
   const drawdown = useMemo(() => maxDrawdown(series), [series])
+
+  // Optional benchmark overlay (its own auto-scale, for shape/timing comparison).
+  const canCompare = !!benchmark && benchmark.ticker !== series.ticker
+  const compareActive = showCompare && canCompare
+  const benchLine = useMemo(
+    () => (benchmark ? timeLinePath(benchmark.points, W, H) : ''),
+    [benchmark],
+  )
 
   // Morph the line/area when the instrument changes (all series share the same
   // 111-point structure, so the `d` strings interpolate cleanly). First render
@@ -302,9 +314,9 @@ export function MasterTimeline({
         </div>
       </header>
 
-      {instruments && instruments.length > 1 && (
-        <div className={styles.instruments} role="group" aria-label="Choose the instrument">
-          {instruments.map((ins) => {
+      {((instruments && instruments.length > 1) || canCompare) && (
+        <div className={styles.instruments} role="group" aria-label="Choose or compare the instrument">
+          {instruments?.map((ins) => {
             const on = ins.ticker === series.ticker
             return (
               <button
@@ -318,6 +330,16 @@ export function MasterTimeline({
               </button>
             )
           })}
+          {canCompare && (
+            <button
+              type="button"
+              className={`${styles.instBtn} ${styles.compareBtn} ${compareActive ? styles.instOn : ''}`}
+              aria-pressed={compareActive}
+              onClick={() => setShowCompare((v) => !v)}
+            >
+              + vs {benchmark!.name}
+            </button>
+          )}
         </div>
       )}
 
@@ -349,6 +371,14 @@ export function MasterTimeline({
         })}
 
         <path ref={areaRef} d={areaPath} fill="url(#masterFill)" className={styles.area} />
+        {compareActive && (
+          <>
+            <path d={benchLine} fill="none" className={styles.compareLine} data-testid="compare-line" />
+            <text x={W - PAD} y={PAD - 6} textAnchor="end" className={styles.compareLabel}>
+              {benchmark!.name} (own scale)
+            </text>
+          </>
+        )}
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
         {visible.map(({ a, x, dx, y }, i) => {

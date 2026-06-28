@@ -157,6 +157,22 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* Benchmark comparison overlay — distinct, dashed, on its own auto-scale. */
+.compareLine {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+  opacity: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+.compareLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  fill: var(--muted);
+  letter-spacing: 0.06em;
+}
+.compareBtn { font-style: normal; }
+
 .markerLine {
   stroke: currentColor;
   stroke-width: 1;

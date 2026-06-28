@@ -122,6 +122,7 @@ export default function App() {
           onJump={jumpToEvent}
           instruments={TIMELINE_INSTRUMENTS}
           onPickInstrument={pickInstrument}
+          benchmark={fallbackSeries}
         />
       </div>
 

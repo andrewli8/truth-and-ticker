@@ -170,6 +170,33 @@ describe('MasterTimeline', () => {
     expect(writeText.mock.calls[0][0]).toContain('#event-a')
   })
 
+  it('overlays the benchmark when "compare" is toggled (and only for other instruments)', () => {
+    const cl = seriesByTicker(markets, 'CL')!
+    const { getByRole, queryByTestId } = render(
+      <MasterTimeline
+        series={cl}
+        announcements={announcements}
+        accentFor={() => 'var(--risk)'}
+        benchmark={spx}
+      />,
+    )
+    expect(queryByTestId('compare-line')).toBeNull()
+    fireEvent.click(getByRole('button', { name: /vs S&P 500/i }))
+    expect(queryByTestId('compare-line')).toBeTruthy()
+  })
+
+  it('hides the compare control when viewing the benchmark itself', () => {
+    const { queryByRole } = render(
+      <MasterTimeline
+        series={spx}
+        announcements={announcements}
+        accentFor={() => 'var(--risk)'}
+        benchmark={spx}
+      />,
+    )
+    expect(queryByRole('button', { name: /vs S&P 500/i })).toBeNull()
+  })
+
   it('offers an instrument switcher and reports picks', () => {
     const onPick = vi.fn()
     const instruments = [
