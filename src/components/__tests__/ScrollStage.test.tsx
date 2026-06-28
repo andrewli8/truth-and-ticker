@@ -26,4 +26,31 @@ describe('ScrollStage', () => {
     expect(getByText(/panel 0/)).toBeInTheDocument()
     expect(queryAllByRole('button')).toHaveLength(0)
   })
+
+  it('renders every step as a stacked panel (no dot-nav) on mobile', () => {
+    const orig = window.matchMedia
+    // Report a mobile width so ScrollStage takes its stacked, non-pinned path.
+    window.matchMedia = ((query: string) =>
+      ({
+        matches: /max-width/.test(query),
+        media: query,
+        onchange: null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        dispatchEvent: () => false,
+      }) as unknown as MediaQueryList)
+    try {
+      const { getAllByText, queryAllByRole } = render(
+        <ScrollStage steps={3} markers={['a', 'b', 'c']}>
+          {(_p, step) => <div>panel {step}</div>}
+        </ScrollStage>,
+      )
+      expect(getAllByText(/panel/)).toHaveLength(3) // all panels rendered
+      expect(queryAllByRole('button')).toHaveLength(0) // no pinned jump-nav on mobile
+    } finally {
+      window.matchMedia = orig
+    }
+  })
 })

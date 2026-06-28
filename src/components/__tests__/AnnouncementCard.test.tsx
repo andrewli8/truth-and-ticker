@@ -42,6 +42,14 @@ describe('AnnouncementCard', () => {
     expect(getByText(/IT’S TIME FOR PEACE/).getAttribute('aria-hidden')).toBeNull()
   })
 
+  it('shows secondary instrument reactions and the summary', () => {
+    const { getByText } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    // CL is a curated secondary ticker present in the reactions.
+    expect(getByText('CL')).toBeInTheDocument()
+    expect(getByText(/-7\.20%/)).toBeInTheDocument()
+    expect(getByText(/complete and total ceasefire/i)).toBeInTheDocument()
+  })
+
   it('links to the citation', () => {
     const { getByRole } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
     const link = getByRole('link') as HTMLAnchorElement

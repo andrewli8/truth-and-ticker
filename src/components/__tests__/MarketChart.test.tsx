@@ -40,6 +40,22 @@ describe('MarketChart', () => {
     expect(getByText(/S&P 500/)).toBeInTheDocument()
   })
 
+  it('shows the current price at full progress', () => {
+    const { getAllByText } = render(<MarketChart series={series} progress={1} accent="#ff4d3d" />)
+    // 99.00 = last point's price (also coincides with the low gridline label).
+    expect(getAllByText(/99\.00/).length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('reveals less of the line at low progress than at full', () => {
+    const { getByTestId, rerender } = render(
+      <MarketChart series={series} progress={0} accent="#ff4d3d" />,
+    )
+    const atZero = getByTestId('line').getAttribute('d')!.length
+    rerender(<MarketChart series={series} progress={1} accent="#ff4d3d" />)
+    const atFull = getByTestId('line').getAttribute('d')!.length
+    expect(atZero).toBeLessThan(atFull)
+  })
+
   it('preserves aspect ratio so slopes are not distorted', () => {
     const { container } = render(
       <MarketChart series={series} progress={1} accent="#ff4d3d" />,
