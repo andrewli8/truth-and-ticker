@@ -62,7 +62,7 @@ export function Hero({ linePath, areaPath }: Props) {
         Scroll to see thirty announcements laid against the S&amp;P 500, oil, defense,
         and the dollar. The timing is the story. Judge it yourself.
       </p>
-      <div className={styles.scrollHint} data-hero>SCROLL ↓</div>
+      <div className={styles.scrollHint} data-hero aria-hidden="true">SCROLL ↓</div>
     </header>
   )
 }
