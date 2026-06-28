@@ -6,6 +6,7 @@ import { MarketChart } from './components/MarketChart'
 import { AnnouncementCard } from './components/AnnouncementCard'
 import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
+import { CategoryBand } from './components/CategoryBand'
 import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll, REACTION_WINDOW_MINS } from './lib/correlate'
@@ -103,6 +104,7 @@ export default function App() {
       <ThemeToggle />
       <Hero linePath={heroLine} areaPath={heroArea} />
       <StatBand markets={markets} />
+      <CategoryBand events={events} ticker={PRIMARY} tickerLabel="S&P 500" />
       <div ref={timelineRef} tabIndex={-1} className="focusTarget">
         <MasterTimeline
           series={timelineSeries}
