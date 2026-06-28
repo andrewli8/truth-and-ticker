@@ -39,6 +39,12 @@ describe('Outro', () => {
     expect(withoutS.container.querySelectorAll('svg[class*="spark"]').length).toBe(0)
   })
 
+  it('labels the sparkline column with a visible header describing the window', () => {
+    const { getByText } = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
+    const header = getByText(/±10d/i)
+    expect(header.tagName).toBe('TH')
+  })
+
   it('calls onPickEvent with the event id when a row is activated', () => {
     const onPick = vi.fn()
     const { getByRole } = render(<Outro events={events} primaryTicker="SPX" onPickEvent={onPick} />)

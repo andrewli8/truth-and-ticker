@@ -30,7 +30,11 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
             <th>When (ET)</th>
             <th>Announcement</th>
             <th>Type</th>
-            {series && <th aria-label={`${primaryTicker} around the event`} />}
+            {series && (
+              <th aria-label={`${primaryTicker} price path, ±10 days around the event`}>
+                <span translate="no">{primaryTicker}</span> ±10d path
+              </th>
+            )}
             <th className={styles.num}><span translate="no">{primaryTicker}</span> reaction</th>
           </tr>
         </thead>
