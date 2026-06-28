@@ -16,7 +16,7 @@ import {
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor } from '../lib/correlate'
 import { typeLabel, accentGroup, type AccentGroup } from '../lib/labels'
-import { timelineAriaLabel, netReturnPct, maxDrawdownPct } from '../lib/stats'
+import { timelineAriaLabel, netReturnPct, maxDrawdown } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -177,7 +177,7 @@ export function MasterTimeline({
   const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series.points])
   const ticks = useMemo(() => monthTicks(domain), [domain])
   const net = useMemo(() => netReturnPct(series), [series])
-  const drawdown = useMemo(() => maxDrawdownPct(series), [series])
+  const drawdown = useMemo(() => maxDrawdown(series), [series])
 
   const markers = useMemo(
     () =>
@@ -256,7 +256,8 @@ export function MasterTimeline({
               {formatPct(net)}
             </span>{' '}
             net over the term · deepest drawdown{' '}
-            <span className={styles.termVal} data-dir="down">{formatPct(drawdown)}</span>
+            <span className={styles.termVal} data-dir="down">{formatPct(drawdown?.pct ?? null)}</span>
+            {drawdown && drawdown.pct < 0 ? ` (to ${formatDay(drawdown.troughISO)})` : ''}
           </p>
         </div>
         <div className={styles.legend} role="group" aria-label="Filter events by category">

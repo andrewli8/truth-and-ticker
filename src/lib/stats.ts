@@ -76,22 +76,39 @@ export function netReturnPct(series: Series): number | null {
   return ((pts[pts.length - 1].price - first) / first) * 100
 }
 
+export interface Drawdown {
+  /** Decline from the running peak to the trough, as a percent (≤ 0). */
+  pct: number
+  /** ISO datetime of the trough where the deepest drawdown bottomed. */
+  troughISO: string
+}
+
 /**
  * Deepest drawdown: the largest decline from a running peak to a LATER trough,
- * as a percent (≤ 0). A running-maximum sweep — the standard risk measure.
+ * with the trough's date. A running-maximum sweep — the standard risk measure.
+ * Null for an empty series.
  */
-export function maxDrawdownPct(series: Series): number | null {
+export function maxDrawdown(series: Series): Drawdown | null {
   if (series.points.length === 0) return null
   let peak = series.points[0].price
   let worst = 0
+  let troughISO = series.points[0].datetime
   for (const p of series.points) {
     if (p.price > peak) peak = p.price
     if (peak > 0) {
       const dd = ((p.price - peak) / peak) * 100
-      if (dd < worst) worst = dd
+      if (dd < worst) {
+        worst = dd
+        troughISO = p.datetime
+      }
     }
   }
-  return worst
+  return { pct: worst, troughISO }
+}
+
+/** Deepest drawdown as a percent (≤ 0); see {@link maxDrawdown}. */
+export function maxDrawdownPct(series: Series): number | null {
+  return maxDrawdown(series)?.pct ?? null
 }
 
 /** Convenience lookup by ticker. */

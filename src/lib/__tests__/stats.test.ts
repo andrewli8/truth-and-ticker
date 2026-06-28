@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdownPct } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdownPct, maxDrawdown } from '../stats'
 import type { Series, CorrelatedEvent } from '../types'
 
 const s = (ticker: string, prices: number[]): Series => ({
@@ -59,6 +59,12 @@ describe('maxDrawdownPct', () => {
   })
   it('null for empty', () => {
     expect(maxDrawdownPct({ ...s('X', []), points: [] })).toBeNull()
+  })
+  it('reports the trough date of the deepest drawdown', () => {
+    // peak 120 (Jun 13), trough 90 (Jun 14) ⇒ -25% bottoming on the 14th
+    const dd = maxDrawdown(s('X', [100, 120, 90, 110]))
+    expect(dd?.pct).toBeCloseTo(-25)
+    expect(dd?.troughISO).toContain('2025-06-14')
   })
 })
 
