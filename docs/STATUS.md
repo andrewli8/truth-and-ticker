@@ -286,10 +286,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   a real portability bug — `useCountUp.test` used Node-only `global` (local tsc tolerated it via
   hoisting; clean CI didn't), now `globalThis` (typed via ES2020 lib). Exactly CI's purpose.
 
+- README shows the CI status badge under the title (links to the Actions tab) — standard
+  at-a-glance build signal for the public repo.
+
 ## Next
 
-1. Add a CI status badge to the README. The repo now has a green CI workflow but the README
-   doesn't surface it — a build badge is the standard at-a-glance signal for a public repo.
-   Evidence: .github/workflows/ci.yml (name: CI) exists; README.md has no badge. Acceptance:
-   README shows the CI badge (actions/workflows/ci.yml/badge.svg) linking to the Actions tab,
-   near the title; provable by diffing README.md; verify gate green.
+(empty — no evidence-backed improvement currently queued)
