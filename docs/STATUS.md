@@ -107,17 +107,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - ≥24px tap targets for EventDetail footer (copy-link + citation), WCAG 2.2 target size.
 - ≥24px tap target for AnnouncementCard citation link (WCAG 2.2 target size).
 - 24px hit target for dot-nav (11px dot via ::before); WCAG 2.2 SC 2.5.8.
+- docs/ACCESSIBILITY.md records the a11y posture (target sizes, motion, keyboard, SR, no-JS).
 
 ## Next
-
-1. Document the accessibility posture in docs/ACCESSIBILITY.md so the audited a11y work
-   is a recorded, maintainable artifact. This session hardened target sizes (chips,
-   footer links, citation, dot-nav all ≥24px; chart markers rely on the WCAG 2.2
-   Equivalent-control exception via the ledger row buttons), and the app already has a
-   skip link, reduced-motion guards, focus-visible outlines, ARIA roles/labels, aria-live
-   detail region, and data-rich SVG accessible names. Evidence:
-   src/styles/global.css:69 (reduced-motion guard); Evidence: src/App.tsx:101 (skip link);
-   Evidence: src/components/ScrollStage.module.css:55 (dot-nav 24px target). Acceptance: a
-   new docs/ACCESSIBILITY.md summarizes these guarantees (target sizes incl. the marker
-   equivalent-control rationale, reduced motion, keyboard nav, focus, SR labels); verify
-   gate stays green.
