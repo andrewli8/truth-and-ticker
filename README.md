@@ -62,5 +62,6 @@ git remote add origin git@github.com:<you>/truth-and-ticker.git && git push -u o
 
 ## Design & methodology docs
 
+- Architecture & data flow: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - Spec: `docs/superpowers/specs/2026-06-27-truth-and-ticker-design.md`
 - Plan: `docs/superpowers/plans/2026-06-27-truth-and-ticker.md`
