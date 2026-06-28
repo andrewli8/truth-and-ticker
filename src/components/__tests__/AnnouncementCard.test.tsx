@@ -56,6 +56,23 @@ describe('AnnouncementCard', () => {
     expect(link.href).toContain('example.com/ceasefire')
   })
 
+  it('falls back to the summary when there is no quote, and shows n/a for a null delta', () => {
+    const noQuote: CorrelatedEvent = {
+      announcement: { ...event.announcement, quote: '', summary: 'A spoken remark with no verbatim quote.' },
+      // primaryTicker (SPX) absent → falls back to reactions[0]; its delta is null → flat/n-a.
+      reactions: [
+        { announcementId: 'ceasefire', ticker: 'CL', deltaPct: null, fromPrice: null, toPrice: null, windowMins: 120 },
+      ],
+    }
+    const { getByText, queryAllByText, getByTestId } = render(<AnnouncementCard event={noQuote} primaryTicker="SPX" />)
+    // Summary appears in the quote slot; it is NOT also duplicated as a separate paragraph.
+    expect(queryAllByText(/A spoken remark with no verbatim quote\./)).toHaveLength(1)
+    const badge = getByTestId('delta-badge')
+    expect(badge.className).toMatch(/flat/)
+    expect(badge.textContent).toMatch(/n\/a/i)
+    expect(getByText('CL')).toBeInTheDocument() // fell back to reactions[0]
+  })
+
   it('tells assistive tech the citation opens in a new tab', () => {
     const { getByRole } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
     const link = getByRole('link', { name: /opens in new tab/i }) as HTMLAnchorElement
