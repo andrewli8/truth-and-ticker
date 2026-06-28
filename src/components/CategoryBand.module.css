@@ -100,6 +100,11 @@
   .bar { transition: none; }
 }
 
+/* Print may render before the scroll-into-view reveal fires — show the bars at full width. */
+@media print {
+  .bar { transform: scaleX(1) !important; }
+}
+
 @media (max-width: 640px) {
   .band { padding: 4rem 1.25rem 1.5rem; }
   .row { grid-template-columns: 7rem 1fr 3.8rem; }

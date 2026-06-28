@@ -377,6 +377,12 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   follows the instrument switcher; reduced-motion + forced-colors safe; placed after CategoryBand.
   Unit-tested (stat + component) + E2E render guard. verify + 34 E2E green; no mobile overflow.
 
+- Fixed a latent print bug: scroll-into-view reveal-gated content (ReactionSpread dots
+  `opacity:0`, CategoryBand bars `scaleX(0)`) was invisible when printing without first scrolling
+  it into view (IntersectionObserver doesn't fire for print, and the print block disables
+  transitions). Added `@media print` fallbacks forcing both visible. Confirmed via print-emulation
+  capture (no scroll). Verify green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

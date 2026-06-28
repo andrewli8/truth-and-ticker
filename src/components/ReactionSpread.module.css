@@ -64,6 +64,11 @@
   .dot { transition: none; opacity: 0.7; }
 }
 
+/* Print may render before the scroll-into-view reveal fires — keep the dots visible. */
+@media print {
+  .dot { opacity: 0.7 !important; }
+}
+
 /* In Windows High Contrast mode, fills are flattened — keep the dots visible. */
 @media (forced-colors: active) {
   .dot { fill: CanvasText; opacity: 1; }
