@@ -11,7 +11,7 @@ import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll } from './lib/correlate'
 import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
-import { windowAround } from './lib/scales'
+import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
 import { hashForEvent } from './lib/hash'
 import { useReducedMotion } from './lib/useReducedMotion'
@@ -56,6 +56,9 @@ export default function App() {
     () => seriesByTicker(markets, PRIMARY) ?? markets[0],
     [],
   )
+  // Real S&P 500 shape for the hero backdrop (viewBox 0 0 1200 300).
+  const heroLine = useMemo(() => buildLinePath(fallbackSeries.points, 1200, 300, 1), [fallbackSeries])
+  const heroArea = useMemo(() => buildAreaPath(fallbackSeries.points, 1200, 300, 1), [fallbackSeries])
 
   const scrollyRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
@@ -94,7 +97,7 @@ export default function App() {
     <main className="app">
       <div className="grain" aria-hidden="true" />
       <ThemeToggle />
-      <Hero />
+      <Hero linePath={heroLine} areaPath={heroArea} />
       <StatBand markets={markets} />
       <div ref={timelineRef}>
         <MasterTimeline
