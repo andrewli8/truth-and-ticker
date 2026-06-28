@@ -1,0 +1,444 @@
+/* The one-screen hub. Fills the viewport, never scrolls the page; only the filmstrip
+   scrolls (horizontally). Themeable via the global tokens; accent tracks the active
+   reaction's direction. */
+.hub {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.6vh, 1.1rem);
+  padding: clamp(1rem, 3vw, 2.4rem);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      130% 80% at 78% 6%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 55%
+    ),
+    var(--bg);
+  color: var(--text);
+  --accent: var(--muted);
+  --cw: clamp(11rem, 21vw, 16.5rem);
+}
+.hub[data-dir='up'] {
+  --accent: var(--relief);
+}
+.hub[data-dir='down'] {
+  --accent: var(--risk);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(color-mix(in srgb, var(--text) 6%, transparent) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+  mask-image: radial-gradient(120% 120% at 50% 40%, #000 30%, transparent 100%);
+}
+
+/* ── Masthead ─────────────────────────────────────────────────────────────── */
+.masthead {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+}
+.title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.amp {
+  color: var(--accent);
+  transition: color 0.5s var(--ease);
+}
+.thesis {
+  margin: 0.5rem 0 0;
+  max-width: 40rem;
+  color: var(--muted);
+  font-size: clamp(0.82rem, 1.4vw, 1rem);
+  line-height: 1.45;
+}
+
+/* ── Summary chips ─────────────────────────────────────────────────────────── */
+.stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.statNum {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.statLabel {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Instrument switcher ──────────────────────────────────────────────────── */
+.switch {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.chip {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 999px;
+  padding: 0.34rem 0.74rem;
+  cursor: pointer;
+  transition:
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    background 0.25s var(--ease);
+}
+.chip:hover {
+  color: var(--text);
+}
+.chip[aria-pressed='true'] {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Filmstrip ─────────────────────────────────────────────────────────────── */
+.stage {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.4vw, 1rem);
+  width: 100%;
+  height: 100%;
+  max-height: 30rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  padding-inline: calc(50% - var(--cw) / 2);
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track:focus-visible {
+  outline: none;
+}
+
+.card {
+  flex: 0 0 var(--cw);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: clamp(15rem, 64%, 22rem);
+  padding: clamp(1rem, 1.6vw, 1.5rem);
+  text-align: left;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.5;
+  transform: scale(0.9);
+  transition:
+    opacity 0.45s var(--ease),
+    transform 0.45s var(--ease),
+    border-color 0.45s var(--ease),
+    background 0.45s var(--ease);
+}
+.cardOn {
+  opacity: 1;
+  transform: scale(1);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.cardIndex {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+.cardDate {
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.cardType {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cardPct {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.cardQuote {
+  flex: 1 1 auto;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--text) 80%, transparent);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.cardOpen {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Direction-coloured reaction numbers. */
+[data-dir='up'].cardPct,
+[data-dir='up'].statNum,
+[data-dir='up'].zoomReaction {
+  color: var(--relief);
+}
+[data-dir='down'].cardPct,
+[data-dir='down'].statNum,
+[data-dir='down'].zoomReaction {
+  color: var(--risk);
+}
+[data-dir='flat'].cardPct,
+[data-dir='flat'].statNum,
+[data-dir='flat'].zoomReaction {
+  color: var(--muted);
+}
+
+.hint {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Zoom detail layer ─────────────────────────────────────────────────────── */
+.zoomBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: zoomFade 0.3s var(--ease);
+}
+@keyframes zoomFade {
+  from {
+    opacity: 0;
+  }
+}
+.zoom {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  width: min(100%, 70rem);
+  max-height: 100%;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--sel) 45%, transparent);
+  background: var(--bg);
+  box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--sel) 55%, #000);
+  animation: zoomIn 0.35s var(--ease);
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+.zoomClose {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 2;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+}
+.zoomClose:hover {
+  color: var(--text);
+}
+.zoomClose:focus-visible {
+  outline: 2px solid var(--sel);
+  outline-offset: 2px;
+}
+.zoomChart {
+  min-width: 0;
+  min-height: clamp(16rem, 40vh, 24rem);
+  display: flex;
+}
+.zoomCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+  overflow-y: auto;
+}
+.zoomMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.zoomTag {
+  text-transform: uppercase;
+  color: var(--sel);
+}
+.zoomReaction {
+  margin: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.zoomReactionLabel {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.zoomQuote {
+  margin: 0;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.4;
+}
+.zoomMoves {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.zoomMoves li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.78rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+.zoomMoveName {
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.zoomMoves li[data-dir='up'] .zoomMovePct {
+  color: var(--relief);
+}
+.zoomMoves li[data-dir='down'] .zoomMovePct {
+  color: var(--risk);
+}
+.zoomMoves li[data-dir='flat'] .zoomMovePct {
+  color: var(--muted);
+}
+.zoomCite {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  width: fit-content;
+}
+.zoomCite:hover {
+  color: var(--text);
+  border-bottom-color: currentColor;
+}
+
+@media (max-width: 760px) {
+  .zoom {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+  .zoomChart {
+    min-height: 14rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .card {
+    opacity: 1;
+    border: 1px solid CanvasText;
+  }
+  .cardOn {
+    border: 2px solid Highlight;
+  }
+  .chip {
+    color: ButtonText;
+    background: ButtonFace;
+    border-color: ButtonText;
+  }
+  .chip[aria-pressed='true'] {
+    color: Highlight;
+    border-color: Highlight;
+  }
+  .grain {
+    display: none;
+  }
+}

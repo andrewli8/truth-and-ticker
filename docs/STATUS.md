@@ -5,31 +5,25 @@ Continuous looptight-gated improvement loop. Each task: implement → `npm run v
 honest data representation.
 
 ## Now
-Whole-second-term scope, honest data representation, editorial design, and a connected
-interactive experience are all in place: hero → key-swing StatBand → CategoryBand
-("which posts moved <instrument>?", reveals on scroll, follows the instrument switcher)
-→ master timeline (filterable legend, scrub, de-collided markers, term-outcome line +
-"rose on N of M posts" hit-rate, a y-axis price reference, and the deepest-drawdown trough
-marked on the line) ↔ windowed deep-dive (per-event reveal, pull-quote, reaction count-up
-+ per-event fade) ↔ ledger (sparklines, jump-to-moment), with deep-linkable + shareable
-events, a real-data hero backdrop, a kinetic per-glyph hero title, and an Outro "biggest
-single-day reactions" lead-in whose cards jump to the event. Both charts state the market
-reaction ON the line (shared ChartReactionLabel — deep-dive at the event's data point, the
-overview at the selected marker), and the timeline detail lists every instrument's move for
-the selected event. Honest colour: direction() treats ~0% moves as flat, a VIX spike is
-neutral (not a green "gain"), and the hit-rate tally is neutral. Theme follows the OS on
-first visit and persists only explicit choices. Cohesive motion (shared --ease, hover/press
-states), WCAG 2.2 target sizes, forced-colors, and broad a11y (docs/ACCESSIBILITY.md, incl.
-aria-hidden on decorative chart echoes). Every charted-instrument figure in
-the prose is test-asserted against the data. Alongside the main piece, a standalone
-one-screen interactive concept ("When he posts, the market moves") ships as a second
-Vite entry at /poc.html (src/poc/), linked from the Outro footer: a chosen market's term
-as one glowing line you scrub by drag or arrow keys, the scene's accent flipping to each
-post's gain/loss, with an instrument switcher (six markets, default S&P 500; the line
-re-draws on switch) and an awwwards-grade GSAP entrance (reduced-motion safe), reusing the
-real data + pure chart helpers. Testing: 290 unit/component (the verify gate) plus a
-42-spec Playwright E2E suite (incl. POC drag/keyboard/switch/reduced-motion/mobile); CI
-runs verify + coverage thresholds + E2E on every push/PR.
+The main site (index.html) is a single-screen interactive HUB (src/hub/, replacing the
+earlier long-form scrollytelling, which remains in git history). Everything is on one
+viewport: a masthead + thesis, summary stats (count, the instrument's Jan→Jun net, the
+biggest single swing), an instrument switcher (six markets), and a horizontal FILMSTRIP of
+all 30 announcements you travel by scroll/drag/←→ keys — the centred card is active, and
+clicking it ZOOMS into a focused detail dialog (the windowed market chart with the reaction
+labelled on the line + the full quote + every instrument's move). The whole scene recolours
+to the active reaction's gain/loss; themeable + reduced-motion + forced-colors safe. Built
+on the same data + pure lib + chart components (MarketChart/ChartReactionLabel/scales/
+correlate/stats) as before. Honest colour: direction() treats ~0% moves as flat and a VIX
+spike is neutral. Theme follows the OS on first visit and persists only explicit choices.
+A standalone
+one-screen interactive concept ("When he posts, the market moves") also ships as a second
+Vite entry at /poc.html (src/poc/): a chosen market's term as one glowing line you scrub by
+drag or arrow keys, the scene's accent flipping to each post's gain/loss, with an instrument
+switcher (six markets, default S&P 500; the line re-draws on switch) and an awwwards-grade
+GSAP entrance (reduced-motion safe), reusing the real data + pure chart helpers. Testing:
+295 unit/component (the verify gate) plus an 11-spec Playwright E2E suite (hub: load/arrow-
+nav/zoom/switch/skip-link/mobile, plus POC); CI runs verify + coverage thresholds + E2E.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
@@ -408,4 +402,27 @@ runs verify + coverage thresholds + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+ONE-SCREEN REDESIGN — Phase 1 shipped (hub shell + filmstrip + click-to-zoom event
+detail, replacing the scrollytelling at index.html; verify + coverage + 11 E2E green).
+Remaining:
+
+1. The hub no longer links to the POC (the link lived in the now-removed Outro), so
+   /poc.html is unreachable from the site and absent from discovery.
+   Evidence: src/hub/HubApp.tsx renders no anchor to /poc.html; the retired Outro
+   (src/components/Outro.tsx) was the only link.
+   Acceptance: the hub renders a link to /poc.html (the concept); an App/hub test asserts
+   an anchor whose href is /poc.html.
+2. The redesign left the scrollytelling-only components unused (dead in the product but
+   still bundled-out): Hero, ScrollStage, MasterTimeline, AnnouncementCard, StatBand,
+   Outro, TickerRail, EventDetail, plus lib helpers (scroll.ts, parts of hash.ts/stats.ts).
+   Evidence: none are imported by src/App.tsx or src/hub/* (only MarketChart,
+   ChartReactionLabel, ThemeToggle, and lib scales/correlate/stats/format/labels/
+   instruments are). Acceptance: either reuse a component as a zoom layer (see #3) or
+   remove it with its test/CSS; provable by grep showing no unused component remains and
+   verify + coverage staying green.
+3. Phase 2 — make the summary chips / a "breakdown" affordance zoom into detail layers
+   reusing the existing views (CategoryBand "which posts moved X", ReactionSpread
+   distribution, the ledger) so they aren't lost from the redesign and aren't dead code.
+   Evidence: src/components/CategoryBand.tsx, ReactionSpread.tsx, Outro.tsx are fully
+   built + tested but now unmounted. Acceptance: clicking a hub summary chip opens a zoom
+   layer rendering one of these; covered by a hub test + an E2E case.
