@@ -172,6 +172,16 @@ export function MasterTimeline({
   const linePath = useMemo(() => timeLinePath(series.points, W, H), [series.points])
   const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series.points])
   const ticks = useMemo(() => monthTicks(domain), [domain])
+  // A few interior price levels (y-axis), so the overview shows actual index levels, not
+  // just the shape. Kept to interior lines (no edge hugging) to stay subtle behind markers.
+  const priceGrid = useMemo(() => {
+    const { min, max } = vdom
+    if (!(max > min)) return []
+    return [0.25, 0.5, 0.75].map((t) => {
+      const value = min + (max - min) * t
+      return { value, y: priceY(value, H, vdom) }
+    })
+  }, [vdom])
   const net = useMemo(() => netReturnPct(series), [series])
   const drawdown = useMemo(() => maxDrawdown(series), [series])
 
@@ -358,6 +368,13 @@ export function MasterTimeline({
             <stop offset="100%" stopColor="var(--text)" stopOpacity="0" />
           </linearGradient>
         </defs>
+
+        {priceGrid.map((g) => (
+          <g key={g.value} data-testid="price-grid">
+            <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
+            <text x={PAD} y={g.y - 4} className={styles.priceLabel}>{formatPrice(g.value)}</text>
+          </g>
+        ))}
 
         {ticks.map((t) => {
           const x = timeX(t.ms, W, domain)

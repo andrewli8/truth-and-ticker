@@ -152,6 +152,14 @@
   letter-spacing: 0.1em;
 }
 
+/* Y-axis price levels — faint, so the line and event markers stay dominant. */
+.priceLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  fill: var(--muted);
+  opacity: 0.85;
+}
+
 .area { pointer-events: none; }
 
 .line {

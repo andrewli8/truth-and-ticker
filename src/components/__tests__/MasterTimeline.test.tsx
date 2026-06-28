@@ -76,6 +76,14 @@ describe('MasterTimeline', () => {
     expect(words.getAttribute('aria-hidden')).toBeNull()
   })
 
+  it('renders y-axis price reference lines with labels', () => {
+    const { getAllByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    // Interior price gridlines give the overview a readable y-axis (level, not just shape).
+    expect(getAllByTestId('price-grid').length).toBeGreaterThanOrEqual(3)
+  })
+
   it('shows the directional hit-rate in the term-stat when provided', () => {
     const { getByTestId } = render(
       <MasterTimeline
