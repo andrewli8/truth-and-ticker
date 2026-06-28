@@ -1,8 +1,9 @@
-import { describe, it, expect, afterEach } from 'vitest'
+import { describe, it, expect, afterEach, vi } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useTheme } from '../useTheme'
 
 afterEach(() => {
+  vi.unstubAllGlobals()
   localStorage.clear()
   document.documentElement.removeAttribute('data-theme')
 })
@@ -27,5 +28,11 @@ describe('useTheme', () => {
     const { result } = renderHook(() => useTheme())
     expect(result.current.theme).toBe('dark')
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+  })
+
+  it('defaults to light without throwing when localStorage is unavailable (SSR guard)', () => {
+    vi.stubGlobal('localStorage', undefined)
+    const { result } = renderHook(() => useTheme())
+    expect(result.current.theme).toBe('light')
   })
 })
