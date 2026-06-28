@@ -43,6 +43,7 @@
 }
 .termVal[data-dir='up'] { color: var(--relief); }
 .termVal[data-dir='down'] { color: var(--risk); }
+.termVal[data-dir='flat'] { color: var(--muted); }
 
 .legend {
   display: flex;

@@ -53,6 +53,7 @@
 .up { /* shared text + bar color */ }
 .bar.up { background: var(--relief); }
 .bar.down { background: var(--risk); }
+.bar.flat { background: var(--muted); }
 
 /* In Windows High Contrast / forced-colors mode, CSS background colours are flattened,
    which would erase the bars. Render them with system colours so the chart still shows
@@ -63,7 +64,8 @@
     border: 1px solid CanvasText;
   }
   .bar.up,
-  .bar.down {
+  .bar.down,
+  .bar.flat {
     background: CanvasText;
   }
 }
@@ -76,6 +78,7 @@
 }
 .val.up { color: var(--relief); }
 .val.down { color: var(--risk); }
+.val.flat { color: var(--muted); }
 
 .count {
   font-family: 'JetBrains Mono', monospace;

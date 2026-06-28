@@ -259,6 +259,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   EventDetail, Outro ×2, AnnouncementCard, ChartReactionLabel) now call it instead of an inline
   `x === null ? 'flat' : x >= 0 ? 'up' : 'down'`. Behavior-preserving; single source of truth.
   Covered by format.test (positive/negative/zero/null/NaN). Verify + 30 E2E green.
+- Honest treatment of negligible moves: `direction()` now reads a value as 'flat' when its
+  magnitude is within rounding noise (|x| < 0.05%, default), not just on null — so a ~0% move
+  (e.g. NDX on the Moody's downgrade, +0.023%) is shown muted instead of coloured as a gain.
+  Applied consistently via the shared helper; added the missing `.flat` colour variants
+  (CategoryBand val+bar incl. forced-colors, EventDetail, MasterTimeline term-stat,
+  ChartReactionLabel). The +/- number still shows direction. format.test covers the threshold.
 
 ## Next
 

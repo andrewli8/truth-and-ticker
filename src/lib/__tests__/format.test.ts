@@ -2,11 +2,17 @@ import { describe, it, expect } from 'vitest'
 import { formatPct, formatPrice, formatTime, formatDay, axisFloorLabel, direction } from '../format'
 
 describe('direction', () => {
-  it('maps positive (and zero) to up', () => {
-    expect(direction(1.2)).toBe('up')
-    expect(direction(0)).toBe('up')
+  it('maps a meaningful positive move to up', () => expect(direction(1.2)).toBe('up'))
+  it('maps a meaningful negative move to down', () => expect(direction(-0.5)).toBe('down'))
+  it('maps zero and negligible moves (within rounding noise) to flat', () => {
+    expect(direction(0)).toBe('flat')
+    expect(direction(0.02)).toBe('flat') // e.g. NDX on the Moody's downgrade (+0.023%)
+    expect(direction(-0.04)).toBe('flat')
   })
-  it('maps negative to down', () => expect(direction(-0.5)).toBe('down'))
+  it('respects a custom flatBelow threshold', () => {
+    expect(direction(0.02, 0)).toBe('up') // pure sign when threshold is 0
+    expect(direction(0.4, 0.5)).toBe('flat')
+  })
   it('maps null / undefined / NaN to flat', () => {
     expect(direction(null)).toBe('flat')
     expect(direction(undefined)).toBe('flat')

@@ -90,6 +90,7 @@
 }
 .reactionValue[data-dir='up'] { color: var(--relief); }
 .reactionValue[data-dir='down'] { color: var(--risk); }
+.reactionValue[data-dir='flat'] { color: var(--muted); }
 
 .reactionLabel {
   font-family: 'JetBrains Mono', monospace;

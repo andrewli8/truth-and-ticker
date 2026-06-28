@@ -13,3 +13,4 @@
 }
 .label[data-dir='up'] { fill: var(--relief); }
 .label[data-dir='down'] { fill: var(--risk); }
+.label[data-dir='flat'] { fill: var(--muted); }

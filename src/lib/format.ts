@@ -10,11 +10,13 @@ export type Direction = 'up' | 'down' | 'flat'
 
 /**
  * Sign direction of a value, for up/down/flat styling (CSS class or data-dir).
- * null/undefined/NaN degrade to 'flat'; zero counts as 'up' (matches formatPct's sign).
+ * null/undefined/NaN — and values whose magnitude is below `flatBelow` — read as 'flat'.
+ * The default 0.05 keeps colour honest for percentage moves: a ~0% close-to-close move is
+ * within rounding noise and shouldn't be coloured as a gain or loss (the +/- number still shows).
  */
-export function direction(value: number | null | undefined): Direction {
+export function direction(value: number | null | undefined, flatBelow = 0.05): Direction {
   if (isBad(value)) return 'flat'
-  return value >= 0 ? 'up' : 'down'
+  return Math.abs(value) < flatBelow ? 'flat' : value >= 0 ? 'up' : 'down'
 }
 
 /** Signed percentage to 2 decimals, e.g. +1.34% / -0.50%. */
