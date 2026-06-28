@@ -38,14 +38,16 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
       <ul className={styles.rows}>
         {rows.map((r, i) => {
           const dir = r.avgPct >= 0 ? 'up' : 'down'
-          // Grow from 0 to the value when the section scrolls into view, staggered by row.
-          const width = inView ? `${(Math.abs(r.avgPct) / max) * 100}%` : '0%'
+          // The bar holds its target width; the reveal is a GPU-friendly scaleX(0→1) on
+          // scroll-into-view, staggered by row (no per-frame layout reflow).
+          const width = `${(Math.abs(r.avgPct) / max) * 100}%`
+          const transform = inView ? 'scaleX(1)' : 'scaleX(0)'
           const transitionDelay = reduced ? '0s' : `${i * 0.06}s`
           return (
             <li key={r.type} className={styles.row}>
               <span className={styles.label}>{typeLabel(r.type)}</span>
               <span className={styles.track} aria-hidden="true">
-                <span className={`${styles.bar} ${styles[dir]}`} style={{ width, transitionDelay }} />
+                <span className={`${styles.bar} ${styles[dir]}`} style={{ width, transform, transitionDelay }} />
               </span>
               <span className={`${styles.val} ${styles[dir]}`}>{formatPct(r.avgPct)}</span>
               <span className={styles.count}>n={r.count}</span>
