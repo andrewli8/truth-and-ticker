@@ -184,6 +184,15 @@ export function MasterTimeline({
   }, [vdom])
   const net = useMemo(() => netReturnPct(series), [series])
   const drawdown = useMemo(() => maxDrawdown(series), [series])
+  // Place the deepest-drawdown trough on the chart so the term-stat's "(to <date>)" is locatable.
+  const drawdownPos = useMemo(() => {
+    if (!drawdown || drawdown.pct >= 0) return null
+    const ms = Date.parse(drawdown.troughISO)
+    if (Number.isNaN(ms)) return null
+    const price = valueAt(series.points, ms)
+    if (price == null) return null
+    return { x: timeX(ms, W, domain), y: priceY(price, H, vdom), pct: drawdown.pct }
+  }, [drawdown, series.points, domain, vdom])
 
   // Optional benchmark overlay (its own auto-scale, for shape/timing comparison).
   const canCompare = !!benchmark && benchmark.ticker !== series.ticker
@@ -396,6 +405,20 @@ export function MasterTimeline({
           </>
         )}
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
+
+        {drawdownPos && (
+          <g data-testid="drawdown-marker" pointerEvents="none">
+            <circle cx={drawdownPos.x} cy={drawdownPos.y} r={4} className={styles.drawdownDot} />
+            <text
+              x={drawdownPos.x}
+              y={drawdownPos.y - 10}
+              textAnchor="middle"
+              className={styles.drawdownLabel}
+            >
+              {formatPct(drawdownPos.pct)}
+            </text>
+          </g>
+        )}
 
         {visible.map(({ a, x, dx, y }, i) => {
           const isSel = a.id === selectedId

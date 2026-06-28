@@ -332,13 +332,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   shape — consistent with the deep-dive chart. Subtle (behind the line/markers); no clutter.
   MasterTimeline-tested (price-grid renders); verify + 31 E2E green; no mobile overflow.
 
+- Deepest-drawdown trough is now marked on the master timeline: a hollow red ring + faint
+  "−18.90%" label at the trough point (distinct from the filled event dots), connecting the
+  term-stat's "(to <date>)" to its location on the chart. Only shows when there's a drawdown.
+  MasterTimeline-tested; verify + E2E green; screenshot-confirmed unobtrusive.
+
 ## Next
 
-1. Mark the deepest-drawdown trough on the master timeline. The term-stat cites "deepest
-   drawdown −X% (to <date>)" but the trough is invisible on the chart, so the reader can't
-   locate it — the same stat↔chart disconnect the reaction labels fixed. Evidence:
-   src/components/MasterTimeline.tsx (maxDrawdown gives {pct, troughISO}; valueAt/timeX/priceY
-   available; nothing marks the trough). Acceptance: a subtle, distinct annotation (a hollow
-   ring + faint "−X%" label, not a filled event dot) marks the trough point, only when there is
-   a drawdown; a MasterTimeline test asserts it renders with the drawdown %; verify + E2E green;
-   visually unobtrusive (screenshot-checked).
+(empty — no evidence-backed improvement currently queued)

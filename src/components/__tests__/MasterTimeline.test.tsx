@@ -76,6 +76,15 @@ describe('MasterTimeline', () => {
     expect(words.getAttribute('aria-hidden')).toBeNull()
   })
 
+  it('marks the deepest-drawdown trough with its percentage', () => {
+    const { getByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const marker = getByTestId('drawdown-marker')
+    // The trough is annotated with a signed (negative) percentage.
+    expect(marker.textContent).toMatch(/-\d+(\.\d+)?%/)
+  })
+
   it('renders y-axis price reference lines with labels', () => {
     const { getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
