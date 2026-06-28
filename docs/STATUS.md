@@ -402,13 +402,13 @@ nav/zoom/switch/skip-link/mobile, plus POC); CI runs verify + coverage threshold
 
 ## Next
 
-ONE-SCREEN REDESIGN — Phases 1 & 2 shipped (hub + filmstrip + click-to-zoom event detail;
-breakdown zoom layers reusing CategoryBand/ReactionSpread/ledger). Remaining:
+ONE-SCREEN REDESIGN — shipped (phase 1 hub+filmstrip+zoom; phase 2 breakdown layers;
+phase 3 dead-code removal). Follow-ups:
 
-1. Remove the scrollytelling-only components the redesign left genuinely unused (phase-2
-   reuse kept CategoryBand/ReactionSpread/Outro/MarketChart/ChartReactionLabel/ThemeToggle).
-   Evidence: Hero, ScrollStage, MasterTimeline, AnnouncementCard, StatBand, TickerRail,
-   EventDetail are not imported by src/App.tsx or src/hub/* (grep), and lib helpers
-   scroll.ts + parts of hash.ts/stats.ts/labels.ts may now be dead too.
-   Acceptance: each genuinely-unused component removed with its test + CSS module; `grep`
-   confirms no remaining import-less component/helper; verify + coverage + E2E stay green.
+1. The docs still describe the retired scrollytelling and the removed components.
+   Evidence: docs/ARCHITECTURE.md "## Components" lists Hero/ScrollStage/MasterTimeline/
+   Outro etc. and a scroll flow; README "How it works" references ScrollStage/MasterChart
+   scroll and components now deleted; neither describes src/hub/.
+   Acceptance: ARCHITECTURE + README describe the hub (filmstrip, EventZoom, BreakdownZoom,
+   instrument switcher) and drop references to deleted components; provable by grep (no
+   ScrollStage/MasterTimeline mention; "hub"/"filmstrip" present).
