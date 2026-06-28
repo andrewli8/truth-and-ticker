@@ -154,8 +154,10 @@ export default function App() {
                 <TickerRail moves={eventMoves(event)} />
               </div>
               <div className="stageCard">
-                <div className="stageStep">
-                  {String(step + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
+                <div className="stageStep" aria-label={`Event ${step + 1} of ${featured.length}`}>
+                  <span aria-hidden="true">
+                    {String(step + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
+                  </span>
                 </div>
                 <AnnouncementCard key={event.announcement.id} event={event} primaryTicker={spotlight} />
               </div>
