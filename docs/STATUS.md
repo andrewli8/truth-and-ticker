@@ -407,20 +407,4 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-1. The POC (now a linked page) has no Windows High Contrast / forced-colors handling,
-   unlike its sibling chart surfaces.
-   Evidence: src/poc/poc.css has no forced-colors block, whereas
-   src/components/CategoryBand.module.css and src/components/ReactionSpread.module.css
-   both ship `@media (forced-colors: active)` fallbacks; the POC's text-shadow readout
-   halo and custom-property accents are dropped in forced-colors.
-   Acceptance: src/poc/poc.css gains an `@media (forced-colors: active)` block keeping the
-   line, the reaction readout, and the title legible against the system canvas; provable
-   by diffing poc.css and a forced-colors emulation screenshot.
-2. The POC's accessibility posture (keyboard slider scrubbing with arrow/Home/End, a
-   visible focus ring, reduced-motion-gated entrance) is undocumented in the a11y doc.
-   Evidence: docs/ACCESSIBILITY.md:6 (Keyboard) and docs/ACCESSIBILITY.md:29 (Motion)
-   cover only the main app; neither mentions the POC, though src/poc/PocApp.tsx now
-   exposes a role="slider" chart with onKeyDown stepping and it is linked from the Outro.
-   Acceptance: docs/ACCESSIBILITY.md describes the POC's keyboard slider scrubbing and
-   reduced-motion handling; provable by grep finding the POC under the Keyboard/Motion
-   sections.
+(empty — no evidence-backed improvement currently queued)

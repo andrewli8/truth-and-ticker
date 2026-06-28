@@ -10,6 +10,11 @@ guarantees it ships with and how they're implemented.
   arrow keys (←/→/↑/↓), moving focus along the visible (legend-filtered) set.
 - The deep-dive "Jump to announcement" dot-nav and the ledger "View on the timeline"
   rows are real buttons, reachable and operable by keyboard.
+- The one-screen POC (`/poc.html`, `src/poc/PocApp.tsx`) chart is a focusable
+  `role="slider"` (`tabIndex=0`, with `aria-valuemin`/`max`/`now`/`valuetext`): the
+  arrow keys step post-by-post (←/↓ back, →/↑ forward) and Home/End jump to the first/
+  last announcement, so the scrub interaction isn't pointer-only. It shows a visible
+  `:focus-visible` outline and its on-screen hint names the arrow-key affordance.
 - All controls show a visible `:focus-visible` outline (`src/styles/global.css`).
 
 ## Screen readers
@@ -33,6 +38,11 @@ guarantees it ships with and how they're implemented.
   count-up are individually short-circuited under reduced motion as well.
 - Interactive hover/press motion uses a shared `--ease` token; reveals are transform/
   opacity only.
+- The POC's GSAP entrance (line draw-on, masked title, count-up readout, lerp-follow
+  cursor) is fully gated on reduced motion — the `useGSAP` blocks short-circuit, so the
+  scene renders complete and static, and the follow cursor is suppressed
+  (`src/poc/PocApp.tsx`, `src/poc/poc.css`). An E2E case (`e2e/poc.spec.ts`) locks that
+  the reduced-motion scene is visible on load without interaction.
 
 ## Target size (WCAG 2.2 SC 2.5.8)
 
@@ -59,6 +69,10 @@ Measured WCAG contrast on the light background (dark theme is comparable):
   marker, spine), which needs the 3:1 graphical-object threshold (SC 1.4.11), which it
   meets. The dark theme's brighter accents pass comfortably (6–11:1). Direction is also
   never conveyed by colour alone — the `+`/`−` sign and the number carry it (SC 1.4.1).
+- **Forced colors / Windows High Contrast**: the SVG charts survive natively (strokes and
+  marker fills map to system colours), and the CSS-background surfaces that don't
+  (CategoryBand bars, ReactionSpread dots, and the POC's line/readout/text) ship
+  `@media (forced-colors: active)` fallbacks pinning them to `CanvasText`/`Canvas`.
 
 ## No-JS
 
