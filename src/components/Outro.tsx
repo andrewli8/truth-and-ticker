@@ -31,7 +31,7 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
             <th>Announcement</th>
             <th>Type</th>
             {series && <th aria-label={`${primaryTicker} around the event`} />}
-            <th className={styles.num}>{primaryTicker} reaction</th>
+            <th className={styles.num}><span translate="no">{primaryTicker}</span> reaction</th>
           </tr>
         </thead>
         <tbody>
