@@ -9,17 +9,20 @@ Whole-second-term scope, honest data representation, editorial design, and a con
 interactive experience are all in place: hero → key-swing StatBand → CategoryBand
 ("which posts moved <instrument>?", reveals on scroll, follows the instrument switcher)
 → master timeline (filterable legend, scrub, de-collided markers, term-outcome line +
-"rose on N of M posts" hit-rate) ↔ windowed deep-dive (per-event reveal, pull-quote,
-reaction count-up + per-event fade) ↔ ledger (sparklines, jump-to-moment), with
-deep-linkable + shareable events, a real-data hero backdrop, a kinetic per-glyph hero
-title, and an Outro "biggest single-day reactions" lead-in. Both charts state the market
+"rose on N of M posts" hit-rate, a y-axis price reference, and the deepest-drawdown trough
+marked on the line) ↔ windowed deep-dive (per-event reveal, pull-quote, reaction count-up
++ per-event fade) ↔ ledger (sparklines, jump-to-moment), with deep-linkable + shareable
+events, a real-data hero backdrop, a kinetic per-glyph hero title, and an Outro "biggest
+single-day reactions" lead-in whose cards jump to the event. Both charts state the market
 reaction ON the line (shared ChartReactionLabel — deep-dive at the event's data point, the
-overview at the selected marker). Honest colour: direction() treats ~0% moves as flat, and
-a VIX spike is neutral (not a green "gain"). Theme follows the OS on first visit, then the
-user's choice. Cohesive motion (shared --ease, hover/press states), WCAG 2.2 target sizes,
-forced-colors, and broad a11y (docs/ACCESSIBILITY.md). Every charted-instrument figure in
-the prose is test-asserted against the data. Testing: 259 unit/component (the verify gate)
-plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on every push/PR.
+overview at the selected marker), and the timeline detail lists every instrument's move for
+the selected event. Honest colour: direction() treats ~0% moves as flat, a VIX spike is
+neutral (not a green "gain"), and the hit-rate tally is neutral. Theme follows the OS on
+first visit and persists only explicit choices. Cohesive motion (shared --ease, hover/press
+states), WCAG 2.2 target sizes, forced-colors, and broad a11y (docs/ACCESSIBILITY.md, incl.
+aria-hidden on decorative chart echoes). Every charted-instrument figure in
+the prose is test-asserted against the data. Testing: 272 unit/component (the verify gate)
+plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on every push/PR.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
