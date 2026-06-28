@@ -185,5 +185,6 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Web app manifest + 192/512 icons (Android/Chrome home-screen branding; display=browser).
 - PNG favicon fallback (favicon-32) for contexts without SVG-favicon support.
 - Accessible data-table semantics for the Outro ledger (scope=col headers + caption); tested.
+- Machine-readable <time datetime> for all event dates (ledger, EventDetail, AnnouncementCard).
 
 ## Next
