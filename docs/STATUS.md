@@ -80,15 +80,7 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Dropped dead .dayLabel CSS rule in MarketChart.
 - GPU-friendly marker hover (transform scale, not the SVG r attribute).
 - Removed unused maxDrawdownPct export (tests retargeted at maxDrawdown).
+- Corrected two WTI figures that contradicted the chart data (Jun 13 +7.6→+7.3%,
+  Jun 23 ~7.2→~8.6%); guarded by a WTI-claim-vs-CL-data integrity test.
 
 ## Next
-
-1. Correct two WTI percentage claims that contradict markets.json, and guard them with a
-   test. The Jun 13 summary says "WTI +7.6%" but the CL series moves 68.04→72.98 =
-   +7.26%; the Jun 23 summary says "plunged ~7.2%" but CL moves 74.93→68.51 = -8.57%.
-   Evidence: src/data/announcements.json:265; Evidence: src/data/announcements.json:286;
-   Evidence: src/data/markets.json (CL 2025-06-13 pctFromPrevClose 7.26, 2025-06-23
-   -8.57). Acceptance: a new data-integrity test parses any "WTI <n>%" figure from each
-   announcement summary and asserts it matches that event's CL close-to-close reaction
-   (abs) within 0.2pp — failing on the current text and passing once the two figures are
-   corrected to ~7.3% and ~8.6%.
