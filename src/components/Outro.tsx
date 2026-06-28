@@ -82,7 +82,7 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
         </tbody>
       </table>
       <p className={styles.method}>
-        Methodology: each reaction compares the market&apos;s prior close (the last close
+        Methodology: each reaction compares the market’s prior close (the last close
         before the announcement) with its next close (the first close on or after it),
         using publicly reported figures. Every event links to its source. This piece shows
         timing correlation; it does not allege trading by any named individual.

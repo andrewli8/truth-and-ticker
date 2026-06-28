@@ -52,7 +52,7 @@ export function Hero({ linePath, areaPath }: Props) {
         <path className={styles.backdropArea} d={areaPath || FALLBACK_AREA} fill="url(#heroLineFill)" />
         <path className={styles.backdropLine} d={linePath || FALLBACK_LINE} fill="none" />
       </svg>
-      <div className={styles.kicker} data-hero>JAN – JUN 2025 · TRUMP&apos;S SECOND TERM</div>
+      <div className={styles.kicker} data-hero>JAN – JUN 2025 · TRUMP’S SECOND TERM</div>
       <h1 className={styles.title} data-hero>
         TRUTH<span className={styles.amp}>&amp;</span>TICKER
       </h1>
