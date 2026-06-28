@@ -112,6 +112,14 @@ describe('chartAriaLabel', () => {
   it('falls back gracefully for an empty series', () => {
     expect(chartAriaLabel({ ...s('X', []), points: [] })).toBe('X price chart')
   })
+  it('appends the event reaction when one is provided', () => {
+    const label = chartAriaLabel(s('SPX', [100, 110]), 'Jan 20', 0.88)
+    expect(label).toContain('reaction +0.88%')
+  })
+  it('omits the reaction clause when none is provided', () => {
+    expect(chartAriaLabel(s('SPX', [100, 110]), 'Jan 20')).not.toContain('reaction')
+    expect(chartAriaLabel(s('SPX', [100, 110]), 'Jan 20', null)).not.toContain('reaction')
+  })
 })
 
 describe('timelineAriaLabel', () => {

@@ -99,7 +99,7 @@ export function MarketChart({ series, progress, accent, momentLabel, reactionPct
           className={styles.svg}
           viewBox={`0 0 ${W} ${H}`}
           role="img"
-          aria-label={chartAriaLabel(series, momentLabel)}
+          aria-label={chartAriaLabel(series, momentLabel, reactionPct)}
         >
           <defs>
             <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">

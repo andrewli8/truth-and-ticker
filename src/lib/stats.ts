@@ -193,14 +193,21 @@ export function reactionByType(events: CorrelatedEvent[], ticker: string): TypeA
  * covers, and its first→last move — so screen readers get the data, not just
  * "price line". Pure.
  */
-export function chartAriaLabel(series: Series, momentLabel?: string): string {
+export function chartAriaLabel(
+  series: Series,
+  momentLabel?: string,
+  reactionPct?: number | null,
+): string {
   const pts = series.points
   if (pts.length === 0) return `${series.name} price chart`
   const first = pts[0].price
   const last = pts[pts.length - 1].price
   const pct = first ? ((last - first) / first) * 100 : null
   const moment = momentLabel ? `, ${momentLabel} window` : ''
-  return `${series.name}${moment}: ${formatPrice(first)} to ${formatPrice(last)}, ${formatPct(pct)}`
+  // The event's close-to-close reaction is the headline number now drawn on the chart;
+  // name it so screen-reader users hear what sighted users read off the line.
+  const reaction = reactionPct == null ? '' : `, reaction ${formatPct(reactionPct)}`
+  return `${series.name}${moment}: ${formatPrice(first)} to ${formatPrice(last)}, ${formatPct(pct)}${reaction}`
 }
 
 /**

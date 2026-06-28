@@ -216,15 +216,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   event's date instead of floating over whatever the reveal frontier happens to cover.
   MarketChart gained an `eventISO` prop (nearest series point); App passes the datetime.
   Covered by a test asserting the callout's x is identical at progress 0.2 and 1.
+- Screen-reader parity for the deep-dive chart: chartAriaLabel now appends the event's
+  close-to-close reaction ("…, reaction +0.88%") when given, so SR users hear the headline
+  number now drawn on the line. MarketChart passes its reactionPct; tests cover the clause
+  present-when-provided / absent-when-not.
 
 ## Next
-
-1. Give screen-reader parity for the deep-dive chart's on-chart reaction label. The chart
-   now visibly labels the event's close-to-close reaction, but chartAriaLabel only reports
-   the window's first→last move, so SR users miss the headline number. Evidence:
-   src/lib/stats.ts:196 (chartAriaLabel takes series + momentLabel, no reaction);
-   src/components/MarketChart.tsx passes only momentLabel to chartAriaLabel though it now has
-   reactionPct. Acceptance: chartAriaLabel accepts an optional reaction and, when given,
-   appends a clause naming it (e.g. "reaction +0.88%"); MarketChart passes its reactionPct; a
-   new stats test asserts the label includes the reaction when provided and omits the clause
-   when not; verify gate green.
