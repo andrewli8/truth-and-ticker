@@ -71,3 +71,27 @@ E2E smoke suite (npm run test:e2e, outside the gate).
 
 ## Next
 
+1. Guard the URL-hash parser against malformed percent-encoding. A deep-link like
+   `#event-%` makes `decodeURIComponent` throw an uncaught `URIError`, crashing the app
+   on load. Evidence: src/lib/hash.ts:10; Acceptance: a new test asserts
+   `eventIdFromHash('#event-%')` returns null (not a throw), and the existing
+   round-trip tests still pass.
+2. Collapse the duplicated event-type→accent maps into one shared helper. The same
+   `Record<AnnType, string>` of `var(--risk|warn|relief)` is maintained in two files, and
+   it exactly equals `var(--${accentGroup(type)})` which already exists. Evidence:
+   src/App.tsx:37; Evidence: src/components/AnnouncementCard.tsx:9; Acceptance: a new
+   `accentVar(type)` in src/lib/labels.ts returns `var(--risk)` for `strike`/`tariff`,
+   `var(--relief)` for `ceasefire`/`trade-deal`, else `var(--warn)`; both components
+   import it and the local ACCENT consts are gone (provable by diffing the two files).
+3. Single-source the close-to-close reaction window constant. `WINDOW_MINS = 120` is
+   declared independently in two files; drift would silently mismatch the overview and
+   deep-dive correlations. Evidence: src/App.tsx:23; Evidence:
+   src/components/MasterTimeline.tsx:32; Acceptance: one exported constant is imported by
+   both files and the second literal `120` is gone (provable by diffing both files).
+4. Announce that citation/share links open in a new tab to assistive tech. Several
+   `target="_blank"` anchors expose only a visual `↗`, so screen-reader users get no
+   warning of the context switch. Evidence: src/components/EventDetail.tsx:73; Evidence:
+   src/components/AnnouncementCard.tsx:67; Acceptance: those external anchors carry an
+   accessible-name suffix like "(opens in new tab)" (e.g. via a visually-hidden span or
+   aria-label), asserted by a new component test querying the accessible name.
+
