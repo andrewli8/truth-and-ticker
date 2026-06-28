@@ -121,6 +121,7 @@ export function MasterTimeline({
   const [copied, setCopied] = useState(false)
   const svgRef = useRef<SVGSVGElement>(null)
   const lineRef = useRef<SVGPathElement>(null)
+  const areaRef = useRef<SVGPathElement>(null)
   const markerRefs = useRef<(SVGCircleElement | null)[]>([])
 
   // Legend filter: categories the reader has toggled off (all shown by default).
@@ -178,6 +179,23 @@ export function MasterTimeline({
   const ticks = useMemo(() => monthTicks(domain), [domain])
   const net = useMemo(() => netReturnPct(series), [series])
   const drawdown = useMemo(() => maxDrawdown(series), [series])
+
+  // Morph the line/area when the instrument changes (all series share the same
+  // 111-point structure, so the `d` strings interpolate cleanly). First render
+  // and reduced motion skip it; the draw-on handles entrance.
+  const prevPaths = useRef({ line: linePath, area: areaPath })
+  useGSAP(
+    () => {
+      const prev = prevPaths.current
+      if (prev.line === linePath && prev.area === areaPath) return
+      if (!reduced && lineRef.current && areaRef.current) {
+        gsap.fromTo(lineRef.current, { attr: { d: prev.line } }, { attr: { d: linePath }, duration: 0.6, ease: 'power2.inOut' })
+        gsap.fromTo(areaRef.current, { attr: { d: prev.area } }, { attr: { d: areaPath }, duration: 0.6, ease: 'power2.inOut' })
+      }
+      prevPaths.current = { line: linePath, area: areaPath }
+    },
+    { dependencies: [linePath, areaPath], scope: rootRef },
+  )
 
   const markers = useMemo(
     () =>
@@ -330,7 +348,7 @@ export function MasterTimeline({
           )
         })}
 
-        <path d={areaPath} fill="url(#masterFill)" className={styles.area} />
+        <path ref={areaRef} d={areaPath} fill="url(#masterFill)" className={styles.area} />
         <path ref={lineRef} data-line d={linePath} fill="none" className={styles.line} />
 
         {visible.map(({ a, x, dx, y }, i) => {
