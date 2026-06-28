@@ -31,5 +31,7 @@ export function useCountUp(target: number | null, reduced: boolean, start: boole
     return () => cancelAnimationFrame(raf)
   }, [target, reduced, start])
 
-  return val
+  // When reduced (incl. print mode), return the target synchronously — no dependence on the
+  // effect having run — so a freshly-toggled reduced/print render shows the real value, not 0.
+  return reduced ? target ?? 0 : val
 }

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { peakToTroughPct, maxRunupPct, seriesByTicker } from '../lib/stats'
 import { formatPct, direction, type Direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
@@ -5,6 +7,30 @@ import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
 import type { Series } from '../lib/types'
 import styles from './StatBand.module.css'
+
+/** True while the page is being printed — so the count-ups snap to their real values
+ *  even if the band was never scrolled into view (print doesn't fire IntersectionObserver). */
+function usePrinting(): boolean {
+  const [printing, setPrinting] = useState(false)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const on = () => {
+      try {
+        flushSync(() => setPrinting(true))
+      } catch {
+        setPrinting(true)
+      }
+    }
+    const off = () => setPrinting(false)
+    window.addEventListener('beforeprint', on)
+    window.addEventListener('afterprint', off)
+    return () => {
+      window.removeEventListener('beforeprint', on)
+      window.removeEventListener('afterprint', off)
+    }
+  }, [])
+  return printing
+}
 
 interface Stat {
   value: number | null
@@ -48,6 +74,7 @@ function StatCell({ stat, reduced, start }: { stat: Stat; reduced: boolean; star
 
 export function StatBand({ markets }: Props) {
   const reduced = useReducedMotion()
+  const printing = usePrinting()
   const { ref, inView } = useInView<HTMLElement>()
   const stats = buildStats(markets)
   return (
@@ -55,7 +82,7 @@ export function StatBand({ markets }: Props) {
       <h2 className={styles.intro}>Six months. Thirty posts. This is what moved.</h2>
       <div className={styles.grid}>
         {stats.map((s) => (
-          <StatCell key={s.label} stat={s} reduced={reduced} start={inView} />
+          <StatCell key={s.label} stat={s} reduced={reduced || printing} start={inView || printing} />
         ))}
       </div>
     </section>

@@ -15,6 +15,10 @@ describe('useCountUp', () => {
     const { result } = renderHook(() => useCountUp(99, false, false))
     expect(result.current).toBe(0)
   })
+  it('returns the target synchronously when reduced even if not started (print/snap path)', () => {
+    const { result } = renderHook(() => useCountUp(73, true, false))
+    expect(result.current).toBe(73)
+  })
 
   describe('animation path (rAF driven)', () => {
     const origRaf = globalThis.requestAnimationFrame

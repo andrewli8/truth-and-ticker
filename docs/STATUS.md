@@ -388,6 +388,12 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   print-emulation capture: the full 30-row ledger + methodology print without scrolling. Also
   hide the fixed ThemeToggle in print (it overlapped the ledger).
 
+- Fixed the last print defect: the StatBand count-ups printed "+0.00%" if printed without
+  scrolling (inView false → count-up at 0). useCountUp now returns the target synchronously when
+  reduced (no effect-timing dependency), and StatBand snaps on `beforeprint` (flushSync) so the
+  real values (e.g. WTI −26.64%, LMT +14.95%, VIX +254.30%) print. Confirmed via print-emulation
+  + dispatched beforeprint (no scroll). useCountUp-tested; verify + 34 E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)
