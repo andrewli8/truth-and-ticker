@@ -204,7 +204,6 @@ export function buildLinePath(
 
   const clamped = Math.max(0, Math.min(1, progress))
   const visibleCount = Math.max(1, Math.ceil(clamped * points.length))
-  const visible = points.slice(0, visibleCount)
   const positions = pointPositions(points, width, height).slice(0, visibleCount)
 
   const generator = line<PointPos>()
@@ -212,7 +211,7 @@ export function buildLinePath(
     .y((d) => d.y)
     .curve(CURVE)
 
-  return generator(visible.map((_p, i) => positions[i])) ?? ''
+  return generator(positions) ?? ''
 }
 
 /**
