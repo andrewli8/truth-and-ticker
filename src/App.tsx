@@ -14,9 +14,9 @@ import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
 import { hashForEvent, instrumentFromQuery } from './lib/hash'
+import { accentVar } from './lib/labels'
 import { useReducedMotion } from './lib/useReducedMotion'
 import { announcements, markets } from './data'
-import type { AnnType } from './lib/types'
 import './styles/app.css'
 
 const PRIMARY = 'SPX'
@@ -32,18 +32,6 @@ const TIMELINE_INSTRUMENTS: { ticker: string; name: string }[] = [
   { ticker: 'GLD', name: 'Gold' },
   { ticker: 'VIX', name: 'VIX' },
 ]
-
-// Theme-aware accents: CSS variables so colors recolor in light/dark.
-const ACCENT: Record<AnnType, string> = {
-  strike: 'var(--risk)',
-  threat: 'var(--warn)',
-  'market-jawbone': 'var(--warn)',
-  ceasefire: 'var(--relief)',
-  tariff: 'var(--risk)',
-  'trade-deal': 'var(--relief)',
-  fed: 'var(--warn)',
-  policy: 'var(--warn)',
-}
 
 export default function App() {
   const events = useMemo(() => correlateAll(announcements, markets, WINDOW_MINS), [])
@@ -120,7 +108,7 @@ export default function App() {
         <MasterTimeline
           series={timelineSeries}
           announcements={announcements}
-          accentFor={(t) => ACCENT[t]}
+          accentFor={accentVar}
           onJump={jumpToEvent}
           instruments={TIMELINE_INSTRUMENTS}
           onPickInstrument={pickInstrument}
@@ -132,7 +120,7 @@ export default function App() {
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
           const event = featured[step]
-          const accent = ACCENT[event.announcement.type]
+          const accent = accentVar(event.announcement.type)
           const spotlight = spotlightTicker(event.announcement.type)
           const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
           // Focus the chart on the action around this event; fall back to the full

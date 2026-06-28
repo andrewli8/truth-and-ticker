@@ -1,21 +1,8 @@
 import { type CSSProperties } from 'react'
 import { formatPct, formatTime } from '../lib/format'
-import { typeLabel } from '../lib/labels'
-import type { CorrelatedEvent, AnnType } from '../lib/types'
+import { typeLabel, accentVar } from '../lib/labels'
+import type { CorrelatedEvent } from '../lib/types'
 import styles from './AnnouncementCard.module.css'
-
-// Event-type accent (CSS vars so it recolors with the theme). The spine, tag, and
-// quote mark all hang off this single through-line.
-const ACCENT: Record<AnnType, string> = {
-  strike: 'var(--risk)',
-  threat: 'var(--warn)',
-  'market-jawbone': 'var(--warn)',
-  ceasefire: 'var(--relief)',
-  tariff: 'var(--risk)',
-  'trade-deal': 'var(--relief)',
-  fed: 'var(--warn)',
-  policy: 'var(--warn)',
-}
 
 /** Curated secondary tickers surfaced on the card: oil, defense, fear gauge. */
 const SECONDARY = ['CL', 'LMT', 'VIX']
@@ -34,7 +21,7 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
     .map((t) => reactions.find((r) => r.ticker === t))
     .filter((r): r is NonNullable<typeof r> => Boolean(r))
 
-  const accentStyle = { '--accent': ACCENT[announcement.type] } as CSSProperties
+  const accentStyle = { '--accent': accentVar(announcement.type) } as CSSProperties
 
   return (
     <article className={styles.card} style={accentStyle}>

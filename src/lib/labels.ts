@@ -36,3 +36,11 @@ const GROUP: Record<AnnType, AccentGroup> = {
 export function accentGroup(type: AnnType): AccentGroup {
   return GROUP[type] ?? 'warn'
 }
+
+/**
+ * Theme-aware accent CSS variable for an announcement type (e.g. `var(--risk)`),
+ * derived from {@link accentGroup} so the colour mapping lives in one place.
+ */
+export function accentVar(type: AnnType): string {
+  return `var(--${accentGroup(type)})`
+}
