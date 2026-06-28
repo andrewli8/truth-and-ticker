@@ -20,6 +20,13 @@ describe('App', () => {
     expect(skip.getAttribute('href')).toBe('#main-content')
   })
 
+  it('opens the event named in the URL hash on initial load', () => {
+    const target = announcements[5]
+    window.location.hash = `#event-${target.id}`
+    const { getByTestId } = render(<App />)
+    expect(getByTestId('detail').textContent).toContain(target.quote || target.summary)
+  })
+
   it('ledger → deep-link → timeline selection flows end to end', () => {
     const { getAllByTestId, getByTestId } = render(<App />)
     const first = announcements[0]
