@@ -113,8 +113,8 @@ export function MarketChart({ series, progress, accent, momentLabel, reactionPct
             </linearGradient>
           </defs>
 
-          {gridY.map((g, i) => (
-            <g key={i}>
+          {gridY.map((g) => (
+            <g key={`grid-${g.value}`}>
               <line x1={PAD} x2={W - PAD} y1={g.y} y2={g.y} className={styles.grid} />
               <text x={PAD} y={g.y - 6} className={styles.gridLabel}>
                 {formatPrice(g.value)}
