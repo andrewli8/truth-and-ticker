@@ -136,3 +136,9 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - README How-it-works notes reactionByType + CategoryBand.
 
 ## Next
+
+1. Memoize CategoryBand's derived data for consistency with the rest of the app (App and
+   MasterTimeline memoize all derived values). It recomputes reactionByType + max on every
+   render. Evidence: src/components/CategoryBand.tsx (rows/max computed inline). Acceptance:
+   rows and max are wrapped in useMemo keyed on [events, ticker]; behavior unchanged,
+   tests still pass, verify gate green.
