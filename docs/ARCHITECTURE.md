@@ -1,21 +1,21 @@
 # Architecture
 
 A single-page React + TypeScript app (Vite). No router, no server — static data
-is bundled and the whole experience is one scroll. This doc maps the pieces so a
-new contributor can navigate quickly.
+is bundled and the whole experience fits on one screen (the HUB). This doc maps the
+pieces so a new contributor can navigate quickly.
 
 ## Data flow
 
 ```
-src/data/*.json ──▶ src/data/index.ts ──▶ App
+src/data/*.json ──▶ src/data/index.ts ──▶ App ──▶ HubApp
                                             │  correlateAll(announcements, markets)
                                             ▼
                                    CorrelatedEvent[]  (announcement + per-series reactions)
                                             │
         ┌───────────────────────────────────┼───────────────────────────────────┐
         ▼                                   ▼                                     ▼
-   MasterTimeline                      ScrollStage                            Outro
-   (full-term overview)            (pinned deep-dive scrolly)            (closing ledger)
+     Filmstrip                          EventZoom                          BreakdownZoom
+  (timeline of cards)            (one event, zoomed)            (CategoryBand/ReactionSpread/ledger)
 ```
 
 - **`src/data/`** — `markets.json` (9 series × ~111 daily closes) and
@@ -24,49 +24,44 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
 - **`src/lib/`** — pure, unit-tested helpers (the heart of the app's correctness):
   - `correlate.ts` — joins each announcement to its close-to-close market reaction.
   - `scales.ts` — all chart geometry (line/area paths, time/price scales,
-    `windowAround`, `decollide`, `sparklinePath`, `nearestPointIndex`).
-  - `stats.ts` — derived metrics (`spotlightTicker`, `eventMoves`, `netReturnPct`,
-    `maxDrawdown`, `chartAriaLabel`, …).
+    `windowAround`, `sparklinePath`, `nearestPointIndex`).
+  - `stats.ts` — derived metrics (`seriesByTicker`, `eventMoves`, `netReturnPct`,
+    `maxDrawdown`, `reactionByType`, `topReactions`, `reactionSpread`, `chartAriaLabel`, …).
   - `motion.ts` — pure animation params (`drawOnVars`, `adjacentIndex`).
-  - `hash.ts` — URL deep-linking (`eventIdFromHash`, `hashForEvent`,
-    `eventShareUrl`, `instrumentFromQuery`).
+  - `instruments.ts` — the shared `INSTRUMENTS` list (ticker + name).
   - `format.ts`, `labels.ts` — formatting + human labels.
   - Hooks: `useReducedMotion`, `useInView`, `useMediaQuery`, `useTheme`, `useCountUp`.
 
 ## Components
 
-- **App.tsx** — composes the page; owns the timeline-instrument state (URL `?i=`),
-  the deep-link jump handlers (timeline ↔ deep-dive ↔ ledger), and computes the
-  hero backdrop + per-event windowed series.
-- **Hero / StatBand** — intro + key-swing count-ups.
-- **CategoryBand** — "which posts moved <instrument>?": the mean close-to-close reaction
-  grouped by announcement type (`reactionByType`), as ranked sign-coloured bars that
-  reveal on scroll and recompute when the timeline instrument changes.
-- **MasterTimeline** — full-term chart: filterable legend, instrument switcher +
-  compare overlay, scrub readout, de-collided event markers, term-outcome line, a y-axis
-  price reference (faint gridlines), and the deepest-drawdown trough marked on the line.
-  The header term-stat shows net return, drawdown, and the directional hit-rate ("rose on
-  N of M posts", `reactionHitRate`). The selected marker labels its reaction on the chart
-  (via **ChartReactionLabel**). Selection is URL-deep-linked and announced via the
-  **EventDetail** panel, which also lists the event's cross-instrument moves (`eventMoves`).
-- **ScrollStage** — pins the deep-dive and emits scroll progress (native rAF);
-  stacks panels on mobile. **MarketChart** renders the windowed per-event chart
-  (responsive viewBox) and marks the announcement's data point with a hollow ring +
-  its reaction (**ChartReactionLabel**), so the move reads on the line, not only in
-  the card; **AnnouncementCard** is the editorial pull-quote; **TickerRail** shows the
-  event's cross-instrument moves.
-- **ChartReactionLabel** — shared presentational SVG `<text>` for the on-chart reaction
-  (signed %, direction-coloured, bg-halo for legibility); used by both charts above so
-  the label is styled and tuned in one place.
-- **Outro** — a "biggest single-day reactions" highlight (`topReactions`, the most
-  dramatic cross-instrument moves, deduped to distinct ticker+day moments) leading into
-  the full ledger with per-row sparklines and jump-to-moment links.
+The main site is a single-screen **hub** (`src/hub/`). `App.tsx` simply renders `HubApp`.
+
+- **HubApp** — owns the one-screen state: the chosen instrument, the active filmstrip
+  index, which event is zoomed (`EventZoom`), and which breakdown is open (`BreakdownZoom`).
+  Frames the masthead + thesis + POC link, the summary stats (count, the instrument's
+  Jan→Jun net, the biggest single swing), the instrument switcher (shared `INSTRUMENTS`),
+  and the topic chips. Everything recolours to the active reaction's direction.
+- **Filmstrip** — the horizontal timeline: one option per announcement (a `role="listbox"`),
+  travelled by scroll / drag / ←→ keys (Home/End jump). The centred card is active; clicking
+  it opens its zoom. Each card shows the date, type, the instrument's reaction, and the quote.
+- **EventZoom** — the modal detail layer for one announcement: the windowed **MarketChart**
+  (reaction labelled on the line via **ChartReactionLabel**), the full quote, and every
+  instrument's move (`eventMoves`). Escape / backdrop close.
+- **BreakdownZoom** — a modal panel that reuses the existing data views: **CategoryBand**
+  ("which posts moved <instrument>?", `reactionByType`), **ReactionSpread** (the reaction
+  distribution, `reactionSpread`), and the **Outro** ledger (`topReactions` highlights +
+  the sortable, paginated table whose rows open that event's `EventZoom`).
+- **MarketChart** — the windowed per-event line chart (responsive viewBox) marking the
+  announcement's data point with a hollow ring + its reaction; **ChartReactionLabel** is the
+  shared presentational SVG `<text>` for that on-chart reaction (signed %, direction-coloured,
+  bg-halo for legibility). **ThemeToggle** is the light/dark control; **ShareButton** (in the
+  ledger) offers native share / copy-link.
 
 ## The one-screen POC (`src/poc/`, `/poc.html`)
 
 A standalone interactive concept ("When he posts, the market moves") ships as a **second
 Vite entry** (`poc.html` → `src/poc/main.tsx`; `rollupOptions.input` in `vite.config.ts`),
-independent of the main app so it can experiment without touching the scrollytelling. It
+independent of the main hub so it can experiment separately. It
 **reuses the real data and the same pure helpers** (`data`, `lib/scales`, `lib/correlate`,
 `lib/stats.seriesByTicker`, `lib/format.direction`, `lib/instruments.INSTRUMENTS`) — no
 duplicated logic. `PocApp` renders a chosen market's full term as one glowing line; the
@@ -77,7 +72,7 @@ re-plots the line and re-derives the posts/readout on change. Motion is GSAP via
 (entrance line draw-on, masked title, count-up readout, lerp cursor, plus a line re-draw on
 instrument switch), all gated on `prefers-reduced-motion`. Covered by `src/poc/__tests__`
 (unit) and `e2e/poc.spec.ts` (drag, keyboard, instrument switch, reduced-motion, mobile);
-linked from the Outro footer.
+linked from the hub's masthead.
 
 ## Conventions
 

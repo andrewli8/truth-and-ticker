@@ -2,14 +2,14 @@
 
 [![CI](https://github.com/andrewli8/truth-and-ticker/actions/workflows/ci.yml/badge.svg)](https://github.com/andrewli8/truth-and-ticker/actions/workflows/ci.yml)
 
-![The master timeline: the S&P 500 across Trump's second term with every announcement plotted as a marker, the deepest-drawdown trough and a selected event's reaction labelled on the line, and a per-event cross-instrument detail.](docs/preview.png)
+![Truth & Ticker: a single-screen hub with a horizontal filmstrip of Trump's second-term announcements; clicking a moment zooms into its windowed market chart, quote, and every instrument's move.](docs/preview.png)
 
-A single-page, scroll-driven visualization correlating Donald Trump's public
-announcements across his **second term (Jan–Jun 2025)** — tariffs, threats,
-strikes, ceasefires, Fed pressure — with the U.S. markets that moved on them: the
-S&P 500, the Nasdaq, the Dow, oil, defense names, gold, and the VIX. A
-full-presidency master timeline anchors the piece; featured events get a
-windowed deep-dive.
+A single-screen interactive **hub** correlating Donald Trump's public announcements
+across his **second term (Jan–Jun 2025)** — tariffs, threats, strikes, ceasefires,
+Fed pressure — with the U.S. markets that moved on them: the S&P 500, the Nasdaq,
+the Dow, oil, defense names, gold, and the VIX. The whole term sits on one screen as a
+horizontal filmstrip you travel by scroll / drag / arrow keys; clicking a moment zooms
+it into a focused detail layer.
 
 The framing is deliberate: **timing correlation, not accusation.** Each verified
 announcement timestamp is laid against the verified market reaction that
@@ -18,11 +18,10 @@ reader judges it.
 
 ## Stack
 
-- **Vite + React + TypeScript**
-- **Native rAF scroll** — the pinned stage derives scroll progress from native
-  scroll position (no smooth-scroll library), so scrolling stays responsive
-- **GSAP (`useGSAP`)** — entrance + scroll-into-view reveals (hero, timeline
-  draw-on), all reduced-motion safe
+- **Vite + React + TypeScript** — the main site is one screen (`src/hub/`); the
+  standalone "When he posts" concept is a second Vite entry (`/poc.html`)
+- **GSAP (`useGSAP`)** — the POC's entrance + the hub's filmstrip transitions, all
+  reduced-motion safe
 - **D3 (d3-scale / d3-shape)** — math only; the chart is hand-rolled SVG for full
   control of the line-draw reveal, playhead, and dot
 - **Vitest + Testing Library** — unit + component + dataset-integrity tests
@@ -49,21 +48,23 @@ npm run build     # production build to dist/
   market reaction (the close before vs. the reaction close after), null-safe.
 - `src/lib/stats.ts` `reactionByType` — averages those reactions by announcement
   category, powering the **CategoryBand** ("which posts moved <instrument>?");
-  `topReactions` ranks the biggest cross-instrument single-day moves for the **Outro**
-  "biggest single-day reactions" highlight; `reactionHitRate` powers the timeline's
-  "rose on N of M posts" tally and `reactionSpread` the **ReactionSpread** distribution plot
-  ("most posts nudge the market, a few move it hard").
-- `src/components/ScrollStage.tsx` — pins the chart and emits scroll progress.
-- `src/components/MarketChart.tsx` — pure SVG renderer driven entirely by a
-  `progress` prop (ghost full line + bright revealed line + playhead + dot), and it
-  labels the announcement's own data point with a hollow ring + its close-to-close
+  `topReactions` ranks the biggest cross-instrument single-day moves for the ledger's
+  "biggest single-day reactions" highlight; `reactionSpread` powers the **ReactionSpread**
+  distribution plot ("most posts nudge the market, a few move it hard").
+- `src/hub/` — the single-screen **hub** (`HubApp`): a horizontal **Filmstrip** of all 30
+  announcements (scroll / drag / arrow keys), an instrument switcher, and summary stats.
+  Clicking a moment opens **EventZoom**; the topic chips open **BreakdownZoom** (CategoryBand
+  / ReactionSpread / the ledger).
+- `src/components/MarketChart.tsx` — pure SVG renderer driven by a `progress` prop
+  (ghost full line + bright revealed line + playhead + dot), used by EventZoom at full
+  reveal; it labels the announcement's own data point with a hollow ring + its close-to-close
   reaction (shared `ChartReactionLabel`) so the move reads on the line.
 
 See [`src/data/SOURCES.md`](src/data/SOURCES.md) for data provenance and caveats.
 
 ## The "When he posts" concept (`/poc.html`)
 
-Alongside the scrollytelling main piece, the repo ships a standalone one-screen
+Alongside the hub, the repo ships a standalone one-screen
 interactive concept at **`/poc.html`** (`src/poc/`, a second Vite entry — see
 `vite.config.ts`). It distills the whole thesis into a single full-bleed view: a chosen
 market across the second term as a glowing line you scrub by **dragging or with the
