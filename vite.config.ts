@@ -5,6 +5,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
+      // Two entries: the main piece and the standalone one-screen POC (poc.html).
+      input: {
+        main: 'index.html',
+        poc: 'poc.html',
+      },
       output: {
         // Split vendor into stable, cacheable chunks (same modules, loaded in
         // parallel) so app-code changes don't bust the library cache.

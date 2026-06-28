@@ -1,0 +1,192 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   WHEN HE POSTS — one-screen interactive concept.
+   Cinematic near-black, high-contrast Fraunces display, mono data. The accent
+   tracks the market's direction (gain green / loss red), bleeding into the line,
+   the headline emphasis, and the big readout.
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --poc-bg: #0b0c0e;
+  --poc-ink: #f3efe6;
+  --poc-dim: #8b8f96;
+  --poc-line: #20232a;
+  --poc-up: #46d39a;
+  --poc-down: #ff5d4d;
+  --poc-accent: var(--poc-dim);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; background: var(--poc-bg); }
+
+body {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--poc-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.poc {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% 8%, color-mix(in srgb, var(--poc-accent) 9%, transparent), transparent 60%),
+    var(--poc-bg);
+  cursor: crosshair;
+  transition: background 0.6s ease;
+}
+.poc[data-dir='up'] { --poc-accent: var(--poc-up); }
+.poc[data-dir='down'] { --poc-accent: var(--poc-down); }
+
+/* ── Full-bleed chart backdrop (lower two-thirds) ─────────────────────────── */
+.poc-chart {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--poc-accent);
+  touch-action: none;
+}
+.poc-line {
+  stroke: var(--poc-accent);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--poc-accent) 55%, transparent));
+  transition: stroke 0.6s ease;
+}
+.poc-area { transition: color 0.6s ease; }
+.poc-dot {
+  fill: var(--poc-ink);
+  opacity: 0.35;
+  transition: opacity 0.2s ease, r 0.2s ease;
+}
+.poc-dot-on {
+  fill: var(--poc-accent);
+  opacity: 1;
+  filter: drop-shadow(0 0 10px var(--poc-accent));
+}
+.poc-playhead {
+  stroke: color-mix(in srgb, var(--poc-accent) 70%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ── Foreground composition ───────────────────────────────────────────────── */
+.poc-head {
+  position: absolute;
+  top: clamp(2rem, 6vh, 4.5rem);
+  left: clamp(1.5rem, 5vw, 5rem);
+  z-index: 2;
+  pointer-events: none;
+  max-width: 22ch;
+}
+.poc-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--poc-dim);
+  margin-bottom: 1.1rem;
+}
+.poc-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.poc-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--poc-accent);
+  transition: color 0.6s ease;
+}
+
+/* Big reaction readout, top-right. */
+.poc-readout {
+  position: absolute;
+  top: clamp(2rem, 6vh, 4.5rem);
+  right: clamp(1.5rem, 5vw, 5rem);
+  z-index: 2;
+  text-align: right;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+.poc-pct {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--poc-accent);
+  transition: color 0.6s ease;
+}
+.poc-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--poc-dim);
+}
+
+/* Pull-quote, lower-left, above the chart. */
+.poc-quote {
+  position: absolute;
+  left: clamp(1.5rem, 5vw, 5rem);
+  bottom: clamp(4rem, 14vh, 9rem);
+  z-index: 2;
+  max-width: min(46ch, 60vw);
+  pointer-events: none;
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.6vw, 2.1rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+.poc-quote-mark {
+  color: var(--poc-accent);
+  margin-right: 0.1em;
+  transition: color 0.6s ease;
+}
+
+.poc-hint {
+  position: absolute;
+  right: clamp(1.5rem, 5vw, 5rem);
+  bottom: clamp(1.5rem, 5vh, 2.5rem);
+  z-index: 2;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--poc-dim);
+  pointer-events: none;
+}
+
+/* Grain. */
+.poc-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.6) 0,
+    rgba(255, 255, 255, 0.6) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 720px) {
+  .poc-readout { top: auto; bottom: clamp(1.5rem, 5vh, 2.5rem); }
+  .poc-quote { display: none; }
+}
