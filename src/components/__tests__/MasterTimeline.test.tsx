@@ -76,6 +76,18 @@ describe('MasterTimeline', () => {
     expect(words.getAttribute('aria-hidden')).toBeNull()
   })
 
+  it('shows the directional hit-rate in the term-stat when provided', () => {
+    const { getByTestId } = render(
+      <MasterTimeline
+        series={spx}
+        announcements={announcements}
+        accentFor={() => 'var(--risk)'}
+        hitRate={{ up: 16, down: 14, flat: 0, total: 30 }}
+      />,
+    )
+    expect(getByTestId('term-stat').textContent).toContain('rose on 16 of 30 posts')
+  })
+
   it('shows the index reaction for the selected event', () => {
     const { getByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
