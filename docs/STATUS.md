@@ -186,12 +186,6 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - PNG favicon fallback (favicon-32) for contexts without SVG-favicon support.
 - Accessible data-table semantics for the Outro ledger (scope=col headers + caption); tested.
 - Machine-readable <time datetime> for all event dates (ledger, EventDetail, AnnouncementCard).
+- Maskable PWA icon (Android adaptive-icon safe zone) so the brand mark isn't cropped.
 
 ## Next
-
-1. Add a maskable PWA icon so Android adaptive-icon masking doesn't crop the brand mark.
-   The manifest icons are default-purpose (no safe-zone); Android crops them to a
-   circle/squircle. Evidence: public/manifest.webmanifest (icons lack purpose maskable).
-   Acceptance: a 512 maskable icon (mark scaled into the center ~62% safe zone, dark bg
-   edge-to-edge) added with "purpose": "maskable" in the manifest; copied into dist; valid
-   JSON; verify gate green.
