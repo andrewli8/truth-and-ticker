@@ -81,7 +81,9 @@ body {
   left: clamp(1.5rem, 5vw, 5rem);
   z-index: 2;
   pointer-events: none;
-  max-width: 22ch;
+  /* Size to the title so the line-reveal masks (overflow:hidden) never clip it horizontally. */
+  width: max-content;
+  max-width: min(92vw, 52rem);
 }
 .poc-kicker {
   font-size: 0.72rem;
@@ -104,6 +106,15 @@ body {
   font-weight: 500;
   color: var(--poc-accent);
   transition: color 0.6s ease;
+}
+/* Masked line reveal: each line slides up from behind its own clip. */
+.poc-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.poc-line-in {
+  display: block;
 }
 
 /* Big reaction readout, top-right. */
@@ -167,6 +178,26 @@ body {
   text-transform: uppercase;
   color: var(--poc-dim);
   pointer-events: none;
+}
+
+/* Lerp-follow cursor ring (desktop fine pointers). */
+.poc-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 1.5px solid var(--poc-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--poc-accent) 45%, transparent);
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .poc-cursor { display: none; }
 }
 
 /* Grain. */

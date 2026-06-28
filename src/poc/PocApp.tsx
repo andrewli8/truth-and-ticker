@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState, type PointerEvent } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import { announcements, markets } from '../data'
 import { seriesByTicker } from '../lib/stats'
 import { reactionFor, REACTION_WINDOW_MINS } from '../lib/correlate'
@@ -12,15 +14,20 @@ import {
   dateDomainOf,
   domainFor,
 } from '../lib/scales'
+import { drawOnVars } from '../lib/motion'
 import { formatPct, formatDay, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
+import { useReducedMotion } from '../lib/useReducedMotion'
+import { useCountUp } from '../lib/useCountUp'
 
 const W = 1440
 const H = 900
 
 /**
  * One-screen interactive concept: scrub the S&P 500 across the second term and watch the
- * market react, post by post. Reuses the project's real data + pure chart helpers.
+ * market react, post by post. Reuses the project's real data + pure chart helpers, with a
+ * GSAP entrance (line draw-on, masked kinetic title, staggered markers), a count-up readout,
+ * and a lerp-follow cursor. Reduced-motion safe.
  */
 export function PocApp() {
   const spx = useMemo(() => seriesByTicker(markets, 'SPX') ?? markets[0], [])
@@ -39,6 +46,10 @@ export function PocApp() {
     [domain, vdom, spx],
   )
 
+  const reduced = useReducedMotion()
+  const rootRef = useRef<HTMLElement>(null)
+  const lineRef = useRef<SVGPathElement>(null)
+  const cursorRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const [hoverMs, setHoverMs] = useState<number | null>(null)
 
@@ -63,6 +74,73 @@ export function PocApp() {
   )
   const dir = direction(reaction)
 
+  // Count the latest reaction up on load (stable target → animates once); show the live value
+  // instantly while scrubbing for responsiveness.
+  const latest = useMemo(
+    () => reactionFor(posts[posts.length - 1].a, spx, REACTION_WINDOW_MINS).deltaPct,
+    [posts, spx],
+  )
+  const counted = useCountUp(latest, reduced, true)
+  const display = hoverMs == null ? counted : reaction
+
+  // Entrance orchestration: draw the line on, unmask the title lines, fade the chrome,
+  // pop the markers in. Reduced motion shows everything in place.
+  useGSAP(
+    () => {
+      if (reduced) return
+      const line = lineRef.current
+      let len = 0
+      if (line && typeof line.getTotalLength === 'function') {
+        try {
+          len = line.getTotalLength()
+        } catch {
+          len = 0
+        }
+      }
+      const draw = drawOnVars(len)
+      const tl = gsap.timeline()
+      if (line && draw) {
+        tl.fromTo(
+          line,
+          { strokeDasharray: draw.dasharray, strokeDashoffset: draw.from },
+          { strokeDashoffset: draw.to, duration: 1.5, ease: 'power2.out' },
+          0,
+        )
+      }
+      tl.from('.poc-line-in', { yPercent: 118, duration: 0.95, ease: 'power4.out', stagger: 0.1 }, 0.25)
+        .from('[data-poc-fade]', { y: 18, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, 0.5)
+        .from('.poc-area', { opacity: 0, duration: 1.2, ease: 'power2.out' }, 0.4)
+        .from('.poc-dot', { scale: 0, opacity: 0, transformOrigin: 'center', duration: 0.5, ease: 'back.out(2)', stagger: 0.012 }, 0.9)
+    },
+    { dependencies: [reduced], scope: rootRef },
+  )
+
+  // Lerp-follow cursor glow (desktop pointers only).
+  useGSAP(
+    () => {
+      const dot = cursorRef.current
+      if (reduced || !dot || !window.matchMedia('(pointer: fine)').matches) return
+      const p = { x: window.innerWidth / 2, y: window.innerHeight / 2, cx: 0, cy: 0 }
+      const onMove = (e: globalThis.PointerEvent) => {
+        p.x = e.clientX
+        p.y = e.clientY
+      }
+      const tick = () => {
+        p.cx += (p.x - p.cx) * 0.2
+        p.cy += (p.y - p.cy) * 0.2
+        gsap.set(dot, { x: p.cx, y: p.cy })
+      }
+      window.addEventListener('pointermove', onMove)
+      gsap.ticker.add(tick)
+      gsap.to(dot, { opacity: 1, duration: 0.6, delay: 0.6 })
+      return () => {
+        window.removeEventListener('pointermove', onMove)
+        gsap.ticker.remove(tick)
+      }
+    },
+    { dependencies: [reduced], scope: rootRef },
+  )
+
   function scrub(e: PointerEvent<SVGSVGElement>) {
     const r = svgRef.current?.getBoundingClientRect()
     if (!r || !r.width) return
@@ -71,25 +149,26 @@ export function PocApp() {
   }
 
   return (
-    <main className="poc" data-dir={dir}>
+    <main className="poc" data-dir={dir} ref={rootRef}>
       <div className="poc-grain" aria-hidden="true" />
+      <div className="poc-cursor" ref={cursorRef} aria-hidden="true" />
 
       <header className="poc-head">
-        <p className="poc-kicker">Jan&ndash;Jun 2025 &middot; S&amp;P 500 &middot; second term</p>
+        <p className="poc-kicker" data-poc-fade>Jan&ndash;Jun 2025 &middot; S&amp;P 500 &middot; second term</p>
         <h1 className="poc-title">
-          When he posts,<br />
-          the market <em>moves</em>.
+          <span className="poc-line-mask"><span className="poc-line-in">When he posts,</span></span>
+          <span className="poc-line-mask"><span className="poc-line-in">the market <em>moves</em>.</span></span>
         </h1>
       </header>
 
-      <div className="poc-readout">
-        <span className="poc-pct">{formatPct(reaction)}</span>
+      <div className="poc-readout" data-poc-fade>
+        <span className="poc-pct">{formatPct(display === null ? null : display)}</span>
         <span className="poc-meta">
           {typeLabel(active.a.type)} &middot; {formatDay(active.a.datetime)}
         </span>
       </div>
 
-      <blockquote className="poc-quote">
+      <blockquote className="poc-quote" data-poc-fade>
         <span className="poc-quote-mark" aria-hidden="true">&ldquo;</span>
         {active.a.quote || active.a.summary}
       </blockquote>
@@ -112,7 +191,7 @@ export function PocApp() {
           </linearGradient>
         </defs>
         <path d={areaPath} className="poc-area" fill="url(#pocFill)" />
-        <path d={linePath} className="poc-line" fill="none" />
+        <path ref={lineRef} d={linePath} className="poc-line" fill="none" />
 
         {posts.map((p) => (
           <circle
@@ -127,7 +206,7 @@ export function PocApp() {
         <line x1={active.x} x2={active.x} y1={0} y2={H} className="poc-playhead" />
       </svg>
 
-      <p className="poc-hint" aria-hidden="true">Drag across to scrub the timeline</p>
+      <p className="poc-hint" data-poc-fade>Drag across to scrub the timeline</p>
     </main>
   )
 }
