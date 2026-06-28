@@ -34,10 +34,39 @@ describe('dataset integrity', () => {
     )
   })
 
-  it('market points within each series are time-ordered', () => {
+  it('market points within each series are time-ordered with no duplicate dates', () => {
     markets.forEach((m) => {
       const t = m.points.map((p) => Date.parse(p.datetime))
       expect(t).toEqual([...t].sort((x, y) => x - y))
+      expect(new Set(t).size).toBe(t.length) // no duplicate timestamps
+    })
+  })
+
+  it('all series are aligned (same count and date span)', () => {
+    const first = markets[0]
+    markets.forEach((m) => {
+      expect(m.points.length).toBe(first.points.length)
+      expect(m.points[0].datetime).toBe(first.points[0].datetime)
+      expect(m.points[m.points.length - 1].datetime).toBe(first.points[first.points.length - 1].datetime)
+    })
+  })
+
+  it('every announcement type is a known AnnType', () => {
+    const known = new Set([
+      'strike', 'threat', 'ceasefire', 'market-jawbone', 'tariff', 'trade-deal', 'fed', 'policy',
+    ])
+    announcements.forEach((a) => expect(known.has(a.type)).toBe(true))
+  })
+
+  it('every announcement falls within the market data date range', () => {
+    const ms = (s: string) => Date.parse(s)
+    const pts = markets[0].points
+    const lo = ms(pts[0].datetime)
+    const hi = ms(pts[pts.length - 1].datetime)
+    announcements.forEach((a) => {
+      const t = ms(a.datetime)
+      expect(t).toBeGreaterThanOrEqual(lo)
+      expect(t).toBeLessThanOrEqual(hi)
     })
   })
 
