@@ -131,35 +131,8 @@ test.describe('outro highlights', () => {
   })
 })
 
-test.describe('benchmark compare overlay', () => {
-  test('toggles a second line for a non-benchmark instrument', async ({ page }) => {
-    await page.goto('/')
-    const instruments = page.getByRole('group', { name: /Choose or compare the instrument/i })
-    await instruments.scrollIntoViewIfNeeded()
-    await instruments.getByRole('button', { name: 'Oil', exact: true }).click()
-
-    // No overlay until requested.
-    await expect(page.getByTestId('compare-line')).toHaveCount(0)
-    await instruments.getByRole('button', { name: /vs S&P 500/i }).click()
-    await expect(page.getByTestId('compare-line')).toBeVisible()
-  })
-})
-
-test.describe('timeline instrument switch', () => {
-  test('switching the instrument re-renders the chart for the new series', async ({ page }) => {
-    await page.goto('/')
-    const sub = page.locator('p', { hasText: /market-moving moment/i })
-    await sub.scrollIntoViewIfNeeded()
-    await expect(sub).toContainText('S&P 500')
-
-    const instruments = page.getByRole('group', { name: /Choose or compare the instrument/i })
-    await instruments.getByRole('button', { name: 'Oil', exact: true }).click()
-
-    // The timeline header now reflects the new series, and the choice is in the URL.
-    await expect(sub).not.toContainText('S&P 500')
-    await expect(page).toHaveURL(/[?&]i=CL/)
-  })
-})
+// Note: the compare overlay and instrument switch are covered in smoke.spec.ts
+// ("compare overlay adds a benchmark line…" / "instrument switcher re-plots…").
 
 test.describe('ledger → timeline jump', () => {
   test('a ledger row selects that event on the master timeline', async ({ page }) => {
