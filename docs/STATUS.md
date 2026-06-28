@@ -8,10 +8,10 @@ honest data representation.
 Whole-second-term scope, honest data representation, editorial design, and a connected
 interactive experience are all in place: master timeline (filterable legend, scrub,
 de-collided markers, term-outcome line) ↔ windowed deep-dive (per-event reveal,
-pull-quote, reaction count-up) ↔ ledger (sparklines, jump-to-moment), with deep-linkable
-+ shareable events and broad a11y/test coverage. Remaining big-ticket items are owner
-calls: a cross-fade/morph chart transition, and a Playwright E2E layer (the project's
-verify gate is tsc+vitest+build).
+pull-quote, reaction count-up + per-event fade) ↔ ledger (sparklines, jump-to-moment),
+with deep-linkable + shareable events, an instrument switcher, a real-data hero backdrop,
+and broad a11y coverage. Testing: 173 unit/component (the verify gate) plus a Playwright
+E2E smoke suite (npm run test:e2e, outside the gate).
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
@@ -56,8 +56,11 @@ verify gate is tsc+vitest+build).
 - Copy a shareable deep-link to the selected moment.
 - aria-live detail region; per-event card + chart entrance; marker hover affordance.
 - Outro reveal-on-scroll; App-level deep-link flow test.
-- One-glance term outcome (net + max drawdown) on the timeline.
+- One-glance term outcome (net + max drawdown, with trough date) on the timeline.
 - Per-row sparklines in the Outro ledger.
+- Instrument switcher on the master timeline (S&P/Nasdaq/oil/defense/gold/VIX).
+- Hero backdrop uses the real S&P 500 term shape.
+- Playwright E2E smoke suite for critical flows (outside the verify gate).
 
 ## Next
 
