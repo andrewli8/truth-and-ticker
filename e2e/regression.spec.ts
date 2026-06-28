@@ -147,6 +147,25 @@ test.describe('outro highlights', () => {
 // Note: the compare overlay and instrument switch are covered in smoke.spec.ts
 // ("compare overlay adds a benchmark line…" / "instrument switcher re-plots…").
 
+test.describe('timeline annotations', () => {
+  test('renders the y-axis price labels, drawdown marker, and cross-instrument strip', async ({ page }) => {
+    await page.goto('/')
+    const chart = page.locator('svg:has([data-testid="marker"])').first()
+    await chart.scrollIntoViewIfNeeded()
+
+    // Y-axis price reference (faint level labels).
+    await expect(page.getByTestId('price-grid').first()).toBeVisible()
+    // Deepest-drawdown trough marker with its negative percentage.
+    const drawdown = page.getByTestId('drawdown-marker')
+    await expect(drawdown).toBeVisible()
+    await expect(drawdown).toContainText('%')
+    // The selected event's detail lists other instruments' moves.
+    const strip = page.getByRole('list', { name: /other instruments/i })
+    await expect(strip).toBeVisible()
+    await expect(strip).toContainText('%')
+  })
+})
+
 test.describe('ledger → timeline jump', () => {
   test('a ledger row selects that event on the master timeline', async ({ page }) => {
     await page.goto('/')

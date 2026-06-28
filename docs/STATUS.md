@@ -354,6 +354,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   cross-instrument strip; ACCESSIBILITY notes the aria-hidden on-chart visual echoes (reaction
   labels, price-axis labels, drawdown marker) and the reaction in the chart's accessible name.
 
+- Real-browser E2E guards added for the recent timeline annotations (y-axis price labels,
+  drawdown marker with %, and the EventDetail cross-instrument strip) — extends the
+  regression-spec "behaviour jsdom can't verify" coverage to the new features. 32 E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)
