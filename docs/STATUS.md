@@ -316,6 +316,13 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   Coverage: lib stats 98.9% / scales 90.5% branch — the rest are d3/Intl `?? ''` fallbacks and a
   domainFor-padded guard that valid inputs can't reach (left intentionally uncovered).
 
+- Cross-instrument strip in the master-timeline EventDetail: the selected event now shows the
+  OTHER markets' moves (e.g. Apr 9 "great time to buy" → VIX −35.75%, NDX +12.16%, DJI +7.87%,
+  …) below its index reaction, biggest first, nulls skipped. Fills a real gap — the deep-dive's
+  cross-instrument view only covered the ~11 featured events; now all 30 have it on the timeline.
+  App builds a moves-by-id map (eventMoves) → MasterTimeline → EventDetail. Tested (strip shows
+  others, hides the shown series + nulls; absent when no moves); verify + E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

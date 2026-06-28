@@ -85,6 +85,12 @@ export default function App() {
     TIMELINE_INSTRUMENTS.find((t) => t.ticker === timelineTicker)?.name ?? timelineTicker
   // How often the current instrument rose / fell / barely moved across all announcements.
   const timelineHitRate = useMemo(() => reactionHitRate(events, timelineTicker), [events, timelineTicker])
+  // Cross-instrument moves per event, so the timeline detail can show the full market picture
+  // for ANY event (the deep-dive only covers featured ones).
+  const movesById = useMemo(
+    () => new Map(events.map((e) => [e.announcement.id, eventMoves(e)])),
+    [events],
+  )
   const pickInstrument = useCallback((ticker: string) => {
     setTimelineTicker(ticker)
     if (typeof window === 'undefined') return
@@ -136,6 +142,7 @@ export default function App() {
           onPickInstrument={pickInstrument}
           benchmark={fallbackSeries}
           hitRate={timelineHitRate}
+          movesById={movesById}
         />
       </div>
 

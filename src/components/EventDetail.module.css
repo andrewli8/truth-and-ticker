@@ -100,6 +100,24 @@
   color: var(--muted);
 }
 
+/* Compact cross-instrument strip: the other markets' moves for this event. */
+.detailMoves {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+.move { color: var(--muted); }
+.move b,
+.move [translate='no'] { font-weight: 700; color: var(--text); }
+.move[data-dir='up'] { color: var(--relief); }
+.move[data-dir='down'] { color: var(--risk); }
+.move[data-dir='flat'] { color: var(--muted); }
+
 .detailFoot {
   display: flex;
   flex-wrap: wrap;

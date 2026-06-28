@@ -2,8 +2,12 @@ import { useState, type CSSProperties } from 'react'
 import { formatPct, formatTime, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { eventShareUrl } from '../lib/hash'
+import type { TickerMove } from '../lib/stats'
 import type { Announcement } from '../lib/types'
 import styles from './EventDetail.module.css'
+
+/** How many other-instrument moves to surface in the cross-instrument strip. */
+const MAX_OTHER_MOVES = 5
 
 interface Props {
   event: Announcement
@@ -14,12 +18,20 @@ interface Props {
   /** Index reaction for the event; `animatedPct` is the counted-up display value. */
   reactionPct: number | null
   animatedPct: number
+  /** All instruments' moves for this event (incl. the shown series); biggest first. */
+  moves?: TickerMove[]
 }
 
 /** The editorial pull-quote detail panel for the selected master-timeline event. */
-export function EventDetail({ event, accent, seriesTicker, reactionPct, animatedPct }: Props) {
+export function EventDetail({ event, accent, seriesTicker, reactionPct, animatedPct, moves }: Props) {
   const [copied, setCopied] = useState(false)
   const reactionDir = direction(reactionPct)
+  // The OTHER instruments' moves (the shown series already has its own reaction line),
+  // biggest first — the cross-instrument picture, which is otherwise only visible in the
+  // deep-dive and only for featured events.
+  const otherMoves = (moves ?? [])
+    .filter((m) => m.ticker !== seriesTicker && m.pct !== null)
+    .slice(0, MAX_OTHER_MOVES)
 
   function copyLink() {
     if (typeof window === 'undefined') return
@@ -64,6 +76,15 @@ export function EventDetail({ event, accent, seriesTicker, reactionPct, animated
           <span translate="no">{seriesTicker}</span> · prior close → next close
         </span>
       </div>
+      {otherMoves.length > 0 && (
+        <ul className={styles.detailMoves} aria-label="Other instruments' reactions">
+          {otherMoves.map((m) => (
+            <li key={m.ticker} className={styles.move} data-dir={direction(m.pct)}>
+              <span translate="no">{m.ticker}</span> {formatPct(m.pct)}
+            </li>
+          ))}
+        </ul>
+      )}
       <div className={styles.detailFoot}>
         <span>{event.source}</span>
         <span className={styles.detailActions}>

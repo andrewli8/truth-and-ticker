@@ -38,6 +38,33 @@ describe('EventDetail', () => {
     await waitFor(() => expect(getByRole('button').textContent).toMatch(/copied/i))
   })
 
+  it('shows other instruments\' moves but not the already-shown series', () => {
+    const moves = [
+      { ticker: 'SPX', pct: 1.2 },
+      { ticker: 'CL', pct: -2.5 },
+      { ticker: 'GLD', pct: 0.8 },
+      { ticker: 'VIX', pct: null }, // null moves are skipped
+    ]
+    const { getByLabelText, queryByText } = render(
+      <EventDetail event={event} accent="var(--relief)" seriesTicker="SPX" reactionPct={1.2} animatedPct={1.2} moves={moves} />,
+    )
+    const strip = getByLabelText(/other instruments/i)
+    expect(strip.textContent).toContain('CL')
+    expect(strip.textContent).toContain('-2.50%')
+    expect(strip.textContent).toContain('GLD')
+    // The shown series (SPX) isn't repeated in the strip, and null moves are omitted.
+    expect(strip.textContent).not.toContain('SPX')
+    expect(strip.textContent).not.toContain('VIX')
+    void queryByText
+  })
+
+  it('omits the cross-instrument strip when no moves are provided', () => {
+    const { queryByLabelText } = render(
+      <EventDetail event={event} accent="var(--relief)" seriesTicker="SPX" reactionPct={1.2} animatedPct={1.2} />,
+    )
+    expect(queryByLabelText(/other instruments/i)).toBeNull()
+  })
+
   it('links to the citation', () => {
     const { getByRole } = render(
       <EventDetail event={event} accent="var(--relief)" seriesTicker="SPX" reactionPct={null} animatedPct={0} />,

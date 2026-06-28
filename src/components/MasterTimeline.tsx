@@ -16,7 +16,7 @@ import {
 import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor, REACTION_WINDOW_MINS } from '../lib/correlate'
 import { accentGroup, type AccentGroup } from '../lib/labels'
-import { timelineAriaLabel, netReturnPct, maxDrawdown, type HitRate } from '../lib/stats'
+import { timelineAriaLabel, netReturnPct, maxDrawdown, type HitRate, type TickerMove } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct, direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
@@ -51,6 +51,8 @@ interface Props {
   benchmark?: Series
   /** Directional tally (up/down/flat) of this instrument's reactions, for the term-stat. */
   hitRate?: HitRate
+  /** Per-event cross-instrument moves (by announcement id) for the detail's instrument strip. */
+  movesById?: Map<string, TickerMove[]>
 }
 
 interface Tick {
@@ -82,6 +84,7 @@ export function MasterTimeline({
   onPickInstrument,
   benchmark,
   hitRate,
+  movesById,
 }: Props) {
   const [showCompare, setShowCompare] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(() => {
@@ -453,6 +456,7 @@ export function MasterTimeline({
           seriesTicker={series.ticker}
           reactionPct={reactionPct}
           animatedPct={animatedPct}
+          moves={movesById?.get(selected.id)}
         />
       )}
     </section>
