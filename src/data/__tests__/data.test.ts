@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { announcements, markets } from '../index'
-import { correlateAll } from '../../lib/correlate'
+import { correlateAll, reactionFor, REACTION_WINDOW_MINS } from '../../lib/correlate'
 
 describe('dataset integrity', () => {
   it('has at least 6 announcements', () => {
@@ -94,5 +94,23 @@ describe('dataset integrity', () => {
     correlateAll(announcements, markets, 120).forEach((e) => {
       expect(e.reactions.some((r) => r.deltaPct !== null)).toBe(true)
     })
+  })
+
+  it('any WTI percentage cited in a summary matches the CL data (close-to-close)', () => {
+    const cl = markets.find((m) => m.ticker === 'CL')!
+    // Magnitude of any "WTI ... <n>%" figure (e.g. "WTI +7.6%", "WTI plunged ~7.2%").
+    const wtiClaim = /WTI\D*?(\d+(?:\.\d+)?)\s*%/i
+    let checked = 0
+    announcements.forEach((a) => {
+      const match = a.summary.match(wtiClaim)
+      if (!match) return
+      checked += 1
+      const claimed = Number(match[1])
+      const actual = reactionFor(a, cl, REACTION_WINDOW_MINS).deltaPct
+      expect(actual).not.toBeNull()
+      // Prose states magnitude (sign is conveyed by words like "spiked"/"plunged").
+      expect(Math.abs(Math.abs(actual!) - claimed)).toBeLessThanOrEqual(0.2)
+    })
+    expect(checked).toBeGreaterThan(0) // guard the guard: ensure WTI claims exist
   })
 })
