@@ -222,3 +222,14 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   present-when-provided / absent-when-not.
 
 ## Next
+
+1. Stop rebuilding the deep-dive per-step series on every scroll frame. The ScrollStage
+   render-prop runs each progress tick (~60/s) and calls windowAround + builds a fresh
+   `series` object every time, so MarketChart's useMemos (fullPath, positions, eventIdx —
+   which depend only on the step, not progress) invalidate and recompute every frame.
+   Evidence: src/App.tsx:131 (windowAround + `series` built inside the children callback);
+   src/components/MarketChart.tsx:50 (useMemo keyed on series.points, defeated by the new
+   reference each frame). Acceptance: App precomputes the per-step derived data
+   (spotlight, accent, reactionPct, windowed series) in a useMemo keyed on featured, and the
+   render-prop reads steps[step] instead of recomputing — provable by diffing src/App.tsx
+   (no windowAround call inside the children callback); existing App and E2E tests stay green.
