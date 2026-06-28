@@ -32,6 +32,12 @@ describe('Outro', () => {
     expect(getAllByTestId('summary-row')).toHaveLength(2)
   })
 
+  it('links to the interactive POC concept', () => {
+    const { getByRole } = render(<Outro events={events} primaryTicker="SPX" />)
+    const link = getByRole('link', { name: /concept/i })
+    expect(link).toHaveAttribute('href', '/poc.html')
+  })
+
   it('exposes the ledger as an accessible data table (caption + col-scoped headers)', () => {
     const { container } = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
     expect(container.querySelector('table > caption')).toBeTruthy()

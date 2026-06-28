@@ -165,6 +165,23 @@
   max-width: 50rem;
 }
 
+.concept {
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.conceptLink {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 35%, transparent);
+  transition: color var(--ease, 0.2s ease), border-color var(--ease, 0.2s ease);
+}
+.conceptLink:hover {
+  color: var(--relief);
+  border-bottom-color: var(--relief);
+}
+
 @media (max-width: 768px) {
   .table { font-size: 0.82rem; }
   .table td, .table th { padding: 0.6rem 0.5rem; }

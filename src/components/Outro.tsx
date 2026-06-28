@@ -216,6 +216,13 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
         timing correlation; it does not allege trading by any named individual.
       </p>
       <ShareButton />
+      <p className={styles.concept}>
+        Prefer the whole story on one interactive screen?{' '}
+        <a className={styles.conceptLink} href="/poc.html">
+          Open the “When he posts” concept
+        </a>
+        .
+      </p>
     </section>
   )
 }
