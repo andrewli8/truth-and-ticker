@@ -233,3 +233,11 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   on-chart reaction label (hollow ring + close-to-close %). Front door matches reality.
 
 ## Next
+
+1. Cover MarketChart's no-eventISO fallback branch. When eventISO is omitted the label falls
+   back to the playhead anchor and no event ring is drawn (`labelAt = eventPos ?? head`;
+   `eventPos = eventIdx >= 0 ? … : null`) — a real branch with no direct test, so a
+   regression that broke the fallback would pass CI. Evidence: src/components/MarketChart.tsx
+   (eventPos/labelAt fallback + event-dot guard). Acceptance: a new MarketChart test asserts
+   that with reactionPct set but eventISO omitted, the reaction-callout still renders (at the
+   playhead) while data-testid="event-dot" is absent; verify gate green.
