@@ -213,3 +213,13 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   prior MarketChart, MasterTimeline, and E2E specs stay green.
 
 ## Next
+
+1. Anchor the deep-dive reaction callout at the event, not the moving playhead. The callout
+   is positioned at the scroll-reveal head, so mid-scroll the "+0.88%" floats over dates that
+   aren't the announcement — the reaction belongs to the event's date. Evidence:
+   src/components/MarketChart.tsx (callout x/y derive from `head`, the progress-driven reveal
+   index); src/App.tsx passes momentLabel but not the event datetime. Acceptance: MarketChart
+   takes an optional `eventISO`; when given, the reaction label (and a small fixed event-point
+   marker) anchor at the nearest series point to eventISO, independent of progress; a new
+   MarketChart test asserts the callout's x is identical at progress 0.2 and 1 when eventISO
+   is set; App passes the announcement datetime; verify + E2E green.
