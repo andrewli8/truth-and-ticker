@@ -218,3 +218,13 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   Covered by a test asserting the callout's x is identical at progress 0.2 and 1.
 
 ## Next
+
+1. Give screen-reader parity for the deep-dive chart's on-chart reaction label. The chart
+   now visibly labels the event's close-to-close reaction, but chartAriaLabel only reports
+   the window's first→last move, so SR users miss the headline number. Evidence:
+   src/lib/stats.ts:196 (chartAriaLabel takes series + momentLabel, no reaction);
+   src/components/MarketChart.tsx passes only momentLabel to chartAriaLabel though it now has
+   reactionPct. Acceptance: chartAriaLabel accepts an optional reaction and, when given,
+   appends a clause naming it (e.g. "reaction +0.88%"); MarketChart passes its reactionPct; a
+   new stats test asserts the label includes the reaction when provided and omits the clause
+   when not; verify gate green.
