@@ -199,3 +199,14 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   optional `reactionPct` prop; covered by tests (renders value, direction, absent on null).
 
 ## Next
+
+1. Mirror the deep-dive's on-chart reaction label into the master-timeline overview. The
+   deep-dive now labels the move at the playhead (MarketChart), but the overview states the
+   reaction only in the detached EventDetail panel below — the selected marker on the chart
+   never shows the number, so the move and its data point read apart. Evidence:
+   src/components/MasterTimeline.tsx:380 (selected marker renders dot + guide line, no
+   reaction label); the value is already computed at src/components/MasterTimeline.tsx:231
+   (reactionPct). Acceptance: the SELECTED marker renders a small signed % label beside its
+   dot (coloured up/down, halo for legibility, omitted when reactionPct is null, nudged in
+   from the chart edges so it doesn't clip); a new MasterTimeline test asserts the label
+   shows the formatted reaction for the selected event; verify gate green.
