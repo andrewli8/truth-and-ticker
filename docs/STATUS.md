@@ -407,16 +407,4 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-1. poc.html is now a linked, shareable page but has no social-preview or canonical
-   metadata, so a shared link renders a bare card.
-   Evidence: poc.html:7 has only a `description` meta (+ fonts); it has no og:/twitter:/
-   canonical tags, whereas index.html:16 ships og:type/og:url/og:image and index.html:27
-   a twitter:card.
-   Acceptance: poc.html gains og:title/og:description/og:type/og:url/og:image,
-   twitter:card, and a `<link rel="canonical">` (reusing the site OG image is fine);
-   provable by diffing poc.html.
-2. The POC's Home/End keyboard branches are untested.
-   Evidence: src/poc/PocApp.tsx onKeyDown handles Home (stepTo(0)) and End
-   (stepTo(last)), but src/poc/__tests__/PocApp.test.tsx has no Home/End case.
-   Acceptance: a PocApp test fires Home and End on the chart and asserts the active
-   post (`.poc-meta`) jumps to the first and last announcement respectively.
+(empty — no evidence-backed improvement currently queued)
