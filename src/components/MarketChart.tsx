@@ -76,7 +76,7 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
   return (
     <figure className={styles.wrap} style={accentStyle}>
       <figcaption className={styles.head}>
-        <span className={styles.ticker}>{series.ticker}</span>
+        <span className={styles.ticker} translate="no">{series.ticker}</span>
         <span className={styles.name}>{series.name}</span>
         {momentLabel && <span className={styles.moment}>{momentLabel}</span>}
       </figcaption>

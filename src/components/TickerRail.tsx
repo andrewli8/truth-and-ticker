@@ -12,7 +12,7 @@ function Chip({ m }: { m: TickerMove }) {
   const dir = m.pct === null ? 'flat' : m.pct >= 0 ? 'up' : 'down'
   return (
     <span className={styles.chip}>
-      <span className={styles.sym}>{m.ticker}</span>
+      <span className={styles.sym} translate="no">{m.ticker}</span>
       <span className={`${styles.val} ${styles[dir]}`}>{formatPct(m.pct)}</span>
     </span>
   )

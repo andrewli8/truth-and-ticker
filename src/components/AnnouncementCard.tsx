@@ -51,7 +51,7 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
 
       <div className={styles.reactionRow}>
         <span data-testid="delta-badge" className={`${styles.badge} ${styles[dir]}`}>
-          {primary?.ticker} {formatPct(delta)}
+          <span translate="no">{primary?.ticker}</span> {formatPct(delta)}
         </span>
         <div className={styles.others}>
           {secondary.map((r) => (
