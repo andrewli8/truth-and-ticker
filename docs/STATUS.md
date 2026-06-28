@@ -150,3 +150,9 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
   memoized, tested, verified light/dark; E2E-guarded; documented in ARCHITECTURE + README.
 
 ## Next
+
+1. Tighten the StatBand→CategoryBand vertical gap. StatBand's 8rem bottom padding plus
+   CategoryBand's 6rem top padding leaves a ~14rem empty band that reads as disconnected.
+   Evidence: src/components/CategoryBand.module.css (.band padding-top 6rem). Acceptance:
+   CategoryBand top padding reduced (≈3.5rem) so the sections connect with breathing room
+   intact (provable by diffing the CSS; confirmed by a re-screenshot); verify green.
