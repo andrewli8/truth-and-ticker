@@ -166,5 +166,6 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   null-ref branches; lib layer fully covered (stats/format/scales/useInView 100%);
   overall ~96% stmts / ~88% branches (remaining gaps: unreachable d3 fallbacks, SSR
   guards, and browser-API paths the E2E covers).
+- useTheme localStorage SSR guard tested; hooks/lib at 100% lines.
 
 ## Next
