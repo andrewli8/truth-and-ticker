@@ -159,5 +159,7 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Measured WCAG contrast; documented in ACCESSIBILITY.md (body/muted pass AA; accents are
   AA-large with +/- sign redundancy — strict AA-normal on small colored text is a
   design-owner palette call, not auto-changed).
+- Fixed React act() warnings in the copy-link tests (await the post-copy state update);
+  clean verify output.
 
 ## Next
