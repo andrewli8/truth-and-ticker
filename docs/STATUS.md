@@ -280,11 +280,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - MasterTimeline term-stat hit-rate rendering is now component-tested (passes a hitRate prop,
   asserts "rose on 16 of 30 posts" in the term-stat) — locks the new UI, not just the stat fn.
 
+- CI is live (.github/workflows/ci.yml): on push to main + PRs it runs Node 22, npm ci,
+  `npm run verify` (tsc/vitest/build), Playwright chromium, `npm run test:e2e`, uploads the
+  report, cancels superseded runs. First run is green (Verify + E2E ~1m7s). It immediately caught
+  a real portability bug — `useCountUp.test` used Node-only `global` (local tsc tolerated it via
+  hoisting; clean CI didn't), now `globalThis` (typed via ES2020 lib). Exactly CI's purpose.
+
 ## Next
 
-1. Add CI (GitHub Actions). The repo is public with a full test suite, and playwright.config.ts
-   already branches on process.env.CI (retries, forbidOnly, reuseExistingServer) — CI is intended
-   but absent, so nothing runs automatically on push/PR. Evidence: playwright.config.ts:13-24
-   (CI branches); no .github/workflows/. Acceptance: a .github/workflows/ci.yml runs on push to
-   main and on PRs — Node 22 + `npm ci` + `npm run verify` (tsc/vitest/build) + Playwright
-   chromium + `npm run test:e2e`; the workflow run succeeds on push (verified via gh).
+(empty — no evidence-backed improvement currently queued)
