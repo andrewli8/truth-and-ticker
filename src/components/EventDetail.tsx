@@ -44,7 +44,7 @@ export function EventDetail({ event, accent, seriesTicker, reactionPct, animated
     >
       <div className={styles.detailMeta}>
         <span className={styles.detailTag}>{typeLabel(event.type)}</span>
-        <time>{formatTime(event.datetime)}</time>
+        <time dateTime={event.datetime}>{formatTime(event.datetime)}</time>
       </div>
       {event.quote ? (
         <blockquote className={styles.detailQuote}>
