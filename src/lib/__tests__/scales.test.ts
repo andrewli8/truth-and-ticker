@@ -136,6 +136,9 @@ describe('pointPositions', () => {
     const others = pos.filter((_, i) => i !== 1).map((p) => p.y)
     others.forEach((y) => expect(yOfMax).toBeLessThanOrEqual(y))
   })
+  it('returns an empty array for no points', () => {
+    expect(pointPositions([], 800, 400)).toEqual([])
+  })
 })
 
 describe('windowAround', () => {
