@@ -91,6 +91,16 @@ describe('MarketChart', () => {
     expect(getByTestId('event-dot')).toBeInTheDocument()
   })
 
+  it('falls back to the playhead anchor (no event ring) when eventISO is omitted', () => {
+    const { getByTestId, queryByTestId } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={0.88} />,
+    )
+    // The reaction still shows (anchored at the playhead, the legacy behaviour)…
+    expect(getByTestId('reaction-callout').textContent).toContain('+0.88%')
+    // …but without eventISO there's no fixed event-point ring.
+    expect(queryByTestId('event-dot')).toBeNull()
+  })
+
   it('omits the reaction callout when reactionPct is null or absent', () => {
     const { queryByTestId, rerender } = render(
       <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={null} />,
