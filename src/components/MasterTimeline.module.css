@@ -211,6 +211,24 @@
   filter: drop-shadow(0 0 calc(7px * var(--glow, 1)) currentColor);
 }
 
+/* The selected event's reaction, stated on the chart beside its dot so the move and
+   its data point read together (mirrors the deep-dive's playhead label). Coloured by
+   direction; the +/- sign keeps it legible without colour. The bg halo (paint-order
+   stroke) keeps it readable over the line and area fill. */
+.markerReaction {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.markerReaction[data-dir='up'] { fill: var(--relief); }
+.markerReaction[data-dir='down'] { fill: var(--risk); }
+.markerReaction[data-dir='flat'] { fill: var(--muted); }
+
 @media (max-width: 768px) {
   .section { padding: 4rem 1.25rem 3rem; }
   /* Roomier touch targets on mobile for the primary controls (was ~27px tall). */

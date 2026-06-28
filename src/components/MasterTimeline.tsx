@@ -404,6 +404,18 @@ export function MasterTimeline({
                   }
                 }}
               />
+              {isSel && reactionPct !== null && (
+                <text
+                  data-testid="marker-reaction"
+                  data-dir={reactionPct >= 0 ? 'up' : 'down'}
+                  className={styles.markerReaction}
+                  x={dx + (dx > W * 0.8 ? -10 : 10)}
+                  y={y < PAD + 28 ? y + 22 : y - 12}
+                  textAnchor={dx > W * 0.8 ? 'end' : 'start'}
+                >
+                  {formatPct(reactionPct)}
+                </text>
+              )}
             </g>
           )
         })}

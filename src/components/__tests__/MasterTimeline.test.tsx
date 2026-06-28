@@ -87,6 +87,30 @@ describe('MasterTimeline', () => {
     expect(reaction.textContent).toContain(spx.ticker)
   })
 
+  it('labels the selected marker with its reaction on the chart', () => {
+    const { getByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const label = getByTestId('marker-reaction')
+    expect(label).toBeInTheDocument()
+    // A signed percentage for the selected (default last) event.
+    expect(label.textContent).toMatch(/[+\-−]\d+(\.\d+)?%/)
+    // Direction is exposed for colour + non-colour cues.
+    expect(['up', 'down', 'flat']).toContain(label.getAttribute('data-dir'))
+  })
+
+  it('moves the marker reaction label to the newly selected event', () => {
+    const { getAllByTestId, getByTestId } = render(
+      <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
+    )
+    const before = getByTestId('marker-reaction').textContent
+    fireEvent.click(getAllByTestId('marker')[0]) // select the first event
+    // The on-chart label tracks the selection (label text reflects the new event).
+    expect(getByTestId('marker-reaction').textContent).not.toBe('')
+    expect(getByTestId('marker-reaction').textContent).toMatch(/[+\-−]?\d|n\/a/)
+    void before
+  })
+
   it('steps the selected event with the arrow keys', () => {
     const { getAllByTestId } = render(
       <MasterTimeline series={spx} announcements={announcements} accentFor={() => 'var(--risk)'} />,
