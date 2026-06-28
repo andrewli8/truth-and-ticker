@@ -153,6 +153,7 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Kinetic-typography hero title: per-glyph staggered rise (was a block reveal); layout
   preserved, aria-label keeps the name, reduced-motion safe; verified via screenshot.
 - E2E guards the kinetic hero title is visible under reduced motion.
+- CategoryBand bars reveal via GPU-friendly scaleX (was animating width).
 
 ## Next
 
