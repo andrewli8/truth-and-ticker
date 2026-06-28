@@ -96,6 +96,24 @@ test.describe('on-chart reaction labels', () => {
   })
 })
 
+test.describe('dark theme', () => {
+  test('toggles to dark mode and keeps the chart label visible without overflow', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /switch to dark mode/i }).click()
+    await expect(page.locator('html[data-theme="dark"]')).toHaveCount(1)
+
+    // The on-chart reaction label survives the theme switch (dark halo + accent).
+    const chart = page.locator('svg:has([data-testid="marker"])').first()
+    await chart.scrollIntoViewIfNeeded()
+    await expect(page.getByTestId('marker-reaction')).toBeVisible()
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    )
+    expect(overflow).toBe(false)
+  })
+})
+
 test.describe('outro highlights', () => {
   test('renders the "biggest single-day reactions" cards', async ({ page }) => {
     await page.goto('/')

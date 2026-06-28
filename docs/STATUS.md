@@ -237,13 +237,8 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - ChartReactionLabel is now aria-hidden: it's a visual echo of data already in the chart's
   accessible name (chartAriaLabel) and the live EventDetail, so SR users no longer hear the
   reaction twice in MasterTimeline's role="group" SVG. Unit-tested; E2E (visibility-based) green.
+- Dark mode now has E2E coverage: a regression test toggles the theme, asserts
+  html[data-theme="dark"], the on-chart marker-reaction label stays visible, and no horizontal
+  overflow — dark mode was a major feature with zero E2E before. 9/9 regression specs green.
 
 ## Next
-
-1. Add a dark-theme E2E smoke. Dark mode is a primary feature (toggle → <html data-theme>),
-   but every E2E runs in the default light theme, so a dark-mode rendering regression would
-   ship unnoticed. Evidence: src/lib/useTheme.ts:15 (data-theme applied to <html>);
-   src/components/ThemeToggle.tsx:14 (button labelled "Switch to dark mode"); e2e/*.spec.ts
-   never toggle the theme. Acceptance: a new e2e test clicks the theme toggle, asserts
-   html[data-theme="dark"], and that the master-timeline marker-reaction label stays visible
-   with no horizontal overflow in dark mode; `npx playwright test` passes.
