@@ -176,13 +176,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   off, non-paginating deep-dive hidden (ledger carries the data); verified print-media.
 
 - apple-touch-icon (180×180 brand mark) for iOS home-screen bookmarks.
+- Security response headers via vercel.json (nosniff, Referrer-Policy, X-Frame-Options,
+  Permissions-Policy, HSTS; CSP omitted to avoid breaking inline theme script/fonts).
 
 ## Next
 
-1. Add security response headers via vercel.json (the deploy target per the canonical
-   origin). The site ships no security headers. Evidence: index.html:30 (canonical
-   vercel.app origin); no vercel.json exists. Acceptance: a vercel.json applies standard
-   safe headers to all routes — X-Content-Type-Options: nosniff, Referrer-Policy:
-   strict-origin-when-cross-origin, X-Frame-Options: SAMEORIGIN, a Permissions-Policy
-   disabling unused features, and HSTS — omitting CSP (would break the inline theme script
-   + Google Fonts); valid JSON; verify gate green (config-only, build unaffected).
+1. Prevent iOS Safari from auto-linking the page's many numbers (dates, prices,
+   percentages) into phone links. No format-detection meta exists. Evidence: index.html
+   (head, no format-detection). Acceptance: <meta name="format-detection"
+   content="telephone=no"> added to the head (provable by diffing index.html); verify green.
