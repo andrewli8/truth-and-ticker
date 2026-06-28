@@ -44,7 +44,7 @@ export function StatBand({ markets }: Props) {
   const { ref, inView } = useInView<HTMLElement>()
   const stats = buildStats(markets)
   return (
-    <section ref={ref} className={styles.band} aria-label="Key market swings across Trump's second term">
+    <section ref={ref} className={styles.band} aria-label="Key market swings across Trump’s second term">
       <h2 className={styles.intro}>Six months. Thirty posts. This is what moved.</h2>
       <div className={styles.grid}>
         {stats.map((s) => (

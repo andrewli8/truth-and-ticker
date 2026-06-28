@@ -274,7 +274,7 @@ export function MasterTimeline({
   }
 
   return (
-    <section ref={rootRef} className={styles.section} aria-label="Trump's second term, market timeline">
+    <section ref={rootRef} className={styles.section} aria-label="Trump’s second term, market timeline">
       <header className={styles.head}>
         <div>
           <h2 className={styles.title}>The whole presidency, on one line.</h2>
