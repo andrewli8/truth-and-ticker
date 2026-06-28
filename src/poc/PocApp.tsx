@@ -19,6 +19,7 @@ import { formatPct, formatDay, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useCountUp } from '../lib/useCountUp'
+import { INSTRUMENTS } from '../lib/instruments'
 
 const W = 1440
 const H = 900
@@ -30,20 +31,25 @@ const H = 900
  * and a lerp-follow cursor. Reduced-motion safe.
  */
 export function PocApp() {
-  const spx = useMemo(() => seriesByTicker(markets, 'SPX') ?? markets[0], [])
-  const domain = useMemo(() => dateDomainOf(spx.points), [spx])
-  const vdom = useMemo(() => domainFor(spx.points), [spx])
-  const linePath = useMemo(() => timeLinePath(spx.points, W, H), [spx])
-  const areaPath = useMemo(() => timeAreaPath(spx.points, W, H), [spx])
+  const [ticker, setTicker] = useState('SPX')
+  const series = useMemo(() => seriesByTicker(markets, ticker) ?? markets[0], [ticker])
+  const instrumentName = useMemo(
+    () => INSTRUMENTS.find((i) => i.ticker === ticker)?.name ?? ticker,
+    [ticker],
+  )
+  const domain = useMemo(() => dateDomainOf(series.points), [series])
+  const vdom = useMemo(() => domainFor(series.points), [series])
+  const linePath = useMemo(() => timeLinePath(series.points, W, H), [series])
+  const areaPath = useMemo(() => timeAreaPath(series.points, W, H), [series])
 
   const posts = useMemo(
     () =>
       announcements.map((a) => {
         const ms = Date.parse(a.datetime)
-        const price = valueAt(spx.points, ms) ?? spx.points[0].price
+        const price = valueAt(series.points, ms) ?? series.points[0].price
         return { a, ms, x: timeX(ms, W, domain), y: priceY(price, H, vdom) }
       }),
-    [domain, vdom, spx],
+    [domain, vdom, series],
   )
 
   // Posts in chronological order, for keyboard stepping.
@@ -72,8 +78,8 @@ export function PocApp() {
   }, [hoverMs, posts])
 
   const reaction = useMemo(
-    () => reactionFor(active.a, spx, REACTION_WINDOW_MINS).deltaPct,
-    [active, spx],
+    () => reactionFor(active.a, series, REACTION_WINDOW_MINS).deltaPct,
+    [active, series],
   )
   const dir = direction(reaction)
 
@@ -86,8 +92,8 @@ export function PocApp() {
   // Count the latest reaction up on load (stable target → animates once); show the live value
   // instantly while scrubbing for responsiveness.
   const latest = useMemo(
-    () => reactionFor(posts[posts.length - 1].a, spx, REACTION_WINDOW_MINS).deltaPct,
-    [posts, spx],
+    () => reactionFor(posts[posts.length - 1].a, series, REACTION_WINDOW_MINS).deltaPct,
+    [posts, series],
   )
   const counted = useCountUp(latest, reduced, true)
   const display = hoverMs == null ? counted : reaction
@@ -150,6 +156,38 @@ export function PocApp() {
     { dependencies: [reduced], scope: rootRef },
   )
 
+  // Re-draw the line (and fade the fill) when the instrument changes — the entrance
+  // handles the first mount, so skip the initial run. Reduced motion just snaps.
+  const firstSwitch = useRef(true)
+  useGSAP(
+    () => {
+      if (reduced) return
+      if (firstSwitch.current) {
+        firstSwitch.current = false
+        return
+      }
+      const line = lineRef.current
+      let len = 0
+      if (line && typeof line.getTotalLength === 'function') {
+        try {
+          len = line.getTotalLength()
+        } catch {
+          len = 0
+        }
+      }
+      const draw = drawOnVars(len)
+      if (line && draw) {
+        gsap.fromTo(
+          line,
+          { strokeDasharray: draw.dasharray, strokeDashoffset: draw.from },
+          { strokeDashoffset: draw.to, duration: 0.9, ease: 'power2.out' },
+        )
+      }
+      gsap.fromTo('.poc-area', { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' })
+    },
+    { dependencies: [ticker], scope: rootRef },
+  )
+
   function scrub(e: PointerEvent<SVGSVGElement>) {
     const r = svgRef.current?.getBoundingClientRect()
     if (!r || !r.width) return
@@ -192,7 +230,9 @@ export function PocApp() {
       <div className="poc-cursor" ref={cursorRef} aria-hidden="true" />
 
       <header className="poc-head">
-        <p className="poc-kicker" data-poc-fade>Jan&ndash;Jun 2025 &middot; S&amp;P 500 &middot; second term</p>
+        <p className="poc-kicker" data-poc-fade>
+          Jan&ndash;Jun 2025 &middot; {instrumentName} &middot; second term
+        </p>
         <h1 className="poc-title">
           <span className="poc-line-mask"><span className="poc-line-in">When he posts,</span></span>
           <span className="poc-line-mask"><span className="poc-line-in">the market <em>moves</em>.</span></span>
@@ -218,7 +258,7 @@ export function PocApp() {
         preserveAspectRatio="xMidYMax slice"
         role="slider"
         tabIndex={0}
-        aria-label="S&P 500 across Trump's second term; drag or use arrow keys to scrub through the announcements."
+        aria-label={`${instrumentName} across Trump's second term; drag or use arrow keys to scrub through the announcements.`}
         aria-valuemin={0}
         aria-valuemax={ordered.length - 1}
         aria-valuenow={activeIndex < 0 ? ordered.length - 1 : activeIndex}
@@ -249,6 +289,20 @@ export function PocApp() {
 
         <line x1={active.x} x2={active.x} y1={0} y2={H} className="poc-playhead" />
       </svg>
+
+      <div className="poc-switch" role="group" aria-label="Choose the instrument" data-poc-fade>
+        {INSTRUMENTS.map((ins) => (
+          <button
+            key={ins.ticker}
+            type="button"
+            className="poc-chip"
+            aria-pressed={ticker === ins.ticker}
+            onClick={() => setTicker(ins.ticker)}
+          >
+            {ins.name}
+          </button>
+        ))}
+      </div>
 
       <a className="poc-back" href="/" data-poc-fade>&larr; The full story</a>
       <p className="poc-hint" data-poc-fade>Drag or use arrow keys to scrub the timeline</p>

@@ -209,6 +209,49 @@ body {
   border-radius: 2px;
 }
 
+/* Instrument switcher: a vertical rail on the right edge (clear of the corners). */
+.poc-switch {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+.poc-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--poc-dim);
+  background: color-mix(in srgb, var(--poc-bg) 68%, transparent);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.34rem 0.72rem;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+.poc-chip:hover {
+  color: var(--poc-ink);
+}
+.poc-chip[aria-pressed='true'] {
+  color: var(--poc-accent);
+  border-color: color-mix(in srgb, var(--poc-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--poc-bg) 86%, transparent);
+}
+.poc-chip:focus-visible {
+  outline: 2px solid var(--poc-accent);
+  outline-offset: 2px;
+}
+
 /* Lerp-follow cursor ring (desktop fine pointers). */
 .poc-cursor {
   position: fixed;
@@ -280,6 +323,17 @@ body {
     background: Canvas;
     padding: 0.25rem 0.6rem;
     border: 1px solid CanvasText;
+  }
+  .poc-chip {
+    color: ButtonText;
+    background: ButtonFace;
+    border-color: ButtonText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .poc-chip[aria-pressed='true'] {
+    color: Highlight;
+    border-color: Highlight;
   }
   .poc-grain { display: none; }
 }

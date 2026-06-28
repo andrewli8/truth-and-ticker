@@ -55,6 +55,18 @@ test('arrow keys scrub the POC chart (focusable slider)', async ({ page }) => {
   await expect(meta).toHaveText(before ?? '')
 })
 
+test('the instrument switcher re-plots the line and readout', async ({ page }) => {
+  await page.goto('/poc.html')
+  const line = page.locator('.poc-line')
+  const before = await line.getAttribute('d')
+  const kicker = page.locator('.poc-kicker')
+  await expect(kicker).toContainText('S&P 500')
+
+  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await expect(kicker).toContainText('Oil')
+  await expect.poll(async () => line.getAttribute('d')).not.toBe(before)
+})
+
 test.describe('mobile', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 

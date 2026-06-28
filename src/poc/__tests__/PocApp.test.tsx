@@ -118,6 +118,22 @@ describe('PocApp (one-screen POC)', () => {
     expect(meta()).not.toBe(before)
   })
 
+  it('switches the charted instrument, re-plotting the line and kicker', () => {
+    const { container, getByRole } = render(<PocApp />)
+    const line = () => container.querySelector('.poc-line')?.getAttribute('d')
+    const kicker = () => container.querySelector('.poc-kicker')?.textContent
+
+    expect(kicker()).toMatch(/S&P 500/)
+    const spxPath = line()
+    // The switcher offers each instrument; picking Oil re-plots.
+    const oil = getByRole('button', { name: 'Oil' })
+    expect(oil.getAttribute('aria-pressed')).toBe('false')
+    fireEvent.click(oil)
+    expect(oil.getAttribute('aria-pressed')).toBe('true')
+    expect(kicker()).toMatch(/Oil/)
+    expect(line()).not.toBe(spxPath)
+  })
+
   it('runs the GSAP entrance and lerp cursor when motion is allowed on a fine pointer', () => {
     mockMedia({ reduced: false, finePointer: true })
     const { container, unmount } = render(<PocApp />)
