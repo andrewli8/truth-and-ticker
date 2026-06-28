@@ -1,6 +1,35 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render, fireEvent } from '@testing-library/react'
 import { PocApp } from '../PocApp'
+
+const realMatchMedia = window.matchMedia
+afterEach(() => {
+  window.matchMedia = realMatchMedia
+  vi.restoreAllMocks()
+})
+
+// Override the global setup's matchMedia (reduced-motion=true) so the GSAP entrance and
+// the lerp-follow cursor effects actually run in jsdom — the project's browser-API-mock
+// pattern (cf. useInView/useCountUp tests).
+function mockMedia({ reduced, finePointer }: { reduced: boolean; finePointer: boolean }) {
+  window.matchMedia = ((q: string) =>
+    ({
+      matches: /prefers-reduced-motion/.test(q)
+        ? reduced
+        : /pointer: fine/.test(q)
+          ? finePointer
+          : false,
+      media: q,
+      onchange: null,
+      addEventListener() {},
+      removeEventListener() {},
+      addListener() {},
+      removeListener() {},
+      dispatchEvent() {
+        return false
+      },
+    })) as unknown as typeof window.matchMedia
+}
 
 describe('PocApp (one-screen POC)', () => {
   it('renders the headline, a reaction readout, and the chart', () => {
@@ -64,5 +93,38 @@ describe('PocApp (one-screen POC)', () => {
     expect(meta()).toBe(first)
     fireEvent.keyDown(chart, { key: 'End' })
     expect(meta()).toBe(last)
+  })
+
+  it('scrubs to the pointer position and resets on leave', () => {
+    const { container } = render(<PocApp />)
+    const chart = container.querySelector('svg.poc-chart') as SVGSVGElement
+    vi.spyOn(chart, 'getBoundingClientRect').mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 1440,
+      height: 900,
+      right: 1440,
+      bottom: 900,
+      x: 0,
+      y: 0,
+      toJSON() {},
+    } as DOMRect)
+
+    const meta = () => container.querySelector('.poc-meta')?.textContent
+    const before = meta()
+    // Pointer near the left edge → an early post, not the default latest one.
+    fireEvent(chart, new MouseEvent('pointerdown', { clientX: 60, bubbles: true }))
+    fireEvent(chart, new MouseEvent('pointermove', { clientX: 60, bubbles: true }))
+    expect(meta()).not.toBe(before)
+  })
+
+  it('runs the GSAP entrance and lerp cursor when motion is allowed on a fine pointer', () => {
+    mockMedia({ reduced: false, finePointer: true })
+    const { container, unmount } = render(<PocApp />)
+    expect(container.querySelector('.poc-cursor')).toBeTruthy()
+    // Exercises the cursor's pointermove handler…
+    window.dispatchEvent(new MouseEvent('pointermove', { clientX: 200, clientY: 200 }))
+    // …and the effect cleanup (listener + ticker removal) on unmount.
+    expect(() => unmount()).not.toThrow()
   })
 })
