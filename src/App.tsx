@@ -17,6 +17,7 @@ import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
 import { localProgress, stepScrollTarget } from './lib/scroll'
 import { hashForEvent, instrumentFromQuery } from './lib/hash'
 import { accentVar } from './lib/labels'
+import { INSTRUMENTS as TIMELINE_INSTRUMENTS } from './lib/instruments'
 import { useReducedMotion } from './lib/useReducedMotion'
 import { announcements, markets } from './data'
 import './styles/app.css'
@@ -24,15 +25,7 @@ import './styles/app.css'
 const PRIMARY = 'SPX'
 // Trading days of context shown on either side of an event in the deep-dive.
 const WINDOW_DAYS = 21
-// Curated instruments offered in the master-timeline switcher (short labels).
-const TIMELINE_INSTRUMENTS: { ticker: string; name: string }[] = [
-  { ticker: 'SPX', name: 'S&P 500' },
-  { ticker: 'NDX', name: 'Nasdaq' },
-  { ticker: 'CL', name: 'Oil' },
-  { ticker: 'LMT', name: 'Defense' },
-  { ticker: 'GLD', name: 'Gold' },
-  { ticker: 'VIX', name: 'VIX' },
-]
+// Instruments offered in the master-timeline switcher (shared single source of truth).
 
 export default function App() {
   const events = useMemo(() => correlateAll(announcements, markets, REACTION_WINDOW_MINS), [])
