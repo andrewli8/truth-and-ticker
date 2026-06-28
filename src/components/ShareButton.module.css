@@ -36,6 +36,12 @@
   transform: translateY(-2px);
 }
 
+/* Press settles back to baseline for tactile click feedback. */
+.btn:active,
+.tweet:active {
+  transform: translateY(0);
+}
+
 .tweet:hover {
   border-color: var(--text);
 }
