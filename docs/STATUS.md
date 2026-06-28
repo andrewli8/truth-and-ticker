@@ -149,14 +149,7 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - "Biggest single-day reactions" 3-card lead-in to the Outro ledger (NDX/RTX/CL),
   memoized, tested, verified light/dark; E2E-guarded; documented in ARCHITECTURE + README.
 - Tightened StatBand→CategoryBand vertical gap for a connected flow.
+- Kinetic-typography hero title: per-glyph staggered rise (was a block reveal); layout
+  preserved, aria-label keeps the name, reduced-motion safe; verified via screenshot.
 
 ## Next
-
-1. Push the hero title to awwwards-level kinetic typography: a per-character staggered
-   rise (yPercent + opacity) replacing the single-block reveal, with the kicker/thesis/
-   scroll-hint still reveal as blocks just after. The original #1 goal was "awwards level
-   animations". Evidence: src/components/Hero.tsx (title + useGSAP block tween). Acceptance:
-   the title renders as inline-block character spans animated with a tight stagger; the h1
-   keeps an accessible name ("Truth & Ticker") via aria-label with the glyph spans
-   aria-hidden; reduced motion skips the animation (title fully visible); final rendered
-   state verified via screenshot; verify gate green.
