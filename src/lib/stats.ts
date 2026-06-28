@@ -111,6 +111,32 @@ export function seriesByTicker(markets: Series[], ticker: string): Series | unde
   return markets.find((m) => m.ticker === ticker)
 }
 
+/** Mean reaction (and sample size) for one announcement type on one instrument. */
+export interface TypeAggregate {
+  type: AnnType
+  avgPct: number
+  count: number
+}
+
+/**
+ * Average close-to-close reaction of `ticker` grouped by announcement type, sorted
+ * most-positive first. Null reactions (and types with no usable data) are skipped.
+ * Pure; never mutates its inputs. Answers "which kinds of posts moved markets, and
+ * which way, on average".
+ */
+export function reactionByType(events: CorrelatedEvent[], ticker: string): TypeAggregate[] {
+  const sums = new Map<AnnType, { total: number; count: number }>()
+  for (const e of events) {
+    const r = e.reactions.find((x) => x.ticker === ticker)
+    if (!r || r.deltaPct === null) continue
+    const acc = sums.get(e.announcement.type) ?? { total: 0, count: 0 }
+    sums.set(e.announcement.type, { total: acc.total + r.deltaPct, count: acc.count + 1 })
+  }
+  return [...sums.entries()]
+    .map(([type, { total, count }]) => ({ type, avgPct: total / count, count }))
+    .sort((a, b) => b.avgPct - a.avgPct)
+}
+
 /**
  * A spoken-language accessible name for a chart: the instrument, the window it
  * covers, and its first→last move — so screen readers get the data, not just

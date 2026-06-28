@@ -1,6 +1,18 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown } from '../stats'
-import type { Series, CorrelatedEvent } from '../types'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown, reactionByType } from '../stats'
+import type { Series, CorrelatedEvent, AnnType } from '../types'
+
+function ev(id: string, type: AnnType, spxDelta: number | null): CorrelatedEvent {
+  return {
+    announcement: {
+      id, datetime: '2025-01-01T00:00:00-05:00', source: 'x', quote: '', summary: '',
+      type, citationUrl: 'https://e.com', citationLabel: 'e',
+    },
+    reactions: [
+      { announcementId: id, ticker: 'SPX', deltaPct: spxDelta, fromPrice: 1, toPrice: 1, windowMins: 120 },
+    ],
+  }
+}
 
 const s = (ticker: string, prices: number[]): Series => ({
   ticker,
@@ -138,5 +150,28 @@ describe('eventMoves', () => {
   })
   it('handles an event with no reactions', () => {
     expect(eventMoves({ ...event, reactions: [] })).toEqual([])
+  })
+})
+
+describe('reactionByType', () => {
+  it('averages the ticker reaction by type, sorted most-positive first, with counts', () => {
+    const events = [
+      ev('a', 'tariff', -2), ev('b', 'tariff', -4), // tariff avg -3 (n=2)
+      ev('c', 'ceasefire', 1.2),                     // ceasefire avg 1.2 (n=1)
+      ev('d', 'strike', -1),                         // strike avg -1 (n=1)
+    ]
+    const out = reactionByType(events, 'SPX')
+    expect(out.map((o) => o.type)).toEqual(['ceasefire', 'strike', 'tariff'])
+    const tariff = out.find((o) => o.type === 'tariff')!
+    expect(tariff.avgPct).toBeCloseTo(-3)
+    expect(tariff.count).toBe(2)
+  })
+
+  it('ignores null reactions and yields nothing for an absent ticker', () => {
+    const events = [ev('a', 'tariff', null), ev('b', 'tariff', -2)]
+    const out = reactionByType(events, 'SPX')
+    expect(out.find((o) => o.type === 'tariff')!.avgPct).toBeCloseTo(-2)
+    expect(out.find((o) => o.type === 'tariff')!.count).toBe(1)
+    expect(reactionByType(events, 'ZZZ')).toEqual([])
   })
 })
