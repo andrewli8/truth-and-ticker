@@ -29,6 +29,22 @@ test('a ledger row deep-links the event into the URL', async ({ page }) => {
   await expect(page).toHaveURL(/#event-/)
 })
 
+test('a deep link opens the event on load', async ({ page }) => {
+  await page.goto('/')
+  // Capture a real event hash by activating a ledger row, then load it fresh.
+  await page.getByTestId('summary-row').nth(2).getByRole('button').click()
+  const url = page.url()
+  expect(url).toMatch(/#event-/)
+  await page.goto(url)
+  await expect(page.getByTestId('detail')).toBeVisible()
+})
+
+test('clicking a featured marker jumps to its deep-dive', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('[data-testid="marker"][aria-label*="open deep-dive"]').first().click()
+  await expect(page.locator('.stage').first()).toBeInViewport()
+})
+
 test('theme toggle switches to dark and persists across reload', async ({ page }) => {
   await page.goto('/')
   const html = page.locator('html')
