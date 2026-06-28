@@ -197,6 +197,7 @@ export interface SpreadPoint {
   id: string
   summary: string
   pct: number
+  datetime: string
 }
 export interface Spread {
   points: SpreadPoint[]
@@ -214,7 +215,12 @@ export function reactionSpread(events: CorrelatedEvent[], ticker: string): Sprea
   for (const e of events) {
     const r = e.reactions.find((x) => x.ticker === ticker)
     if (r && r.deltaPct !== null) {
-      points.push({ id: e.announcement.id, summary: e.announcement.summary, pct: r.deltaPct })
+      points.push({
+        id: e.announcement.id,
+        summary: e.announcement.summary,
+        pct: r.deltaPct,
+        datetime: e.announcement.datetime,
+      })
     }
   }
   const pcts = points.map((p) => p.pct)

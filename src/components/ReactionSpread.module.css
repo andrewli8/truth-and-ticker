@@ -41,12 +41,31 @@
 
 .dot {
   opacity: 0;
-  transition: opacity 0.5s var(--ease);
+  cursor: pointer;
+  transition: opacity 0.5s var(--ease), r 0.12s var(--ease);
 }
-.band.in .dot { opacity: 0.7; }
+.band.in .dot { opacity: 0.78; }
+.band.in .dot:hover,
+.band.in .dotActive { opacity: 1; }
 .dot[data-dir='up'] { fill: var(--relief); }
 .dot[data-dir='down'] { fill: var(--risk); }
 .dot[data-dir='flat'] { fill: var(--muted); }
+
+/* Hover callout: a stem up to a date · % label. */
+.calloutStem { stroke: var(--muted); stroke-width: 1; opacity: 0.5; }
+.calloutText {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.calloutText[data-dir='up'] { fill: var(--relief); }
+.calloutText[data-dir='down'] { fill: var(--risk); }
+.calloutText[data-dir='flat'] { fill: var(--muted); }
 
 .note {
   margin-top: 1.5rem;
