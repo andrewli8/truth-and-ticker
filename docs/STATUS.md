@@ -182,3 +182,8 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Added og:url + og:site_name for correct social attribution.
 
 ## Next
+
+1. Complete the Article JSON-LD with author + publisher (with logo), which Google's
+   Article rich-results guidelines recommend. Evidence: index.html (ld+json Article has no
+   author/publisher). Acceptance: author + publisher Organization (publisher.logo →
+   apple-touch-icon) added to the JSON-LD; valid JSON-LD; verify gate green.
