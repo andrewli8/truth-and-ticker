@@ -62,6 +62,20 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
   dramatic cross-instrument moves, deduped to distinct ticker+day moments) leading into
   the full ledger with per-row sparklines and jump-to-moment links.
 
+## The one-screen POC (`src/poc/`, `/poc.html`)
+
+A standalone interactive concept ("When he posts, the market moves") ships as a **second
+Vite entry** (`poc.html` → `src/poc/main.tsx`; `rollupOptions.input` in `vite.config.ts`),
+independent of the main app so it can experiment without touching the scrollytelling. It
+**reuses the real data and the same pure helpers** (`data`, `lib/scales`, `lib/correlate`,
+`lib/stats.seriesByTicker`, `lib/format.direction`) — no duplicated logic. `PocApp` renders
+the full S&P term as one glowing line; the user scrubs it by pointer **or keyboard** (the
+chart is a focusable `role="slider"` with arrow/Home/End stepping), and the active post's
+gain/loss drives the readout and the whole scene's accent (`data-dir`). Motion is GSAP via
+`useGSAP` (entrance line draw-on, masked title, count-up readout, lerp cursor), all gated on
+`prefers-reduced-motion`. Covered by `src/poc/__tests__` (unit) and `e2e/poc.spec.ts`
+(drag, keyboard, reduced-motion); linked from the Outro footer.
+
 ## Conventions
 
 - **Pure logic in `src/lib`, unit-tested**; components stay thin and presentational.

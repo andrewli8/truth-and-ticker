@@ -21,8 +21,14 @@ neutral (not a green "gain"), and the hit-rate tally is neutral. Theme follows t
 first visit and persists only explicit choices. Cohesive motion (shared --ease, hover/press
 states), WCAG 2.2 target sizes, forced-colors, and broad a11y (docs/ACCESSIBILITY.md, incl.
 aria-hidden on decorative chart echoes). Every charted-instrument figure in
-the prose is test-asserted against the data. Testing: 272 unit/component (the verify gate)
-plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on every push/PR.
+the prose is test-asserted against the data. Alongside the main piece, a standalone
+one-screen interactive concept ("When he posts, the market moves") ships as a second
+Vite entry at /poc.html (src/poc/), linked from the Outro footer: the whole S&P term as
+one glowing line you scrub by drag or arrow keys, the scene's accent flipping to each
+post's gain/loss, with an awwwards-grade GSAP entrance (reduced-motion safe), reusing the
+real data + pure chart helpers. Testing: 284 unit/component (the verify gate) plus a
+40-spec Playwright E2E suite (incl. POC drag/keyboard/reduced-motion); GitHub Actions CI
+runs verify + E2E on every push/PR.
 
 ## Done
 - Data model + full-period data (30 events, 9×111 closes); master timeline centerpiece.
@@ -401,12 +407,4 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-1. The "When he posts" one-screen POC (src/poc/, poc.html — a separate Vite entry,
-   now linked from the Outro, with unit + E2E coverage and an awwwards-grade GSAP
-   entrance) is undocumented: README, docs/ARCHITECTURE.md, and the STATUS `## Now`
-   summary make zero mention of it. Evidence: `grep -ic poc README.md docs/ARCHITECTURE.md`
-   both return 0; STATUS `## Now` (lines 7–25) doesn't mention the POC.
-   Acceptance: README and docs/ARCHITECTURE.md each describe the POC (what it is, that
-   it's a second Vite entry at /poc.html, reusing the real data + pure chart helpers),
-   and STATUS `## Now` notes the linked interactive concept; provable by grep finding
-   the POC in all three.
+(empty — no evidence-backed improvement currently queued)

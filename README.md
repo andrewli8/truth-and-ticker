@@ -61,6 +61,19 @@ npm run build     # production build to dist/
 
 See [`src/data/SOURCES.md`](src/data/SOURCES.md) for data provenance and caveats.
 
+## The "When he posts" concept (`/poc.html`)
+
+Alongside the scrollytelling main piece, the repo ships a standalone one-screen
+interactive concept at **`/poc.html`** (`src/poc/`, a second Vite entry — see
+`vite.config.ts`). It distills the whole thesis into a single full-bleed view: the
+S&P 500 across the second term as a glowing line you scrub by **dragging or with the
+arrow keys**, with the reaction readout and the entire scene's accent colour flipping
+green/red to the active post's gain or loss. It reuses the real data and the same
+pure chart helpers (`scales`, `correlate`) as the main app, adds an awwwards-grade
+GSAP entrance (line draw-on, masked kinetic title, count-up readout, lerp-follow
+cursor — all reduced-motion safe), and is covered by unit (`src/poc/__tests__`) and
+real-browser E2E (`e2e/poc.spec.ts`) tests. It's linked from the Outro footer.
+
 ## Source
 
 Live on GitHub: **<https://github.com/andrewli8/truth-and-ticker>** (`main`).
