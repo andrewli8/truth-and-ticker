@@ -345,10 +345,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   consistent with the deep-dive TickerRail and giving the complete market picture per event
   (still biggest-first, nulls skipped). Verify + E2E green; no mobile overflow.
 
+- README now shows a preview image (docs/preview.png) near the top with descriptive alt text —
+  the master timeline showcasing the annotated chart (y-axis, drawdown trough, on-chart reaction)
+  and the per-event cross-instrument detail. Makes the public repo's front page inviting.
+
 ## Next
 
-1. Add a preview image to the README. The public repo's front page has no visual — for a
-   design-focused piece, a preview makes it far more inviting and conveys the work at a glance.
-   Evidence: README.md (text-only, no image); the repo is public. Acceptance: a representative
-   screenshot is committed under docs/ and shown near the top of README.md (with alt text);
-   provable by diffing README.md + the asset existing; verify gate green.
+(empty — no evidence-backed improvement currently queued)

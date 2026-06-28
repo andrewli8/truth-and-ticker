@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/andrewli8/truth-and-ticker/actions/workflows/ci.yml/badge.svg)](https://github.com/andrewli8/truth-and-ticker/actions/workflows/ci.yml)
 
+![The master timeline: the S&P 500 across Trump's second term with every announcement plotted as a marker, the deepest-drawdown trough and a selected event's reaction labelled on the line, and a per-event cross-instrument detail.](docs/preview.png)
+
 A single-page, scroll-driven visualization correlating Donald Trump's public
 announcements across his **second term (Jan–Jun 2025)** — tariffs, threats,
 strikes, ceasefires, Fed pressure — with the U.S. markets that moved on them: the
