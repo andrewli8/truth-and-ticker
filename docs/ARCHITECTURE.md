@@ -43,9 +43,12 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
   grouped by announcement type (`reactionByType`), as ranked sign-coloured bars that
   reveal on scroll and recompute when the timeline instrument changes.
 - **MasterTimeline** — full-term chart: filterable legend, instrument switcher +
-  compare overlay, scrub readout, de-collided event markers, term-outcome line. The
-  selected marker labels its reaction on the chart (via **ChartReactionLabel**).
-  Selection is URL-deep-linked and announced via the **EventDetail** panel.
+  compare overlay, scrub readout, de-collided event markers, term-outcome line, a y-axis
+  price reference (faint gridlines), and the deepest-drawdown trough marked on the line.
+  The header term-stat shows net return, drawdown, and the directional hit-rate ("rose on
+  N of M posts", `reactionHitRate`). The selected marker labels its reaction on the chart
+  (via **ChartReactionLabel**). Selection is URL-deep-linked and announced via the
+  **EventDetail** panel, which also lists the event's cross-instrument moves (`eventMoves`).
 - **ScrollStage** — pins the deep-dive and emits scroll progress (native rAF);
   stacks panels on mobile. **MarketChart** renders the windowed per-event chart
   (responsive viewBox) and marks the announcement's data point with a hollow ring +

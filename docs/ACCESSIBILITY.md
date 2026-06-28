@@ -15,11 +15,14 @@ guarantees it ships with and how they're implemented.
 ## Screen readers
 
 - The overview and deep-dive charts expose data-rich accessible names
-  (`timelineAriaLabel` / `chartAriaLabel` in `src/lib/stats.ts`), so the chart is
-  summarised rather than announced as an opaque image.
+  (`timelineAriaLabel` / `chartAriaLabel` in `src/lib/stats.ts`, the latter naming the event
+  reaction), so the chart is summarised rather than announced as an opaque image.
 - The selected-event detail is an `aria-live="polite"` region, so changing the event
-  is announced.
-- Decorative SVG (hero backdrop, marquee duplicate, quote glyph) is `aria-hidden`.
+  is announced (with its reaction and cross-instrument moves).
+- Decorative SVG (hero backdrop, marquee duplicate, quote glyph) is `aria-hidden`, as are the
+  on-chart visual echoes of data carried in text elsewhere — the reaction labels
+  (`ChartReactionLabel`), the price-axis labels, and the drawdown marker — to avoid
+  double-announcing the accessible name / term-stat / detail.
 - External links carry an "(opens in new tab)" suffix in their accessible name.
 - Ticker symbols use `translate="no"` so machine translation leaves them intact.
 

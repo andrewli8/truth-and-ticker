@@ -349,6 +349,11 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   the master timeline showcasing the annotated chart (y-axis, drawdown trough, on-chart reaction)
   and the per-event cross-instrument detail. Makes the public repo's front page inviting.
 
+- Docs brought up to date with the latest features: ARCHITECTURE now describes the master
+  timeline's y-axis price reference, drawdown marker, hit-rate term-stat, and the EventDetail
+  cross-instrument strip; ACCESSIBILITY notes the aria-hidden on-chart visual echoes (reaction
+  labels, price-axis labels, drawdown marker) and the reaction in the chart's accessible name.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)
