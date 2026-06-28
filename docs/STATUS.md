@@ -154,5 +154,7 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   preserved, aria-label keeps the name, reduced-motion safe; verified via screenshot.
 - E2E guards the kinetic hero title is visible under reduced motion.
 - CategoryBand bars reveal via GPU-friendly scaleX (was animating width).
+- All motion is now GPU-friendly (transform/opacity only; verified); dropped redundant
+  persistent will-change on the hero title glyphs.
 
 ## Next
