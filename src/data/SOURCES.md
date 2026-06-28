@@ -4,14 +4,16 @@ This piece's thesis depends on verifiable data, so provenance matters.
 
 ## Market data
 
-- **S&P 500, Dow, VIX** — daily closes from the St. Louis Fed (FRED) series
-  `SP500`, `DJIA`, `VIXCLS`.
+- **S&P 500, Nasdaq Composite, Dow, VIX** — daily closes from the St. Louis Fed
+  (FRED) series `SP500`, `NASDAQCOM`, `DJIA`, `VIXCLS`.
 - **LMT, RTX, XOM** — daily closes cross-checked between StockAnalysis.com and
   Yahoo Finance (matched to the cent).
-- **WTI & Brent crude** — front-month settlements from Reuters-wire
+- **WTI crude (`CL`)** — front-month settlements from Reuters-wire
   republications (CNBC, Business Times).
-- **Gold** — spot XAU/USD per troy ounce (NOT the GLD ETF; verified GLD closes
-  could not be obtained from a settlement-grade source).
+- **Gold (`GLD`)** — spot XAU/USD per troy ounce. The series is labeled
+  "SPDR Gold Shares" in the UI for familiarity, but the figures are **spot gold**:
+  settlement-grade GLD ETF closes could not be obtained, and spot tracks the ETF
+  closely in percentage terms (which is all the close-to-close metric uses).
 
 ## Announcement text
 
