@@ -128,3 +128,12 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   verified in light + dark.
 
 ## Next
+
+1. Clarify in CategoryBand that it is S&P-specific so categories that moved other
+   instruments more aren't misread. Military strikes average only −0.08% on the S&P but
+   spiked oil/defense — a reader could wrongly infer "strikes barely moved markets". The
+   heading already says "the S&P 500" but the footnote doesn't flag the cross-instrument
+   caveat. Evidence: src/components/CategoryBand.tsx (the .note paragraph). Acceptance: the
+   note adds that some post types (e.g. strikes) moved oil, defense, or gold more than the
+   S&P — switch instruments on the timeline to see; provable by diffing CategoryBand.tsx;
+   a component test asserts the caveat text renders; verify gate stays green.
