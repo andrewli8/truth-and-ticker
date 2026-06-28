@@ -173,3 +173,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - E2E guard for the hover-scrub crosshair readout.
 
 ## Next
+
+1. Add a print stylesheet so the piece is readable on paper / save-to-PDF. Currently dark
+   mode prints large black areas, the grain/animations clutter, and the pinned deep-dive
+   scrolly doesn't paginate. Evidence: src/styles/global.css (theme vars + reduced-motion
+   block). Acceptance: an @media print block forces the light palette (AA accents) on white
+   regardless of theme, disables animations/transitions, hides the decorative grain + skip
+   link, and hides the non-paginating deep-dive scrolly (the full Outro ledger below carries
+   the same data); screen rendering is untouched; verified via Playwright print-media
+   screenshot; verify gate green.
