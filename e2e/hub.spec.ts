@@ -41,11 +41,17 @@ test('clicking the active moment zooms it into a detail dialog; Escape closes', 
   await expect(page.getByRole('dialog')).toHaveCount(0)
 })
 
-test('a topic chip zooms into a breakdown layer; Escape closes', async ({ page }) => {
+test('the breakdown modal switches views and instruments in place; Escape closes', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: /full ledger/i }).click()
+  await page.getByRole('button', { name: /which posts moved it/i }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
+  await expect(dialog.getByText(/which posts moved/i)).toBeVisible()
+  // Switch the instrument live → the heading re-titles.
+  await dialog.getByRole('button', { name: 'Oil', exact: true }).click()
+  await expect(dialog.getByText(/which posts moved/i)).toContainText('Oil')
+  // Switch to the ledger view via the tabs (no reopen).
+  await dialog.getByRole('tab', { name: /ledger/i }).click()
   await expect(dialog.getByRole('table')).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).toHaveCount(0)

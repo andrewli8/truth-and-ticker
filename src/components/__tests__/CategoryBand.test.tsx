@@ -27,7 +27,7 @@ describe('CategoryBand', () => {
       <CategoryBand events={events} ticker="SPX" tickerLabel="S&P 500" />,
     )
     expect(getByText(/move different\s+markets very differently/i)).toBeInTheDocument()
-    expect(getByText(/switch instruments on the timeline below/i)).toBeInTheDocument()
+    expect(getByText(/switch instruments to compare/i)).toBeInTheDocument()
   })
 
   it('renders nothing breaking when there are no events', () => {

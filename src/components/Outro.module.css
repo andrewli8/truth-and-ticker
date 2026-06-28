@@ -1,11 +1,10 @@
+/* Embedded in the hub's breakdown modal — natural height, the panel owns scrolling. */
 .outro {
-  min-height: 100vh;
-  padding: 6rem 1.5rem;
+  padding: 0.25rem 0.25rem 0.5rem;
   max-width: 70rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 /* Reveal-on-scroll, matching the rest of the page. Falls back to visible when

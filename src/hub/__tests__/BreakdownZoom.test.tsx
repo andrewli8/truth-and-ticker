@@ -2,46 +2,50 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, fireEvent, within } from '@testing-library/react'
 import { BreakdownZoom } from '../BreakdownZoom'
 import { correlateAll, REACTION_WINDOW_MINS } from '../../lib/correlate'
-import { seriesByTicker } from '../../lib/stats'
 import { announcements, markets } from '../../data'
 
 const events = correlateAll(announcements, markets, REACTION_WINDOW_MINS)
-const series = seriesByTicker(markets, 'SPX')!
 
-function setup(view: 'category' | 'spread' | 'ledger', overrides = {}) {
+function setup(initialView: 'category' | 'spread' | 'ledger' = 'category') {
   const onClose = vi.fn()
   const onPickEvent = vi.fn()
   const utils = render(
     <BreakdownZoom
-      view={view}
+      initialView={initialView}
+      initialTicker="SPX"
       events={events}
-      ticker="SPX"
-      instrumentName="S&P 500"
-      series={series}
       onPickEvent={onPickEvent}
       onClose={onClose}
-      {...overrides}
     />,
   )
   return { ...utils, onClose, onPickEvent }
 }
 
 describe('BreakdownZoom', () => {
-  it('renders the category breakdown view', () => {
+  it('opens on the requested view and switches views via the tabs', () => {
     const { getByRole } = setup('category')
-    expect(within(getByRole('dialog')).getByText(/which posts moved/i)).toBeInTheDocument()
+    const dialog = getByRole('dialog')
+    expect(within(dialog).getByText(/which posts moved/i)).toBeInTheDocument()
+    // Switch to the distribution view without reopening.
+    fireEvent.click(within(dialog).getByRole('tab', { name: /distribution/i }))
+    expect(within(dialog).getByText(/most posts nudge/i)).toBeInTheDocument()
+    // Switch to the ledger view.
+    fireEvent.click(within(dialog).getByRole('tab', { name: /ledger/i }))
+    expect(within(dialog).getByRole('table')).toBeInTheDocument()
   })
 
-  it('renders the reaction-spread view', () => {
-    const { getByRole } = setup('spread')
-    // ReactionSpread renders an SVG chart with a data-rich accessible name.
-    expect(within(getByRole('dialog')).getByRole('img')).toBeInTheDocument()
+  it('re-titles the category view when the instrument switcher changes', () => {
+    const { getByRole } = setup('category')
+    const dialog = getByRole('dialog')
+    expect(within(dialog).getByText(/which posts moved/i).textContent).toMatch(/S&P 500/)
+    const group = within(dialog).getByRole('group', { name: /choose the instrument/i })
+    fireEvent.click(within(group).getByRole('button', { name: 'Oil' }))
+    expect(within(dialog).getByText(/which posts moved/i).textContent).toMatch(/Oil/)
   })
 
-  it('renders the ledger view and forwards row picks', () => {
+  it('forwards ledger row picks', () => {
     const { getByRole, onPickEvent } = setup('ledger')
     const dialog = getByRole('dialog')
-    expect(within(dialog).getByRole('table')).toBeInTheDocument()
     const pick = within(dialog).getAllByRole('button', { name: /view on the timeline/i })[0]
     fireEvent.click(pick)
     expect(onPickEvent).toHaveBeenCalledTimes(1)

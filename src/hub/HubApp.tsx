@@ -65,7 +65,6 @@ export function HubApp() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [breakdown, setBreakdown] = useState<BreakdownView | null>(null)
 
-  const fullSeries = useMemo(() => seriesByTicker(markets, ticker) ?? markets[0], [ticker])
   // The ledger's row links open that event's detail in the hub.
   const openEventById = (id: string) => {
     const idx = ordered.findIndex((e) => e.announcement.id === id)
@@ -194,11 +193,9 @@ export function HubApp() {
 
       {breakdown && (
         <BreakdownZoom
-          view={breakdown}
+          initialView={breakdown}
+          initialTicker={ticker}
           events={events}
-          ticker={ticker}
-          instrumentName={instrumentName}
-          series={fullSeries}
           onPickEvent={openEventById}
           onClose={() => setBreakdown(null)}
         />

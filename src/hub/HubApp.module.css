@@ -349,11 +349,14 @@
   animation: zoomIn 0.35s var(--ease);
 }
 
-/* Single-column breakdown panel (reuses CategoryBand / ReactionSpread / ledger). */
+/* Interactive breakdown panel: a header (view tabs + live instrument switcher) over a
+   scrolling body that reuses CategoryBand / ReactionSpread / the ledger. */
 .panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(100%, 64rem);
-  max-height: 100%;
+  max-height: min(90vh, 56rem);
   border-radius: 1.25rem;
   border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   background: var(--bg);
@@ -361,10 +364,77 @@
   animation: zoomIn 0.35s var(--ease);
   overflow: hidden;
 }
+.panelHead {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(0.6rem, 2vw, 1.5rem);
+  padding: clamp(0.85rem, 1.6vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+.tabs {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+.tab {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.55rem;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.tab:hover {
+  color: var(--text);
+}
+.tabOn {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.panelSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+/* The shared close button is absolute inside EventZoom; in the panel header it's inline. */
+.panelHead .zoomClose {
+  position: static;
+  flex: none;
+}
 .panelBody {
-  max-height: min(82vh, 52rem);
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
-  padding: clamp(0.5rem, 1.5vw, 1.25rem);
+  padding: clamp(0.85rem, 2vw, 1.5rem);
+}
+
+@media (max-width: 760px) {
+  .panel {
+    width: 100%;
+    max-height: 92vh;
+  }
+  .tabs {
+    order: 0;
+  }
+  .panelHead .zoomClose {
+    order: 1;
+    margin-left: auto;
+  }
+  .panelSwitch {
+    margin-left: 0;
+    width: 100%;
+    order: 2;
+  }
 }
 @keyframes zoomIn {
   from {

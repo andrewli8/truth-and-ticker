@@ -41,7 +41,8 @@ describe('App (one-screen hub)', () => {
     const { getByRole, queryByRole } = render(<App />)
     expect(queryByRole('dialog')).toBeNull()
     fireEvent.click(getByRole('button', { name: /which posts moved/i }))
-    expect(getByRole('dialog', { name: /which posts moved/i })).toBeInTheDocument()
+    const dialog = getByRole('dialog')
+    expect(within(dialog).getByText(/which posts moved/i)).toBeInTheDocument()
   })
 
   it('switches the charted instrument across the summary and cards', () => {

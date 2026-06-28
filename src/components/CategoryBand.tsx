@@ -58,7 +58,7 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
       <p className={styles.note}>
         Average close-to-close <span translate="no">{tickerLabel}</span> move on the day of
         each post, grouped by what the post was. The same kind of post can move different
-        markets very differently — switch instruments on the timeline below to compare.
+        markets very differently — switch instruments to compare.
       </p>
     </section>
   )

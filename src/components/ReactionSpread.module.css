@@ -1,20 +1,17 @@
+/* Embedded in the hub's breakdown modal — natural height, the panel owns scrolling. */
 .band {
   max-width: 60rem;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  /* Own screen: fill the viewport, centre the plot, and snap into place. */
-  min-height: 100svh;
+  padding: 0.25rem 0.25rem 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  scroll-snap-align: start;
 }
 
 .intro {
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.25rem;
   text-align: center;
   text-wrap: balance;
 }
@@ -99,6 +96,3 @@
   .dot { fill: CanvasText; opacity: 1; }
 }
 
-@media (max-width: 640px) {
-  .band { padding: 4rem 1.25rem 1.5rem; }
-}
