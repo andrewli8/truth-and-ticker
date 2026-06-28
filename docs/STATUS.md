@@ -180,10 +180,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   Permissions-Policy, HSTS; CSP omitted to avoid breaking inline theme script/fonts).
 - format-detection=telephone=no (stops iOS auto-linking the page's numbers).
 - Added og:url + og:site_name for correct social attribution.
+- Article JSON-LD now has author + publisher (logo) for rich results.
 
 ## Next
 
-1. Complete the Article JSON-LD with author + publisher (with logo), which Google's
-   Article rich-results guidelines recommend. Evidence: index.html (ld+json Article has no
-   author/publisher). Acceptance: author + publisher Organization (publisher.logo →
-   apple-touch-icon) added to the JSON-LD; valid JSON-LD; verify gate green.
+1. Enable large image previews in search: the robots meta is "index, follow" but lacks
+   max-image-preview:large (Google shows only a thumbnail without it — wasteful for a
+   visual data piece with a strong OG image). Evidence: index.html (meta robots).
+   Acceptance: robots content includes max-image-preview:large (and max-snippet:-1);
+   verify gate green.
