@@ -406,23 +406,18 @@ ONE-SCREEN REDESIGN — Phase 1 shipped (hub shell + filmstrip + click-to-zoom e
 detail, replacing the scrollytelling at index.html; verify + coverage + 11 E2E green).
 Remaining:
 
-1. The hub no longer links to the POC (the link lived in the now-removed Outro), so
-   /poc.html is unreachable from the site and absent from discovery.
-   Evidence: src/hub/HubApp.tsx renders no anchor to /poc.html; the retired Outro
-   (src/components/Outro.tsx) was the only link.
-   Acceptance: the hub renders a link to /poc.html (the concept); an App/hub test asserts
-   an anchor whose href is /poc.html.
-2. The redesign left the scrollytelling-only components unused (dead in the product but
-   still bundled-out): Hero, ScrollStage, MasterTimeline, AnnouncementCard, StatBand,
-   Outro, TickerRail, EventDetail, plus lib helpers (scroll.ts, parts of hash.ts/stats.ts).
-   Evidence: none are imported by src/App.tsx or src/hub/* (only MarketChart,
-   ChartReactionLabel, ThemeToggle, and lib scales/correlate/stats/format/labels/
-   instruments are). Acceptance: either reuse a component as a zoom layer (see #3) or
-   remove it with its test/CSS; provable by grep showing no unused component remains and
-   verify + coverage staying green.
-3. Phase 2 — make the summary chips / a "breakdown" affordance zoom into detail layers
-   reusing the existing views (CategoryBand "which posts moved X", ReactionSpread
-   distribution, the ledger) so they aren't lost from the redesign and aren't dead code.
+1. Phase 2 — add "breakdown" cards to the hub that zoom into detail layers reusing the
+   existing views (CategoryBand "which posts moved X", ReactionSpread distribution, the
+   Outro ledger) so they aren't lost from the redesign and aren't dead code.
    Evidence: src/components/CategoryBand.tsx, ReactionSpread.tsx, Outro.tsx are fully
-   built + tested but now unmounted. Acceptance: clicking a hub summary chip opens a zoom
-   layer rendering one of these; covered by a hub test + an E2E case.
+   built + tested but now unmounted (no import in src/App.tsx or src/hub/*).
+   Acceptance: the hub shows breakdown affordances; clicking one opens a zoom layer
+   rendering CategoryBand / ReactionSpread / the ledger; covered by a hub test + an E2E case.
+2. Remove the scrollytelling-only components the redesign left genuinely unused (after
+   phase-2 reuse decides what stays): likely Hero, ScrollStage, MasterTimeline,
+   AnnouncementCard, StatBand, TickerRail, EventDetail + dead lib helpers (scroll.ts,
+   parts of hash.ts/stats.ts).
+   Evidence: none imported by src/App.tsx or src/hub/* (only MarketChart,
+   ChartReactionLabel, ThemeToggle + lib scales/correlate/stats/format/labels/instruments).
+   Acceptance: each removed with its test + CSS; `grep` shows no remaining unused component;
+   verify + coverage stay green.
