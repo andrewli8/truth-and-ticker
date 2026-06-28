@@ -94,12 +94,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   the charted dataset (provenance transparency).
 - Fixed decollide() lower-bound clamp to preserve the min gap + idempotency (mirror of
   the upper-bound pass); latent helper defect, now tested.
+- <noscript> fallback (headline + thesis + enable-JS prompt) for the client-rendered SPA.
 
 ## Next
-
-1. Add a <noscript> fallback. The site is a fully client-rendered React SPA, so with
-   JavaScript disabled the body is just an empty <div id="root"> — a blank page. Evidence:
-   index.html:56. Acceptance: index.html gains a <noscript> block inside <body> with a
-   brief, styled message explaining the piece needs JavaScript (and the headline/thesis
-   so there's some context without JS); `grep -c "<noscript>" index.html` returns 1;
-   verify gate (incl. build) stays green.
