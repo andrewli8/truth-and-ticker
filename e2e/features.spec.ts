@@ -41,10 +41,11 @@ test('a combined URL restores both the instrument and the event', async ({ page 
 
 test('compare overlay disappears when switching to the benchmark itself', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  const instruments = page.getByRole('group', { name: /Choose or compare the instrument/i })
+  await instruments.getByRole('button', { name: 'Oil', exact: true }).click()
   await page.getByRole('button', { name: /vs S&P 500/i }).click()
   await expect(page.getByTestId('compare-line')).toBeVisible()
-  await page.getByRole('button', { name: 'S&P 500', exact: true }).click()
+  await instruments.getByRole('button', { name: 'S&P 500', exact: true }).click()
   await expect(page.getByTestId('compare-line')).toHaveCount(0) // no self-compare
 })
 

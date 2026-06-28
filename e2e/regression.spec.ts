@@ -173,6 +173,18 @@ test.describe('print rendering', () => {
   })
 })
 
+test.describe('deep-dive ticker selector', () => {
+  test('choosing an instrument replots the event chart', async ({ page }) => {
+    await page.goto('/')
+    const dd = page.getByRole('region', { name: 'Event-by-event deep dive' })
+    await dd.scrollIntoViewIfNeeded()
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 0.4))
+    const group = page.getByRole('group', { name: /Choose the instrument to chart/i }).first()
+    await group.getByRole('button', { name: 'Gold', exact: true }).click()
+    await expect(dd.locator('figure').first()).toContainText('GLD')
+  })
+})
+
 test.describe('reaction distribution', () => {
   test('plots the spread of reactions as dots on a zero-centered axis', async ({ page }) => {
     await page.goto('/')

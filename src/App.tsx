@@ -46,25 +46,29 @@ export default function App() {
     [],
   )
 
+  // Which instrument the deep-dive charts ('' = auto: each event's by-type spotlight).
+  const [deepDiveTicker, setDeepDiveTicker] = useState('')
+
   // Per-step deep-dive data, derived once per featured set. Computing it here (rather than
   // inside the scroll render-prop, which re-runs ~60×/s) keeps each step's `series` a stable
   // reference, so MarketChart's path/position memos survive scroll frames.
   const deepDiveSteps = useMemo(
     () =>
       featured.map((event) => {
-        const spotlight = spotlightTicker(event.announcement.type)
-        const reactionPct = event.reactions.find((r) => r.ticker === spotlight)?.deltaPct ?? null
+        // The chosen instrument, or the event's by-type spotlight when on Auto.
+        const ticker = deepDiveTicker || spotlightTicker(event.announcement.type)
+        const reactionPct = event.reactions.find((r) => r.ticker === ticker)?.deltaPct ?? null
         // The chart + card accent represents the market's GAIN/LOSS on the event (green/red),
         // not the announcement type — so the colour reads as the outcome.
         const dir = direction(reactionPct)
         const accent =
           dir === 'up' ? 'var(--relief)' : dir === 'down' ? 'var(--risk)' : 'var(--muted)'
-        const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
+        const fullSeries = seriesByTicker(markets, ticker) ?? fallbackSeries
         const win = windowAround(fullSeries.points, event.announcement.datetime, WINDOW_DAYS)
         const series = win.length >= 2 ? { ...fullSeries, points: win } : fullSeries
-        return { event, accent, spotlight, reactionPct, series }
+        return { event, accent, ticker, reactionPct, series }
       }),
-    [featured, fallbackSeries],
+    [featured, fallbackSeries, deepDiveTicker],
   )
   // Real S&P 500 shape for the hero backdrop (viewBox 0 0 1200 300).
   const heroLine = useMemo(() => buildLinePath(fallbackSeries.points, 1200, 300, 1), [fallbackSeries])
@@ -155,12 +159,33 @@ export default function App() {
       <div ref={scrollyRef} tabIndex={-1} className="focusTarget" role="region" aria-label="Event-by-event deep dive">
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
-          const { event, accent, spotlight, reactionPct, series } = deepDiveSteps[step]
+          const { event, accent, ticker, reactionPct, series } = deepDiveSteps[step]
           // Reveal each event's chart over its OWN panel, not the whole scrolly.
           const local = localProgress(progress, featured.length, step)
           return (
             <div className="stage">
               <div className="stageChart">
+                <div className="ddTickers" role="group" aria-label="Choose the instrument to chart">
+                  <button
+                    type="button"
+                    className={`ddTicker ${deepDiveTicker === '' ? 'ddTickerOn' : ''}`}
+                    aria-pressed={deepDiveTicker === ''}
+                    onClick={() => setDeepDiveTicker('')}
+                  >
+                    Auto
+                  </button>
+                  {TIMELINE_INSTRUMENTS.map((ins) => (
+                    <button
+                      key={ins.ticker}
+                      type="button"
+                      className={`ddTicker ${deepDiveTicker === ins.ticker ? 'ddTickerOn' : ''}`}
+                      aria-pressed={deepDiveTicker === ins.ticker}
+                      onClick={() => setDeepDiveTicker(ins.ticker)}
+                    >
+                      {ins.name}
+                    </button>
+                  ))}
+                </div>
                 <MarketChart
                   key={event.announcement.id}
                   series={series}
@@ -178,7 +203,7 @@ export default function App() {
                     {String(step + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}
                   </span>
                 </div>
-                <AnnouncementCard key={event.announcement.id} event={event} primaryTicker={spotlight} />
+                <AnnouncementCard key={event.announcement.id} event={event} primaryTicker={ticker} />
               </div>
             </div>
           )

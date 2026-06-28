@@ -10,7 +10,10 @@ test('loads with the rescoped hero', async ({ page }) => {
 test('instrument switcher re-plots the master timeline', async ({ page }) => {
   await page.goto('/')
   // `exact` avoids matching the many markers whose labels contain "oil".
-  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await page
+    .getByRole('group', { name: /Choose or compare the instrument/i })
+    .getByRole('button', { name: 'Oil', exact: true })
+    .click()
   await expect(page.getByText(/WTI Crude Oil/)).toBeVisible()
 })
 
@@ -31,7 +34,10 @@ test('a ledger row deep-links the event into the URL', async ({ page }) => {
 
 test('instrument choice is reflected in the URL and survives reload', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await page
+    .getByRole('group', { name: /Choose or compare the instrument/i })
+    .getByRole('button', { name: 'Oil', exact: true })
+    .click()
   await expect(page).toHaveURL(/[?&]i=CL/)
   await page.reload()
   await expect(page.getByText(/WTI Crude Oil/)).toBeVisible()
@@ -39,7 +45,10 @@ test('instrument choice is reflected in the URL and survives reload', async ({ p
 
 test('compare overlay adds a benchmark line for a non-benchmark instrument', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await page
+    .getByRole('group', { name: /Choose or compare the instrument/i })
+    .getByRole('button', { name: 'Oil', exact: true })
+    .click()
   await page.getByRole('button', { name: /vs S&P 500/i }).click()
   await expect(page.getByTestId('compare-line')).toBeVisible()
 })
