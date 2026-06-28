@@ -16,6 +16,21 @@ test.describe('layout fit', () => {
   })
 })
 
+test.describe('category band', () => {
+  test('renders the "which posts moved the S&P" bars after scroll-in', async ({ page }) => {
+    await page.goto('/')
+    const band = page.getByRole('region', { name: /Average S&P 500 reaction by announcement type/i })
+    await band.scrollIntoViewIfNeeded()
+    await expect(band).toBeVisible()
+    await expect(band.getByText('Tariff')).toBeVisible()
+    // After the reveal, the widest bar has grown to a non-trivial width.
+    await expect.poll(async () => {
+      const w = await band.locator('span[class*="bar"]').first().evaluate((el) => el.getBoundingClientRect().width)
+      return w
+    }, { timeout: 3000 }).toBeGreaterThan(50)
+  })
+})
+
 test.describe('target sizes (WCAG 2.2 SC 2.5.8)', () => {
   test('instrument chips and dot-nav meet the 24px minimum', async ({ page }) => {
     await page.goto('/')
