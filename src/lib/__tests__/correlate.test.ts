@@ -38,6 +38,10 @@ describe('reactionFor', () => {
   it('returns null delta on empty series', () => {
     expect(reactionFor(a, { ...s, points: [] }, 120).deltaPct).toBeNull()
   })
+  it('returns null when there is no reaction close after the announcement', () => {
+    const late: Announcement = { ...a, datetime: '2025-12-31T23:59:00-05:00' }
+    expect(reactionFor(late, s, 120).deltaPct).toBeNull() // no close on/after → to=null
+  })
   it('returns null when there is no prior close', () => {
     const early = { ...a, datetime: '2025-06-01T09:00:00-04:00' }
     expect(reactionFor(early, s, 120).deltaPct).toBeNull()
