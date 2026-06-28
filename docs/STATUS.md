@@ -132,5 +132,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - E2E guard: CategoryBand renders + bars reveal after scroll-in.
 - CategoryBand follows the selected timeline instrument (heading/bars morph; switching to
   Oil shows ceasefires/jawboning dropped it); footnote generalized, grammar fixed.
+- ARCHITECTURE.md documents CategoryBand + reactionByType.
 
 ## Next
