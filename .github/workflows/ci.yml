@@ -29,6 +29,11 @@ jobs:
       - name: Verify
         run: npm run verify
 
+      # Enforce the coverage thresholds defined in vitest.config.ts so a
+      # sub-threshold drop fails CI (it isn't part of the verify gate).
+      - name: Coverage thresholds
+        run: npm run test:coverage
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
