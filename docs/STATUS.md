@@ -307,6 +307,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   first-visit theme frozen. useTheme-tested (derived default not stored; explicit toggle is);
   theme E2E (persist-across-reload, OS-dark first visit) still green.
 
+- Hit-rate tally ("rose on N of M posts") is now neutral, not green/red — the count is a fact,
+  and colouring it good/bad editorialized against the piece's "judge it yourself" stance (and
+  re-raised the VIX sentiment issue). Net return + drawdown keep their colours.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

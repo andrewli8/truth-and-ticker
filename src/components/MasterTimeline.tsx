@@ -278,9 +278,9 @@ export function MasterTimeline({
             {hitRate && hitRate.total > 0 && (
               <>
                 {' · rose on '}
-                <span className={styles.termVal} data-dir={hitRate.up > hitRate.down ? 'up' : hitRate.up < hitRate.down ? 'down' : 'flat'}>
-                  {hitRate.up} of {hitRate.total}
-                </span>
+                {/* A factual tally — left neutral (not green/red) to match the piece's
+                    "judge it yourself" stance and avoid framing the count as good/bad. */}
+                <span className={styles.termVal}>{hitRate.up} of {hitRate.total}</span>
                 {' posts'}
               </>
             )}
