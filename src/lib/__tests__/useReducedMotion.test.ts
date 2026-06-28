@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { renderHook } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react'
 import { useReducedMotion } from '../useReducedMotion'
 
 function mockMatchMedia(matches: boolean) {
@@ -30,5 +30,36 @@ describe('useReducedMotion', () => {
     mockMatchMedia(false)
     const { result } = renderHook(() => useReducedMotion())
     expect(result.current).toBe(false)
+  })
+
+  it('returns false (no throw) when matchMedia is unavailable', () => {
+    vi.stubGlobal('matchMedia', undefined)
+    const { result } = renderHook(() => useReducedMotion())
+    expect(result.current).toBe(false)
+  })
+
+  it('reacts to a live reduced-motion preference change', () => {
+    let handler: (() => void) | undefined
+    let matches = false
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn().mockReturnValue({
+        get matches() {
+          return matches
+        },
+        media: '(prefers-reduced-motion: reduce)',
+        addEventListener: (_evt: string, h: () => void) => {
+          handler = h
+        },
+        removeEventListener: vi.fn(),
+      }),
+    )
+    const { result } = renderHook(() => useReducedMotion())
+    expect(result.current).toBe(false)
+    act(() => {
+      matches = true
+      handler?.()
+    })
+    expect(result.current).toBe(true)
   })
 })
