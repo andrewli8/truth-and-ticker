@@ -116,12 +116,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Tested StatBand null-series path (n/a, no NaN); StatBand now 100% covered.
 - Covered AnnouncementCard empty-quote + null-delta + ticker-fallback branches.
 - Covered labels.ts unknown-type fallbacks (now 100%).
+- Covered TickerRail marquee-duplicate (motion-on) branch (now 100%).
 
 ## Next
-
-1. Cover TickerRail's motion-on branch. The test env forces reduced-motion, so the
-   `!reduced` marquee path (duplicate chip set + `live` class) is never exercised.
-   Evidence: src/components/TickerRail.tsx:31 (duplicate set when !reduced). Acceptance: a
-   test mocks useReducedMotion to return false and asserts the rail renders the chips
-   twice (seamless-loop duplicate) with the `live` class and stays aria-hidden;
-   TickerRail branch coverage rises; verify gate stays green.
