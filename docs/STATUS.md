@@ -402,22 +402,13 @@ nav/zoom/switch/skip-link/mobile, plus POC); CI runs verify + coverage threshold
 
 ## Next
 
-ONE-SCREEN REDESIGN — Phase 1 shipped (hub shell + filmstrip + click-to-zoom event
-detail, replacing the scrollytelling at index.html; verify + coverage + 11 E2E green).
-Remaining:
+ONE-SCREEN REDESIGN — Phases 1 & 2 shipped (hub + filmstrip + click-to-zoom event detail;
+breakdown zoom layers reusing CategoryBand/ReactionSpread/ledger). Remaining:
 
-1. Phase 2 — add "breakdown" cards to the hub that zoom into detail layers reusing the
-   existing views (CategoryBand "which posts moved X", ReactionSpread distribution, the
-   Outro ledger) so they aren't lost from the redesign and aren't dead code.
-   Evidence: src/components/CategoryBand.tsx, ReactionSpread.tsx, Outro.tsx are fully
-   built + tested but now unmounted (no import in src/App.tsx or src/hub/*).
-   Acceptance: the hub shows breakdown affordances; clicking one opens a zoom layer
-   rendering CategoryBand / ReactionSpread / the ledger; covered by a hub test + an E2E case.
-2. Remove the scrollytelling-only components the redesign left genuinely unused (after
-   phase-2 reuse decides what stays): likely Hero, ScrollStage, MasterTimeline,
-   AnnouncementCard, StatBand, TickerRail, EventDetail + dead lib helpers (scroll.ts,
-   parts of hash.ts/stats.ts).
-   Evidence: none imported by src/App.tsx or src/hub/* (only MarketChart,
-   ChartReactionLabel, ThemeToggle + lib scales/correlate/stats/format/labels/instruments).
-   Acceptance: each removed with its test + CSS; `grep` shows no remaining unused component;
-   verify + coverage stay green.
+1. Remove the scrollytelling-only components the redesign left genuinely unused (phase-2
+   reuse kept CategoryBand/ReactionSpread/Outro/MarketChart/ChartReactionLabel/ThemeToggle).
+   Evidence: Hero, ScrollStage, MasterTimeline, AnnouncementCard, StatBand, TickerRail,
+   EventDetail are not imported by src/App.tsx or src/hub/* (grep), and lib helpers
+   scroll.ts + parts of hash.ts/stats.ts/labels.ts may now be dead too.
+   Acceptance: each genuinely-unused component removed with its test + CSS module; `grep`
+   confirms no remaining import-less component/helper; verify + coverage + E2E stay green.
