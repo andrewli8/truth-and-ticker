@@ -84,13 +84,7 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   Jun 23 ~7.2→~8.6%); guarded by a WTI-claim-vs-CL-data integrity test.
 - Stated Dow moves in percent, not raw points (4 summaries); guarded by a DJI-claim +
   no-raw-points integrity test.
+- Top-level error boundary: a render throw now shows an on-brand fallback (reload),
+  not a blank screen.
 
 ## Next
-
-1. Add a top-level React error boundary so a single render throw degrades to a graceful,
-   on-brand fallback instead of a blank white screen. The app currently renders <App/>
-   bare with no boundary. Evidence: src/main.tsx:6; Acceptance: a new ErrorBoundary
-   component (class with getDerivedStateFromError) wraps <App/> in main.tsx; a new
-   component test asserts (a) normal children render through when nothing throws and
-   (b) a throwing child yields the fallback UI (with a reload affordance) rather than
-   propagating the error; verify gate stays green.
