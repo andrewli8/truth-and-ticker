@@ -96,6 +96,10 @@ describe('spotlightTicker', () => {
     expect(spotlightTicker('threat')).toBe('SPX')
     expect(spotlightTicker('ceasefire')).toBe('SPX')
   })
+  it('Nasdaq for tariffs and trade deals (tech-heavy index)', () => {
+    expect(spotlightTicker('tariff')).toBe('NDX')
+    expect(spotlightTicker('trade-deal')).toBe('NDX')
+  })
 })
 
 describe('chartAriaLabel', () => {
