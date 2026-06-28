@@ -143,3 +143,12 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Full E2E suite green (24 specs) after the CategoryBand work.
 
 ## Next
+
+1. Correct the copy that claims the piece charts "the dollar" — no USD/DXY series exists;
+   the tracked instrument is GOLD (GLD). The hero, share text, OG/Twitter/JSON-LD
+   descriptions, JSON-LD about/keywords, the noscript block, and og-image.svg
+   ("GOLD · DOLLAR") all say "dollar". Evidence: src/components/Hero.tsx:63; Evidence:
+   index.html:13; Evidence: public/og-image.svg:19; Evidence: src/data/markets.json (no USD
+   ticker). Acceptance: every reader-facing "dollar" reference becomes "gold" (JSON-LD
+   about/keywords too; og-image drops the duplicate DOLLAR); `grep -ri dollar src index.html
+   public` returns nothing; verify gate green.
