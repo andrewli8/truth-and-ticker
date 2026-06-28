@@ -1,7 +1,11 @@
 .section {
   max-width: 88rem;
   margin: 0 auto;
-  padding: 7rem 2rem 5rem;
+  padding: 5rem 2rem;
+  /* Own screen: snap to the top. Taller than a viewport (chart + detail), so it scrolls
+     within and proximity-snap never traps it. */
+  min-height: 100svh;
+  scroll-snap-align: start;
 }
 
 .head {

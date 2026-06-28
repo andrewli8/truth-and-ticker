@@ -1,8 +1,14 @@
 .band {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 8rem 2rem;
+  padding: 6rem 2rem;
   text-align: center;
+  /* Own screen: fill the viewport, centre the content, and snap into place. */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
 }
 
 .intro {
