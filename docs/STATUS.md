@@ -109,14 +109,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - 24px hit target for dot-nav (11px dot via ::before); WCAG 2.2 SC 2.5.8.
 - docs/ACCESSIBILITY.md records the a11y posture (target sizes, motion, keyboard, SR, no-JS).
 - README links the Accessibility and Data-provenance docs.
+- Data test guards the deep-dive featured-event set (non-empty; each has SPX data).
 
 ## Next
-
-1. Guard the deep-dive's featured-event set. 11 of 30 announcements carry `featured:true`
-   and drive the deep-dive scrolly + dot-nav, but nothing tests that set is non-empty and
-   that each featured event resolves a usable primary-series (SPX) reaction for its
-   windowed chart. Evidence: src/data/announcements.json (featured flags); Evidence:
-   src/App.tsx (featured drives the deep dive). Acceptance: a new data-integrity test
-   asserts featured.length is between 1 and total, and every featured announcement yields
-   a non-null SPX close-to-close reaction (so its deep-dive chart has data); RED if a
-   featured event ever lacks data, green now; verify gate stays green.
