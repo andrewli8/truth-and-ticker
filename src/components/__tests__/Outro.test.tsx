@@ -1,7 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, fireEvent } from '@testing-library/react'
 import { Outro } from '../Outro'
+import { markets } from '../../data'
+import { seriesByTicker } from '../../lib/stats'
 import type { CorrelatedEvent } from '../../lib/types'
+
+const spx = seriesByTicker(markets, 'SPX')!
 
 const events: CorrelatedEvent[] = [
   {
@@ -26,6 +30,13 @@ describe('Outro', () => {
   it('renders one data row per event', () => {
     const { getAllByTestId } = render(<Outro events={events} primaryTicker="SPX" />)
     expect(getAllByTestId('summary-row')).toHaveLength(2)
+  })
+
+  it('renders a sparkline per row when a series is provided, none without', () => {
+    const withS = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
+    expect(withS.container.querySelectorAll('svg[class*="spark"]').length).toBe(events.length)
+    const withoutS = render(<Outro events={events} primaryTicker="SPX" />)
+    expect(withoutS.container.querySelectorAll('svg[class*="spark"]').length).toBe(0)
   })
 
   it('calls onPickEvent with the event id when a row is activated', () => {
