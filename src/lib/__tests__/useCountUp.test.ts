@@ -17,12 +17,12 @@ describe('useCountUp', () => {
   })
 
   describe('animation path (rAF driven)', () => {
-    const origRaf = global.requestAnimationFrame
-    const origCancel = global.cancelAnimationFrame
+    const origRaf = globalThis.requestAnimationFrame
+    const origCancel = globalThis.cancelAnimationFrame
     const origNow = performance.now
     afterEach(() => {
-      global.requestAnimationFrame = origRaf
-      global.cancelAnimationFrame = origCancel
+      globalThis.requestAnimationFrame = origRaf
+      globalThis.cancelAnimationFrame = origCancel
       performance.now = origNow
       vi.restoreAllMocks()
     })
@@ -30,11 +30,11 @@ describe('useCountUp', () => {
     it('eases up to the target across frames when motion is allowed', () => {
       const frames: FrameRequestCallback[] = []
       let now = 0
-      global.requestAnimationFrame = ((cb: FrameRequestCallback) => {
+      globalThis.requestAnimationFrame = ((cb: FrameRequestCallback) => {
         frames.push(cb)
         return frames.length
       }) as typeof requestAnimationFrame
-      global.cancelAnimationFrame = (() => {}) as typeof cancelAnimationFrame
+      globalThis.cancelAnimationFrame = (() => {}) as typeof cancelAnimationFrame
       performance.now = () => now
 
       const { result } = renderHook(() => useCountUp(100, false, true))
