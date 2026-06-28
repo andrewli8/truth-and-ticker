@@ -73,7 +73,9 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
               : ''
             return (
               <tr key={e.announcement.id} data-testid="summary-row">
-                <td className={styles.mono}>{formatTime(e.announcement.datetime)}</td>
+                <td className={styles.mono}>
+                  <time dateTime={e.announcement.datetime}>{formatTime(e.announcement.datetime)}</time>
+                </td>
                 <td>
                   {onPickEvent ? (
                     <button
