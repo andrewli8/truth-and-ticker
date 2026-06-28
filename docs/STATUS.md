@@ -144,14 +144,14 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Copy honesty: "the dollar" → "gold" everywhere (hero, share, OG/Twitter/JSON-LD,
   noscript, og-image regenerated) — gold (GLD) is what's charted; no USD series exists.
 - og:image:alt + twitter:image:alt describe the social card.
+- topReactions aggregator (biggest cross-instrument single-day moves; ticker+day dedup;
+  diverse mode keeps each ticker/day unique; VIX-excludable), TDD.
+- "Biggest single-day reactions" 3-card lead-in to the Outro ledger (NDX/RTX/CL),
+  memoized, tested, verified light/dark.
 
 ## Next
 
-1. Add a pure `topReactions(events, n, exclude?)` in stats.ts: flatten every
-   (announcement × instrument) non-null close-to-close reaction, sort by absolute move
-   desc, return the top n as {announcement, ticker, deltaPct}. Surfaces the most dramatic
-   single-day cross-instrument reactions (the S&P-only ledger can't). `exclude` lets the UI
-   drop the VIX volatility gauge for price interpretability. Evidence: src/lib/stats.ts
-   (CorrelatedEvent/reactions); Evidence: src/lib/correlate.ts (reaction shape).
-   Acceptance: a test asserts it ranks by |deltaPct| desc, skips null reactions, honors
-   exclude, and caps at n; verify gate green. (UI lead-in to the Outro added next.)
+1. Add an E2E guard for the Outro "biggest single-day reactions" highlight and document
+   it. Evidence: src/components/Outro.tsx (highlights list, aria-label). Acceptance: an
+   E2E asserts the highlight region renders 1-3 cards each showing a percentage after
+   scroll-in; ARCHITECTURE.md/README note topReactions + the highlight; verify green.
