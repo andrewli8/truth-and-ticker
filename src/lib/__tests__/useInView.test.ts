@@ -16,12 +16,14 @@ describe('useInView', () => {
       ;(globalThis as { IntersectionObserver?: unknown }).IntersectionObserver = orig
     })
 
+    let lastOptions: IntersectionObserverInit | undefined
     function installMockIO() {
       const callbacks: IntersectionObserverCallback[] = []
       let disconnects = 0
       class MockIO {
-        constructor(cb: IntersectionObserverCallback) {
+        constructor(cb: IntersectionObserverCallback, options?: IntersectionObserverInit) {
           callbacks.push(cb)
+          lastOptions = options
         }
         observe() {}
         unobserve() {}
@@ -63,6 +65,16 @@ describe('useInView', () => {
       expect(getByTestId('probe').textContent).toBe('in')
       // It self-disconnects after first intersection (plus effect-cleanup teardown).
       expect(io.disconnects()).toBeGreaterThanOrEqual(1)
+    })
+
+    it('passes caller-supplied options through to the observer', () => {
+      installMockIO()
+      function OptProbe() {
+        const { ref } = useInView<HTMLDivElement>({ rootMargin: '0px 0px -50% 0px', threshold: 0.5 })
+        return createElement('div', { ref })
+      }
+      render(createElement(OptProbe))
+      expect(lastOptions).toEqual({ rootMargin: '0px 0px -50% 0px', threshold: 0.5 })
     })
   })
 })
