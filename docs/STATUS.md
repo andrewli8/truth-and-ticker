@@ -170,5 +170,6 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Light-theme accent text now meets WCAG AA (risk #cb2c1a 4.76, relief #117c42 4.67) with
   minimal brand change (warn non-text unchanged; dark theme already passed). Supersedes the
   earlier "design-owner call" deferral — colored % values are now AA-normal.
+- E2E guard for the hover-scrub crosshair readout.
 
 ## Next
