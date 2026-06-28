@@ -107,3 +107,13 @@
   .scrollHint { animation: none; }
   .backdrop { animation: none; }
 }
+
+/* Print can snapshot mid-entrance; force the GSAP-animated hero elements to their final
+   (visible) state so the title and intro never print faded or shifted. */
+@media print {
+  .titleChar,
+  :global([data-hero]) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
