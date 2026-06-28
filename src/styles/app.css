@@ -5,6 +5,9 @@
   overflow-x: clip;
 }
 .app:focus { outline: none; }
+/* Programmatic focus targets for jump navigation — no visible ring needed. */
+.focusTarget:focus { outline: none; }
+.focusTarget:focus-visible { outline: none; }
 
 /* Skip-to-content link: hidden until focused, then slides in. */
 .skipLink {

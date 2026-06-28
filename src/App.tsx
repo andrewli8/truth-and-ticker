@@ -90,6 +90,7 @@ export default function App() {
     (id: string) => {
       if (typeof window !== 'undefined') window.location.hash = hashForEvent(id)
       timelineRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+      timelineRef.current?.focus({ preventScroll: true }) // focus follows the jump
     },
     [reduced],
   )
@@ -103,6 +104,7 @@ export default function App() {
       const top = el.getBoundingClientRect().top + window.scrollY
       const target = stepScrollTarget(idx, featured.length, top, el.offsetHeight, window.innerHeight)
       window.scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' })
+      el.focus({ preventScroll: true }) // move focus so keyboard/SR users follow
     },
     [featured, reduced],
   )
@@ -114,7 +116,7 @@ export default function App() {
       <ThemeToggle />
       <Hero linePath={heroLine} areaPath={heroArea} />
       <StatBand markets={markets} />
-      <div ref={timelineRef}>
+      <div ref={timelineRef} tabIndex={-1} className="focusTarget">
         <MasterTimeline
           series={timelineSeries}
           announcements={announcements}
@@ -126,7 +128,7 @@ export default function App() {
         />
       </div>
 
-      <div ref={scrollyRef} role="region" aria-label="Event-by-event deep dive">
+      <div ref={scrollyRef} tabIndex={-1} className="focusTarget" role="region" aria-label="Event-by-event deep dive">
       <ScrollStage steps={featured.length} markers={featured.map((e) => e.announcement.summary)}>
         {(progress, step) => {
           const event = featured[step]
