@@ -60,7 +60,7 @@ export function Hero({ linePath, areaPath }: Props) {
         From day one, a presidency has played out in headlines and on Truth Social —
         tariffs, threats, strikes, ceasefires — and the markets moved on every word.
         Scroll to see thirty announcements laid against the S&amp;P 500, oil, defense,
-        and the dollar. The timing is the story. Judge it yourself.
+        and gold. The timing is the story. Judge it yourself.
       </p>
       <div className={styles.scrollHint} data-hero aria-hidden="true">SCROLL ↓</div>
     </header>
