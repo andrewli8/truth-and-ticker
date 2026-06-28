@@ -81,3 +81,34 @@ button:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Print: a readable light document on white, regardless of the on-screen theme. */
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --text: #111111;
+    --muted: #555555;
+    --steel: #cccccc;
+    --risk: #b3261e;
+    --relief: #0f7a40;
+    --warn: #8a5d08;
+    --grain-opacity: 0;
+    --glow: 0;
+    color-scheme: light;
+  }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Decorative-only chrome off the page. */
+  .grain,
+  .skipLink {
+    display: none !important;
+  }
+  /* The pinned scrolly doesn't paginate; the full Outro ledger below carries the data. */
+  [aria-label='Event-by-event deep dive'] {
+    display: none !important;
+  }
+}
