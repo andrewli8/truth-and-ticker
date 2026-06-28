@@ -89,3 +89,16 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Absolute URLs for og:image / twitter:image / JSON-LD image (social share previews).
 
 ## Next
+
+1. Align the Mar 4 summary to the close-to-close basis used everywhere else, and lock in a
+   comprehensive claim-vs-data guard. The Mar 4 summary cites intraday lows ("S&P -1.8%,
+   Nasdaq -2.6% at the lows") while the chart and Outro ledger show that event's
+   close-to-close reaction as S&P -1.22% / Nasdaq -0.35% — so the same event reads -1.8%
+   in prose but -1.22% in the ledger. Every other summary's index figures already match
+   close-to-close (verified). Evidence: src/data/announcements.json:59; Evidence:
+   src/components/Outro.tsx (ledger reaction column). Acceptance: the Mar 4 figures become
+   the close-to-close values (S&P -1.22%, Nasdaq -0.35%), keeping the intraday-then-pared
+   narrative qualitatively (no specific unverifiable intraday %); and the data-integrity
+   test generalizes to assert EVERY "S&P/Nasdaq/Dow/WTI <n>%" figure in any summary matches
+   that event's SPX/NDX/DJI/CL close-to-close reaction within 0.2pp (RED on the current
+   Mar 4 text, GREEN after the edit).
