@@ -113,5 +113,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Broadened SOURCES caveat to all externally-reported context figures (market-cap, yields,
   single-day moves), not just single stocks.
 - Tested ShareButton onShare (native share + clipboard fallback); 59%→95% line coverage.
+- Tested StatBand null-series path (n/a, no NaN); StatBand now 100% covered.
 
 ## Next
