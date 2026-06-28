@@ -299,11 +299,9 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   Lockheed (green gain) keep meaningful colours. StatBand-tested (VIX cell data-dir='flat', LMT
   still 'up'); verify + E2E green.
 
+- Dependabot (.github/dependabot.yml): weekly grouped updates for npm (prod/dev groups) and
+  github-actions, with PR limits — keeps the public repo's deps and CI actions patched.
+
 ## Next
 
-1. Add Dependabot to keep the now-public repo's deps + actions patched. CI exists but nothing
-   surfaces outdated/vulnerable dependencies. Evidence: .github/workflows/ci.yml exists; no
-   .github/dependabot.yml; package-lock.json (npm) present. Acceptance: a valid
-   .github/dependabot.yml schedules weekly updates for the `npm` and `github-actions`
-   ecosystems (grouped, sensible PR limits); provable by file existence + valid YAML; verify
-   gate green (config-only, no app change).
+(empty — no evidence-backed improvement currently queued)
