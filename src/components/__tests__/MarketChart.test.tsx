@@ -56,6 +56,34 @@ describe('MarketChart', () => {
     expect(atZero).toBeLessThan(atFull)
   })
 
+  it('renders the reaction callout with the formatted value when reactionPct is provided', () => {
+    const { getByTestId } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={0.88} />,
+    )
+    const callout = getByTestId('reaction-callout')
+    expect(callout).toBeInTheDocument()
+    expect(callout.textContent).toContain('+0.88%')
+    expect(callout.getAttribute('data-dir')).toBe('up')
+  })
+
+  it('marks a negative reaction as a down move', () => {
+    const { getByTestId } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={-1.2} />,
+    )
+    const callout = getByTestId('reaction-callout')
+    expect(callout.textContent).toContain('-1.20%')
+    expect(callout.getAttribute('data-dir')).toBe('down')
+  })
+
+  it('omits the reaction callout when reactionPct is null or absent', () => {
+    const { queryByTestId, rerender } = render(
+      <MarketChart series={series} progress={1} accent="#ff4d3d" reactionPct={null} />,
+    )
+    expect(queryByTestId('reaction-callout')).toBeNull()
+    rerender(<MarketChart series={series} progress={1} accent="#ff4d3d" />)
+    expect(queryByTestId('reaction-callout')).toBeNull()
+  })
+
   it('preserves aspect ratio so slopes are not distorted', () => {
     const { container } = render(
       <MarketChart series={series} progress={1} accent="#ff4d3d" />,

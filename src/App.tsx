@@ -125,6 +125,9 @@ export default function App() {
           const event = featured[step]
           const accent = accentVar(event.announcement.type)
           const spotlight = spotlightTicker(event.announcement.type)
+          // The shown series' own close-to-close reaction, labelled on the chart at
+          // the playhead so the quote's market effect reads on the line itself.
+          const reactionPct = event.reactions.find((r) => r.ticker === spotlight)?.deltaPct ?? null
           const fullSeries = seriesByTicker(markets, spotlight) ?? fallbackSeries
           // Focus the chart on the action around this event; fall back to the full
           // series if the window is too sparse to draw a line.
@@ -141,6 +144,7 @@ export default function App() {
                   progress={local}
                   accent={accent}
                   momentLabel={formatDay(event.announcement.datetime)}
+                  reactionPct={reactionPct}
                 />
                 <TickerRail moves={eventMoves(event)} />
               </div>

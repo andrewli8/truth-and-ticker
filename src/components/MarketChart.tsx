@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
 import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { chartAriaLabel } from '../lib/stats'
-import { formatPrice, axisFloorLabel } from '../lib/format'
+import { formatPrice, formatPct, axisFloorLabel } from '../lib/format'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
@@ -18,6 +18,8 @@ interface Props {
   accent: string
   /** Short label for the active announcement's date, shown in the header. */
   momentLabel?: string
+  /** Close-to-close reaction for the event; labels the move at the playhead. */
+  reactionPct?: number | null
 }
 
 /**
@@ -25,7 +27,7 @@ interface Props {
  * container at any height with NO distortion (the draw helpers take W/H). All
  * reveal animation comes from the `progress` prop.
  */
-export function MarketChart({ series, progress, accent, momentLabel }: Props) {
+export function MarketChart({ series, progress, accent, momentLabel, reactionPct }: Props) {
   const clamped = Math.max(0, Math.min(1, progress))
 
   const plotRef = useRef<HTMLDivElement>(null)
@@ -121,6 +123,22 @@ export function MarketChart({ series, progress, accent, momentLabel }: Props) {
           {current && (
             <text x={W - PAD} y={PAD + 18} className={styles.current} textAnchor="end">
               {formatPrice(current.price)}
+            </text>
+          )}
+
+          {/* Label the move at the playhead so the quote's market reaction reads ON
+              the chart, not only in the side card. Sits below the dot when near the
+              top so it never collides with the current-price readout. */}
+          {head && reactionPct != null && (
+            <text
+              data-testid="reaction-callout"
+              data-dir={reactionPct >= 0 ? 'up' : 'down'}
+              className={styles.reaction}
+              x={head.x + (head.x > W * 0.62 ? -10 : 10)}
+              y={head.y + (head.y < PAD + 48 ? 22 : -12)}
+              textAnchor={head.x > W * 0.62 ? 'end' : 'start'}
+            >
+              {formatPct(reactionPct)}
             </text>
           )}
         </svg>

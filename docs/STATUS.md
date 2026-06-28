@@ -192,16 +192,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   gives the track a CanvasText border and bars a CanvasText fill. Verified the SVG charts
   (master timeline, deep-dive, sparklines) survive forced-colors natively — line strokes
   and marker fills map to system colors — so no change needed there.
+- Deep-dive chart now labels the market reaction at the playhead (signed %, coloured
+  up/down with a bg halo for legibility) so the quote's effect reads ON the line, not only
+  in the side card — the core "when he posts, the market moves" relationship. Positioned
+  below the dot near the top edge to avoid the current-price readout. MarketChart gained an
+  optional `reactionPct` prop; covered by tests (renders value, direction, absent on null).
 
 ## Next
-
-1. Connect quote→market-move in the deep-dive chart. The event's reaction (the whole
-   thesis — "when he posts, the market moves") is shown only in the side card; the chart
-   beside it never labels the move at the moment it happens, so the quote and the chart
-   read as two separate islands. Evidence: src/components/MarketChart.tsx:114 (the playhead
-   dot has no reaction label); src/App.tsx:138 (MarketChart gets momentLabel but not the
-   reaction). Acceptance: MarketChart accepts an optional `reactionPct` prop and renders a
-   small signed % callout anchored at the playhead dot (color = up/down), reduced-motion
-   safe and not overlapping the current-price readout; a new MarketChart test asserts the
-   callout renders the formatted value when reactionPct is passed and is absent when null;
-   verify gate green.
