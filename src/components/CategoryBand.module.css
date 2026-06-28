@@ -1,7 +1,8 @@
 .band {
   max-width: 60rem;
   margin: 0 auto;
-  padding: 6rem 2rem 2rem;
+  /* Top padding kept modest: the StatBand above already carries 8rem of bottom space. */
+  padding: 3.5rem 2rem 2rem;
 }
 
 .intro {
