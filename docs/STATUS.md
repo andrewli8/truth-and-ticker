@@ -134,11 +134,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   Oil shows ceasefires/jawboning dropped it); footnote generalized, grammar fixed.
 - ARCHITECTURE.md documents CategoryBand + reactionByType.
 - README How-it-works notes reactionByType + CategoryBand.
+- Memoized CategoryBand derived data (rows, max) per app convention.
 
 ## Next
-
-1. Memoize CategoryBand's derived data for consistency with the rest of the app (App and
-   MasterTimeline memoize all derived values). It recomputes reactionByType + max on every
-   render. Evidence: src/components/CategoryBand.tsx (rows/max computed inline). Acceptance:
-   rows and max are wrapped in useMemo keyed on [events, ticker]; behavior unchanged,
-   tests still pass, verify gate green.
