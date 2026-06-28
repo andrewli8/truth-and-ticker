@@ -70,7 +70,10 @@ export function EventDetail({ event, accent, seriesTicker, reactionPct, animated
           <button type="button" className={styles.copyLink} onClick={copyLink}>
             {copied ? 'Link copied ✓' : 'Copy link'}
           </button>
-          <a href={event.citationUrl} target="_blank" rel="noreferrer">{event.citationLabel} ↗</a>
+          <a href={event.citationUrl} target="_blank" rel="noreferrer">
+            {event.citationLabel} <span aria-hidden="true">↗</span>
+            <span className="srOnly"> (opens in new tab)</span>
+          </a>
         </span>
       </div>
     </article>

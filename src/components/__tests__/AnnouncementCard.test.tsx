@@ -55,4 +55,12 @@ describe('AnnouncementCard', () => {
     const link = getByRole('link') as HTMLAnchorElement
     expect(link.href).toContain('example.com/ceasefire')
   })
+
+  it('tells assistive tech the citation opens in a new tab', () => {
+    const { getByRole } = render(<AnnouncementCard event={event} primaryTicker="SPX" />)
+    const link = getByRole('link', { name: /opens in new tab/i }) as HTMLAnchorElement
+    expect(link.getAttribute('target')).toBe('_blank')
+    // Accessible name keeps the source label and drops the decorative arrow.
+    expect(link).toHaveAccessibleName(/Reuters, Jun 24 2025.*opens in new tab/i)
+  })
 })

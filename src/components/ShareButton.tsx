@@ -45,7 +45,8 @@ export function ShareButton() {
         {copied ? 'Link copied ✓' : 'Share this'}
       </button>
       <a className={styles.tweet} href={tweetHref} target="_blank" rel="noreferrer">
-        Post on X ↗
+        Post on X <span aria-hidden="true">↗</span>
+        <span className="srOnly"> (opens in new tab)</span>
       </a>
     </div>
   )

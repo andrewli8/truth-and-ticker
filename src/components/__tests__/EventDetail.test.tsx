@@ -42,4 +42,13 @@ describe('EventDetail', () => {
     )
     expect((getByRole('link') as HTMLAnchorElement).href).toContain('example.com/ceasefire')
   })
+
+  it('announces that the citation link opens in a new tab', () => {
+    const { getByRole } = render(
+      <EventDetail event={event} accent="var(--relief)" seriesTicker="SPX" reactionPct={null} animatedPct={0} />,
+    )
+    const link = getByRole('link', { name: /opens in new tab/i }) as HTMLAnchorElement
+    expect(link.getAttribute('target')).toBe('_blank')
+    expect(link).toHaveAccessibleName(/Reuters, Jun 24 2025.*opens in new tab/i)
+  })
 })

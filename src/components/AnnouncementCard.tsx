@@ -52,7 +52,8 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
       <footer className={styles.foot}>
         <span className={styles.source}>{announcement.source}</span>
         <a className={styles.cite} href={announcement.citationUrl} target="_blank" rel="noreferrer">
-          {announcement.citationLabel} ↗
+          {announcement.citationLabel} <span aria-hidden="true">↗</span>
+          <span className="srOnly"> (opens in new tab)</span>
         </a>
       </footer>
     </article>

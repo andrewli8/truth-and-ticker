@@ -11,6 +11,12 @@ describe('ShareButton', () => {
     expect(link.href).toContain('text=')
   })
 
+  it('warns assistive tech that the tweet link opens in a new tab', () => {
+    const { getByRole } = render(<ShareButton />)
+    // The visual ↗ is aria-hidden; the accessible name carries the context switch.
+    expect(getByRole('link', { name: /opens in new tab/i })).toBeTruthy()
+  })
+
   it('pitches the whole second term, not just the June war', () => {
     expect(TWEET_TEXT).toMatch(/second-term/i)
     expect(TWEET_TEXT).not.toMatch(/12-day|israel–iran war|june 2025/i)
