@@ -1,5 +1,5 @@
 import { peakToTroughPct, maxRunupPct, seriesByTicker } from '../lib/stats'
-import { formatPct } from '../lib/format'
+import { formatPct, direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
@@ -29,7 +29,7 @@ function buildStats(markets: Series[]): Stat[] {
 
 function StatCell({ stat, reduced, start }: { stat: Stat; reduced: boolean; start: boolean }) {
   const v = useCountUp(stat.value, reduced, start)
-  const dir = stat.value === null ? 'flat' : stat.value >= 0 ? 'up' : 'down'
+  const dir = direction(stat.value)
   return (
     <div className={styles.cell}>
       <div className={`${styles.value} ${styles[dir]}`}>{formatPct(stat.value === null ? null : v)}</div>

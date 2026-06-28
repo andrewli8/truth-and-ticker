@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { reactionByType } from '../lib/stats'
 import { typeLabel } from '../lib/labels'
-import { formatPct } from '../lib/format'
+import { formatPct, direction } from '../lib/format'
 import { useInView } from '../lib/useInView'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import type { CorrelatedEvent } from '../lib/types'
@@ -37,7 +37,7 @@ export function CategoryBand({ events, ticker, tickerLabel }: Props) {
       </h2>
       <ul className={styles.rows}>
         {rows.map((r, i) => {
-          const dir = r.avgPct >= 0 ? 'up' : 'down'
+          const dir = direction(r.avgPct)
           // The bar holds its target width; the reveal is a GPU-friendly scaleX(0→1) on
           // scroll-into-view, staggered by row (no per-frame layout reflow).
           const width = `${(Math.abs(r.avgPct) / max) * 100}%`

@@ -1,5 +1,5 @@
 import { type CSSProperties } from 'react'
-import { formatPct, formatTime } from '../lib/format'
+import { formatPct, formatTime, direction } from '../lib/format'
 import { typeLabel, accentVar } from '../lib/labels'
 import type { CorrelatedEvent } from '../lib/types'
 import styles from './AnnouncementCard.module.css'
@@ -16,7 +16,7 @@ export function AnnouncementCard({ event, primaryTicker }: Props) {
   const { announcement, reactions } = event
   const primary = reactions.find((r) => r.ticker === primaryTicker) ?? reactions[0]
   const delta = primary?.deltaPct ?? null
-  const dir = delta === null ? 'flat' : delta >= 0 ? 'up' : 'down'
+  const dir = direction(delta)
   const secondary = SECONDARY.filter((t) => t !== primary?.ticker)
     .map((t) => reactions.find((r) => r.ticker === t))
     .filter((r): r is NonNullable<typeof r> => Boolean(r))

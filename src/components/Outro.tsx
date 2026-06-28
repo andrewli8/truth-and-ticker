@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { formatPct, formatTime, formatDay } from '../lib/format'
+import { formatPct, formatTime, formatDay, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { sparklinePath } from '../lib/scales'
 import { topReactions } from '../lib/stats'
@@ -32,7 +32,7 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
       {highlights.length > 0 && (
         <ul className={styles.highlights} aria-label="Biggest single-day market reactions">
           {highlights.map((h) => {
-            const dir = h.deltaPct >= 0 ? 'up' : 'down'
+            const dir = direction(h.deltaPct)
             return (
               <li key={`${h.ticker}-${h.announcement.id}`} className={styles.bigCard}>
                 <span className={`${styles.bigVal} ${styles[dir]}`}>{formatPct(h.deltaPct)}</span>
@@ -67,7 +67,7 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
           {events.map((e) => {
             const r = e.reactions.find((x) => x.ticker === primaryTicker) ?? e.reactions[0]
             const delta = r?.deltaPct ?? null
-            const dir = delta === null ? 'flat' : delta >= 0 ? 'up' : 'down'
+            const dir = direction(delta)
             const spark = series
               ? sparklinePath(series.points, e.announcement.datetime, SPARK_DAYS, SPARK_W, SPARK_H)
               : ''

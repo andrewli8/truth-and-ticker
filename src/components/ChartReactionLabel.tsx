@@ -1,4 +1,4 @@
-import { formatPct } from '../lib/format'
+import { formatPct, direction } from '../lib/format'
 import styles from './ChartReactionLabel.module.css'
 
 interface Props {
@@ -21,7 +21,7 @@ export function ChartReactionLabel({ pct, x, y, anchor, testid }: Props) {
   return (
     <text
       data-testid={testid}
-      data-dir={pct >= 0 ? 'up' : 'down'}
+      data-dir={direction(pct)}
       // Decorative: the value is exposed via the chart's accessible name (chartAriaLabel)
       // and the live EventDetail panel, so hide this visual echo from screen readers.
       aria-hidden="true"

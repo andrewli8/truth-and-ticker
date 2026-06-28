@@ -17,7 +17,7 @@ import { drawOnVars, adjacentIndex } from '../lib/motion'
 import { reactionFor, REACTION_WINDOW_MINS } from '../lib/correlate'
 import { accentGroup, type AccentGroup } from '../lib/labels'
 import { timelineAriaLabel, netReturnPct, maxDrawdown } from '../lib/stats'
-import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
+import { formatTime, formatDay, formatPrice, formatPct, direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
@@ -266,7 +266,7 @@ export function MasterTimeline({
             {series.name} · every market-moving moment, {announcements.length} of them
           </p>
           <p className={styles.termStat} data-testid="term-stat">
-            <span className={styles.termVal} data-dir={net === null ? 'flat' : net >= 0 ? 'up' : 'down'}>
+            <span className={styles.termVal} data-dir={direction(net)}>
               {formatPct(net)}
             </span>{' '}
             net over the term · deepest drawdown{' '}

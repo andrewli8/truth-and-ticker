@@ -1,4 +1,4 @@
-import { formatPct } from '../lib/format'
+import { formatPct, direction } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import type { TickerMove } from '../lib/stats'
 import styles from './TickerRail.module.css'
@@ -9,7 +9,7 @@ interface Props {
 }
 
 function Chip({ m }: { m: TickerMove }) {
-  const dir = m.pct === null ? 'flat' : m.pct >= 0 ? 'up' : 'down'
+  const dir = direction(m.pct)
   return (
     <span className={styles.chip}>
       <span className={styles.sym} translate="no">{m.ticker}</span>

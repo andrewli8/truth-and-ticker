@@ -1,5 +1,18 @@
 import { describe, it, expect } from 'vitest'
-import { formatPct, formatPrice, formatTime, formatDay, axisFloorLabel } from '../format'
+import { formatPct, formatPrice, formatTime, formatDay, axisFloorLabel, direction } from '../format'
+
+describe('direction', () => {
+  it('maps positive (and zero) to up', () => {
+    expect(direction(1.2)).toBe('up')
+    expect(direction(0)).toBe('up')
+  })
+  it('maps negative to down', () => expect(direction(-0.5)).toBe('down'))
+  it('maps null / undefined / NaN to flat', () => {
+    expect(direction(null)).toBe('flat')
+    expect(direction(undefined)).toBe('flat')
+    expect(direction(NaN)).toBe('flat')
+  })
+})
 
 describe('formatPct', () => {
   it('signs positive', () => expect(formatPct(1.337)).toBe('+1.34%'))

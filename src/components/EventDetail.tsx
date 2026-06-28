@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react'
-import { formatPct, formatTime } from '../lib/format'
+import { formatPct, formatTime, direction } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { eventShareUrl } from '../lib/hash'
 import type { Announcement } from '../lib/types'
@@ -19,7 +19,7 @@ interface Props {
 /** The editorial pull-quote detail panel for the selected master-timeline event. */
 export function EventDetail({ event, accent, seriesTicker, reactionPct, animatedPct }: Props) {
   const [copied, setCopied] = useState(false)
-  const reactionDir = reactionPct === null ? 'flat' : reactionPct >= 0 ? 'up' : 'down'
+  const reactionDir = direction(reactionPct)
 
   function copyLink() {
     if (typeof window === 'undefined') return

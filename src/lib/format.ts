@@ -6,6 +6,17 @@ function isBad(n: number | null | undefined): n is null | undefined {
   return n === null || n === undefined || Number.isNaN(n)
 }
 
+export type Direction = 'up' | 'down' | 'flat'
+
+/**
+ * Sign direction of a value, for up/down/flat styling (CSS class or data-dir).
+ * null/undefined/NaN degrade to 'flat'; zero counts as 'up' (matches formatPct's sign).
+ */
+export function direction(value: number | null | undefined): Direction {
+  if (isBad(value)) return 'flat'
+  return value >= 0 ? 'up' : 'down'
+}
+
 /** Signed percentage to 2 decimals, e.g. +1.34% / -0.50%. */
 export function formatPct(n: number | null | undefined): string {
   if (isBad(n)) return NA
