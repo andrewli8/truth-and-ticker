@@ -42,6 +42,11 @@ describe('PocApp (one-screen POC)', () => {
     expect(container.querySelector('.poc-hint')?.textContent).toMatch(/arrow/i)
   })
 
+  it('links back to the full story', () => {
+    const { container } = render(<PocApp />)
+    expect(container.querySelector('a.poc-back')?.getAttribute('href')).toBe('/')
+  })
+
   it('jumps to the first and last announcement with Home/End', () => {
     const { container } = render(<PocApp />)
     const chart = container.querySelector('svg.poc-chart') as SVGSVGElement

@@ -189,6 +189,26 @@ body {
   pointer-events: none;
 }
 
+/* Back-link to the main piece (so a shared-link visitor isn't stranded). */
+.poc-back {
+  position: absolute;
+  left: clamp(1.5rem, 5vw, 5rem);
+  bottom: clamp(1.5rem, 5vh, 2.5rem);
+  z-index: 4;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--poc-dim);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.poc-back:hover { color: var(--poc-ink); }
+.poc-back:focus-visible {
+  outline: 2px solid var(--poc-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 /* Lerp-follow cursor ring (desktop fine pointers). */
 .poc-cursor {
   position: fixed;
