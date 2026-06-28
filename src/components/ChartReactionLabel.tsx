@@ -23,7 +23,7 @@ export function ChartReactionLabel({ pct, x, y, anchor, testid }: Props) {
       data-testid={testid}
       data-dir={direction(pct)}
       // Decorative: the value is exposed via the chart's accessible name (chartAriaLabel)
-      // and the live EventDetail panel, so hide this visual echo from screen readers.
+      // and the zoom detail panel's text, so hide this visual echo from screen readers.
       aria-hidden="true"
       className={styles.label}
       x={x}

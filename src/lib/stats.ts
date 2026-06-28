@@ -1,5 +1,5 @@
 import { domainFor } from './scales'
-import { formatPrice, formatPct, formatDay, direction } from './format'
+import { formatPrice, formatPct, formatDay } from './format'
 import type { Series, AnnType, CorrelatedEvent } from './types'
 
 export interface TickerMove {
@@ -19,25 +19,6 @@ export function eventMoves(event: CorrelatedEvent): TickerMove[] {
       const bv = b.pct === null ? -1 : Math.abs(b.pct)
       return bv - av
     })
-}
-
-/** The instrument that best tells each announcement's story. */
-export function spotlightTicker(type: AnnType): string {
-  switch (type) {
-    case 'market-jawbone':
-      return 'CL' // oil — the thing being jawboned
-    case 'strike':
-      return 'LMT' // defense — the war trade
-    case 'tariff':
-    case 'trade-deal':
-      return 'NDX' // tariffs hit the tech-heavy Nasdaq hardest
-    case 'threat':
-    case 'ceasefire':
-    case 'fed':
-    case 'policy':
-    default:
-      return 'SPX' // the broad market
-  }
 }
 
 /** Peak-to-trough move as a percent of the peak (negative = a drawdown). */
@@ -225,28 +206,6 @@ export function reactionSpread(events: CorrelatedEvent[], ticker: string): Sprea
   }
   const pcts = points.map((p) => p.pct)
   return { points, min: Math.min(0, ...pcts), max: Math.max(0, ...pcts) }
-}
-
-export interface HitRate {
-  up: number
-  down: number
-  flat: number
-  total: number
-}
-
-/**
- * Directional tally of an instrument's reactions across events — how often it rose, fell, or
- * barely moved. Uses the shared {@link direction} so negligible (~0%) moves count as flat, not
- * gains. Pure; a missing reaction for the ticker counts as flat.
- */
-export function reactionHitRate(events: CorrelatedEvent[], ticker: string): HitRate {
-  const out: HitRate = { up: 0, down: 0, flat: 0, total: events.length }
-  for (const e of events) {
-    const r = e.reactions.find((x) => x.ticker === ticker)
-    const dir = direction(r?.deltaPct ?? null)
-    out[dir] += 1
-  }
-  return out
 }
 
 export function chartAriaLabel(

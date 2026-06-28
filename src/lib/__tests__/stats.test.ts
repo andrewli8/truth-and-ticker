@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown, reactionByType, topReactions, reactionHitRate, reactionSpread } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown, reactionByType, topReactions, reactionSpread } from '../stats'
 import type { Series, CorrelatedEvent, AnnType } from '../types'
 
 function ev(id: string, type: AnnType, spxDelta: number | null): CorrelatedEvent {
@@ -115,19 +115,6 @@ describe('seriesByTicker', () => {
   })
 })
 
-describe('spotlightTicker', () => {
-  it('oil for market-jawbone', () => expect(spotlightTicker('market-jawbone')).toBe('CL'))
-  it('defense for strikes', () => expect(spotlightTicker('strike')).toBe('LMT'))
-  it('S&P for threats and ceasefires', () => {
-    expect(spotlightTicker('threat')).toBe('SPX')
-    expect(spotlightTicker('ceasefire')).toBe('SPX')
-  })
-  it('Nasdaq for tariffs and trade deals (tech-heavy index)', () => {
-    expect(spotlightTicker('tariff')).toBe('NDX')
-    expect(spotlightTicker('trade-deal')).toBe('NDX')
-  })
-})
-
 describe('reactionSpread', () => {
   const events = [
     ev('a', 'tariff', 2.0),
@@ -148,25 +135,6 @@ describe('reactionSpread', () => {
   })
   it('is empty-safe', () => {
     expect(reactionSpread([], 'SPX')).toEqual({ points: [], min: 0, max: 0 })
-  })
-})
-
-describe('reactionHitRate', () => {
-  const events = [
-    ev('a', 'tariff', 2.0),   // up
-    ev('b', 'policy', -1.5),  // down
-    ev('c', 'fed', 0.02),     // negligible → flat
-    ev('d', 'strike', null),  // no data → flat
-    ev('e', 'ceasefire', 3.1) // up
-  ]
-  it('counts up/down/flat for the given ticker', () => {
-    expect(reactionHitRate(events, 'SPX')).toEqual({ up: 2, down: 1, flat: 2, total: 5 })
-  })
-  it('treats a ticker with no reactions as all flat', () => {
-    expect(reactionHitRate(events, 'NOPE')).toEqual({ up: 0, down: 0, flat: 5, total: 5 })
-  })
-  it('is empty-safe', () => {
-    expect(reactionHitRate([], 'SPX')).toEqual({ up: 0, down: 0, flat: 0, total: 0 })
   })
 })
 

@@ -52,4 +52,29 @@ describe('App (one-screen hub)', () => {
     fireEvent.click(oil)
     expect(oil.getAttribute('aria-pressed')).toBe('true')
   })
+
+  it('activates a non-active card, then opens it, then closes the zoom', () => {
+    const { getByRole, queryByRole } = render(<App />)
+    const strip = getByRole('listbox', { name: /timeline/i })
+    const options = within(strip).getAllByRole('option')
+    // Pick a card that isn't the default selection, then open it.
+    const other = options.find((o) => o.getAttribute('aria-selected') === 'false')!
+    fireEvent.click(other) // activates (onActivate)
+    expect(other.getAttribute('aria-selected')).toBe('true')
+    fireEvent.click(other) // now active → opens (onOpen)
+    expect(getByRole('dialog')).toBeInTheDocument()
+    fireEvent.click(getByRole('button', { name: /close/i }))
+    expect(queryByRole('dialog')).toBeNull()
+  })
+
+  it('opens an event detail from a ledger row in the breakdown', () => {
+    const { getByRole } = render(<App />)
+    fireEvent.click(getByRole('button', { name: /full ledger/i }))
+    const ledger = getByRole('dialog', { name: /ledger/i })
+    const pick = within(ledger).getAllByRole('button', { name: /view on the timeline/i })[0]
+    fireEvent.click(pick)
+    // The ledger closes and that event's detail (with the chart) opens.
+    const detail = getByRole('dialog')
+    expect(within(detail).getByRole('img')).toBeInTheDocument()
+  })
 })

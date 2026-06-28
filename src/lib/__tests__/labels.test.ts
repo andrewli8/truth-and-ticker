@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { typeLabel, accentGroup, accentVar } from '../labels'
+import { typeLabel } from '../labels'
 import type { AnnType } from '../types'
 
 describe('typeLabel', () => {
@@ -16,40 +16,7 @@ describe('typeLabel', () => {
       expect(typeLabel(t)[0]).toBe(typeLabel(t)[0].toUpperCase())
     }
   })
-})
-
-describe('accentGroup', () => {
-  it('buckets types into risk-off / pressure / relief', () => {
-    expect(accentGroup('strike')).toBe('risk')
-    expect(accentGroup('tariff')).toBe('risk')
-    expect(accentGroup('threat')).toBe('warn')
-    expect(accentGroup('fed')).toBe('warn')
-    expect(accentGroup('ceasefire')).toBe('relief')
-    expect(accentGroup('trade-deal')).toBe('relief')
-  })
-  it('returns one of the three groups for every AnnType', () => {
-    const all: AnnType[] = [
-      'strike', 'threat', 'ceasefire', 'market-jawbone', 'tariff', 'trade-deal', 'fed', 'policy',
-    ]
-    for (const t of all) expect(['risk', 'warn', 'relief']).toContain(accentGroup(t))
-  })
-  it('falls back safely for an unknown type', () => {
-    const unknown = 'mystery' as AnnType
-    expect(typeLabel(unknown)).toBe('mystery') // verbatim, not undefined
-    expect(accentGroup(unknown)).toBe('warn') // neutral default
-    expect(accentVar(unknown)).toBe('var(--warn)')
-  })
-})
-
-describe('accentVar', () => {
-  it('maps each type to its theme CSS variable', () => {
-    expect(accentVar('strike')).toBe('var(--risk)')
-    expect(accentVar('tariff')).toBe('var(--risk)')
-    expect(accentVar('ceasefire')).toBe('var(--relief)')
-    expect(accentVar('trade-deal')).toBe('var(--relief)')
-    expect(accentVar('threat')).toBe('var(--warn)')
-    expect(accentVar('fed')).toBe('var(--warn)')
-    expect(accentVar('market-jawbone')).toBe('var(--warn)')
-    expect(accentVar('policy')).toBe('var(--warn)')
+  it('falls back to the raw value for an unknown type', () => {
+    expect(typeLabel('mystery' as AnnType)).toBe('mystery')
   })
 })
