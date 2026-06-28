@@ -161,5 +161,6 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   design-owner palette call, not auto-changed).
 - Fixed React act() warnings in the copy-link tests (await the post-copy state update);
   clean verify output.
+- Covered formatTime invalid-datetime guard (format.ts 100% lines).
 
 ## Next
