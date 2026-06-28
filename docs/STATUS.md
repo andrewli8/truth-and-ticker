@@ -141,14 +141,7 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - E2E guard: CategoryBand re-titles when the timeline instrument changes.
 - Covered Outro empty-sparkline branch (series present, no window points).
 - Full E2E suite green (24 specs) after the CategoryBand work.
+- Copy honesty: "the dollar" → "gold" everywhere (hero, share, OG/Twitter/JSON-LD,
+  noscript, og-image regenerated) — gold (GLD) is what's charted; no USD series exists.
 
 ## Next
-
-1. Correct the copy that claims the piece charts "the dollar" — no USD/DXY series exists;
-   the tracked instrument is GOLD (GLD). The hero, share text, OG/Twitter/JSON-LD
-   descriptions, JSON-LD about/keywords, the noscript block, and og-image.svg
-   ("GOLD · DOLLAR") all say "dollar". Evidence: src/components/Hero.tsx:63; Evidence:
-   index.html:13; Evidence: public/og-image.svg:19; Evidence: src/data/markets.json (no USD
-   ticker). Acceptance: every reader-facing "dollar" reference becomes "gold" (JSON-LD
-   about/keywords too; og-image drops the duplicate DOLLAR); `grep -ri dollar src index.html
-   public` returns nothing; verify gate green.
