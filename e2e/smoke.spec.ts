@@ -37,6 +37,13 @@ test('instrument choice is reflected in the URL and survives reload', async ({ p
   await expect(page.getByText(/WTI Crude Oil/)).toBeVisible()
 })
 
+test('compare overlay adds a benchmark line for a non-benchmark instrument', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Oil', exact: true }).click()
+  await page.getByRole('button', { name: /vs S&P 500/i }).click()
+  await expect(page.getByTestId('compare-line')).toBeVisible()
+})
+
 test('a deep link opens the event on load', async ({ page }) => {
   await page.goto('/')
   // Capture a real event hash by activating a ledger row, then load it fresh.
