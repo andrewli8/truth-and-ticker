@@ -39,6 +39,9 @@ src/data/*.json ──▶ src/data/index.ts ──▶ App
   the deep-link jump handlers (timeline ↔ deep-dive ↔ ledger), and computes the
   hero backdrop + per-event windowed series.
 - **Hero / StatBand** — intro + key-swing count-ups.
+- **CategoryBand** — "which posts moved <instrument>?": the mean close-to-close reaction
+  grouped by announcement type (`reactionByType`), as ranked sign-coloured bars that
+  reveal on scroll and recompute when the timeline instrument changes.
 - **MasterTimeline** — full-term chart: filterable legend, instrument switcher +
   compare overlay, scrub readout, de-collided event markers, term-outcome line.
   Selection is URL-deep-linked and announced via the **EventDetail** panel.
