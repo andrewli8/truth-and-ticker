@@ -246,3 +246,11 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   MasterTimeline, real scroll + hashchange) jsdom couldn't fully exercise. 10/10 specs green.
 
 ## Next
+
+1. E2E the timeline instrument switch (the chart itself, not just the band). The category-band
+   spec clicks "Oil" and checks the band re-titles, but nothing asserts the master-timeline
+   chart re-rendered for the new series. Evidence: src/components/MasterTimeline.tsx:264 (the
+   sub-header renders `{series.name} · every market-moving moment`); src/App.tsx (pickInstrument
+   swaps timelineSeries + URL ?i=). Acceptance: a new e2e test reads the timeline sub-header
+   (initially S&P 500), clicks the "Oil" instrument button, and asserts the sub-header no
+   longer says "S&P 500" (the chart switched series) and the URL gains ?i=CL; playwright passes.
