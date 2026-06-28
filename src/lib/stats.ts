@@ -127,6 +127,7 @@ export function topReactions(
   events: CorrelatedEvent[],
   n: number,
   exclude: string[] = [],
+  diverse = false,
 ): RankedReaction[] {
   const skip = new Set(exclude)
   // Same-day posts share one close-to-close reaction; collapse to one per ticker+day so
@@ -143,7 +144,22 @@ export function topReactions(
       all.push({ announcement: e.announcement, ticker: r.ticker, deltaPct: r.deltaPct })
     }
   }
-  return all.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct)).slice(0, n)
+  const ranked = all.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct))
+  if (!diverse) return ranked.slice(0, n)
+  // diverse: greedily take the biggest moves while keeping each ticker AND each day
+  // unique, so a highlight set reads as distinct moments (no repeated symbol or summary).
+  const tickers = new Set<string>()
+  const days = new Set<string>()
+  const out: RankedReaction[] = []
+  for (const r of ranked) {
+    const day = r.announcement.datetime.slice(0, 10)
+    if (tickers.has(r.ticker) || days.has(day)) continue
+    tickers.add(r.ticker)
+    days.add(day)
+    out.push(r)
+    if (out.length === n) break
+  }
+  return out
 }
 
 /** Mean reaction (and sample size) for one announcement type on one instrument. */

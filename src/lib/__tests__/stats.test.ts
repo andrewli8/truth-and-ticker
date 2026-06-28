@@ -224,3 +224,26 @@ describe('topReactions dedup', () => {
     expect(top).toHaveLength(2) // the +12 moment + the -3 moment
   })
 })
+
+describe('topReactions diverse', () => {
+  function ev3(id: string, day: string, ticker: string, delta: number): CorrelatedEvent {
+    return {
+      announcement: { id, datetime: `${day}T12:00:00-05:00`, source: 'x', quote: '', summary: '', type: 'tariff', citationUrl: 'https://e.com', citationLabel: 'e' },
+      reactions: [{ announcementId: id, ticker, deltaPct: delta, fromPrice: 1, toPrice: 1, windowMins: 120 }],
+    }
+  }
+  it('keeps each ticker AND each day unique (distinct moments) when diverse', () => {
+    const evs = [
+      ev3('a', '2025-04-09', 'NDX', 12.16), // biggest
+      ev3('b', '2025-04-09', 'SPX', 9.52),  // same DAY as NDX → skipped
+      ev3('c', '2025-04-04', 'RTX', -9.81), // new ticker + day → kept
+      ev3('d', '2025-04-22', 'RTX', -9.80), // same TICKER as c → skipped
+      ev3('e', '2025-06-23', 'CL', -8.57),  // new ticker + day → kept
+    ]
+    const top = topReactions(evs, 3, [], true)
+    expect(top.map((t) => t.ticker)).toEqual(['NDX', 'RTX', 'CL'])
+    // no repeated ticker or day
+    expect(new Set(top.map((t) => t.ticker)).size).toBe(3)
+    expect(new Set(top.map((t) => t.announcement.datetime.slice(0, 10))).size).toBe(3)
+  })
+})

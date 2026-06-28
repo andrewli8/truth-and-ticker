@@ -32,6 +32,16 @@ describe('Outro', () => {
     expect(getAllByTestId('summary-row')).toHaveLength(2)
   })
 
+  it('leads with a "biggest single-day reactions" highlight (top moves, VIX excluded)', () => {
+    const { getByLabelText } = render(<Outro events={events} primaryTicker="SPX" />)
+    const list = getByLabelText(/Biggest single-day market reactions/i)
+    // At most 3 highlight cards, each showing a percentage.
+    const cards = list.querySelectorAll('li')
+    expect(cards.length).toBeGreaterThan(0)
+    expect(cards.length).toBeLessThanOrEqual(3)
+    expect(list.textContent).toMatch(/%/)
+  })
+
   it('renders a sparkline per row when a series is provided, none without', () => {
     const withS = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
     expect(withS.container.querySelectorAll('svg[class*="spark"]').length).toBe(events.length)

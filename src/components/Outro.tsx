@@ -1,6 +1,8 @@
-import { formatPct, formatTime } from '../lib/format'
+import { useMemo } from 'react'
+import { formatPct, formatTime, formatDay } from '../lib/format'
 import { typeLabel } from '../lib/labels'
 import { sparklinePath } from '../lib/scales'
+import { topReactions } from '../lib/stats'
 import { useInView } from '../lib/useInView'
 import type { CorrelatedEvent, Series } from '../lib/types'
 import { ShareButton } from './ShareButton'
@@ -21,9 +23,28 @@ interface Props {
 
 export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
   const { ref, inView } = useInView<HTMLElement>()
+  // Most dramatic single-day moves across all instruments (VIX excluded so it reads as
+  // price moves) — a lead-in to the per-event S&P ledger below.
+  const highlights = useMemo(() => topReactions(events, 3, ['VIX'], true), [events])
   return (
     <section ref={ref} className={`${styles.outro} ${inView ? styles.revealed : ''}`}>
       <h2 className={styles.heading}>Words moved markets. Here is the ledger.</h2>
+      {highlights.length > 0 && (
+        <ul className={styles.highlights} aria-label="Biggest single-day market reactions">
+          {highlights.map((h) => {
+            const dir = h.deltaPct >= 0 ? 'up' : 'down'
+            return (
+              <li key={`${h.ticker}-${h.announcement.id}`} className={styles.bigCard}>
+                <span className={`${styles.bigVal} ${styles[dir]}`}>{formatPct(h.deltaPct)}</span>
+                <span className={styles.bigMeta}>
+                  <span translate="no">{h.ticker}</span> · {formatDay(h.announcement.datetime)}
+                </span>
+                <span className={styles.bigDesc}>{h.announcement.summary}</span>
+              </li>
+            )
+          })}
+        </ul>
+      )}
       <table className={styles.table}>
         <thead>
           <tr>
