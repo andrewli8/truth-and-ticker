@@ -347,4 +347,8 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Add a preview image to the README. The public repo's front page has no visual — for a
+   design-focused piece, a preview makes it far more inviting and conveys the work at a glance.
+   Evidence: README.md (text-only, no image); the repo is public. Acceptance: a representative
+   screenshot is committed under docs/ and shown near the top of README.md (with alt text);
+   provable by diffing README.md + the asset existing; verify gate green.
