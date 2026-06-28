@@ -102,14 +102,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Shared --ease ease-out token (cubic-bezier(0.16,1,0.3,1)) applied to interactive
   hover/press transitions for snappier, cohesive motion (reveals/theme left as-is).
 - Subtle hover-lift on instrument/legend chips (tactile consistency w/ ShareButton + dots).
+- :active press-states on chips + share buttons (completes the hover→press tactile loop).
 
 ## Next
-
-1. Add :active press-state feedback to the lifting interactive controls, completing the
-   tactile loop (hover lifts, press settles to baseline). Currently .instBtn, .legendItem
-   (translateY(-1px) on hover) and ShareButton .btn/.tweet (translateY(-2px)) have no
-   pressed state, so a click gives no tactile confirmation. Evidence:
-   src/components/MasterTimeline.module.css:96 (.instBtn:hover); Evidence:
-   src/components/ShareButton.module.css:34 (.btn/.tweet:hover lift). Acceptance: those
-   controls gain an :active rule resetting transform to translateY(0) (a subtle press-down
-   from the hovered position); provable by diffing the CSS; verify gate stays green.
