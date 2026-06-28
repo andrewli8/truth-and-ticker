@@ -407,4 +407,23 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. The "Link copied" feedback timeout isn't cleaned up, so it fires after unmount.
+   Evidence: src/components/EventDetail.tsx:40 and src/components/ShareButton.tsx:31 each
+   call `setTimeout(() => setCopied(false), 2000)` inside an async copy handler with no
+   `clearTimeout`, so unmounting within 2s leaves a dangling timer that sets state on a
+   gone component.
+   Acceptance: both reset `copied` via a `useEffect` keyed on `copied` with a
+   `clearTimeout` cleanup (no setTimeout in the handler); a test using fake timers
+   unmounts before 2s and advances time with no act warning/error, and the existing
+   copy-feedback tests stay green.
+2. buildLinePath rebuilds an array it already has, every reveal frame.
+   Evidence: src/lib/scales.ts:207 slices `visible` only to feed src/lib/scales.ts:215
+   `generator(visible.map((_p, i) => positions[i]))`, which reconstructs the already-sliced
+   `positions`; the sibling buildAreaPath (src/lib/scales.ts:242) correctly does
+   `generator(positions)`.
+   Acceptance: buildLinePath calls `generator(positions)` and the unused `visible` slice
+   is removed; provable by diffing scales.ts, with the existing scales tests still green.
+3. MarketChart grid lines use array-index React keys.
+   Evidence: src/components/MarketChart.tsx:116 renders `gridY.map((g, i) => <g key={i}>`.
+   Acceptance: the key is data-derived (e.g. `grid-${g.value}`); provable by diffing
+   MarketChart.tsx, with the MarketChart tests still green.
