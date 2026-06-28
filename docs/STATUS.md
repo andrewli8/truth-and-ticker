@@ -90,15 +90,7 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Mar 4 summary restated on the close-to-close basis (was intraday lows, mismatched the
   ledger); a comprehensive test now asserts every S&P/Nasdaq/Dow/WTI% claim matches its
   close-to-close reaction (peak-relative figures excluded).
+- SOURCES note: single-stock figures (GM/Ford/AAPL/TSLA) are externally sourced, not in
+  the charted dataset (provenance transparency).
 
 ## Next
-
-1. Document that some summaries cite single-stock moves not in the charted dataset, for
-   provenance transparency. Prose states GM -7.3%, Ford -3.7% (Mar 26), AAPL ~3% (May 23),
-   TSLA -14.3% (Jun 5), but the dataset tracks only CL/DJI/GLD/LMT/NDX/RTX/SPX/VIX/XOM —
-   so a fact-checker can't cross-check those figures against this project's data (they're
-   sourced via each event's citation link). Evidence: src/data/announcements.json:89;
-   Evidence: src/data/announcements.json:254; Evidence: src/data/SOURCES.md (Known
-   caveats). Acceptance: SOURCES.md gains a caveat noting these single-stock figures are
-   externally reported (per each event's citation) and not part of the charted series
-   (provable by diffing SOURCES.md); verify gate stays green.
