@@ -121,5 +121,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Unit coverage now 95.7% statements / 86.7% branches. Remaining gaps are jsdom-hostile
   browser-API paths (ResizeObserver/IntersectionObserver/GSAP/scroll in App, MarketChart,
   Outro reveal, MasterTimeline) which the Playwright E2E suite exercises in a real browser.
+- E2E regression guards for the StatBand fit (1280px no-overflow) and 24px touch targets.
 
 ## Next
