@@ -188,3 +188,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Machine-readable <time datetime> for all event dates (ledger, EventDetail, AnnouncementCard).
 
 ## Next
+
+1. Add a maskable PWA icon so Android adaptive-icon masking doesn't crop the brand mark.
+   The manifest icons are default-purpose (no safe-zone); Android crops them to a
+   circle/squircle. Evidence: public/manifest.webmanifest (icons lack purpose maskable).
+   Acceptance: a 512 maskable icon (mark scaled into the center ~62% safe zone, dark bg
+   edge-to-edge) added with "purpose": "maskable" in the manifest; copied into dist; valid
+   JSON; verify gate green.
