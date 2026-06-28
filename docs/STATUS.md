@@ -169,3 +169,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - useTheme localStorage SSR guard tested; hooks/lib at 100% lines.
 
 ## Next
+
+1. Bring the light-theme accent text to WCAG AA (4.5:1) with minimal brand change: relief
+   #138a4a (3.91) and risk #d62f1c (4.35), used as small colored % text, fall short of
+   AA-normal. Darken minimally to relief #117c42 (4.67) and risk #cb2c1a (4.76); warn is
+   non-text only (meets the 3:1 graphical threshold — leave it); dark theme already passes.
+   Evidence: src/styles/global.css (light --risk/--relief). Acceptance: light
+   --relief/--risk darkened to the AA values (dark theme untouched), ACCESSIBILITY.md
+   updated to note colored text now meets AA, a screenshot confirms vivid red/green; verify
+   gate green.
