@@ -301,4 +301,9 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. Add Dependabot to keep the now-public repo's deps + actions patched. CI exists but nothing
+   surfaces outdated/vulnerable dependencies. Evidence: .github/workflows/ci.yml exists; no
+   .github/dependabot.yml; package-lock.json (npm) present. Acceptance: a valid
+   .github/dependabot.yml schedules weekly updates for the `npm` and `github-actions`
+   ecosystems (grouped, sensible PR limits); provable by file existence + valid YAML; verify
+   gate green (config-only, no app change).
