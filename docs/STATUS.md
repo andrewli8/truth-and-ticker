@@ -247,13 +247,9 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - E2E now covers the timeline instrument switch at the chart level: clicking "Oil" changes the
   master-timeline sub-header away from "S&P 500" and adds ?i=CL to the URL — proving the chart
   re-rendered for the new series, not just the CategoryBand. 11/11 regression specs green.
+- E2E now covers the benchmark compare overlay (switch to Oil → "+ vs S&P 500" draws the
+  compare-line, absent beforehand). Also hardened two flaky specs against parallel-load races:
+  the ledger→timeline jump now polls the selected marker's label (past the default selection),
+  and the deep-dive callout waits for the sticky chart to lay out. Full suite: 32/32 green.
 
 ## Next
-
-1. E2E the benchmark compare overlay. Toggling "+vs S&P 500" on a non-SPX instrument draws a
-   second (dashed, own-scale) line on the timeline — a real data-viz interaction only verified
-   in jsdom (which doesn't render SVG geometry). Evidence: src/components/MasterTimeline.tsx
-   (compareBtn → data-testid="compare-line", shown only for instruments other than the
-   benchmark). Acceptance: a new e2e test switches to the Oil instrument, clicks the
-   "+ vs S&P 500" button, and asserts the compare-line path becomes visible (and is absent
-   beforehand); playwright passes.

@@ -82,11 +82,14 @@ test.describe('on-chart reaction labels', () => {
     const deepDive = page.getByRole('region', { name: 'Event-by-event deep dive' })
     await deepDive.scrollIntoViewIfNeeded()
     const callout = page.getByTestId('reaction-callout').first()
-    await expect(callout).toBeVisible()
+    // The deep-dive is a sticky scrolly whose chart measures its size on layout; give it
+    // headroom to render under parallel load before reading geometry.
+    await expect(callout).toBeVisible({ timeout: 15_000 })
     await expect(callout).toContainText('%')
 
     // The callout stays inside its chart figure's SVG.
     const svg = deepDive.locator('figure svg').first()
+    await expect(svg).toBeVisible()
     const svgBox = await svg.boundingBox()
     const calloutBox = await callout.boundingBox()
     expect(svgBox).not.toBeNull()
@@ -128,6 +131,20 @@ test.describe('outro highlights', () => {
   })
 })
 
+test.describe('benchmark compare overlay', () => {
+  test('toggles a second line for a non-benchmark instrument', async ({ page }) => {
+    await page.goto('/')
+    const instruments = page.getByRole('group', { name: /Choose or compare the instrument/i })
+    await instruments.scrollIntoViewIfNeeded()
+    await instruments.getByRole('button', { name: 'Oil', exact: true }).click()
+
+    // No overlay until requested.
+    await expect(page.getByTestId('compare-line')).toHaveCount(0)
+    await instruments.getByRole('button', { name: /vs S&P 500/i }).click()
+    await expect(page.getByTestId('compare-line')).toBeVisible()
+  })
+})
+
 test.describe('timeline instrument switch', () => {
   test('switching the instrument re-renders the chart for the new series', async ({ page }) => {
     await page.goto('/')
@@ -157,10 +174,14 @@ test.describe('ledger → timeline jump', () => {
 
     // The jump deep-links the event (URL hash) …
     await expect(page).toHaveURL(/#event-/)
-    // … and the master timeline selects exactly that marker.
-    const selected = page.locator('[data-testid="marker"][aria-pressed="true"]')
-    await expect(selected).toHaveCount(1)
-    expect(await selected.getAttribute('aria-label')).toContain(summary)
+    // … and the master timeline selects that marker. Poll the selected marker's label so
+    // we wait past the default selection until the hashchange re-selection lands (the
+    // default last marker is aria-pressed before the click takes effect).
+    await expect
+      .poll(async () =>
+        page.locator('[data-testid="marker"][aria-pressed="true"]').getAttribute('aria-label'),
+      )
+      .toContain(summary)
   })
 })
 
