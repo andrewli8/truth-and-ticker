@@ -271,6 +271,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   using the shared `direction()` (negligible moves count as flat); App passes it per instrument.
   Stats-tested (incl. flat/no-data cases); verify + 30 E2E green; no mobile overflow.
 
+- Theme now respects the OS `prefers-color-scheme` on first visit when no choice is stored
+  (dark-mode users land in dark); an explicit stored choice still wins, light is the final
+  default. Updated both the inline pre-paint script (index.html) and useTheme.readInitial.
+  useTheme-tested (OS-dark honored; stored-light overrides) + an E2E that emulates OS dark and
+  asserts the page loads dark with no interaction (locks the inline-script path).
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

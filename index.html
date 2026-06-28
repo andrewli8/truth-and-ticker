@@ -61,11 +61,14 @@
   </head>
   <body>
     <script>
-      // Apply persisted theme before paint to avoid a flash. Light is default.
+      // Apply the theme before paint to avoid a flash. An explicit stored choice wins;
+      // otherwise honour the OS prefers-color-scheme. Light is the default.
       try {
-        if (localStorage.getItem('theme') === 'dark') {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
+        var stored = localStorage.getItem('theme');
+        var dark = stored
+          ? stored === 'dark'
+          : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.setAttribute('data-theme', 'dark');
       } catch (e) {}
     </script>
     <div id="root"></div>

@@ -115,6 +115,16 @@ test.describe('dark theme', () => {
     )
     expect(overflow).toBe(false)
   })
+
+  test('honors the OS dark preference on first visit (no stored choice)', async ({ browser }) => {
+    // Fresh context with emulated OS dark and no stored theme — the inline pre-paint
+    // script should apply data-theme="dark" before React hydrates.
+    const ctx = await browser.newContext({ colorScheme: 'dark' })
+    const page = await ctx.newPage()
+    await page.goto('/')
+    await expect(page.locator('html[data-theme="dark"]')).toHaveCount(1)
+    await ctx.close()
+  })
 })
 
 test.describe('outro highlights', () => {

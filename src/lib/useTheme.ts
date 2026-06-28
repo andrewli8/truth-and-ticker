@@ -4,10 +4,18 @@ export type Theme = 'light' | 'dark'
 
 const KEY = 'theme'
 
-/** Light by default; only an explicit stored 'dark' opts into dark mode. */
+/**
+ * An explicit stored choice wins; with none, fall back to the OS `prefers-color-scheme`
+ * (so dark-mode users land in dark on first visit). Light is the final default.
+ */
 function readInitial(): Theme {
   if (typeof localStorage === 'undefined') return 'light'
-  return localStorage.getItem(KEY) === 'dark' ? 'dark' : 'light'
+  const stored = localStorage.getItem(KEY)
+  if (stored === 'dark' || stored === 'light') return stored
+  if (typeof matchMedia !== 'undefined' && matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark'
+  }
+  return 'light'
 }
 
 function apply(theme: Theme): void {
