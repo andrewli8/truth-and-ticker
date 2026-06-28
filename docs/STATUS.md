@@ -106,3 +106,12 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Roomier mobile touch targets (~36px) for timeline switcher/legend chips (desktop unchanged).
 
 ## Next
+
+1. Enlarge the deep-dive footer controls to a ≥24px tap target. The "Copy link" button
+   (16px) and citation link (15px) in the EventDetail footer are below the WCAG 2.2 AA
+   24px target-size minimum. Evidence: src/components/EventDetail.module.css:116 (.copyLink
+   padding:0); Evidence: src/components/EventDetail.module.css:112 (.detailFoot a).
+   Acceptance: both controls reach ≥24px tall via vertical padding (copy-link hover
+   underline switched from border-bottom to text-decoration so it stays tight to the text;
+   detailActions kept vertically centered), confirmed by Playwright boundingBox + a footer
+   screenshot showing no layout breakage; verify gate stays green.
