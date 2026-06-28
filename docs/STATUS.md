@@ -323,6 +323,10 @@ plus a 31-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
   App builds a moves-by-id map (eventMoves) → MasterTimeline → EventDetail. Tested (strip shows
   others, hides the shown series + nulls; absent when no moves); verify + E2E green.
 
+- Deep-dive TickerRail reuses the memoized movesById map instead of calling eventMoves(event)
+  in the scroll render-prop — stops a per-frame O(n) sort (~60×/s) and removes the duplicate
+  computation now that movesById exists. App + E2E green.
+
 ## Next
 
 (empty — no evidence-backed improvement currently queued)

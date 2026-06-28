@@ -164,7 +164,7 @@ export default function App() {
                   reactionPct={reactionPct}
                   eventISO={event.announcement.datetime}
                 />
-                <TickerRail moves={eventMoves(event)} />
+                <TickerRail moves={movesById.get(event.announcement.id) ?? []} />
               </div>
               <div className="stageCard">
                 <div className="stageStep" aria-label={`Event ${step + 1} of ${featured.length}`}>
