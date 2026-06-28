@@ -55,6 +55,31 @@ test('arrow keys scrub the POC chart (focusable slider)', async ({ page }) => {
   await expect(meta).toHaveText(before ?? '')
 })
 
+test.describe('mobile', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('the bottom overlays do not collide and there is no horizontal overflow', async ({ page }) => {
+    await page.goto('/poc.html')
+    const readout = await page.locator('.poc-readout').boundingBox()
+    const back = await page.locator('.poc-back').boundingBox()
+    if (!readout || !back) throw new Error('missing overlay boxes')
+    // The readout sits in its own band above the back-link — boxes must not intersect.
+    const overlap =
+      readout.x < back.x + back.width &&
+      readout.x + readout.width > back.x &&
+      readout.y < back.y + back.height &&
+      readout.y + readout.height > back.y
+    expect(overlap).toBeFalsy()
+    // The keyboard-only hint is dropped on touch widths.
+    await expect(page.locator('.poc-hint')).toBeHidden()
+    // No horizontal scroll.
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeFalsy()
+  })
+})
+
 test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' })
 

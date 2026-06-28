@@ -247,8 +247,12 @@ body {
 }
 
 @media (max-width: 720px) {
-  .poc-readout { top: auto; bottom: clamp(1.5rem, 5vh, 2.5rem); }
+  /* Stack the bottom overlays so they don't collide: readout sits in its own band
+     above a left-aligned back-link; the keyboard-only hint is dropped on touch widths. */
+  .poc-readout { top: auto; bottom: clamp(3.25rem, 11vh, 5rem); }
   .poc-quote { display: none; }
+  .poc-hint { display: none; }
+  .poc-back { bottom: clamp(1.25rem, 4vh, 1.75rem); }
 }
 
 /* Windows High Contrast / forced-colors: the custom-property accents, the readout's
