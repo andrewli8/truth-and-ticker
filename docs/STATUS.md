@@ -103,5 +103,6 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   hover/press transitions for snappier, cohesive motion (reveals/theme left as-is).
 - Subtle hover-lift on instrument/legend chips (tactile consistency w/ ShareButton + dots).
 - :active press-states on chips + share buttons (completes the hover→press tactile loop).
+- Roomier mobile touch targets (~36px) for timeline switcher/legend chips (desktop unchanged).
 
 ## Next
