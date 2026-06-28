@@ -156,15 +156,8 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - CategoryBand bars reveal via GPU-friendly scaleX (was animating width).
 - All motion is now GPU-friendly (transform/opacity only; verified); dropped redundant
   persistent will-change on the hero title glyphs.
+- Measured WCAG contrast; documented in ACCESSIBILITY.md (body/muted pass AA; accents are
+  AA-large with +/- sign redundancy — strict AA-normal on small colored text is a
+  design-owner palette call, not auto-changed).
 
 ## Next
-
-1. Document the accent-as-text contrast honestly in ACCESSIBILITY.md. Measured ratios on
-   the light bg: body/muted text pass AA (5.8–16:1), but the semantic accents used for
-   colored % values — risk 4.35, relief 3.91, warn 3.26 — meet AA-large (3:1) and the
-   large StatBand numbers, while small reaction values fall just short of AA-normal (4.5:1).
-   Direction is never color-only (the +/- sign + value carry it, satisfying SC 1.4.1).
-   Evidence: src/styles/global.css (--risk/--relief/--warn); Evidence:
-   docs/ACCESSIBILITY.md. Acceptance: ACCESSIBILITY.md gains an honest "colour & contrast"
-   note with these ratios and the sign-redundancy rationale, flagging that strict AA on
-   small colored text would need slightly darker accents (a design-owner call); verify green.
