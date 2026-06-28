@@ -2,6 +2,7 @@
   "name": "truth-and-ticker",
   "private": true,
   "version": "0.1.0",
+  "description": "When Trump posts, the market moves — a scroll-driven correlation of second-term Truth Social announcements with the S&P 500, oil, defense, and gold.",
   "type": "module",
   "scripts": {
     "dev": "vite",
