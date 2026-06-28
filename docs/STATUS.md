@@ -407,4 +407,19 @@ runs verify + E2E on every push/PR.
 
 ## Next
 
-(empty — no evidence-backed improvement currently queued)
+1. The instrument list is duplicated/locked: the main app defines its six instruments
+   inline and the POC can't reach them. Extract a shared source.
+   Evidence: src/App.tsx:28 defines `TIMELINE_INSTRUMENTS` (SPX/NDX/CL/LMT/GLD/VIX) as a
+   non-exported local; src/poc/PocApp.tsx:33 hardcodes `seriesByTicker(markets, 'SPX')`
+   with no access to that list.
+   Acceptance: a new `src/lib/instruments.ts` exports the `{ ticker, name }[]` list;
+   src/App.tsx imports it (its inline literal removed); provable by diffing both files,
+   with App + lib tests green.
+2. The POC is locked to the S&P 500, unlike the main app (which has a six-instrument
+   switcher) — limiting the interactive concept the brief asked for.
+   Evidence: src/poc/PocApp.tsx:33 hardcodes ticker `'SPX'`; the data supports six series
+   (markets is 9×111) and the main app switches among them (src/App.tsx:28 list).
+   Acceptance: the POC renders an instrument switcher (from the shared list); choosing an
+   instrument re-plots the line and updates the readout/scene, with a re-draw animation
+   (reduced-motion safe); a PocApp test asserts switching changes the rendered series, and
+   an e2e/poc.spec.ts case asserts the line/readout update on switch.
