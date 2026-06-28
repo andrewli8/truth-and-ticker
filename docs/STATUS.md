@@ -147,11 +147,6 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - topReactions aggregator (biggest cross-instrument single-day moves; ticker+day dedup;
   diverse mode keeps each ticker/day unique; VIX-excludable), TDD.
 - "Biggest single-day reactions" 3-card lead-in to the Outro ledger (NDX/RTX/CL),
-  memoized, tested, verified light/dark.
+  memoized, tested, verified light/dark; E2E-guarded; documented in ARCHITECTURE + README.
 
 ## Next
-
-1. Add an E2E guard for the Outro "biggest single-day reactions" highlight and document
-   it. Evidence: src/components/Outro.tsx (highlights list, aria-label). Acceptance: an
-   E2E asserts the highlight region renders 1-3 cards each showing a percentage after
-   scroll-in; ARCHITECTURE.md/README note topReactions + the highlight; verify green.
