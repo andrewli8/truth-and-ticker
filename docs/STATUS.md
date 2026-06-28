@@ -256,3 +256,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   specs (they assert outcomes smoke doesn't). Suite trimmed 32→30, no unique coverage lost.
 
 ## Next
+
+1. De-duplicate the up/down/flat direction ternary. The pattern
+   `x === null ? 'flat' : x >= 0 ? 'up' : 'down'` is copy-pasted across 8 sites. Evidence:
+   src/components/TickerRail.tsx:12, StatBand.tsx:32, CategoryBand.tsx:40, MasterTimeline.tsx:269,
+   EventDetail.tsx:22, Outro.tsx:35, Outro.tsx:70, AnnouncementCard.tsx:19 (and
+   ChartReactionLabel.tsx:24). Acceptance: a pure, tested `direction(value): 'up'|'down'|'flat'`
+   helper (null/NaN -> 'flat') lives in src/lib, and all those sites call it instead of the inline
+   ternary - behavior-preserving (same values for non-null inputs); a new unit test covers
+   positive/negative/zero/null/NaN; verify gate green.
