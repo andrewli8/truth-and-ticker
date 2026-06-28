@@ -11,6 +11,9 @@
   --grain-opacity: 0.04;
   --grain-color: rgba(0, 0, 0, 0.5);
   --glow: 0;
+  /* Shared ease-out for interactive hover/press response (fast start, gentle settle);
+     matches the card entrance curve so all motion shares one language. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
   color-scheme: light;
 }
 

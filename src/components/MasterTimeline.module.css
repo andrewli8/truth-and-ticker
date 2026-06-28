@@ -66,7 +66,7 @@
   text-transform: inherit;
   letter-spacing: inherit;
   cursor: pointer;
-  transition: opacity 0.15s ease, border-color 0.15s ease;
+  transition: opacity 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 .legendItem:hover { border-color: var(--muted); }
 .legendItem:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
@@ -91,7 +91,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: color 0.15s var(--ease), border-color 0.15s var(--ease), background 0.15s var(--ease);
 }
 .instBtn:hover { color: var(--text); border-color: var(--muted); }
 .instBtn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
@@ -194,7 +194,7 @@
   /* Scale (GPU-friendly) rather than animating the SVG r geometry attribute. */
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s var(--ease);
 }
 
 /* Grow unselected dots a touch on hover for an obvious affordance (5px → ~7px). */

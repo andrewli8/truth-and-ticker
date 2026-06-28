@@ -17,7 +17,7 @@
   border: 1px solid var(--steel);
   cursor: pointer;
   text-decoration: none;
-  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), background 0.2s var(--ease);
 }
 
 .btn {

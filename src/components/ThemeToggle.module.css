@@ -17,7 +17,7 @@
   border-radius: 999px;
   cursor: pointer;
   backdrop-filter: blur(8px);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .toggle:hover {

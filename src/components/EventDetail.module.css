@@ -121,7 +121,7 @@
   color: var(--muted);
   cursor: pointer;
   border-bottom: 1px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 .copyLink:hover { color: var(--sel, var(--risk)); border-bottom-color: currentColor; }
 .copyLink:focus-visible { outline: 2px solid var(--sel, var(--risk)); outline-offset: 2px; border-radius: 2px; }
