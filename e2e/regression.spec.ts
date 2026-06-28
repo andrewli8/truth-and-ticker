@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test'
 
-// Regression guards for fixes verified visually this cycle: the StatBand value clip
-// (which manifested as horizontal overflow at ~1280px) and the >=24px touch targets.
+// Real-browser regression guards for behaviour jsdom can't verify (layout, scroll, theme):
+// StatBand fit / no horizontal overflow, CategoryBand reveal + re-title, timeline scrub,
+// the on-chart reaction labels (in-bounds, no clipping), dark theme (toggle + OS-preference),
+// the ledger→timeline jump, the Outro highlights, and WCAG 2.2 target sizes.
+// (Instrument switch + compare overlay live in smoke.spec.ts.)
 
 test.describe('layout fit', () => {
   test.use({ viewport: { width: 1280, height: 900 } })
