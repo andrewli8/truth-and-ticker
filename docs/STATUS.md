@@ -132,3 +132,13 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - E2E guard: CategoryBand renders + bars reveal after scroll-in.
 
 ## Next
+
+1. Make CategoryBand follow the timeline's selected instrument so its footnote ("switch
+   instruments on the timeline below to see") becomes literally true and reveals the
+   cross-instrument insight (e.g. strikes spiked Oil). App already holds `timelineTicker`
+   state and TIMELINE_INSTRUMENTS{ticker,name}. Evidence: src/App.tsx:56 (timelineTicker);
+   Evidence: src/App.tsx:105 (CategoryBand mount with hardcoded SPX). Acceptance:
+   CategoryBand is passed the live timelineTicker + its display name; its heading/bars/avg
+   update when the instrument changes (bars morph via the existing width transition);
+   existing component tests (which pass ticker explicitly) still pass; verify gate green;
+   a screenshot with a non-S&P instrument confirms it recomputes.
