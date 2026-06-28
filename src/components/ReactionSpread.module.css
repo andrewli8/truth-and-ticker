@@ -1,0 +1,74 @@
+.band {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 2rem;
+}
+
+.intro {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.axis {
+  stroke: var(--steel);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.zero {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+
+.tick {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+.dot {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.band.in .dot { opacity: 0.7; }
+.dot[data-dir='up'] { fill: var(--relief); }
+.dot[data-dir='down'] { fill: var(--risk); }
+.dot[data-dir='flat'] { fill: var(--muted); }
+
+.note {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot { transition: none; opacity: 0.7; }
+}
+
+/* In Windows High Contrast mode, fills are flattened — keep the dots visible. */
+@media (forced-colors: active) {
+  .dot { fill: CanvasText; opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .band { padding: 4rem 1.25rem 1.5rem; }
+}

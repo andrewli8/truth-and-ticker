@@ -193,6 +193,34 @@ export function reactionByType(events: CorrelatedEvent[], ticker: string): TypeA
  * covers, and its first→last move — so screen readers get the data, not just
  * "price line". Pure.
  */
+export interface SpreadPoint {
+  id: string
+  summary: string
+  pct: number
+}
+export interface Spread {
+  points: SpreadPoint[]
+  min: number
+  max: number
+}
+
+/**
+ * The distribution of an instrument's close-to-close reactions across events — each non-null
+ * reaction with its event, plus a domain that always spans zero (so the 0 line is in frame).
+ * Pure; the magnitude spread shows how hard the market moved (most modest, a few dramatic).
+ */
+export function reactionSpread(events: CorrelatedEvent[], ticker: string): Spread {
+  const points: SpreadPoint[] = []
+  for (const e of events) {
+    const r = e.reactions.find((x) => x.ticker === ticker)
+    if (r && r.deltaPct !== null) {
+      points.push({ id: e.announcement.id, summary: e.announcement.summary, pct: r.deltaPct })
+    }
+  }
+  const pcts = points.map((p) => p.pct)
+  return { points, min: Math.min(0, ...pcts), max: Math.max(0, ...pcts) }
+}
+
 export interface HitRate {
   up: number
   down: number

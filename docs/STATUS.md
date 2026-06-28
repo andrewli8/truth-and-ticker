@@ -370,14 +370,13 @@ plus a 33-spec Playwright E2E suite; GitHub Actions CI runs verify + E2E on ever
 - E2E guard for the clickable highlight: clicking a "biggest reaction" card deep-links the event
   (URL #event-…) in a real browser. 33 E2E green.
 
+- New visualization: a reaction-distribution plot ("Most posts nudge the market. A few move it
+  hard.") — every announcement as a direction-coloured dot at its exact close-to-close % on a
+  zero-centered axis (honest; density via overlap), reinforcing the thesis (cluster near 0, a few
+  dramatic outliers). Pure tested `reactionSpread(events, ticker)`; ReactionSpread component
+  follows the instrument switcher; reduced-motion + forced-colors safe; placed after CategoryBand.
+  Unit-tested (stat + component) + E2E render guard. verify + 34 E2E green; no mobile overflow.
+
 ## Next
 
-1. Add a reaction-distribution visualization. The piece shows reactions by type (CategoryBand)
-   and by time (timeline) but never the spread/magnitude distribution — how hard the market
-   moved across all posts (most modest, a few dramatic), which reinforces the thesis. Evidence:
-   src/lib/stats.ts (has reactionByType/hitRate but no spread); src/App.tsx (no distribution
-   view). Acceptance: a pure tested `reactionSpread(events, ticker)` → { points:{id,summary,pct}[],
-   min, max } (skips nulls; min/max span 0); a compact ReactionSpread component renders each
-   event as a direction-coloured dot positioned by its % on a centered axis (honest: x = exact
-   reaction, density via overlap), with a 0-line and axis labels, reduced-motion safe; wired into
-   App; unit-tested (stat + component) + an E2E render guard; verify gate green; no mobile overflow.
+(empty — no evidence-backed improvement currently queued)

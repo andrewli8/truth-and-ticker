@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown, reactionByType, topReactions, reactionHitRate } from '../stats'
+import { peakToTroughPct, maxRunupPct, seriesByTicker, spotlightTicker, eventMoves, chartAriaLabel, timelineAriaLabel, netReturnPct, maxDrawdown, reactionByType, topReactions, reactionHitRate, reactionSpread } from '../stats'
 import type { Series, CorrelatedEvent, AnnType } from '../types'
 
 function ev(id: string, type: AnnType, spxDelta: number | null): CorrelatedEvent {
@@ -125,6 +125,29 @@ describe('spotlightTicker', () => {
   it('Nasdaq for tariffs and trade deals (tech-heavy index)', () => {
     expect(spotlightTicker('tariff')).toBe('NDX')
     expect(spotlightTicker('trade-deal')).toBe('NDX')
+  })
+})
+
+describe('reactionSpread', () => {
+  const events = [
+    ev('a', 'tariff', 2.0),
+    ev('b', 'policy', -1.5),
+    ev('c', 'fed', null), // skipped
+    ev('d', 'strike', 0.3),
+  ]
+  it('collects non-null reactions for the ticker with a 0-spanning domain', () => {
+    const s = reactionSpread(events, 'SPX')
+    expect(s.points.map((p) => p.id)).toEqual(['a', 'b', 'd'])
+    expect(s.min).toBe(-1.5)
+    expect(s.max).toBe(2.0)
+  })
+  it('always spans zero even when all moves share a sign', () => {
+    const s = reactionSpread([ev('x', 'tariff', 1), ev('y', 'policy', 3)], 'SPX')
+    expect(s.min).toBe(0)
+    expect(s.max).toBe(3)
+  })
+  it('is empty-safe', () => {
+    expect(reactionSpread([], 'SPX')).toEqual({ points: [], min: 0, max: 0 })
   })
 })
 

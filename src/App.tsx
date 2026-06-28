@@ -7,6 +7,7 @@ import { AnnouncementCard } from './components/AnnouncementCard'
 import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
 import { CategoryBand } from './components/CategoryBand'
+import { ReactionSpread } from './components/ReactionSpread'
 import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
 import { correlateAll, REACTION_WINDOW_MINS } from './lib/correlate'
@@ -132,6 +133,7 @@ export default function App() {
       <Hero linePath={heroLine} areaPath={heroArea} />
       <StatBand markets={markets} />
       <CategoryBand events={events} ticker={timelineTicker} tickerLabel={timelineLabel} />
+      <ReactionSpread events={events} ticker={timelineTicker} tickerLabel={timelineLabel} />
       <div ref={timelineRef} tabIndex={-1} className="focusTarget">
         <MasterTimeline
           series={timelineSeries}

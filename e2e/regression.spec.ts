@@ -155,6 +155,17 @@ test.describe('outro highlights', () => {
 // Note: the compare overlay and instrument switch are covered in smoke.spec.ts
 // ("compare overlay adds a benchmark line…" / "instrument switcher re-plots…").
 
+test.describe('reaction distribution', () => {
+  test('plots the spread of reactions as dots on a zero-centered axis', async ({ page }) => {
+    await page.goto('/')
+    const band = page.getByRole('region', { name: /Distribution of .* reactions/i })
+    await band.scrollIntoViewIfNeeded()
+    await expect(band).toBeVisible()
+    await expect(band.getByTestId('spread-dot').first()).toBeVisible()
+    expect(await band.getByTestId('spread-dot').count()).toBeGreaterThan(10)
+  })
+})
+
 test.describe('timeline annotations', () => {
   test('renders the y-axis price labels, drawdown marker, and cross-instrument strip', async ({ page }) => {
     await page.goto('/')
