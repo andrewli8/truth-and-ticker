@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState, useLayoutEffect, type CSSProperties } from 'react'
 import { buildAreaPath, buildLinePath, domainFor, pointPositions } from '../lib/scales'
 import { chartAriaLabel } from '../lib/stats'
-import { formatPrice, formatPct, axisFloorLabel } from '../lib/format'
+import { formatPrice, axisFloorLabel } from '../lib/format'
+import { ChartReactionLabel } from './ChartReactionLabel'
 import type { Series } from '../lib/types'
 import styles from './MarketChart.module.css'
 
@@ -129,17 +130,14 @@ export function MarketChart({ series, progress, accent, momentLabel, reactionPct
           {/* Label the move at the playhead so the quote's market reaction reads ON
               the chart, not only in the side card. Sits below the dot when near the
               top so it never collides with the current-price readout. */}
-          {head && reactionPct != null && (
-            <text
-              data-testid="reaction-callout"
-              data-dir={reactionPct >= 0 ? 'up' : 'down'}
-              className={styles.reaction}
+          {head && (
+            <ChartReactionLabel
+              pct={reactionPct ?? null}
               x={head.x + (head.x > W * 0.62 ? -10 : 10)}
               y={head.y + (head.y < PAD + 48 ? 22 : -12)}
-              textAnchor={head.x > W * 0.62 ? 'end' : 'start'}
-            >
-              {formatPct(reactionPct)}
-            </text>
+              anchor={head.x > W * 0.62 ? 'end' : 'start'}
+              testid="reaction-callout"
+            />
           )}
         </svg>
       </div>

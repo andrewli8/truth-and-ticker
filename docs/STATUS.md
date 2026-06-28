@@ -206,16 +206,10 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
   labels: the overview selected-marker label and the deep-dive playhead callout each render,
   show a %, and stay within their chart SVG's bounds (no clipping) — catching layout
   regressions jsdom unit tests can't. 8/8 regression specs green.
+- Extracted a shared ChartReactionLabel component (+ its own CSS module) for the on-chart
+  reaction label; the deep-dive callout and the overview marker label now both use it, and
+  the copy-pasted .reaction / .markerReaction CSS blocks are gone. One place to style/tune
+  the label. Covered by a ChartReactionLabel unit test (value/direction/null/anchor); all
+  prior MarketChart, MasterTimeline, and E2E specs stay green.
 
 ## Next
-
-1. De-duplicate the on-chart reaction label. The deep-dive callout and the overview
-   selected-marker label render identical SVG text (formatPct, data-dir up/down, paint-order
-   bg-halo) with copy-pasted CSS in two module files. Evidence: src/components/MarketChart.tsx
-   (reaction-callout <text> + .reaction in MarketChart.module.css);
-   src/components/MasterTimeline.tsx (marker-reaction <text> + .markerReaction in
-   MasterTimeline.module.css) — same styling block in both. Acceptance: a new presentational
-   ChartReactionLabel component (+ its own CSS module) takes pct/x/y/anchor/testid, returns
-   null when pct is null, sets data-dir + formatted %; both charts use it; the duplicated
-   .reaction / .markerReaction CSS blocks are removed; a ChartReactionLabel unit test covers
-   value/direction/null; existing MarketChart, MasterTimeline, and E2E tests stay green.

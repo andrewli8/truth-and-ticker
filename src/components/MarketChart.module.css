@@ -98,20 +98,6 @@
   fill: var(--chart-accent);
 }
 
-/* The market reaction, labelled at the playhead dot. Coloured by direction so the
-   move reads at a glance; paired with the +/- sign so colour isn't the only cue. */
-.reaction {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  paint-order: stroke;
-  stroke: var(--bg);
-  stroke-width: 4px;
-  stroke-linejoin: round;
-}
-.reaction[data-dir='up'] { fill: var(--relief); }
-.reaction[data-dir='down'] { fill: var(--risk); }
-
 .ghost {
   stroke: var(--chart-accent);
   stroke-width: 1.5;

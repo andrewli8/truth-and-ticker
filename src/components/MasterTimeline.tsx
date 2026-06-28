@@ -23,6 +23,7 @@ import { useInView } from '../lib/useInView'
 import { useCountUp } from '../lib/useCountUp'
 import { eventIdFromHash, hashForEvent } from '../lib/hash'
 import { EventDetail } from './EventDetail'
+import { ChartReactionLabel } from './ChartReactionLabel'
 import type { Series, Announcement, AnnType } from '../lib/types'
 import styles from './MasterTimeline.module.css'
 
@@ -404,17 +405,14 @@ export function MasterTimeline({
                   }
                 }}
               />
-              {isSel && reactionPct !== null && (
-                <text
-                  data-testid="marker-reaction"
-                  data-dir={reactionPct >= 0 ? 'up' : 'down'}
-                  className={styles.markerReaction}
+              {isSel && (
+                <ChartReactionLabel
+                  pct={reactionPct}
                   x={dx + (dx > W * 0.8 ? -10 : 10)}
                   y={y < PAD + 28 ? y + 22 : y - 12}
-                  textAnchor={dx > W * 0.8 ? 'end' : 'start'}
-                >
-                  {formatPct(reactionPct)}
-                </text>
+                  anchor={dx > W * 0.8 ? 'end' : 'start'}
+                  testid="marker-reaction"
+                />
               )}
             </g>
           )

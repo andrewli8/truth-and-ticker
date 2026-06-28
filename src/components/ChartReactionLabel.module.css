@@ -1,0 +1,15 @@
+/* Shared styling for the on-chart reaction label (deep-dive playhead callout and the
+   overview's selected-marker label). Coloured by direction; the +/- sign keeps it legible
+   without colour. The bg halo (paint-order stroke) keeps it readable over the line/fill. */
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.label[data-dir='up'] { fill: var(--relief); }
+.label[data-dir='down'] { fill: var(--risk); }
