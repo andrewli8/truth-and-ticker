@@ -141,6 +141,7 @@
 }
 
 .source { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-.cite { color: var(--text); text-decoration: none; }
+/* inline-block + vertical padding give a >=24px touch target (WCAG 2.2). */
+.cite { color: var(--text); text-decoration: none; display: inline-block; padding: 0.45rem 0; }
 .cite:hover { color: var(--accent, var(--risk)); }
 .cite:focus-visible { outline: 2px solid var(--accent, var(--risk)); outline-offset: 2px; border-radius: 2px; }
