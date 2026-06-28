@@ -155,3 +155,12 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - E2E guards the kinetic hero title is visible under reduced motion.
 
 ## Next
+
+1. Make the CategoryBand bar reveal GPU-friendly: it animates `width` 0→target (layout
+   reflow per frame), contrary to the project's animate-transform/opacity-only principle
+   (already applied to the marker hover). Evidence: src/components/CategoryBand.module.css
+   (.bar transition: width); Evidence: src/components/CategoryBand.tsx (width toggled by
+   inView). Acceptance: bars hold their target width statically and reveal via
+   transform: scaleX(0→1) with transform-origin:left (transition on transform, not width);
+   visual result unchanged (verified via screenshot); reduced-motion still snaps; verify
+   gate green.
