@@ -76,5 +76,13 @@ describe('useInView', () => {
       render(createElement(OptProbe))
       expect(lastOptions).toEqual({ rootMargin: '0px 0px -50% 0px', threshold: 0.5 })
     })
+
+    it('no-ops safely when the ref is never attached (null element)', () => {
+      installMockIO()
+      // renderHook never attaches the ref, so ref.current stays null; the effect must
+      // return early (the `if (!el) return` guard) without throwing.
+      const { result } = renderHook(() => useInView<HTMLDivElement>())
+      expect(result.current.inView).toBe(false) // observer present → initial false, stays false
+    })
   })
 })
