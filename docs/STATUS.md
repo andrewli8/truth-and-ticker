@@ -148,6 +148,7 @@ outside the gate); remaining unit gaps are browser-API paths the E2E exercises.
   diverse mode keeps each ticker/day unique; VIX-excludable), TDD.
 - "Biggest single-day reactions" 3-card lead-in to the Outro ledger (NDX/RTX/CL),
   memoized, tested, verified light/dark; E2E-guarded; documented in ARCHITECTURE + README.
+- Tightened StatBand→CategoryBand vertical gap for a connected flow.
 
 ## Next
 
