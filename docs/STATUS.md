@@ -88,3 +88,12 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
   not a blank screen.
 
 ## Next
+
+1. Use absolute URLs for social/structured-data images. og:image, twitter:image, and the
+   JSON-LD image are relative ("/og-image.png"); the Open Graph and Twitter Card specs
+   require absolute URLs, so share previews can fail to load the image. The canonical
+   link already uses the absolute origin (https://truth-and-ticker.vercel.app/). Evidence:
+   index.html:14; Evidence: index.html:22; Evidence: index.html:37. Acceptance: those
+   three image URLs become absolute against the same origin as the canonical link
+   (provable by diffing index.html); `grep -n 'content="/og-image.png"\|"image": "/' index.html`
+   returns nothing; verify gate stays green.
