@@ -46,17 +46,21 @@ export function Outro({ events, primaryTicker, series, onPickEvent }: Props) {
         </ul>
       )}
       <table className={styles.table}>
+        <caption className="srOnly">
+          Every announcement with its date, type, the {primaryTicker} price path around it,
+          and the {primaryTicker} close-to-close reaction.
+        </caption>
         <thead>
           <tr>
-            <th>When (ET)</th>
-            <th>Announcement</th>
-            <th>Type</th>
+            <th scope="col">When (ET)</th>
+            <th scope="col">Announcement</th>
+            <th scope="col">Type</th>
             {series && (
-              <th aria-label={`${primaryTicker} price path, ±10 days around the event`}>
+              <th scope="col" aria-label={`${primaryTicker} price path, ±10 days around the event`}>
                 <span translate="no">{primaryTicker}</span> ±10d path
               </th>
             )}
-            <th className={styles.num}><span translate="no">{primaryTicker}</span> reaction</th>
+            <th scope="col" className={styles.num}><span translate="no">{primaryTicker}</span> reaction</th>
           </tr>
         </thead>
         <tbody>

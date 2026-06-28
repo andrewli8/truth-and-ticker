@@ -32,6 +32,14 @@ describe('Outro', () => {
     expect(getAllByTestId('summary-row')).toHaveLength(2)
   })
 
+  it('exposes the ledger as an accessible data table (caption + col-scoped headers)', () => {
+    const { container } = render(<Outro events={events} primaryTicker="SPX" series={spx} />)
+    expect(container.querySelector('table > caption')).toBeTruthy()
+    const headers = container.querySelectorAll('thead th')
+    expect(headers.length).toBeGreaterThan(0)
+    headers.forEach((th) => expect(th.getAttribute('scope')).toBe('col'))
+  })
+
   it('leads with a "biggest single-day reactions" highlight (top moves, VIX excluded)', () => {
     const { getByLabelText } = render(<Outro events={events} primaryTicker="SPX" />)
     const list = getByLabelText(/Biggest single-day market reactions/i)
