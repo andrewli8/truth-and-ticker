@@ -91,7 +91,7 @@ describe('dataset integrity', () => {
   })
 
   it('every announcement resolves at least one non-null reaction', () => {
-    correlateAll(announcements, markets, 120).forEach((e) => {
+    correlateAll(announcements, markets, REACTION_WINDOW_MINS).forEach((e) => {
       expect(e.reactions.some((r) => r.deltaPct !== null)).toBe(true)
     })
   })
