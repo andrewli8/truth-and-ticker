@@ -189,3 +189,11 @@ the gate); remaining unit gaps are browser-API paths the E2E exercises.
 - Maskable PWA icon (Android adaptive-icon safe zone) so the brand mark isn't cropped.
 
 ## Next
+
+1. Keep the CategoryBand bars visible in Windows High Contrast / forced-colors mode. Verified
+   via Playwright forcedColors:active: the bars (CSS background colors) are flattened away,
+   leaving only text — the bar chart disappears. Evidence: src/components/CategoryBand.module.css
+   (.bar/.track use background colors). Acceptance: an @media (forced-colors: active) block
+   gives the track a CanvasText border and the bars a CanvasText fill so the chart renders
+   (monochrome; direction still carried by the +/- value text); re-screenshot in forced-colors
+   confirms visible bars; verify gate green.
