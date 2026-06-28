@@ -1,5 +1,12 @@
 import type { Announcement, Series, Reaction, CorrelatedEvent, Point } from './types'
 
+/**
+ * Default comparison basis for a market reaction, in minutes. Retained as metadata
+ * on each {@link Reaction}; the overview and deep-dive must share it so their
+ * correlations never silently diverge.
+ */
+export const REACTION_WINDOW_MINS = 120
+
 /** Last point strictly before the given epoch ms, or null. Assumes points sorted ascending. */
 function lastPointBefore(points: Point[], targetMs: number): Point | null {
   let found: Point | null = null

@@ -14,7 +14,7 @@ import {
   domainFor,
 } from '../lib/scales'
 import { drawOnVars, adjacentIndex } from '../lib/motion'
-import { reactionFor } from '../lib/correlate'
+import { reactionFor, REACTION_WINDOW_MINS } from '../lib/correlate'
 import { accentGroup, type AccentGroup } from '../lib/labels'
 import { timelineAriaLabel, netReturnPct, maxDrawdown } from '../lib/stats'
 import { formatTime, formatDay, formatPrice, formatPct } from '../lib/format'
@@ -29,7 +29,6 @@ import styles from './MasterTimeline.module.css'
 const W = 1000
 const H = 420
 const PAD = 24
-const WINDOW_MINS = 120
 // Minimum horizontal spacing between marker dots (viewBox units).
 const MARKER_GAP = 18
 
@@ -230,7 +229,7 @@ export function MasterTimeline({
 
   // The index's close-to-close reaction to the selected event, counted up on change.
   const reactionPct = useMemo(
-    () => (selected ? reactionFor(selected, series, WINDOW_MINS).deltaPct : null),
+    () => (selected ? reactionFor(selected, series, REACTION_WINDOW_MINS).deltaPct : null),
     [selected, series],
   )
   const animatedPct = useCountUp(reactionPct, reduced, true)

@@ -8,7 +8,7 @@ import { TickerRail } from './components/TickerRail'
 import { StatBand } from './components/StatBand'
 import { MasterTimeline } from './components/MasterTimeline'
 import { ThemeToggle } from './components/ThemeToggle'
-import { correlateAll } from './lib/correlate'
+import { correlateAll, REACTION_WINDOW_MINS } from './lib/correlate'
 import { formatDay } from './lib/format'
 import { spotlightTicker, seriesByTicker, eventMoves } from './lib/stats'
 import { windowAround, buildLinePath, buildAreaPath } from './lib/scales'
@@ -20,7 +20,6 @@ import { announcements, markets } from './data'
 import './styles/app.css'
 
 const PRIMARY = 'SPX'
-const WINDOW_MINS = 120
 // Trading days of context shown on either side of an event in the deep-dive.
 const WINDOW_DAYS = 21
 // Curated instruments offered in the master-timeline switcher (short labels).
@@ -34,7 +33,7 @@ const TIMELINE_INSTRUMENTS: { ticker: string; name: string }[] = [
 ]
 
 export default function App() {
-  const events = useMemo(() => correlateAll(announcements, markets, WINDOW_MINS), [])
+  const events = useMemo(() => correlateAll(announcements, markets, REACTION_WINDOW_MINS), [])
   // The scrolly deep-dive uses featured events only (fall back to all if none flagged).
   const featured = useMemo(() => {
     const f = events.filter((e) => e.announcement.featured)
