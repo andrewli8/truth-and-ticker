@@ -119,3 +119,10 @@ coverage (npm run test:coverage, thresholds enforced) plus a Playwright E2E suit
 - Covered TickerRail marquee-duplicate (motion-on) branch (now 100%).
 
 ## Next
+
+1. Cover useReducedMotion's untested branches (71%): the no-matchMedia guard (SSR
+   fallback returns false) and the live-change listener (reacts to a 'change' event).
+   Evidence: src/lib/useReducedMotion.ts:8 (guard); Evidence:
+   src/lib/useReducedMotion.ts:15 (onChange listener). Acceptance: tests assert (a) with
+   matchMedia undefined the hook returns false without throwing, and (b) firing a matchMedia
+   'change' flips the returned value; useReducedMotion branch coverage rises; verify green.
